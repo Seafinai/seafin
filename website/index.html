@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seafin.ai — Stop Losing Hours to Work AI Can Do</title>
+<meta name="description" content="Seafin builds, hosts, and manages custom AI for small businesses. Automate workflows, deploy AI agents, and free your team to focus on what matters. From $2k, live in 4-8 weeks.">
+<meta name="keywords" content="AI consulting, custom AI agents, small business AI, AI automation, workflow automation, AI for SMB, business intelligence, managed AI services">
+<meta name="theme-color" content="#001220">
+<link rel="canonical" href="https://seafin.ai">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Seafin.ai — Stop Losing Hours to Work AI Can Do">
+<meta property="og:description" content="We build, host, and manage custom AI for small businesses. Automate workflows, deploy AI agents, free your team. From $2k, live in 4-8 weeks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seafin.ai">
+<meta property="og:image" content="https://seafin.ai/og-image.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seafin.ai — Stop Losing Hours to Work AI Can Do">
+<meta name="twitter:description" content="We build, host, and manage custom AI for small businesses. Automate workflows, deploy AI agents, free your team. From $2k, live in 4-8 weeks.">
+<meta name="twitter:image" content="https://seafin.ai/og-image.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Fonts: preload critical weights, then load full stylesheet -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" as="style">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 255, 0.25);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #001220; }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.4); }
+
+  :root {
+    --bg-deep: #001220;
+    --primary: #0066CC;
+    --accent: #00d4ff;
+    --secondary: #00a8cc;
+    --turquoise: #17d4d4;
+    --text: #f0f6ff;
+    --text-dim: rgba(224, 240, 255, 0.85);
+    --text-faint: rgba(224, 240, 255, 0.55);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --grid-minor: rgba(0,212,255,0.04);
+    --grid-major: rgba(0,212,255,0.08);
+    --bracket-color: rgba(0,212,255,0.2);
+    --dash-color: rgba(0,212,255,0.15);
+  }
+
+  body {
+    font-family: var(--sans);
+    background-color: var(--bg-deep);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    animation: pageLoad 0.6s ease;
+    background-image:
+      linear-gradient(var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+    background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  /* --- Skip Navigation --- */
+  .skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 10000;
+    background: var(--accent);
+    color: var(--bg-deep);
+    padding: 12px 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+  }
+  .skip-nav:focus {
+    top: 8px;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* --- Focus Visible --- */
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  label:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* --- Corner Brackets --- */
+  .brackets { position: relative; }
+  .brackets::before, .brackets::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .brackets::before {
+    top: 0; left: 0;
+    border-top: 1px solid var(--bracket-color);
+    border-left: 1px solid var(--bracket-color);
+  }
+  .brackets::after {
+    bottom: 0; right: 0;
+    border-bottom: 1px solid var(--bracket-color);
+    border-right: 1px solid var(--bracket-color);
+  }
+  .bracket-tr, .bracket-bl { position: absolute; width: 12px; height: 12px; pointer-events: none; z-index: 2; }
+  .bracket-tr { top: 0; right: 0; border-top: 1px solid var(--bracket-color); border-right: 1px solid var(--bracket-color); }
+  .bracket-bl { bottom: 0; left: 0; border-bottom: 1px solid var(--bracket-color); border-left: 1px solid var(--bracket-color); }
+
+  /* --- Coordinate Labels --- */
+  .coord {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    position: absolute;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+
+  /* --- Overline Labels --- */
+  .overline {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .overline::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  section { padding: clamp(48px, 8vw, 80px) 0; position: relative; }
+
+  /* --- Buttons --- */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg-deep);
+    background: var(--accent);
+    padding: 14px 32px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    box-shadow: 0 0 24px rgba(0,212,255,0.35);
+    transform: translateY(-1px);
+  }
+
+  /* --- Animations --- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+  }
+  @keyframes waveSlide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes drawLine {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ==========================================================================
+     FIXED NAV BAR
+     ========================================================================== */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0, 18, 32, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px dashed var(--dash-color);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  .nav-brand-text {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .nav-brand-text .ai-dim {
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg-deep);
+    background: var(--accent);
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover {
+    background: #fff;
+    color: var(--bg-deep);
+    box-shadow: 0 0 16px rgba(0,212,255,0.3);
+  }
+
+  /* ==========================================================================
+     HERO
+     ========================================================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 100px;
+    padding-top: 56px; /* account for fixed nav */
+  }
+  .hero-inner {
+    position: relative;
+    padding: 60px 40px;
+  }
+  .hero-glow {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; }
+
+  /* Hero logo block */
+  .hero-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .hero-logo-wrapper svg {
+    width: 320px;
+    height: auto;
+  }
+
+  /* Gradient text headline */
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    position: relative;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--turquoise) 40%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Annotation lines */
+  .annotation {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    white-space: nowrap;
+    -webkit-text-fill-color: var(--text-faint);
+  }
+  .annotation::before {
+    content: '';
+    position: absolute;
+    background: var(--text-faint);
+  }
+  .anno-1 { top: -28px; left: 0; }
+  .anno-1::before { width: 1px; height: 16px; bottom: -18px; left: 40px; }
+  .anno-2 { top: -28px; left: 350px; }
+  .anno-2::before { width: 1px; height: 16px; bottom: -18px; left: 24px; }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-weight: 300;
+    opacity: 0.85;
+    max-width: 520px;
+    margin-bottom: 28px;
+    /* reset gradient text inheritance */
+    background: none;
+    -webkit-text-fill-color: var(--text-dim);
+  }
+
+  /* Mini stat row below hero */
+  .hero-stats {
+    display: inline-flex;
+    gap: 16px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-stat-box {
+    border: 1px dashed var(--dash-color);
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .hero-stat-box strong {
+    color: var(--accent);
+    font-weight: 500;
+    margin-right: 6px;
+  }
+
+  /* Wireframe waves -- stroke only, no fill */
+  .wireframe-waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .wireframe-waves svg {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 200%;
+    height: 100%;
+  }
+  .ww1 { animation: waveSlide 8s linear infinite; }
+  .ww2 { animation: waveSlide 6s linear infinite reverse; }
+  .ww3 { animation: waveSlide 10s linear infinite; }
+
+  /* ==========================================================================
+     SERVICES -- Tabs with Rich Panels
+     ========================================================================== */
+  .svc-tabs { margin-top: 32px; }
+
+  /* Hide radios */
+  .svc-tabs input[type="radio"] { display: none; }
+
+  /* Tab labels */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid rgba(0,212,255,0.1);
+    flex-wrap: wrap;
+  }
+  .tab-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    cursor: pointer;
+    color: var(--text-dim);
+    border: 1px dashed transparent;
+    border-bottom: none;
+    position: relative;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab-label:hover { color: var(--text); background: rgba(0,212,255,0.03); }
+  .tab-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    transition: background 0.3s;
+  }
+
+  /* Active tab */
+  #svc-tab1:checked ~ .tab-bar label[for="svc-tab1"],
+  #svc-tab2:checked ~ .tab-bar label[for="svc-tab2"],
+  #svc-tab3:checked ~ .tab-bar label[for="svc-tab3"],
+  #svc-tab4:checked ~ .tab-bar label[for="svc-tab4"] {
+    color: var(--accent);
+    border-color: var(--dash-color);
+    background: rgba(0,212,255,0.03);
+  }
+  #svc-tab1:checked ~ .tab-bar label[for="svc-tab1"] .tab-dot,
+  #svc-tab2:checked ~ .tab-bar label[for="svc-tab2"] .tab-dot,
+  #svc-tab3:checked ~ .tab-bar label[for="svc-tab3"] .tab-dot,
+  #svc-tab4:checked ~ .tab-bar label[for="svc-tab4"] .tab-dot {
+    background: var(--accent);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  /* Panels */
+  .tab-panels { position: relative; min-height: 300px; }
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+    padding: 28px 0;
+  }
+  #svc-tab1:checked ~ .tab-panels .panel-1,
+  #svc-tab2:checked ~ .tab-panels .panel-2,
+  #svc-tab3:checked ~ .tab-panels .panel-3,
+  #svc-tab4:checked ~ .tab-panels .panel-4 { display: block; }
+
+  /* Panel header */
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .panel-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .panel-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border: 1px solid var(--dash-color);
+    color: var(--text-dim);
+  }
+  .panel-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #00ff88;
+    letter-spacing: 1px;
+  }
+  .panel-status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #00ff88;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  /* Panel body layout */
+  .panel-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+  }
+
+  /* Metadata column */
+  .panel-meta {
+    border: 1px dashed var(--dash-color);
+    padding: 16px;
+  }
+  .meta-row {
+    margin-bottom: 12px;
+  }
+  .meta-row:last-child { margin-bottom: 0; }
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  /* Content column */
+  .panel-content p {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .panel-features {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+  .panel-features li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 5px 0 5px 20px;
+    position: relative;
+  }
+  .panel-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+  /* Offering cards grid inside panels */
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .offering-card {
+    border: 1px dashed var(--dash-color);
+    padding: 20px 16px;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .offering-card:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateY(-2px);
+  }
+  .offering-card-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .offering-card-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .offering-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+  .offering-card-price {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .pillar-intro {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  /* --- AI Workers Showcase --- */
+  .openclaw-section { padding: clamp(48px, 8vw, 80px) 0; position: relative; }
+
+  .openclaw-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .openclaw-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .openclaw-logo {
+    width: 48px;
+    height: 48px;
+  }
+  .openclaw-name {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #00d4ff, #7FFFD4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .openclaw-tagline {
+    font-size: 16px;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .openclaw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .claw-card {
+    border: 1px solid rgba(0, 212, 255, 0.12);
+    padding: 28px 24px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.03) 0%, rgba(0, 18, 32, 0.8) 100%);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .claw-card:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateY(-3px);
+  }
+  .claw-card-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7FFFD4;
+  }
+  .claw-card-status::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7FFFD4;
+    animation: pulse-dot 2s ease infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .claw-card-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 16px;
+  }
+  .claw-card-name {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .claw-card-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .claw-card-features {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+  .claw-card-features li {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-dim);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    letter-spacing: 0.3px;
+  }
+  .claw-card-features li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .claw-card-pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px dashed var(--dash-color);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .claw-card-price {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .claw-card-hosting {
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+
+  .openclaw-note {
+    text-align: center;
+    margin-top: 32px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+  .openclaw-note strong {
+    color: var(--accent);
+  }
+
+  .panel-price-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    padding: 8px 16px;
+    border: 1px dashed var(--accent);
+  }
+
+  /* Spec bar */
+  .spec-bar {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--dash-color);
+    flex-wrap: wrap;
+  }
+  .spec-item {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .spec-item strong {
+    color: var(--text-faint);
+    font-weight: 400;
+    margin-right: 4px;
+  }
+
+  /* ==========================================================================
+     STATS -- Animated Baseline Cards
+     ========================================================================== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .stat-card {
+    position: relative;
+    border: 1px solid rgba(0,212,255,0.1);
+    padding: 32px 24px 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.015);
+  }
+  /* Corner dots */
+  .stat-card .cdot { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+  .stat-card .cdot-tl { top: -2px; left: -2px; }
+  .stat-card .cdot-tr { top: -2px; right: -2px; }
+  .stat-card .cdot-bl { bottom: -2px; left: -2px; }
+  .stat-card .cdot-br { bottom: -2px; right: -2px; }
+
+  .stat-coord { top: 6px; left: 8px; }
+
+  .stat-number {
+    font-family: var(--mono);
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  /* SVG baseline animation */
+  .stat-baseline {
+    display: block;
+    width: 100%;
+    height: 2px;
+    overflow: visible;
+  }
+  .stat-baseline line {
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawLine 2s ease forwards;
+  }
+  .stat-card:nth-child(2) .stat-baseline line { animation-delay: 0.4s; }
+  .stat-card:nth-child(3) .stat-baseline line { animation-delay: 0.8s; }
+
+  /* ==========================================================================
+     TESTIMONIALS -- Social Proof Cards
+     ========================================================================== */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .testimonial-card {
+    position: relative;
+    border: 1px dashed var(--dash-color);
+    padding: 28px 24px 24px;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .testimonial-card:hover {
+    border-color: rgba(0, 212, 255, 0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 18, 32, 0.6), 0 0 0 1px rgba(0, 212, 255, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
+  }
+  .testimonial-coord {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    letter-spacing: 0.5px;
+  }
+  .testimonial-quote {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 2px solid rgba(0, 212, 255, 0.2);
+  }
+  .testimonial-attribution {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .testimonial-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+
+  /* Corner brackets on testimonial cards */
+  .testimonial-card::before, .testimonial-card::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+  }
+  .testimonial-card::before {
+    top: 0; left: 0;
+    border-top: 1px solid var(--bracket-color);
+    border-left: 1px solid var(--bracket-color);
+  }
+  .testimonial-card::after {
+    bottom: 0; right: 0;
+    border-bottom: 1px solid var(--bracket-color);
+    border-right: 1px solid var(--bracket-color);
+  }
+
+  /* ==========================================================================
+     PRICING -- Flip Cards
+     ========================================================================== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .flip-card {
+    perspective: 800px;
+    height: 320px;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-inner,
+  .flip-card:focus-within .flip-inner { transform: rotateY(180deg); }
+
+  .flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Front */
+  .flip-front {
+    border: 1px dashed var(--dash-color);
+    background: rgba(0, 18, 32, 0.95);
+  }
+  .flip-front .flip-code {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-faint);
+    margin-bottom: auto;
+  }
+  .flip-front .flip-coord {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+  .flip-front .flip-price {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .flip-front .flip-name {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .flip-front .flip-timeline {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: auto;
+  }
+  .flip-front .flip-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-faint);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-top: 12px;
+  }
+
+  /* Back */
+  .flip-back {
+    border: 1px solid rgba(0,212,255,0.15);
+    background: rgba(0, 18, 32, 0.95);
+    transform: rotateY(180deg);
+  }
+  .flip-back-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .flip-back ul {
+    list-style: none;
+    flex: 1;
+  }
+  .flip-back li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .flip-back li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 6px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .flip-stamp {
+    margin-top: auto;
+    text-align: center;
+  }
+  .flip-stamp span {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    opacity: 0.6;
+  }
+
+  /* Corner brackets on flip front */
+  .flip-front::before, .flip-front::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+  }
+  .flip-front::before { top: 0; left: 0; border-top: 1px solid var(--bracket-color); border-left: 1px solid var(--bracket-color); }
+  .flip-front::after { bottom: 0; right: 0; border-bottom: 1px solid var(--bracket-color); border-right: 1px solid var(--bracket-color); }
+
+  /* ==========================================================================
+     FAQ -- Blueprint Accordion
+     ========================================================================== */
+  .faq-container {
+    position: relative;
+    margin-top: 32px;
+    padding: 24px;
+  }
+  .faq-item { border-bottom: 1px dashed var(--dash-color); }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 4px;
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    width: 56px;
+  }
+  .faq-question { font-size: 15px; font-weight: 500; flex: 1; }
+  .faq-toggle {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-answer {
+    padding: 0 4px 20px 72px;
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    border-left: 3px solid var(--accent);
+    margin-left: 4px;
+    padding-left: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* ==========================================================================
+     PROCESS -- Horizontal Flow Accordions
+     ========================================================================== */
+  .process-flow {
+    display: flex;
+    gap: 0;
+    margin-top: 32px;
+    align-items: flex-start;
+  }
+  .process-node {
+    flex: 1;
+    position: relative;
+  }
+  .process-node summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 12px;
+    border: 1px dashed var(--dash-color);
+    cursor: pointer;
+    list-style: none;
+    transition: border-color 0.3s, background 0.2s;
+    background: var(--bg-deep);
+    position: relative;
+    z-index: 1;
+    min-height: 90px;
+    justify-content: center;
+  }
+  .process-node summary::-webkit-details-marker { display: none; }
+  .process-node summary:hover { border-color: rgba(0,212,255,0.35); background: rgba(0,212,255,0.03); }
+
+  .process-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .process-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+  .process-icon {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 6px;
+    transition: transform 0.3s;
+  }
+  .process-node[open] .process-icon { transform: rotate(45deg); }
+
+  /* Connector arrows */
+  .process-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    flex-shrink: 0;
+    padding-top: 35px;
+  }
+  .process-connector::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    border-top: 1px dashed var(--dash-color);
+  }
+
+  .process-detail {
+    padding: 16px 12px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    border: 1px dashed var(--dash-color);
+    border-top: none;
+    background: var(--bg-deep);
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* ==========================================================================
+     CONTACT FORM -- Blueprint Styled
+     ========================================================================== */
+  .contact-form-wrapper {
+    position: relative;
+    margin-top: 32px;
+    padding: 32px;
+  }
+  .contact-form-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .contact-subtext {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .form-group {
+    margin-bottom: 24px;
+  }
+  .form-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .form-input,
+  .form-textarea {
+    display: block;
+    width: 100%;
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--text);
+    background: rgba(0, 18, 32, 0.6);
+    border: 1px dashed var(--dash-color);
+    padding: 12px 16px;
+    letter-spacing: 0.5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 0 20px rgba(0, 212, 255, 0.1);
+    outline: none;
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--text-faint);
+    font-style: normal;
+  }
+  .form-textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+  .form-submit {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg-deep);
+    background: var(--accent);
+    padding: 14px 40px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit:hover {
+    background: #fff;
+    box-shadow: 0 0 24px rgba(0, 212, 255, 0.35);
+    transform: translateY(-1px);
+  }
+  .form-submit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+  }
+  .form-submit:hover::after { width: 320px; height: 320px; }
+
+  /* ==========================================================================
+     CTA
+     ========================================================================== */
+  .cta-section {
+    text-align: center;
+    padding: 100px 0 120px;
+    position: relative;
+  }
+  .cta-inner {
+    position: relative;
+    padding: 48px 40px;
+  }
+  .cta-logo-stamp {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .cta-logo-stamp svg {
+    width: 64px;
+    height: 64px;
+  }
+  .cta-section h2 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .cta-section p {
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    font-size: 15px;
+  }
+  .cta-wireframe-waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .cta-wireframe-waves svg {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 200%;
+    height: 100%;
+  }
+
+  /* ==========================================================================
+     FOOTER
+     ========================================================================== */
+  footer {
+    padding: 48px 0 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+    border-top: 1px dashed var(--dash-color);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .footer-logo-mark {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .footer-brand-name {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .footer-brand-name .ai-dim {
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .footer-tagline {
+    font-size: 11px;
+    color: var(--text-faint);
+    line-height: 1.6;
+    max-width: 240px;
+  }
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--text-faint);
+    text-decoration: none;
+    padding: 4px 0;
+    transition: color 0.2s;
+    font-size: 11px;
+  }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px dashed var(--dash-color);
+  }
+  .footer-bottom a {
+    color: var(--text-faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-bottom a:hover { color: var(--accent); }
+
+  /* ==========================================================================
+     LOGO BAR -- Trusted By
+     ========================================================================== */
+  .logo-bar {
+    padding: 40px 0;
+    text-align: center;
+  }
+  .logo-bar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 24px;
+  }
+  .logo-bar-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .logo-bar-item {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-faint);
+    letter-spacing: -0.3px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  .logo-bar-item:hover { opacity: 1; }
+
+  /* ==========================================================================
+     SECTION CTA -- Inline call-to-action links
+     ========================================================================== */
+  .section-cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .section-cta .btn-primary {
+    font-size: 12px;
+    padding: 12px 28px;
+  }
+
+  /* ==========================================================================
+     RISK REVERSAL -- Guarantee badge
+     ========================================================================== */
+  .risk-reversal {
+    text-align: center;
+    margin-top: 32px;
+    padding: 16px 24px;
+    border: 1px dashed var(--dash-color);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+  .risk-reversal strong {
+    color: var(--accent);
+  }
+
+  /* ==========================================================================
+     PRIVACY BADGE -- Near form
+     ========================================================================== */
+  .privacy-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+  }
+  .privacy-note svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ==========================================================================
+     INLINE TESTIMONIAL -- Near form
+     ========================================================================== */
+  .inline-testimonial {
+    margin-top: 32px;
+    padding: 20px 24px;
+    border-left: 2px solid var(--accent);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .inline-testimonial-attr {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+  }
+
+  /* ==========================================================================
+     POLISH -- Transitions, Hovers, Effects
+     ========================================================================== */
+
+  /* Page load */
+  @keyframes pageLoad {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Gradient section dividers */
+  .section-divider {
+    height: 1px;
+    border: none;
+    background: linear-gradient(90deg, transparent 5%, rgba(0, 212, 255, 0.12) 25%, rgba(0, 212, 255, 0.25) 50%, rgba(0, 212, 255, 0.12) 75%, transparent 95%);
+    margin: 0;
+  }
+
+  /* Nav link underline slide */
+  .nav-links a:not(.nav-cta) { position: relative; }
+  .nav-links a:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:not(.nav-cta):hover::after { width: 100%; }
+
+  /* Subtle heading glow */
+  .hero h1 { text-shadow: 0 0 80px rgba(0, 212, 255, 0.12); }
+  section h2 { text-shadow: 0 0 40px rgba(0, 212, 255, 0.06); }
+
+  /* Hero logo hover */
+  .hero-logo-wrapper svg {
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
+  .hero-logo-wrapper:hover svg {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 24px rgba(0, 136, 238, 0.25));
+  }
+
+  /* Button ripple */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+  }
+  .btn-primary:hover::after { width: 320px; height: 320px; }
+  .btn-primary:hover { transform: translateY(-1px); }
+
+  /* Stat card hover lift */
+  .stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
+    border-color: rgba(0, 212, 255, 0.25);
+  }
+
+  /* Flip card scale on hover */
+  .flip-card {
+    transition: transform 0.3s ease;
+  }
+  .flip-card:hover {
+    transform: scale(1.02);
+  }
+
+  /* FAQ row hover */
+  .faq-item summary {
+    border-radius: 2px;
+  }
+  .faq-item summary:hover {
+    background: rgba(0, 212, 255, 0.02);
+  }
+
+  /* Process node glow on open */
+  .process-node[open] summary {
+    border-color: rgba(0, 212, 255, 0.35);
+    background: rgba(0, 212, 255, 0.04);
+  }
+
+  /* CTA logo stamp hover */
+  .cta-logo-stamp svg {
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  .cta-logo-stamp:hover svg {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 16px rgba(0, 136, 238, 0.3));
+  }
+
+  /* Hero stat boxes hover */
+  .hero-stat-box {
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .hero-stat-box:hover {
+    border-color: rgba(0, 212, 255, 0.35);
+    background: rgba(0, 212, 255, 0.03);
+  }
+
+  /* Tab label active indicator bar */
+  .tab-label {
+    position: relative;
+  }
+  .tab-label::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  #svc-tab1:checked ~ .tab-bar label[for="svc-tab1"]::after,
+  #svc-tab2:checked ~ .tab-bar label[for="svc-tab2"]::after,
+  #svc-tab3:checked ~ .tab-bar label[for="svc-tab3"]::after,
+  #svc-tab4:checked ~ .tab-bar label[for="svc-tab4"]::after {
+    width: 100%;
+  }
+
+  /* Overline line entrance */
+  .overline::before {
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  /* Panel meta hover */
+  .panel-meta {
+    transition: border-color 0.3s ease;
+  }
+  .panel-meta:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+  }
+
+  /* ==========================================================================
+     PREFERS REDUCED MOTION
+     ========================================================================== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+    .hero-glow {
+      animation: none;
+    }
+    .ww1, .ww2, .ww3 {
+      animation: none;
+    }
+    .cta-wireframe-waves svg {
+      animation: none !important;
+    }
+    .stat-baseline line {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+    .flip-inner {
+      transition: none;
+    }
+    .panel-status-dot {
+      animation: none;
+    }
+    .tab-dot {
+      animation: none;
+    }
+    body {
+      animation: none;
+    }
+  }
+
+  /* ==========================================================================
+     RESPONSIVE
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .brackets::before, .brackets::after,
+    .bracket-tr, .bracket-bl { display: none; }
+
+    .annotation { display: none; }
+
+    .hero-inner { padding: 40px 16px; }
+    .hero-stats { flex-direction: column; gap: 8px; }
+    .hero-stat-box { display: block; }
+
+    .hero-logo-wrapper svg { width: 260px; }
+
+    .panel-body { grid-template-columns: 1fr; }
+    .spec-bar { flex-direction: column; gap: 8px; }
+    .tab-bar { flex-wrap: wrap; }
+    .tab-label { padding: 10px 14px; font-size: 10px; }
+
+    .stats-grid { grid-template-columns: 1fr; }
+
+    .offerings-grid { grid-template-columns: 1fr; }
+    .openclaw-grid { grid-template-columns: 1fr; }
+    .openclaw-name { font-size: 18px; letter-spacing: 2px; }
+
+    .testimonials-grid { grid-template-columns: 1fr; }
+
+    .pricing-grid { grid-template-columns: 1fr; }
+    .flip-card { height: 300px; }
+
+    .faq-container { padding: 0; }
+
+    /* Process: vertical stack */
+    .process-flow { flex-direction: column; }
+    .process-connector { width: auto; height: 24px; padding-top: 0; }
+    .process-connector::after {
+      width: 1px;
+      height: 16px;
+      border-top: none;
+      border-left: 1px dashed var(--dash-color);
+    }
+
+    .contact-form-wrapper { padding: 16px; }
+
+    .cta-inner { padding: 32px 16px; }
+
+    /* Footer responsive */
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+    /* Nav responsive */
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 9px; letter-spacing: 0.5px; }
+    .nav-cta { padding: 6px 12px; font-size: 9px; }
+  }
+
+  @media (max-width: 560px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ==========================================================================
+     STICKY MOBILE CTA BAR
+     ========================================================================== */
+  .sticky-mobile-cta {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .sticky-mobile-cta {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(0, 18, 32, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0, 212, 255, 0.15);
+      padding: 12px 24px;
+      text-align: center;
+    }
+    .sticky-mobile-cta .btn-primary {
+      width: 100%;
+      display: block;
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 12px;
+    }
+    /* Add bottom padding to body so footer isn't hidden behind sticky bar */
+    body { padding-bottom: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Skip Navigation -->
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<!-- ====================================================================
+     FIXED NAV BAR
+     ==================================================================== -->
+<header>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a href="#" class="nav-brand" aria-label="Seafin.ai - Home">
+    <!-- Nav: Flowing S mark (unique gradient id: nav-flowS) -->
+    <svg class="nav-logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="nav-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0088EE"/>
+          <stop offset="100%" stop-color="#7FFFD4"/>
+        </linearGradient>
+      </defs>
+      <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#nav-flowS)" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="135" cy="105" r="3" fill="#7FFFD4" opacity="0.6"/>
+      <circle cx="143" cy="98" r="2" fill="#7FFFD4" opacity="0.4"/>
+      <path d="M 40 155 Q 65 148 90 155 Q 115 162 140 155 Q 155 150 165 155" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+    </svg>
+    <span class="nav-brand-text">seafin<span class="ai-dim">.ai</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#process">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" class="nav-cta">Get Your Free AI Audit</a>
+  </div>
+</nav>
+</header>
+
+<main id="main-content">
+
+<!-- ====================================================================
+     HERO
+     ==================================================================== -->
+<section class="hero" aria-label="Introduction">
+  <div class="container">
+    <div class="hero-inner brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
+      <span class="coord" style="bottom:8px;right:8px;">SEC:00</span>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <!-- Hero: Full logo with wordmark (unique gradient id: hero-flowS) -->
+        <div class="hero-logo-wrapper">
+          <svg viewBox="0 0 440 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seafin.ai logo - AI for small business">
+            <defs>
+              <linearGradient id="hero-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0088EE"/>
+                <stop offset="100%" stop-color="#7FFFD4"/>
+              </linearGradient>
+            </defs>
+            <g transform="translate(-5, 10) scale(0.72)">
+              <path d="M 108 30 C 126 32 134 44 131 56 C 128 68 106 75 92 77 C 74 79 56 76 54 85 C 51 96 63 105 78 108 C 96 111 114 104 120 95" fill="none" stroke="url(#hero-flowS)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M 103 38 C 118 40 124 49 122 58 C 119 66 103 72 92 74 C 78 76 64 74 61 82 C 58 90 67 97 80 100" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            </g>
+            <text x="120" y="92" font-family="Inter, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF" letter-spacing="-2">seafin</text>
+            <text x="122" y="116" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#666" letter-spacing="3.5">AI FOR SMALL BUSINESS</text>
+          </svg>
+        </div>
+        <h1>
+          <span class="annotation anno-1">-- gradient_render</span>
+          <span class="annotation anno-2">-- target_market</span>
+          Stop Losing Hours to<br>
+          Work AI Can Do
+        </h1>
+        <p class="hero-sub">
+          We build, host, and manage custom AI for small businesses — so your team
+          focuses on what matters while automation handles the rest.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat-box"><strong>4-8 WK</strong> DEPLOY</div>
+          <div class="hero-stat-box"><strong>FROM $2K</strong> START</div>
+          <div class="hero-stat-box"><strong>24/7</strong> ALWAYS ON</div>
+        </div>
+        <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+      </div>
+    </div>
+  </div>
+  <!-- Wireframe waves: stroke only -->
+  <div class="wireframe-waves" aria-hidden="true">
+    <svg class="ww1" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,50 Q150,20 300,50 T600,50 T900,50 T1200,50 T1500,50 T1800,50 T2100,50 T2400,50" fill="none" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+    </svg>
+    <svg class="ww2" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,60 Q150,30 300,60 T600,60 T900,60 T1200,60 T1500,60 T1800,60 T2100,60 T2400,60" fill="none" stroke="rgba(0,102,204,0.15)" stroke-width="1"/>
+    </svg>
+    <svg class="ww3" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,70 Q150,40 300,70 T600,70 T900,70 T1200,70 T1500,70 T1800,70 T2100,70 T2400,70" fill="none" stroke="rgba(23,212,212,0.1)" stroke-width="1"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ====================================================================
+     TRUST BAR -- Key Differentiators
+     ==================================================================== -->
+<div class="logo-bar" aria-label="Key differentiators">
+  <div class="container">
+    <div class="logo-bar-label">Why small businesses choose Seafin</div>
+    <div class="logo-bar-grid">
+      <span class="logo-bar-item">No Long-Term Contracts</span>
+      <span class="logo-bar-item">Deploy in Weeks</span>
+      <span class="logo-bar-item">Your Data Stays Yours</span>
+      <span class="logo-bar-item">Fully Managed 24/7</span>
+      <span class="logo-bar-item">100% Satisfaction Guarantee</span>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ====================================================================
+     SERVICES -- Simple Grid
+     ==================================================================== -->
+<section id="services" aria-label="Services">
+  <div class="container">
+    <div class="overline">SERVICES</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">What We Build</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 560px;">Every project is scoped to your business. We learn your workflows, find the highest-impact opportunities, and build exactly what you need.</p>
+
+    <div class="offerings-grid" style="margin-top: 32px;">
+      <div class="offering-card">
+        <div class="offering-card-name">Custom AI Agents</div>
+        <div class="offering-card-desc">Purpose-built agents that automate your specific workflows — lead intake, scheduling, data entry, document processing, customer onboarding. Designed around how your team actually works.</div>
+        <div class="offering-card-meta">
+          <span class="offering-card-price">From $2k</span>
+          <span>1-8 wk</span>
+        </div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-card-name">Knowledge Bots</div>
+        <div class="offering-card-desc">AI that answers questions from your actual documents — manuals, policies, contracts, product catalogs. Always accurate, always available, hosted 24/7.</div>
+        <div class="offering-card-meta">
+          <span class="offering-card-price">From $3k</span>
+          <span>2-8 wk</span>
+        </div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-card-name">Workflow Automation</div>
+        <div class="offering-card-desc">Connect your existing tools and eliminate repetitive work. Email triage, invoice processing, report generation, CRM updates — running on autopilot.</div>
+        <div class="offering-card-meta">
+          <span class="offering-card-price">From $2k</span>
+          <span>1-4 wk</span>
+        </div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-card-name">AI-Powered Apps</div>
+        <div class="offering-card-desc">Custom web applications with AI built in — intelligent search, predictive analytics, smart scheduling, automated invoicing. Full platforms or targeted features.</div>
+        <div class="offering-card-meta">
+          <span class="offering-card-price">From $5k</span>
+          <span>4-16 wk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-bar" style="margin-top: 24px;">
+      <span class="spec-item"><strong>MODELS:</strong> Claude, GPT-4o, Gemini, Llama</span>
+      <span class="spec-item"><strong>STACK:</strong> Next.js, Supabase, n8n, LangChain</span>
+      <span class="spec-item"><strong>HOSTING:</strong> Fully managed 24/7</span>
+    </div>
+
+    <div class="section-cta">
+      <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ====================================================================
+     PROCESS -- How It Works
+     ==================================================================== -->
+<section id="process" aria-label="Our process">
+  <div class="container">
+    <div class="overline">EXECUTION_FLOW</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">How It Works</h2>
+    <p style="color: var(--text-dim); font-size: 15px;">Four steps from first call to live deployment.</p>
+
+    <div class="process-flow">
+      <details class="process-node">
+        <summary>
+          <span class="process-num">01</span>
+          <span class="process-title">Discovery Call</span>
+          <span class="process-icon">+</span>
+        </summary>
+        <div class="process-detail">
+          A free 30-minute call to understand your business, workflows, and goals. We map opportunities, assess your tech stack, and identify the highest-impact AI applications. No commitment required.
+        </div>
+      </details>
+
+      <div class="process-connector" aria-hidden="true"></div>
+
+      <details class="process-node">
+        <summary>
+          <span class="process-num">02</span>
+          <span class="process-title">Custom Blueprint</span>
+          <span class="process-icon">+</span>
+        </summary>
+        <div class="process-detail">
+          Within 5 business days, you receive a detailed blueprint covering recommended solutions, technology architecture, timeline, milestones, and transparent pricing. Your AI roadmap, fully mapped out.
+        </div>
+      </details>
+
+      <div class="process-connector" aria-hidden="true"></div>
+
+      <details class="process-node">
+        <summary>
+          <span class="process-num">03</span>
+          <span class="process-title">Build &amp; Test</span>
+          <span class="process-icon">+</span>
+        </summary>
+        <div class="process-detail">
+          4-8 weeks of focused development with weekly demos. You see progress in real-time through staging environments and provide feedback at every milestone. No surprises.
+        </div>
+      </details>
+
+      <div class="process-connector" aria-hidden="true"></div>
+
+      <details class="process-node">
+        <summary>
+          <span class="process-num">04</span>
+          <span class="process-title">Launch &amp; Support</span>
+          <span class="process-icon">+</span>
+        </summary>
+        <div class="process-detail">
+          Go live with confidence. Post-launch includes monitoring, optimization, and iterative improvements. Optional Custodian plans provide automated backups, health checks, and priority support as your systems grow.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ====================================================================
+     PRICING -- Simple Tiers
+     ==================================================================== -->
+<section id="pricing" aria-label="Pricing">
+  <div class="container">
+    <div class="overline">PRICING</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Transparent Pricing</h2>
+    <p style="color: var(--text-dim); font-size: 15px;">Every project is custom-scoped. Here's where most engagements land.</p>
+
+    <div class="testimonials-grid" style="margin-top: 32px;">
+      <div class="testimonial-card" style="text-align: center;">
+        <span class="testimonial-coord">P:01</span>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $2k</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Quick Win</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Single workflow automation, chatbot, or knowledge bot. Deployed in 1-4 weeks.</div>
+      </div>
+      <div class="testimonial-card" style="text-align: center; border-color: rgba(0,212,255,0.3);">
+        <span class="testimonial-coord">P:02</span>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $5k</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Custom Build</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Multi-step AI agent, web app, or integrated system. 4-8 weeks with weekly demos.</div>
+      </div>
+      <div class="testimonial-card" style="text-align: center;">
+        <span class="testimonial-coord">P:03</span>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $9/mo</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Ongoing Support</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Custodian managed services — monitoring, backups, optimization, and priority support.</div>
+      </div>
+    </div>
+
+    <div class="risk-reversal">
+      <strong>100% SATISFACTION GUARANTEE</strong> on every discovery phase. If we can't identify clear ROI for your business, you pay nothing.
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ====================================================================
+     FAQ -- Blueprint Accordion
+     ==================================================================== -->
+<section id="faq" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="overline">FAQ</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Frequently Asked</h2>
+
+    <div class="faq-container brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">01</span>
+          <span class="faq-question">Is my business too small for AI?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          No. We work with solo operators, 5-person teams, and companies up to 50+. If you have a repeatable workflow, there's likely an automation that saves you real time and money.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">02</span>
+          <span class="faq-question">How long does a project take?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Simple automations deploy in 1-4 weeks. Custom AI agents and apps take 4-8 weeks. You get weekly demos and clear milestones throughout.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">03</span>
+          <span class="faq-question">Is my data secure?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Yes. Your data stays yours — encrypted, never shared, never used to train external models. We can deploy entirely within your own infrastructure if needed.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">04</span>
+          <span class="faq-question">Will it work with our existing tools?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Almost certainly. We integrate with Salesforce, HubSpot, Slack, Shopify, Google Workspace, and many more. During discovery we map your full tool stack and plan seamless connections.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">05</span>
+          <span class="faq-question">What happens after launch?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Every project includes 30 days of post-launch support. After that, optional ongoing plans start at $9/mo for monitoring, optimization, and priority support.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ====================================================================
+     CONTACT -- Merged with CTA, includes form + testimonial + privacy
+     ==================================================================== -->
+<section id="contact" aria-label="Contact">
+  <div class="container">
+    <!-- CTA header with brand stamp -->
+    <div class="cta-inner brackets" style="text-align: center; margin-bottom: 40px;">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
+      <span class="coord" style="bottom:8px;right:8px;">SEC:08</span>
+      <!-- CTA: Flowing S brand stamp (unique gradient id: cta-flowS) -->
+      <div class="cta-logo-stamp">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seafin.ai brand mark">
+          <defs>
+            <linearGradient id="cta-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0088EE"/>
+              <stop offset="100%" stop-color="#7FFFD4"/>
+            </linearGradient>
+          </defs>
+          <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#cta-flowS)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="135" cy="105" r="3" fill="#7FFFD4" opacity="0.6"/>
+          <circle cx="143" cy="98" r="2" fill="#7FFFD4" opacity="0.4"/>
+          <path d="M 40 155 Q 65 148 90 155 Q 115 162 140 155 Q 155 150 165 155" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+      </div>
+      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 12px;">Find Out What AI Can Do for Your Business</h2>
+      <p style="color: var(--text-dim); font-size: 15px;">Free 15-minute audit. We'll identify your highest-impact automation opportunities — no commitment, no pressure.</p>
+    </div>
+
+    <!-- Contact form -->
+    <div class="contact-form-wrapper brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
+      <span class="coord" style="bottom:8px;right:8px;">FORM:01</span>
+      <div class="contact-form-inner">
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="contact-name" class="form-label">NAME</label>
+            <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email" class="form-label">EMAIL</label>
+            <input type="email" id="contact-email" name="email" class="form-input" placeholder="you@company.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-company" class="form-label">COMPANY</label>
+            <input type="text" id="contact-company" name="company" class="form-input" placeholder="Your company name" autocomplete="organization">
+          </div>
+          <div class="form-group">
+            <label for="contact-challenge" class="form-label">BIGGEST CHALLENGE <span style="color: var(--text-faint); font-weight: 400;">(OPTIONAL)</span></label>
+            <textarea id="contact-challenge" name="challenge" class="form-textarea" placeholder="What's the most time-consuming task you'd love to automate?" rows="3" style="min-height: 80px;"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Get Your Free AI Audit</button>
+        </form>
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Your data stays yours. Encrypted, never shared, never used to train external models.
+        </div>
+      </div>
+    </div>
+
+    <!-- Value prop near form -->
+    <div class="inline-testimonial" style="font-style: normal;">
+      Every audit includes a concrete action plan: which workflows to automate first, expected time savings, technology recommendations, and transparent pricing — yours to keep, whether or not you work with us.
+      <div class="inline-testimonial-attr">— No strings attached</div>
+    </div>
+  </div>
+
+  <!-- Wireframe waves -->
+  <div class="cta-wireframe-waves" aria-hidden="true">
+    <svg style="animation: waveSlide 9s linear infinite;" viewBox="0 0 2400 60" preserveAspectRatio="none">
+      <path d="M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30 T1500,30 T1800,30 T2100,30 T2400,30" fill="none" stroke="rgba(0,212,255,0.12)" stroke-width="1"/>
+    </svg>
+    <svg style="animation: waveSlide 7s linear infinite reverse;" viewBox="0 0 2400 60" preserveAspectRatio="none">
+      <path d="M0,40 Q150,20 300,40 T600,40 T900,40 T1200,40 T1500,40 T1800,40 T2100,40 T2400,40" fill="none" stroke="rgba(0,102,204,0.08)" stroke-width="1"/>
+    </svg>
+  </div>
+</section>
+
+</main>
+
+<!-- ====================================================================
+     FOOTER
+     ==================================================================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <!-- Footer: Flowing S mark (unique gradient id: footer-flowS) -->
+          <svg class="footer-logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="footer-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0088EE"/>
+                <stop offset="100%" stop-color="#7FFFD4"/>
+              </linearGradient>
+            </defs>
+            <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#footer-flowS)" stroke-width="10" stroke-linecap="round"/>
+            <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="135" cy="105" r="3" fill="#7FFFD4" opacity="0.6"/>
+            <circle cx="143" cy="98" r="2" fill="#7FFFD4" opacity="0.4"/>
+          </svg>
+          <span class="footer-brand-name">seafin<span class="ai-dim">.ai</span></span>
+        </div>
+        <p class="footer-tagline">Custom AI solutions built for small business. Weeks, not months.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <a href="#services">Custom AI Agents</a>
+        <a href="#services">Workflow Automation</a>
+        <a href="#services">AI-Powered Apps</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#process">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+        <a href="#contact">Book a Call</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Seafin LLC</span>
+      <span>Built with intention.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky Mobile CTA -->
+<div class="sticky-mobile-cta" aria-label="Get your free AI audit">
+  <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+</div>
+
+<!-- Structured Data: ProfessionalService -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Seafin.ai",
+  "description": "Custom AI development, consulting, and managed AI services for small businesses.",
+  "url": "https://seafin.ai",
+  "email": "hello@seafin.ai",
+  "priceRange": "$$",
+  "areaServed": "US",
+  "serviceType": ["AI Consulting", "Custom AI Development", "Workflow Automation", "Managed AI Services"],
+  "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Workflow Automation", "Chatbots", "Custom AI Development"],
+  "sameAs": []
+}
+</script>
+
+<!-- Structured Data: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my business too small for AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. We work with solo operators, 5-person teams, and companies up to 50+. If you have a repeatable workflow, there is likely an automation that saves you real time and money."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a project take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simple automations deploy in 1-4 weeks. Custom AI agents and apps take 4-8 weeks. You get weekly demos and clear milestones throughout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Your data stays yours — encrypted, never shared, never used to train external models. We can deploy entirely within your own infrastructure if needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it work with our existing tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Almost certainly. We integrate with Salesforce, HubSpot, Slack, Shopify, Google Workspace, and many more. During discovery we map your full tool stack and plan seamless connections."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after launch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every project includes 30 days of post-launch support. After that, optional ongoing plans start at $9/mo for monitoring, optimization, and priority support."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
