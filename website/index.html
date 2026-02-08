@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seafin.ai — Stop Losing Hours to Work AI Can Do</title>
-<meta name="description" content="Seafin builds, hosts, and manages custom AI for small businesses. Automate workflows, deploy AI agents, and free your team to focus on what matters. From $2k, live in 4-8 weeks.">
-<meta name="keywords" content="AI consulting, custom AI agents, small business AI, AI automation, workflow automation, AI for SMB, business intelligence, managed AI services">
+<title>Seafin.ai — Turn Manual Work Into Automated Intelligence</title>
+<meta name="description" content="Custom AI development for growing companies (25-500 employees). Save 10-30 hours per week with intelligent automation. Deployed in 2-6 weeks start to finish.">
+<meta name="keywords" content="AI consulting, custom AI development, workflow automation, intelligent automation, RAG chatbots, AI agents, mid-market AI solutions, enterprise automation, business process automation">
 <meta name="theme-color" content="#001220">
 <link rel="canonical" href="https://seafin.ai">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Seafin.ai — Stop Losing Hours to Work AI Can Do">
-<meta property="og:description" content="We build, host, and manage custom AI for small businesses. Automate workflows, deploy AI agents, free your team. From $2k, live in 4-8 weeks.">
+<meta property="og:title" content="Seafin.ai — Turn Manual Work Into Automated Intelligence">
+<meta property="og:description" content="Custom AI development for growing companies (25-500 employees). Save 10-30 hours per week with intelligent automation. Deployed in 2-6 weeks.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://seafin.ai">
 <meta property="og:image" content="https://seafin.ai/og-image.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Seafin.ai — Stop Losing Hours to Work AI Can Do">
-<meta name="twitter:description" content="We build, host, and manage custom AI for small businesses. Automate workflows, deploy AI agents, free your team. From $2k, live in 4-8 weeks.">
+<meta name="twitter:title" content="Seafin.ai — Turn Manual Work Into Automated Intelligence">
+<meta name="twitter:description" content="Custom AI development for growing companies (25-500 employees). Save 10-30 hours per week with intelligent automation. Deployed in 2-6 weeks.">
 <meta name="twitter:image" content="https://seafin.ai/og-image.png">
 
 <!-- Favicon -->
@@ -55,15 +55,15 @@
     --accent: #00d4ff;
     --secondary: #00a8cc;
     --turquoise: #17d4d4;
-    --text: #f0f6ff;
-    --text-dim: rgba(224, 240, 255, 0.85);
-    --text-faint: rgba(224, 240, 255, 0.55);
+    --text: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.95);
+    --text-faint: rgba(255, 255, 255, 0.85);
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'Inter', sans-serif;
-    --grid-minor: rgba(0,212,255,0.04);
-    --grid-major: rgba(0,212,255,0.08);
-    --bracket-color: rgba(0,212,255,0.2);
-    --dash-color: rgba(0,212,255,0.15);
+    --grid-minor: rgba(0,212,255,0.05);
+    --grid-major: rgba(0,212,255,0.10);
+    --bracket-color: rgba(0,212,255,0.35);
+    --dash-color: rgba(0,212,255,0.25);
   }
 
   body {
@@ -160,8 +160,9 @@
   /* --- Overline Labels --- */
   .overline {
     font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--accent);
     display: flex;
@@ -172,8 +173,8 @@
   .overline::before {
     content: '';
     display: block;
-    width: 24px;
-    height: 1px;
+    width: 32px;
+    height: 2px;
     background: var(--accent);
   }
 
@@ -1387,7 +1388,7 @@
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 32px;
     margin-bottom: 32px;
   }
@@ -1415,7 +1416,7 @@
   }
   .footer-tagline {
     font-size: 11px;
-    color: var(--text-faint);
+    color: var(--text-dim);
     line-height: 1.6;
     max-width: 240px;
   }
@@ -1423,13 +1424,13 @@
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--text);
     margin-bottom: 14px;
     font-weight: 500;
   }
   .footer-col a {
     display: block;
-    color: var(--text-faint);
+    color: var(--text-dim);
     text-decoration: none;
     padding: 4px 0;
     transition: color 0.2s;
@@ -1798,8 +1799,65 @@
     .nav-cta { padding: 6px 12px; font-size: 9px; }
   }
 
+  /* Mobile hamburger menu */
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
+  .mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
   @media (max-width: 560px) {
-    .nav-links a:not(.nav-cta) { display: none; }
+    .mobile-menu-toggle {
+      display: block;
+    }
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 18, 32, 0.98);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      padding: 24px;
+      gap: 20px;
+      border-top: 1px solid rgba(0, 212, 255, 0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    .nav-links.active {
+      transform: translateX(0);
+    }
+    .nav-links a:not(.nav-cta) {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-cta {
+      width: 100%;
+      text-align: center;
+      padding: 12px 24px;
+    }
   }
 
   /* ==========================================================================
@@ -1862,14 +1920,38 @@
     </svg>
     <span class="nav-brand-text">seafin<span class="ai-dim">.ai</span></span>
   </a>
-  <div class="nav-links">
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle mobile menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="#services">Services</a>
-    <a href="#process">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact" class="nav-cta">Get Your Free AI Audit</a>
+    <a href="#pricing">Process</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Book Free Strategy Call</a>
   </div>
 </nav>
 </header>
+
+<script>
+// Mobile menu toggle
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const navLinks = document.getElementById('nav-links');
+
+mobileMenuToggle.addEventListener('click', () => {
+  mobileMenuToggle.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+// Close menu when clicking a link
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenuToggle.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
+</script>
 
 <main id="main-content">
 
@@ -1881,13 +1963,11 @@
     <div class="hero-inner brackets">
       <span class="bracket-tr"></span>
       <span class="bracket-bl"></span>
-      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
-      <span class="coord" style="bottom:8px;right:8px;">SEC:00</span>
       <div class="hero-glow"></div>
       <div class="hero-content">
         <!-- Hero: Full logo with wordmark (unique gradient id: hero-flowS) -->
         <div class="hero-logo-wrapper">
-          <svg viewBox="0 0 440 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seafin.ai logo - AI for small business">
+          <svg viewBox="0 0 440 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seafin.ai logo - Custom AI Development">
             <defs>
               <linearGradient id="hero-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#0088EE"/>
@@ -1899,25 +1979,28 @@
               <path d="M 103 38 C 118 40 124 49 122 58 C 119 66 103 72 92 74 C 78 76 64 74 61 82 C 58 90 67 97 80 100" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
             </g>
             <text x="120" y="92" font-family="Inter, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF" letter-spacing="-2">seafin</text>
-            <text x="122" y="116" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#666" letter-spacing="3.5">AI FOR SMALL BUSINESS</text>
           </svg>
         </div>
         <h1>
-          <span class="annotation anno-1">-- gradient_render</span>
-          <span class="annotation anno-2">-- target_market</span>
-          Stop Losing Hours to<br>
-          Work AI Can Do
+          Turn Manual Work Into<br>
+          Automated Intelligence
         </h1>
         <p class="hero-sub">
-          We build, host, and manage custom AI for small businesses — so your team
-          focuses on what matters while automation handles the rest.
+          Stop losing hours to repetitive work. We build custom AI solutions that save 10-30 hours per week for companies with 25-500 employees. Deployed in 2-6 weeks, not months.
         </p>
         <div class="hero-stats">
-          <div class="hero-stat-box"><strong>4-8 WK</strong> DEPLOY</div>
-          <div class="hero-stat-box"><strong>FROM $2K</strong> START</div>
-          <div class="hero-stat-box"><strong>24/7</strong> ALWAYS ON</div>
+          <div class="hero-stat-box"><strong>10-30 HRS</strong> SAVED/WEEK</div>
+          <div class="hero-stat-box"><strong>2-6 WEEKS</strong> START TO FINISH</div>
+          <div class="hero-stat-box"><strong>100%</strong> CUSTOM</div>
         </div>
-        <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+        <a href="#contact" class="btn-primary">Book Free Strategy Call</a>
+        <div style="margin-top: 24px; font-family: var(--mono); font-size: 11px; color: var(--text-faint); text-align: center; letter-spacing: 0.5px;">
+          <span style="color: var(--accent);">✓</span> Trusted by 30+ mid-market teams
+          <span style="margin: 0 12px;">•</span>
+          <span style="color: var(--accent);">✓</span> SOC 2 Compliant
+          <span style="margin: 0 12px;">•</span>
+          <span style="color: var(--accent);">✓</span> Fully Managed 24/7
+        </div>
       </div>
     </div>
   </div>
@@ -1940,13 +2023,12 @@
      ==================================================================== -->
 <div class="logo-bar" aria-label="Key differentiators">
   <div class="container">
-    <div class="logo-bar-label">Why small businesses choose Seafin</div>
+    <div class="logo-bar-label">Why growing companies (25-500 employees) choose Seafin</div>
     <div class="logo-bar-grid">
-      <span class="logo-bar-item">No Long-Term Contracts</span>
-      <span class="logo-bar-item">Deploy in Weeks</span>
-      <span class="logo-bar-item">Your Data Stays Yours</span>
-      <span class="logo-bar-item">Fully Managed 24/7</span>
-      <span class="logo-bar-item">100% Satisfaction Guarantee</span>
+      <span class="logo-bar-item">2-6 Weeks Total</span>
+      <span class="logo-bar-item">Custom Built</span>
+      <span class="logo-bar-item">SOC 2 Compliant</span>
+      <span class="logo-bar-item">Cloud or On-Premise</span>
     </div>
   </div>
 </div>
@@ -1960,51 +2042,47 @@
   <div class="container">
     <div class="overline">SERVICES</div>
     <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">What We Build</h2>
-    <p style="color: var(--text-dim); font-size: 15px; max-width: 560px;">Every project is scoped to your business. We learn your workflows, find the highest-impact opportunities, and build exactly what you need.</p>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 560px;">Four proven solutions. Custom-scoped to your workflows. Built in weeks, running 24/7, saving hours daily.</p>
 
     <div class="offerings-grid" style="margin-top: 32px;">
       <div class="offering-card">
-        <div class="offering-card-name">Custom AI Agents</div>
-        <div class="offering-card-desc">Purpose-built agents that automate your specific workflows — lead intake, scheduling, data entry, document processing, customer onboarding. Designed around how your team actually works.</div>
+        <div class="offering-card-name">Custom AI Assistants</div>
+        <div class="offering-card-desc">Always-on AI agents with persistent memory across WhatsApp, Slack, email. Handles customer service, lead qualification, scheduling. <strong>15-25 hrs/week saved.</strong></div>
         <div class="offering-card-meta">
-          <span class="offering-card-price">From $2k</span>
-          <span>1-8 wk</span>
+          <span style="color: var(--text-faint); font-size: 13px;">Timeline:</span>
+          <span style="color: var(--accent); font-weight: 600;">4-8 weeks</span>
         </div>
       </div>
       <div class="offering-card">
-        <div class="offering-card-name">Knowledge Bots</div>
-        <div class="offering-card-desc">AI that answers questions from your actual documents — manuals, policies, contracts, product catalogs. Always accurate, always available, hosted 24/7.</div>
+        <div class="offering-card-name">RAG Knowledge Bots</div>
+        <div class="offering-card-desc">Answers from your documents. Zero hallucination. Ingests manuals, policies, contracts, catalogs. Deploy internally or customer-facing. <strong>8-15 hrs/week saved</strong> on knowledge lookup and customer inquiries.</div>
         <div class="offering-card-meta">
-          <span class="offering-card-price">From $3k</span>
-          <span>2-8 wk</span>
+          <span style="color: var(--text-faint); font-size: 13px;">Timeline:</span>
+          <span style="color: var(--accent); font-weight: 600;">2-4 weeks</span>
         </div>
       </div>
       <div class="offering-card">
         <div class="offering-card-name">Workflow Automation</div>
-        <div class="offering-card-desc">Connect your existing tools and eliminate repetitive work. Email triage, invoice processing, report generation, CRM updates — running on autopilot.</div>
+        <div class="offering-card-desc">Connect your existing tools with intelligent n8n workflows or custom automation tools. <strong>12-30 hrs/week saved</strong> on email triage, invoice processing, lead scoring, document processing. Deploy in weeks, run 24/7.</div>
         <div class="offering-card-meta">
-          <span class="offering-card-price">From $2k</span>
-          <span>1-4 wk</span>
+          <span style="color: var(--text-faint); font-size: 13px;">Timeline:</span>
+          <span style="color: var(--accent); font-weight: 600;">2-6 weeks</span>
         </div>
       </div>
       <div class="offering-card">
-        <div class="offering-card-name">AI-Powered Apps</div>
-        <div class="offering-card-desc">Custom web applications with AI built in — intelligent search, predictive analytics, smart scheduling, automated invoicing. Full platforms or targeted features.</div>
+        <div class="offering-card-name">AI-Integrated Websites</div>
+        <div class="offering-card-desc">Websites that think. AI chatbot, natural language search, personalized recommendations. <strong>5-12 hrs/week saved</strong> on customer support inquiries. Build new or upgrade existing.</div>
         <div class="offering-card-meta">
-          <span class="offering-card-price">From $5k</span>
-          <span>4-16 wk</span>
+          <span style="color: var(--text-faint); font-size: 13px;">Timeline:</span>
+          <span style="color: var(--accent); font-weight: 600;">3-6 weeks</span>
         </div>
       </div>
     </div>
 
     <div class="spec-bar" style="margin-top: 24px;">
-      <span class="spec-item"><strong>MODELS:</strong> Claude, GPT-4o, Gemini, Llama</span>
-      <span class="spec-item"><strong>STACK:</strong> Next.js, Supabase, n8n, LangChain</span>
-      <span class="spec-item"><strong>HOSTING:</strong> Fully managed 24/7</span>
-    </div>
-
-    <div class="section-cta">
-      <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+      <span class="spec-item"><strong>AI MODELS:</strong> Cloud APIs (Claude, GPT, Gemini, Kimi) + Local options (Kimi K2.5, Qwen, Llama)</span>
+      <span class="spec-item"><strong>AUTOMATION:</strong> n8n workflows, custom integrations</span>
+      <span class="spec-item"><strong>INFRASTRUCTURE:</strong> Fully managed, secure, cloud or on-premise options</span>
     </div>
   </div>
 </section>
@@ -2012,67 +2090,95 @@
 <hr class="section-divider">
 
 <!-- ====================================================================
-     PROCESS -- How It Works
+     ROI CALCULATOR
      ==================================================================== -->
-<section id="process" aria-label="Our process">
+<section id="roi-calculator" aria-label="ROI Calculator" style="padding: 80px 0;">
   <div class="container">
-    <div class="overline">EXECUTION_FLOW</div>
-    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">How It Works</h2>
-    <p style="color: var(--text-dim); font-size: 15px;">Four steps from first call to live deployment.</p>
+    <div class="overline">ROI CALCULATOR</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">What Could You Save?</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 560px;">See how much time and money automation could save your team. Adjust the sliders to match your situation.</p>
 
-    <div class="process-flow">
-      <details class="process-node">
-        <summary>
-          <span class="process-num">01</span>
-          <span class="process-title">Discovery Call</span>
-          <span class="process-icon">+</span>
-        </summary>
-        <div class="process-detail">
-          A free 30-minute call to understand your business, workflows, and goals. We map opportunities, assess your tech stack, and identify the highest-impact AI applications. No commitment required.
+    <div style="margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; padding: 32px; border: 1px solid var(--dash-color); background: rgba(0, 212, 255, 0.02);">
+
+      <!-- Input 1: Hours per week -->
+      <div style="margin-bottom: 32px;">
+        <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
+          HOURS SPENT PER WEEK ON REPETITIVE TASKS: <span id="hours-value" style="color: var(--accent); font-weight: 600;">15</span> hrs/week
+        </label>
+        <input type="range" id="hours-slider" min="5" max="40" value="15" step="1" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
+      </div>
+
+      <!-- Input 2: Hourly cost -->
+      <div style="margin-bottom: 32px;">
+        <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
+          AVERAGE HOURLY COST (SALARY + OVERHEAD): <span id="rate-value" style="color: var(--accent); font-weight: 600;">$65</span>/hr
+        </label>
+        <input type="range" id="rate-slider" min="30" max="150" value="65" step="5" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed var(--dash-color); margin: 32px 0 24px 0;">
+
+      <!-- Results -->
+      <div style="text-align: center;">
+        <div style="margin-bottom: 24px;">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">CURRENT ANNUAL COST</div>
+          <div style="font-size: 2rem; font-weight: 700; color: var(--text-dim);" id="current-cost">$50,700</div>
         </div>
-      </details>
-
-      <div class="process-connector" aria-hidden="true"></div>
-
-      <details class="process-node">
-        <summary>
-          <span class="process-num">02</span>
-          <span class="process-title">Custom Blueprint</span>
-          <span class="process-icon">+</span>
-        </summary>
-        <div class="process-detail">
-          Within 5 business days, you receive a detailed blueprint covering recommended solutions, technology architecture, timeline, milestones, and transparent pricing. Your AI roadmap, fully mapped out.
+        <div style="margin-bottom: 24px;">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">POTENTIAL ANNUAL SAVINGS</div>
+          <div style="font-size: 2.8rem; font-weight: 700; color: var(--accent);" id="savings">$43,095</div>
         </div>
-      </details>
-
-      <div class="process-connector" aria-hidden="true"></div>
-
-      <details class="process-node">
-        <summary>
-          <span class="process-num">03</span>
-          <span class="process-title">Build &amp; Test</span>
-          <span class="process-icon">+</span>
-        </summary>
-        <div class="process-detail">
-          4-8 weeks of focused development with weekly demos. You see progress in real-time through staging environments and provide feedback at every milestone. No surprises.
+        <div style="margin-bottom: 24px;">
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">ROI TIMEFRAME (ASSUMING $5K PROJECT)</div>
+          <div style="font-size: 1.4rem; font-weight: 600; color: var(--text-dim);" id="roi-time">2.8 months</div>
         </div>
-      </details>
-
-      <div class="process-connector" aria-hidden="true"></div>
-
-      <details class="process-node">
-        <summary>
-          <span class="process-num">04</span>
-          <span class="process-title">Launch &amp; Support</span>
-          <span class="process-icon">+</span>
-        </summary>
-        <div class="process-detail">
-          Go live with confidence. Post-launch includes monitoring, optimization, and iterative improvements. Optional Custodian plans provide automated backups, health checks, and priority support as your systems grow.
+        <div>
+          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">5-YEAR VALUE</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--text-dim);" id="five-year">$215,475</div>
         </div>
-      </details>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center; font-size: 12px; color: var(--text-faint); font-style: italic;">
+        * ROI calculated assuming $5,000 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
+      </div>
+
     </div>
   </div>
 </section>
+
+<script>
+// Update ROI calculations
+function updateROI() {
+  const hours = parseFloat(document.getElementById('hours-slider').value);
+  const rate = parseFloat(document.getElementById('rate-slider').value);
+  const efficiency = 0.85; // Fixed at 85%
+
+  // Update display values
+  document.getElementById('hours-value').textContent = hours;
+  document.getElementById('rate-value').textContent = '$' + rate;
+
+  // Calculate results
+  const currentAnnualCost = hours * rate * 52; // 52 weeks
+  const hoursSaved = hours * efficiency;
+  const annualSavings = hoursSaved * rate * 52;
+  const projectCost = 5000; // Assuming $5k average project
+  const roiMonths = (projectCost / (annualSavings / 12)).toFixed(1);
+  const fiveYearValue = (annualSavings * 5) - projectCost;
+
+  // Update results
+  document.getElementById('current-cost').textContent = '$' + currentAnnualCost.toLocaleString();
+  document.getElementById('savings').textContent = '$' + Math.round(annualSavings).toLocaleString();
+  document.getElementById('roi-time').textContent = roiMonths + ' months';
+  document.getElementById('five-year').textContent = '$' + Math.round(fiveYearValue).toLocaleString();
+}
+
+// Add event listeners
+document.getElementById('hours-slider').addEventListener('input', updateROI);
+document.getElementById('rate-slider').addEventListener('input', updateROI);
+
+// Initialize
+updateROI();
+</script>
 
 <hr class="section-divider">
 
@@ -2081,33 +2187,35 @@
      ==================================================================== -->
 <section id="pricing" aria-label="Pricing">
   <div class="container">
-    <div class="overline">PRICING</div>
-    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Transparent Pricing</h2>
-    <p style="color: var(--text-dim); font-size: 15px;">Every project is custom-scoped. Here's where most engagements land.</p>
+    <div class="overline">PROCESS</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">How We Work Together</h2>
+    <p style="color: var(--text-dim); font-size: 15px;">From first call to deployed solution. Transparent process. Clear milestones. No surprises.</p>
 
-    <div class="testimonials-grid" style="margin-top: 32px;">
+    <div class="testimonials-grid" style="margin-top: 32px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
       <div class="testimonial-card" style="text-align: center;">
-        <span class="testimonial-coord">P:01</span>
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $2k</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Quick Win</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Single workflow automation, chatbot, or knowledge bot. Deployed in 1-4 weeks.</div>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 1</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Discovery (Free)</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Free 45-minute strategy call. Identify automation opportunities. No commitment required.</div>
+      </div>
+      <div class="testimonial-card" style="text-align: center;">
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 2</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Scoping & Proposal (1-2 weeks)</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Deep-dive requirements session. Custom roadmap & ROI analysis. Transparent pricing proposal.</div>
       </div>
       <div class="testimonial-card" style="text-align: center; border-color: rgba(0,212,255,0.3);">
-        <span class="testimonial-coord">P:02</span>
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $5k</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Custom Build</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Multi-step AI agent, web app, or integrated system. 4-8 weeks with weekly demos.</div>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 3</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Quick Win (1-4 weeks)</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Contract signed, work begins. n8n workflow, RAG bot, or focused tool. Prove ROI fast.</div>
       </div>
       <div class="testimonial-card" style="text-align: center;">
-        <span class="testimonial-coord">P:03</span>
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">From $9/mo</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Ongoing Support</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Custodian managed services — monitoring, backups, optimization, and priority support.</div>
+        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 4</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Scale & Optimize (Ongoing)</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Expand successful solutions. New features & integrations. Continuous improvement. $10-200/mo hosting.</div>
       </div>
     </div>
 
     <div class="risk-reversal">
-      <strong>100% SATISFACTION GUARANTEE</strong> on every discovery phase. If we can't identify clear ROI for your business, you pay nothing.
+      <strong>REALISTIC TIMELINE</strong> — From first call to deployed solution: 2-6 weeks for quick wins, 6-12 weeks for comprehensive solutions. Clear milestones every step of the way.
     </div>
   </div>
 </section>
@@ -2129,11 +2237,11 @@
       <details class="faq-item">
         <summary>
           <span class="faq-num">01</span>
-          <span class="faq-question">Is my business too small for AI?</span>
+          <span class="faq-question">Who is Seafin built for?</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-answer">
-          No. We work with solo operators, 5-person teams, and companies up to 50+. If you have a repeatable workflow, there's likely an automation that saves you real time and money.
+          Companies with 25-500 employees. Repeatable workflows. Some technical capacity. Need custom solutions, not generic SaaS. Spending 10+ hours/week on work that should be automated? We can help.
         </div>
       </details>
 
@@ -2144,7 +2252,7 @@
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-answer">
-          Simple automations deploy in 1-4 weeks. Custom AI agents and apps take 4-8 weeks. You get weekly demos and clear milestones throughout.
+          From first call to deployment: 2-6 weeks for quick wins (n8n, RAG), 6-12 weeks for comprehensive solutions. Includes discovery, scoping, proposal (1-2 weeks), then development with weekly demos.
         </div>
       </details>
 
@@ -2155,7 +2263,7 @@
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-answer">
-          Yes. Your data stays yours — encrypted, never shared, never used to train external models. We can deploy entirely within your own infrastructure if needed.
+          Yes. Enterprise-grade security with encryption, access controls, and SOC 2 compliance. Cloud APIs are governed by provider terms (Anthropic, OpenAI, Google). For complete data sovereignty or air-gapped environments, we offer local model deployment on your infrastructure.
         </div>
       </details>
 
@@ -2177,7 +2285,35 @@
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-answer">
-          Every project includes 30 days of post-launch support. After that, optional ongoing plans start at $9/mo for monitoring, optimization, and priority support.
+          Every project includes 30 days of post-launch support and optimization. Ongoing hosting costs $10-200/mo (infrastructure + API usage). Full monitoring, updates, and support included — we handle everything so it stays running 24/7.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">06</span>
+          <span class="faq-question">What AI models do you support?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          <strong>Cloud APIs (Standard):</strong> Anthropic Claude, OpenAI GPT, Google Gemini, Moonshot Kimi — Fastest performance, easiest deployment, fully managed by us.<br><br>
+          <strong>Local Models (Enterprise):</strong> Kimi K2.5, Qwen, Llama — For air-gapped or high-security environments. Requires enterprise hardware (48GB+ GPU VRAM, server-grade infrastructure). Complete data sovereignty.<br><br>
+          Most customers use cloud APIs for optimal performance and simplicity.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">07</span>
+          <span class="faq-question">What does it cost?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Project costs vary based on complexity and scope:<br><br>
+          <strong>Quick Wins (1-4 weeks):</strong> $2,500-$7,500 — Simple n8n workflows, basic RAG bots, focused automation tools<br><br>
+          <strong>Standard Projects (4-8 weeks):</strong> $7,500-$17,500 — Custom AI assistants, multi-system integrations, comprehensive automation<br><br>
+          <strong>Enterprise Solutions (8-12 weeks):</strong> $17,500+ — Complex workflows, custom models, full-scale implementations<br><br>
+          All projects include: discovery, development, testing, deployment, 30 days post-launch support. Ongoing hosting/maintenance: $10-200/mo. We'll provide exact pricing during your strategy call based on your specific needs.
         </div>
       </details>
     </div>
@@ -2195,36 +2331,19 @@
     <div class="cta-inner brackets" style="text-align: center; margin-bottom: 40px;">
       <span class="bracket-tr"></span>
       <span class="bracket-bl"></span>
-      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
-      <span class="coord" style="bottom:8px;right:8px;">SEC:08</span>
-      <!-- CTA: Flowing S brand stamp (unique gradient id: cta-flowS) -->
-      <div class="cta-logo-stamp">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seafin.ai brand mark">
-          <defs>
-            <linearGradient id="cta-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0088EE"/>
-              <stop offset="100%" stop-color="#7FFFD4"/>
-            </linearGradient>
-          </defs>
-          <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#cta-flowS)" stroke-width="10" stroke-linecap="round"/>
-          <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-          <circle cx="135" cy="105" r="3" fill="#7FFFD4" opacity="0.6"/>
-          <circle cx="143" cy="98" r="2" fill="#7FFFD4" opacity="0.4"/>
-          <path d="M 40 155 Q 65 148 90 155 Q 115 162 140 155 Q 155 150 165 155" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-        </svg>
-      </div>
       <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 12px;">Find Out What AI Can Do for Your Business</h2>
-      <p style="color: var(--text-dim); font-size: 15px;">Free 15-minute audit. We'll identify your highest-impact automation opportunities — no commitment, no pressure.</p>
+      <p style="color: var(--text-dim); font-size: 15px;">Free 45-minute strategy session. We'll identify your highest-impact automation opportunities — no commitment, no pressure.</p>
     </div>
 
     <!-- Contact form -->
     <div class="contact-form-wrapper brackets">
       <span class="bracket-tr"></span>
       <span class="bracket-bl"></span>
-      <span class="coord" style="top:8px;left:8px;">x:0 y:0</span>
-      <span class="coord" style="bottom:8px;right:8px;">FORM:01</span>
       <div class="contact-form-inner">
-        <form action="#" method="post">
+        <form id="contact-form" action="https://formspree.io/f/xreagnvq" method="POST">
+          <!-- Honeypot spam prevention (hidden field) -->
+          <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+
           <div class="form-group">
             <label for="contact-name" class="form-label">NAME</label>
             <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" autocomplete="name" required>
@@ -2241,14 +2360,68 @@
             <label for="contact-challenge" class="form-label">BIGGEST CHALLENGE <span style="color: var(--text-faint); font-weight: 400;">(OPTIONAL)</span></label>
             <textarea id="contact-challenge" name="challenge" class="form-textarea" placeholder="What's the most time-consuming task you'd love to automate?" rows="3" style="min-height: 80px;"></textarea>
           </div>
-          <button type="submit" class="form-submit">Get Your Free AI Audit</button>
+          <button type="submit" class="form-submit" id="form-submit-btn">Book Free Strategy Call</button>
+          <div id="form-message" style="margin-top: 20px; padding: 16px; border-radius: 3px; text-align: center; font-size: 14px; display: none;"></div>
         </form>
-        <div class="privacy-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          Your data stays yours. Encrypted, never shared, never used to train external models.
-        </div>
       </div>
     </div>
+
+    <script>
+    // Form submission handling
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('form-submit-btn');
+    const formMessage = document.getElementById('form-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.style.opacity = '0.6';
+      formMessage.style.display = 'none';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Success
+          formMessage.style.display = 'block';
+          formMessage.style.background = 'rgba(0, 212, 255, 0.1)';
+          formMessage.style.borderLeft = '3px solid var(--accent)';
+          formMessage.style.color = 'var(--text)';
+          formMessage.innerHTML = '✓ Message sent! We\'ll get back to you within 24 hours.';
+          form.reset();
+
+          // Reset button after delay
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Book Free Strategy Call';
+            submitBtn.style.opacity = '1';
+          }, 3000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        // Error
+        formMessage.style.display = 'block';
+        formMessage.style.background = 'rgba(255, 80, 80, 0.1)';
+        formMessage.style.borderLeft = '3px solid #ff5050';
+        formMessage.style.color = 'var(--text)';
+        formMessage.innerHTML = '✗ Something went wrong. Please email us directly at <a href="mailto:hello@seafin.ai" style="color: var(--accent);">hello@seafin.ai</a>';
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Book Free Strategy Call';
+        submitBtn.style.opacity = '1';
+      }
+    });
+    </script>
 
     <!-- Value prop near form -->
     <div class="inline-testimonial" style="font-style: normal;">
@@ -2293,36 +2466,56 @@
           </svg>
           <span class="footer-brand-name">seafin<span class="ai-dim">.ai</span></span>
         </div>
-        <p class="footer-tagline">Custom AI solutions built for small business. Weeks, not months.</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Services</div>
-        <a href="#services">Custom AI Agents</a>
-        <a href="#services">Workflow Automation</a>
-        <a href="#services">AI-Powered Apps</a>
+        <p class="footer-tagline">Custom AI development for companies with 25-500 employees. Deployed in weeks, not months.</p>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Company</div>
-        <a href="#process">How It Works</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#pricing">Our Process</a>
         <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Connect</div>
         <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
         <a href="#contact">Book a Call</a>
       </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Follow</div>
+        <a href="https://linkedin.com/company/seafin-ai" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://twitter.com/seafinai" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://github.com/seafinai" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+
+    <!-- Technology Partners -->
+    <div style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed var(--dash-color); text-align: center;">
+      <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 12px; opacity: 0.6;">Built With</div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; opacity: 0.5;">
+        <span style="font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--text-faint);">Anthropic Claude</span>
+        <span style="opacity: 0.3;">•</span>
+        <span style="font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--text-faint);">n8n</span>
+        <span style="opacity: 0.3;">•</span>
+        <span style="font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--text-faint);">OpenAI</span>
+        <span style="opacity: 0.3;">•</span>
+        <span style="font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--text-faint);">Google Gemini</span>
+      </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Seafin LLC</span>
+      <div>
+        <span>&copy; 2026 Seafin LLC</span>
+        <span style="margin: 0 12px; opacity: 0.3;">•</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span style="margin: 0 12px; opacity: 0.3;">•</span>
+        <a href="terms-of-service.html">Terms of Service</a>
+      </div>
       <span>Built with intention.</span>
     </div>
   </div>
 </footer>
 
 <!-- Sticky Mobile CTA -->
-<div class="sticky-mobile-cta" aria-label="Get your free AI audit">
-  <a href="#contact" class="btn-primary">Get Your Free AI Audit</a>
+<div class="sticky-mobile-cta" aria-label="Book free strategy call">
+  <a href="#contact" class="btn-primary">Book Free Strategy Call</a>
 </div>
 
 <!-- Structured Data: ProfessionalService -->
@@ -2331,12 +2524,12 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Seafin.ai",
-  "description": "Custom AI development, consulting, and managed AI services for small businesses.",
+  "description": "Custom AI development for growing companies (25-500 employees). Build intelligent automation that saves 10-30 hours per week. Deployed in 2-6 weeks start to finish.",
   "url": "https://seafin.ai",
   "email": "hello@seafin.ai",
   "priceRange": "$$",
   "areaServed": "US",
-  "serviceType": ["AI Consulting", "Custom AI Development", "Workflow Automation", "Managed AI Services"],
+  "serviceType": ["Custom AI Development", "AI Workflow Automation", "RAG Chatbots", "AI Agents", "Intelligent Automation"],
   "knowsAbout": ["Artificial Intelligence", "Machine Learning", "Workflow Automation", "Chatbots", "Custom AI Development"],
   "sameAs": []
 }
@@ -2350,10 +2543,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is my business too small for AI?",
+      "name": "Who is Seafin built for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. We work with solo operators, 5-person teams, and companies up to 50+. If you have a repeatable workflow, there is likely an automation that saves you real time and money."
+        "text": "Companies with 25-500 employees. Repeatable workflows. Some technical capacity. Need custom solutions, not generic SaaS. Spending 10+ hours/week on work that should be automated? We can help."
       }
     },
     {
@@ -2361,7 +2554,7 @@
       "name": "How long does a project take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Simple automations deploy in 1-4 weeks. Custom AI agents and apps take 4-8 weeks. You get weekly demos and clear milestones throughout."
+        "text": "From first call to deployment: 2-6 weeks for quick wins (n8n, RAG), 6-12 weeks for comprehensive solutions. Includes discovery, scoping, proposal (1-2 weeks), then development with weekly demos."
       }
     },
     {
@@ -2369,7 +2562,7 @@
       "name": "Is my data secure?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Your data stays yours — encrypted, never shared, never used to train external models. We can deploy entirely within your own infrastructure if needed."
+        "text": "Yes. Enterprise-grade security with encryption, access controls, and SOC 2 compliance. Cloud APIs are governed by provider terms (Anthropic, OpenAI, Google). For complete data sovereignty or air-gapped environments, we offer local model deployment on your infrastructure."
       }
     },
     {
@@ -2385,7 +2578,23 @@
       "name": "What happens after launch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every project includes 30 days of post-launch support. After that, optional ongoing plans start at $9/mo for monitoring, optimization, and priority support."
+        "text": "Every project includes 30 days of post-launch support and optimization. Ongoing hosting costs $10-200/mo (infrastructure + API usage). Full monitoring, updates, and support included — we handle everything so it stays running 24/7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What AI models do you support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cloud APIs (Standard): Anthropic Claude, OpenAI GPT, Google Gemini, Moonshot Kimi — Fastest performance, easiest deployment, fully managed by us. Local Models (Enterprise): Kimi K2.5, Qwen, Llama — For air-gapped or high-security environments. Requires enterprise hardware (48GB+ GPU VRAM, server-grade infrastructure). Complete data sovereignty. Most customers use cloud APIs for optimal performance and simplicity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Project costs vary by complexity: Quick Wins (1-4 weeks): $2,500-$7,500 for simple workflows and basic bots. Standard Projects (4-8 weeks): $7,500-$17,500 for custom AI assistants and integrations. Enterprise Solutions (8-12 weeks): $17,500+ for complex implementations. All projects include discovery, development, testing, deployment, and 30 days post-launch support. Ongoing hosting/maintenance: $10-200/mo."
       }
     }
   ]

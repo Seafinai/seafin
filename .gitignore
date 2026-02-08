@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Screenshots and test files
+screenshot*.png
+*.jpg
+nul
+
+# Puppeteer test scripts
+capture-screenshot*.js
+
+# Old mockup versions (keep only v8)
+website/index-mockup-v[1-7].html
+
+# Old mockup documentation
+website/MOCKUP-V[1-7]-*.md
+
+# Claude internal files
+.claude/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.reg
+*.bak
+
+# Test/debug files
+CHROME_DEBUG.md
+openclaw/
