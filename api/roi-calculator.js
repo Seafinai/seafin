@@ -5,7 +5,7 @@
 
 // In-memory rate limiting (resets on cold start)
 const rateLimitStore = new Map();
-const MAX_REQUESTS_PER_HOUR = 10; // Production limit for expensive AI analysis
+const MAX_REQUESTS_PER_HOUR = 100; // TEMP: Increased for final validation testing
 const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
 
 function checkRateLimit(ip) {
