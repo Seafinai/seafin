@@ -207,8 +207,8 @@ node capture-screenshot.js  # Or whatever script you use
 # 1. Syntax check
 node --check api/chat.js
 
-# 2. Test API locally
-node test-roi-api.js  # Or create simple test
+# 2. Test API on Vercel preview
+curl https://seafin-git-{branch}.vercel.app/api/roi-calculator
 
 # 3. Test on Vercel preview
 curl https://seafin-git-{branch}.vercel.app/api/test
