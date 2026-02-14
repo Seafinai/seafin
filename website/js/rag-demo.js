@@ -212,7 +212,7 @@ async function askQuestion(e) {
     const response = await fetch('/api/rag-query', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ document, question })
+      body: JSON.stringify({ document, query: question })
     });
 
     if (!response.ok) {
