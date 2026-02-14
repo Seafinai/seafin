@@ -58,13 +58,20 @@ Click **"Deploy"** - Vercel will:
 
 ```
 seafin/
+├── api/                        # Serverless functions (project root)
+│   ├── test.js                 # Function at /api/test
+│   ├── analyze-form.js         # Function at /api/analyze-form
+│   ├── chat.js                 # Function at /api/chat
+│   ├── rag-query.js            # Function at /api/rag-query
+│   └── roi-calculator.js       # Function at /api/roi-calculator
 ├── website/
 │   ├── index.html              # Static site
-│   └── api/
-│       ├── test.js             # Function at /api/test
-│       ├── analyze-form.js     # Function at /api/analyze-form
-│       ├── chat.js             # Function at /api/chat
-│       └── rag-query.js        # Function at /api/rag-query
+│   └── js/                     # Client-side AI feature modules
+│       ├── ai-features.js      # Module loader
+│       ├── chatbot-widget.js   # Chatbot UI
+│       ├── roi-calculator.js   # ROI calculator UI
+│       ├── smart-form.js       # Smart contact form
+│       └── rag-demo.js         # RAG demo UI
 ├── vercel.json                 # Vercel config
 └── package.json                # Dependencies
 ```
@@ -72,7 +79,7 @@ seafin/
 ## Function Format (Vercel/Next.js Style)
 
 ```javascript
-// website/api/test.js
+// api/test.js
 export default async function handler(req, res) {
   // Access environment variables
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -123,6 +130,7 @@ https://your-project.vercel.app/api/test
 https://your-project.vercel.app/api/analyze-form
 https://your-project.vercel.app/api/chat
 https://your-project.vercel.app/api/rag-query
+https://your-project.vercel.app/api/roi-calculator
 ```
 
 Test with curl:
@@ -141,31 +149,7 @@ curl -X POST https://your-project.vercel.app/api/test \
 
 ## vercel.json Configuration
 
-```json
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "website/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "website/api/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/website/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/website/$1"
-    }
-  ]
-}
-```
+The current `vercel.json` is minimal (`{}`). Vercel auto-detects the `api/` directory for serverless functions and serves `website/` as the output directory (configured in Vercel dashboard settings).
 
 ## Common Issues
 

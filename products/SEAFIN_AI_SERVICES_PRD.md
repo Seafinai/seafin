@@ -39,10 +39,10 @@ Seafin delivers custom AI solutions for businesses with 25-500 employees. We bui
 - Integrates with existing tools (CRM, email, calendars, databases)
 - Escalates to humans when confidence is low
 
-**Tech stack:** OpenClaw (TypeScript), Python + LangChain, PostgreSQL, OpenRouter (Claude/GPT), Docker, DigitalOcean
+**Tech stack:** OpenClaw (TypeScript), Python + LangChain, PostgreSQL, OpenRouter (Claude/GPT), Docker, cloud hosting
 
 **Timeline:** 4-8 weeks depending on complexity
-**Ongoing hosting:** $30-100/mo (DigitalOcean + LLM API usage)
+**Ongoing hosting:** $30-100/mo (cloud hosting + LLM API usage)
 
 **Best for:** Healthcare, real estate, professional services, e-commerce, hospitality
 
@@ -69,10 +69,10 @@ Documents → Chunking → Embeddings → Vector Database → Semantic Search �
 - Auto-updates when documents change — no retraining needed
 - Works internally (employee knowledge base) or customer-facing
 
-**Tech stack:** Python + LangChain, pgvector (PostgreSQL), OpenRouter (Claude/GPT), FastAPI, Docker, DigitalOcean
+**Tech stack:** Python + LangChain, pgvector (PostgreSQL), OpenRouter (Claude/GPT), FastAPI, Docker, cloud hosting
 
 **Timeline:** 2-4 weeks depending on document volume
-**Ongoing hosting:** $12-30/mo (DigitalOcean + LLM API usage)
+**Ongoing hosting:** $12-30/mo (cloud hosting + LLM API usage)
 
 **Best for:** Legal firms, healthcare, SaaS, manufacturing, financial services
 
@@ -97,10 +97,10 @@ Focused web applications that automate specific workflows or provide AI-powered 
 - Anomaly detection (unusual transactions, patterns)
 - Smart recommendations (next-best actions, prioritization)
 
-**Tech stack:** Python/Next.js, PostgreSQL, Docker, DigitalOcean, OpenRouter (Claude/GPT)
+**Tech stack:** Python/Next.js, PostgreSQL, Docker, cloud hosting, OpenRouter (Claude/GPT)
 
 **Timeline:** 2-6 weeks depending on scope
-**Ongoing hosting:** $50-200/mo (DigitalOcean + LLM API usage)
+**Ongoing hosting:** $50-200/mo (cloud hosting + LLM API usage)
 
 **Best for:** Companies with 25-500 employees needing specific automation, not full enterprise platforms
 
@@ -136,10 +136,10 @@ n8n workflows connect your existing tools (email, CRM, databases, APIs) with AI 
 - Lead enrichment: 10-20 hrs/month
 - Contract review: 10-30 hrs/month
 
-**Tech stack:** n8n (self-hosted), Python + LangChain, OpenRouter (Claude/GPT), Docker, DigitalOcean
+**Tech stack:** n8n (self-hosted), Python + LangChain, OpenRouter (Claude/GPT), Docker, cloud hosting
 
 **Timeline:** 1-4 weeks depending on complexity
-**Ongoing hosting:** $10-50/mo (DigitalOcean only, vs. $100-300/mo for Zapier)
+**Ongoing hosting:** $10-50/mo (cloud hosting only, vs. $100-300/mo for Zapier)
 
 **Best for:** Companies with 25-500 employees needing to connect existing tools, automate repetitive tasks, and add AI intelligence without expensive per-task pricing
 
@@ -158,10 +158,10 @@ Modern websites with AI capabilities built in. We can build a complete site from
 - SEO optimization
 - Performance-optimized (targeting 95+ Lighthouse score)
 
-**Tech stack:** Next.js, PostgreSQL, Docker, DigitalOcean, OpenRouter (Claude/GPT)
+**Tech stack:** Next.js, PostgreSQL, Docker, cloud hosting, OpenRouter (Claude/GPT)
 
 **Timeline:** 1-6 weeks depending on scope
-**Ongoing hosting:** $12-50/mo (DigitalOcean + LLM API usage)
+**Ongoing hosting:** $12-50/mo (cloud hosting + LLM API usage)
 
 **Best for:** E-commerce, professional services, SaaS, DTC brands
 
@@ -188,7 +188,7 @@ Modern websites with AI capabilities built in. We can build a complete site from
 | **Frontend** | Next.js 15 + React + Tailwind CSS |
 | **Database** | PostgreSQL + pgvector (vector storage) |
 | **AI Models** | OpenRouter (Claude, GPT, Gemini, Llama) |
-| **Deployment** | Docker + DigitalOcean App Platform |
+| **Deployment** | Vercel (website + API), Docker + cloud hosting (client projects) |
 
 ---
 
@@ -241,6 +241,17 @@ Most solutions cost **$10-200/mo** to run (DigitalOcean hosting + LLM API usage)
 - AI-Integrated Website: $12-50/mo
 
 ---
+
+## Implemented on seafin.ai
+
+The following AI features are live on the marketing website as working demos:
+
+- **AI Chatbot** — Conversational assistant with security hardening (rate limiting, input validation, prompt injection protection)
+- **ROI Calculator** — Interactive tool showing potential AI investment returns
+- **Smart Contact Form** — AI-powered form analysis for lead qualification
+- **RAG Demo** — Knowledge base query demonstration
+
+These serve as both marketing tools and proof-of-concept demos for prospective clients.
 
 ## TODO
 

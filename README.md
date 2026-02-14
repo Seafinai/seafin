@@ -18,14 +18,15 @@ seafin/
 ├── CLAUDE.md                — Claude Code project instructions
 ├── COMPANY_STRUCTURE.md     — Org chart, brands, domains, GitHub structure
 ├── README.md                — This file
+├── api/                     — Serverless functions (Vercel)
 ├── brand/                   — Brand identity, market research, launch plan
-├── infrastructure/          — Hosting cost breakdown (DigitalOcean)
+├── infrastructure/          — Hosting cost breakdown
 ├── mockups/                 — HTML mockups (landing page iterations)
 ├── products/                — Product PRDs and roadmaps
 │   ├── SEAFIN_AI_SERVICES_PRD.md      — Master services PRD (BUILD/AUTOMATE/CONNECT/PROTECT)
 │   ├── SEAFIN_PRODUCT_CATALOG_RESEARCH.md
 │   └── custodian/           — Custodian backup product (PROTECT pillar)
-└── website/                 — Static marketing site (index.html + favicon)
+└── website/                 — Static marketing site + AI feature modules
 ```
 
 ## Key Documents
@@ -33,7 +34,8 @@ seafin/
 - **[Company Structure](COMPANY_STRUCTURE.md)** — Org chart, brand architecture, domain mapping
 - **[Services PRD](products/SEAFIN_AI_SERVICES_PRD.md)** — Full service catalog (BUILD/AUTOMATE/CONNECT/PROTECT)
 - **[Branding Strategy](brand/BRANDING_STRATEGY.md)** — Two-brand architecture (Seafin + Solvity)
-- **[Infrastructure](infrastructure/)** — DigitalOcean hosting specs and costs
+- **[Infrastructure](infrastructure/)** — Hosting specs and costs
+- **[Deployment](VERCEL_DEPLOYMENT.md)** — Vercel deployment guide
 
 ## Related Repositories
 
@@ -46,11 +48,12 @@ All repos live under the **seafinai** GitHub organization:
 
 ## Current Status
 
-- Website live at seafin.ai (static single-page site)
+- Website live at seafin.ai (hosted on Vercel with auto-deploy from GitHub)
+- AI features live: chatbot, ROI calculator, smart contact form, RAG demo
+- Serverless API functions at `/api/*` (Vercel)
 - Four service pillars defined (BUILD/AUTOMATE/CONNECT/PROTECT)
 - OpenClaw hosted AI worker platform designed
 - Solvity SaaS platform in active development
-- Infrastructure target: DigitalOcean App Platform (~$200-300/yr)
 
 ---
 

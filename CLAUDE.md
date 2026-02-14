@@ -23,6 +23,12 @@ GitHub org: **seafinai** — separate repos per project. See `COMPANY_STRUCTURE.
 seafin/
 ├── CLAUDE.md
 ├── README.md
+├── api/                    — Serverless functions (Vercel)
+│   ├── test.js             — Environment variable test
+│   ├── chat.js             — AI chatbot
+│   ├── analyze-form.js     — Smart form analyzer
+│   ├── rag-query.js        — RAG demo
+│   └── roi-calculator.js   — ROI calculator API
 ├── brand/                  — Brand identity, market research, launch plan, logo guides
 ├── infrastructure/         — Hosting cost breakdown
 ├── mockups/                — HTML mockups (landing page iterations)
@@ -30,7 +36,15 @@ seafin/
 │   ├── SEAFIN_AI_SERVICES_PRD.md      — Master services PRD (BUILD/AUTOMATE/CONNECT/PROTECT)
 │   ├── SEAFIN_PRODUCT_CATALOG_RESEARCH.md
 │   └── custodian/          — Custodian backup product (ransomware protection roadmap)
-└── website/                — Static marketing site (index.html + favicon)
+└── website/                — Static marketing site + client-side JS
+    ├── index.html
+    ├── favicon.svg
+    └── js/                 — AI feature modules
+        ├── ai-features.js      — Module loader/orchestrator
+        ├── chatbot-widget.js   — AI chatbot widget
+        ├── roi-calculator.js   — ROI calculator UI
+        ├── smart-form.js       — AI-powered contact form
+        └── rag-demo.js         — RAG knowledge base demo
 ```
 
 ## Products & Services
@@ -45,6 +59,10 @@ Four pillars defined in the services PRD:
 ## Website
 
 Static single-page site at `website/index.html`. No build system — plain HTML/CSS/JS with Google Fonts. Favicon is `website/favicon.svg`.
+
+**AI Features:** The site includes a modular AI features system (`website/js/ai-features.js`) that loads chatbot, ROI calculator, smart form, and RAG demo as independent modules. Each module is self-contained with its own UI injection and API calls.
+
+**Security Layers:** Input validation, rate limiting, cost controls, and prompt injection protection are implemented in the serverless functions. See `AI_SECURITY_BLUEPRINT.md` for the reusable security pattern.
 
 ## Deployment & Hosting
 
@@ -64,7 +82,7 @@ The website is hosted on **Vercel** with automatic deployment from GitHub.
 ### Deployment Workflow
 
 **Automated deployment:**
-1. Make changes to `website/index.html` or `website/api/*.js`
+1. Make changes to `website/index.html`, `website/js/*.js`, or `api/*.js`
 2. Commit changes to git
 3. Push to `origin/main`
 4. Vercel automatically detects the push
@@ -97,10 +115,10 @@ Set in Vercel dashboard (Settings → Environment Variables):
 
 ### Serverless Functions
 
-Functions are in `website/api/` using Next.js format:
+Functions are in `api/` (project root) using Next.js format:
 
 ```javascript
-// website/api/function-name.js
+// api/function-name.js
 export default async function handler(req, res) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   return res.status(200).json({ success: true });
@@ -112,6 +130,7 @@ Functions available at:
 - `/api/chat` - AI chatbot
 - `/api/analyze-form` - Smart form analyzer
 - `/api/rag-query` - RAG demo
+- `/api/roi-calculator` - ROI calculator
 
 ### Cost
 

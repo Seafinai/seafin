@@ -154,7 +154,7 @@ blog.seafin.ai         → content/resources (when ready)
 - [ ] Retention locks (Phase 1 of roadmap, 4-6 hours)
 - [ ] Anomaly detection with PyOD (Phase 2, 4-5 hours)
 - [ ] Desktop/server agent for backup execution
-- [ ] Deploy to DigitalOcean App Platform ($12/mo)
+- [ ] Deploy backend to hosting platform (e.g., DigitalOcean App Platform or Vercel)
 
 ### Web Development (5% of revenue)
 - [ ] Define scope: modern apps with AI built in, $10-30k, 2-3 months
@@ -203,7 +203,7 @@ This is the recurring revenue product. Build after landing first consulting/agen
 ### MVP Scope (from existing roadmap)
 
 - [ ] **Backend:** Python Flask app
-- [ ] **Database:** PostgreSQL (DigitalOcean managed, $12/mo)
+- [ ] **Database:** PostgreSQL (managed, ~$12/mo)
 - [ ] **Auth:** Self-managed (Flask-Login + bcrypt) to start
 - [ ] **Core features:**
   - [ ] User registration, login, dashboard
@@ -212,7 +212,7 @@ This is the recurring revenue product. Build after landing first consulting/agen
   - [ ] Retention locks — prevent API-based deletion for N days
   - [ ] Basic anomaly detection (PyOD — size spikes, compression changes)
   - [ ] Audit logging
-- [ ] **Deployment:** DigitalOcean App Platform
+- [ ] **Deployment:** Cloud platform (Vercel, DigitalOcean, or similar)
 - [ ] **Payments:** Stripe (4 tiers: Free, $9, $29, $99)
 - [ ] **Landing page:** custodian.seafin.ai
 
@@ -252,11 +252,11 @@ This is the recurring revenue product. Build after landing first consulting/agen
 
 | Item | Cost |
 |------|------|
-| Hosting (Vercel free tier) | $0 |
+| Website hosting (Vercel free tier) | $0 |
 | Email (Google Workspace or Zoho) | $0-6 |
 | CRM (HubSpot/Attio free) | $0 |
 | Stripe fees (2.9% + $0.30/tx) | Variable |
-| DigitalOcean (Custodian, when live) | $12 |
+| Custodian backend (when live) | $12 |
 | Analytics (Plausible or Vercel) | $0-9 |
 | **Total before Custodian** | **$0-15/mo** |
 | **Total with Custodian** | **$12-27/mo** |

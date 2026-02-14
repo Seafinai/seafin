@@ -16,34 +16,43 @@ Year 1 Total:              $175-940
 
 ### Hosting (Primary Cost)
 
-#### DigitalOcean App Platform (RECOMMENDED) - $12-15/mo
+#### Vercel (CURRENT) - $0/mo
 
 ```
-Components:
-- 3 x 0.5GB shared containers (Flask app): $0-5/mo
-- PostgreSQL database (12GB/mo): $12/mo
-- Bandwidth (100GB/mo): $0 (included)
-- Automatic backups: $0 (included)
-- SSL certificate: $0 (free Let's Encrypt)
-- Deployment from GitHub: $0 (free)
+Current setup (Hobby/Free plan):
+- Static site hosting: $0/mo
+- Serverless functions (API): $0/mo
+- 100GB bandwidth/month: included
+- Auto-deploy from GitHub: included
+- SSL/HTTPS: included
+- Preview deployments: included
 
-Total: $12/mo
+Total: $0/mo
 ```
 
 **What's included:**
-- ✅ Flask backend for Custodian
-- ✅ PostgreSQL for users, backups, config
-- ✅ Automatic daily backups
-- ✅ Monitoring and uptime
-- ✅ Auto-scaling (pay more if traffic spikes)
-- ✅ HTTPS/SSL out of box
+- ✅ Static website hosting (website/)
+- ✅ Serverless API functions (api/)
+- ✅ Git auto-deploy on push
+- ✅ Preview deployments per PR
+- ✅ HTTPS/SSL automatic
+- ✅ 100GB bandwidth/month
 
 **Scaling path:**
 ```
-$12/mo  → 100 users
-$25/mo  → 500 users
-$50/mo  → 2,000 users
-$100+/mo → 10,000+ users
+$0/mo   → Free tier (current, sufficient for launch)
+$20/mo  → Pro tier (1TB bandwidth, analytics, team)
+```
+
+#### DigitalOcean App Platform (Future - Custodian SaaS) - $12-15/mo
+
+```
+For future Custodian product (when built):
+- Flask app containers: $0-5/mo
+- PostgreSQL database (12GB/mo): $12/mo
+- Bandwidth: included
+
+Total: $12/mo
 ```
 
 #### Alternative: Fly.io - $5-20/mo
@@ -411,4 +420,4 @@ This is a professional setup that costs less than a single developer's lunch per
 
 ---
 
-*Last Updated: 2025-01-10*
+*Last Updated: 2026-02-14*
