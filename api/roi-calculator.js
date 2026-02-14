@@ -113,14 +113,34 @@ export default async function handler(req, res) {
       });
     }
 
-    // GUARDRAIL 2: Inappropriate content detection
+    // GUARDRAIL 2: Inappropriate content detection (comprehensive)
     const inappropriatePatterns = [
-      /\b(poop|shit|fuck|damn|crap|ass|penis|vagina|sex|porn)\b/i,
-      /toilet|bathroom|restroom/i,
-      /sleeping|napping|relaxing/i,
-      /watching (tv|netflix|youtube)/i,
-      /playing (games?|video games?)/i,
-      /personal|hobby|hobbies/i
+      // Sexual content (explicit and euphemisms)
+      /\b(sex|porn|xxx|nude|naked|blow\s*job|hand\s*job|sexual|intercourse|masturbat|erotic|orgasm)\b/i,
+      /\b(penis|vagina|dick|cock|pussy|tits|boobs|breast|genital|anal)\b/i,
+      /\b(escort|prostitut|stripper|cam\s*girl|only\s*fans)\b/i,
+
+      // Bodily functions
+      /\b(poop|shit|pee|urinat|defecate|fart|vomit|puke)\b/i,
+      /\b(toilet|bathroom|restroom|latrine)\b/i,
+
+      // Profanity
+      /\b(fuck|damn|crap|ass|bastard|bitch)\b/i,
+
+      // Personal activities (non-business)
+      /\b(sleeping|napping|relaxing|resting|leisure)\b/i,
+      /\b(watching\s+(tv|netflix|youtube|movies?))\b/i,
+      /\b(playing\s+(games?|video\s*games?|fortnite|minecraft))\b/i,
+      /\b(hobby|hobbies|personal\s+time|free\s+time)\b/i,
+      /\b(dating|tinder|bumble|romance)\b/i,
+
+      // Medical/care services that could be misused
+      /\b(nurse|doctor|physician|caregiver|therapist).{0,50}(sex|intimate|pleasure|satisfaction)/i,
+      /\b(massage).{0,30}(happy\s*ending|sexual|erotic)/i,
+
+      // Non-tasks (questions, complaints)
+      /^(what|why|when|where|who|how|can you|could you|will you|do you)/i,
+      /\b(i\s+hate|i\s+don't\s+like|annoying|frustrated|upset)\b/i
     ];
 
     const containsInappropriate = inappropriatePatterns.some(pattern => pattern.test(task));
