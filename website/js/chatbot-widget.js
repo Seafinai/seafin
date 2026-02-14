@@ -5,6 +5,8 @@
 
 let conversationId = null;
 let isOpen = false;
+let totalCost = 0;
+let messageCount = 0;
 
 function initChatbot() {
   // Create chat widget HTML
@@ -58,6 +60,9 @@ function initChatbot() {
           </svg>
         </button>
       </form>
+      <div id="chat-cost" class="chat-cost" style="display: none;" title="Real-time AI cost tracking">
+        <span id="chat-cost-text">0 msgs • $0.000</span>
+      </div>
     </div>
   `;
 
@@ -106,6 +111,20 @@ async function sendMessage(e) {
   addMessage(message, 'user');
   input.value = '';
 
+  // Try to get response with retry on empty
+  await sendMessageWithRetry(message);
+}
+
+async function sendMessageWithRetry(message, retryCount = 0) {
+  const maxRetries = 2;
+  const funnyMessages = [
+    "🤔 Hmm, the AI seems to be taking a coffee break. Let me try again...",
+    "🎭 The AI is being mysterious. One more time...",
+    "🔄 Got the silent treatment there. Asking again...",
+    "💭 That was awkwardly quiet. Retrying...",
+    "🎲 The AI rolled snake eyes. Rolling again..."
+  ];
+
   // Show typing indicator
   const typingId = addTypingIndicator();
 
@@ -131,10 +150,32 @@ async function sendMessage(e) {
 
     // Validate we got a real reply
     if (!data.reply || data.reply.trim().length === 0) {
-      throw new Error('Received empty response from AI');
+      // Empty response - retry with funny message
+      if (retryCount < maxRetries) {
+        removeTypingIndicator(typingId);
+        const funnyMsg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+        addMessage(funnyMsg, 'bot');
+
+        if (window.AI && window.AI.log) {
+          window.AI.log(`Empty response (attempt ${retryCount + 1}), retrying...`);
+        }
+
+        // Wait a moment then retry
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return sendMessageWithRetry(message, retryCount + 1);
+      } else {
+        throw new Error('The AI is being extra shy today. Please try rephrasing your question! 😅');
+      }
     }
 
     addMessage(data.reply, 'bot');
+
+    // Update cost tracking
+    if (data.usage) {
+      messageCount++;
+      totalCost += data.usage.cost || 0;
+      updateCostDisplay();
+    }
 
   } catch (error) {
     removeTypingIndicator(typingId);
