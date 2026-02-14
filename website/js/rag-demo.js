@@ -1,7 +1,7 @@
 /**
- * RAG Demo - Full-Screen Modal
+ * RAG Demo - Slide-Out Panel
  * Interactive demonstration of document Q&A (KnowledgeClaw)
- * Opens as a full-screen overlay triggered from a CTA card on the page
+ * Opens as a slide-out panel from the right side
  */
 
 function initRAGDemo() {
@@ -39,97 +39,97 @@ function initRAGDemo() {
     </div>
   `;
 
-  // 2. Create full-screen modal overlay
-  const modal = document.createElement('div');
-  modal.id = 'rag-modal';
-  modal.className = 'rag-modal-overlay';
-  modal.innerHTML = `
-    <div class="rag-modal">
-      <div class="rag-modal-header">
-        <div class="rag-modal-title-group">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
-            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-          <div>
-            <h2>KnowledgeClaw Demo</h2>
-            <span class="rag-modal-subtitle">Document Q&A powered by AI</span>
-          </div>
+  // 2. Create slide-out panel + backdrop
+  const backdrop = document.createElement('div');
+  backdrop.id = 'rag-backdrop';
+  backdrop.className = 'rag-backdrop';
+
+  const panel = document.createElement('div');
+  panel.id = 'rag-panel';
+  panel.className = 'rag-slide-panel';
+  panel.innerHTML = `
+    <div class="rag-panel-header">
+      <div class="rag-panel-title-group">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <div>
+          <h2>KnowledgeClaw Demo</h2>
+          <span class="rag-panel-subtitle">Document Q&A powered by AI</span>
         </div>
-        <button id="rag-modal-close" class="rag-modal-close" aria-label="Close demo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
+      </div>
+      <button id="rag-panel-close" class="rag-panel-close" aria-label="Close demo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="rag-panel-body">
+      <!-- Document Input -->
+      <div class="rag-demo-panel">
+        <div class="panel-header">
+          <span class="panel-number">01</span>
+          <h3>Your Document</h3>
+        </div>
+        <textarea
+          id="rag-document"
+          class="rag-textarea"
+          placeholder="Paste your document here (up to 10,000 characters)
+
+Try it with a company policy, product description, meeting notes, or any text document..."
+          maxlength="10000"
+        ></textarea>
+        <div class="char-counter">
+          <span id="char-count">0</span> / 10,000 characters
+        </div>
+        <button id="load-sample" class="sample-button">
+          Load Sample Document
         </button>
       </div>
 
-      <div class="rag-modal-body">
-        <div class="rag-demo-grid">
-          <!-- Document Input -->
-          <div class="rag-demo-panel">
-            <div class="panel-header">
-              <span class="panel-number">01</span>
-              <h3>Your Document</h3>
-            </div>
-            <textarea
-              id="rag-document"
-              class="rag-textarea"
-              placeholder="Paste your document here (up to 10,000 characters)
+      <!-- Question Input -->
+      <div class="rag-demo-panel">
+        <div class="panel-header">
+          <span class="panel-number">02</span>
+          <h3>Ask a Question</h3>
+        </div>
+        <form id="rag-form">
+          <input
+            type="text"
+            id="rag-question"
+            class="rag-input"
+            placeholder="What would you like to know about this document?"
+            maxlength="500"
+          />
+          <button type="submit" class="rag-submit" id="rag-submit-btn">
+            Ask Question
+          </button>
+        </form>
 
-Try it with a company policy, product description, meeting notes, or any text document..."
-              maxlength="10000"
-            ></textarea>
-            <div class="char-counter">
-              <span id="char-count">0</span> / 10,000 characters
-            </div>
-            <button id="load-sample" class="sample-button">
-              Load Sample Document
-            </button>
+        <!-- Answer -->
+        <div id="rag-answer" class="rag-answer" style="display: none;">
+          <div class="answer-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+            <span>AI Answer</span>
           </div>
-
-          <!-- Question Input -->
-          <div class="rag-demo-panel">
-            <div class="panel-header">
-              <span class="panel-number">02</span>
-              <h3>Ask a Question</h3>
-            </div>
-            <form id="rag-form">
-              <input
-                type="text"
-                id="rag-question"
-                class="rag-input"
-                placeholder="What would you like to know about this document?"
-                maxlength="500"
-              />
-              <button type="submit" class="rag-submit" id="rag-submit-btn">
-                Ask Question
-              </button>
-            </form>
-
-            <!-- Answer -->
-            <div id="rag-answer" class="rag-answer" style="display: none;">
-              <div class="answer-header">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                  <path d="M9 11l3 3L22 4"/>
-                  <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-                </svg>
-                <span>AI Answer</span>
-              </div>
-              <div id="rag-answer-content" class="answer-content"></div>
-              <div class="answer-footer">
-                Powered by Claude Sonnet 4.5
-              </div>
-            </div>
+          <div id="rag-answer-content" class="answer-content"></div>
+          <div class="answer-footer">
+            Powered by Claude Sonnet 4.5
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="rag-modal-footer">
-        <p>
-          <strong>Want this for your business?</strong> KnowledgeClaw can search thousands of documents instantly.
-        </p>
-        <a href="#contact" class="cta-button" id="rag-cta-contact">Get Your Custom RAG Bot</a>
-      </div>
+    <div class="rag-panel-footer">
+      <p>
+        <strong>Want this for your business?</strong> KnowledgeClaw can search thousands of documents instantly.
+      </p>
+      <a href="#contact" class="cta-button" id="rag-cta-contact">Get Your Custom RAG Bot</a>
     </div>
   `;
 
@@ -141,12 +141,14 @@ Try it with a company policy, product description, meeting notes, or any text do
     main.appendChild(ctaSection);
   }
 
-  // Append modal to body (outside page flow)
-  document.body.appendChild(modal);
+  // Append backdrop and panel to body
+  document.body.appendChild(backdrop);
+  document.body.appendChild(panel);
 
   // Event listeners
-  document.getElementById('rag-launch-btn').addEventListener('click', openRAGModal);
-  document.getElementById('rag-modal-close').addEventListener('click', closeRAGModal);
+  document.getElementById('rag-launch-btn').addEventListener('click', openRAGPanel);
+  document.getElementById('rag-panel-close').addEventListener('click', closeRAGPanel);
+  backdrop.addEventListener('click', closeRAGPanel);
   document.getElementById('rag-document').addEventListener('input', () => {
     document.getElementById('char-count').textContent =
       document.getElementById('rag-document').value.length;
@@ -154,37 +156,32 @@ Try it with a company policy, product description, meeting notes, or any text do
   document.getElementById('load-sample').addEventListener('click', loadSampleDocument);
   document.getElementById('rag-form').addEventListener('submit', askQuestion);
 
-  // Close on backdrop click
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeRAGModal();
-  });
-
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-      closeRAGModal();
+    if (e.key === 'Escape' && panel.classList.contains('open')) {
+      closeRAGPanel();
     }
   });
 
-  // Close modal when CTA contact link is clicked
+  // Close panel when CTA contact link is clicked
   document.getElementById('rag-cta-contact').addEventListener('click', () => {
-    closeRAGModal();
+    closeRAGPanel();
   });
 
   if (window.AI && window.AI.log) {
-    window.AI.log('RAG Demo initialized (modal mode)');
+    window.AI.log('RAG Demo initialized (slide-out panel)');
   }
 }
 
-function openRAGModal() {
-  const modal = document.getElementById('rag-modal');
-  modal.classList.add('open');
+function openRAGPanel() {
+  document.getElementById('rag-panel').classList.add('open');
+  document.getElementById('rag-backdrop').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function closeRAGModal() {
-  const modal = document.getElementById('rag-modal');
-  modal.classList.remove('open');
+function closeRAGPanel() {
+  document.getElementById('rag-panel').classList.remove('open');
+  document.getElementById('rag-backdrop').classList.remove('open');
   document.body.style.overflow = '';
 }
 
