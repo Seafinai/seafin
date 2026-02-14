@@ -496,7 +496,7 @@
   z-index: 10000;
   width: 480px;
   max-width: 100vw;
-  background: var(--bg);
+  background: #001220;
   border-right: 1px solid var(--dash-color);
   box-shadow: 8px 0 32px rgba(0, 0, 0, 0.5);
   display: flex;
