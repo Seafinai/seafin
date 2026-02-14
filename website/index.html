@@ -462,6 +462,93 @@
   .ww3 { animation: waveSlide 10s linear infinite; }
 
   /* ==========================================================================
+     PROCESS TIMELINE -- Horizontal flowing design
+     ========================================================================== */
+  .process-timeline {
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .timeline-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  /* Connecting line between steps */
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 100%);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .timeline-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-number {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 16px;
+    background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, rgba(0,212,255,0.05) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .step-number::after {
+    content: '';
+    position: absolute;
+    right: -50%;
+    top: 50%;
+    width: 100%;
+    height: 0;
+    border-top: 2px dashed var(--dash-color);
+    z-index: -1;
+  }
+
+  .timeline-step:last-child .step-number::after {
+    display: none;
+  }
+
+  .step-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .step-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ==========================================================================
      SERVICES -- Tabs with Rich Panels
      ========================================================================== */
   .svc-tabs { margin-top: 32px; }
@@ -2120,95 +2207,54 @@ navLinks.querySelectorAll('a').forEach(link => {
 <hr class="section-divider">
 
 <!-- ====================================================================
-     ROI CALCULATOR
+     PROCESS -- How We Work Together
      ==================================================================== -->
-<section id="roi-calculator" aria-label="ROI Calculator" style="padding: 80px 0;">
+<section id="process" aria-label="Process" style="background: rgba(0, 18, 32, 0.3);">
   <div class="container">
-    <div class="overline">ROI CALCULATOR</div>
-    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">What Could You Save?</h2>
-    <p style="color: var(--text-dim); font-size: 15px; max-width: 560px;">See how much time and money automation could save your team. Adjust the sliders to match your situation.</p>
+    <div class="overline">PROCESS</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">How We Work Together</h2>
+    <p style="color: var(--text-dim); font-size: 15px; margin-bottom: 16px;">From first call to deployed solution. Transparent process. Clear milestones. No surprises.</p>
 
-    <div style="margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; padding: 32px; border: 1px solid var(--dash-color); background: rgba(0, 212, 255, 0.02);">
+    <div class="process-timeline">
+      <div class="timeline-container">
 
-      <!-- Input 1: Hours per week -->
-      <div style="margin-bottom: 32px;">
-        <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
-          HOURS SPENT PER WEEK ON REPETITIVE TASKS: <span id="hours-value" style="color: var(--accent); font-weight: 600;">15</span> hrs/week
-        </label>
-        <input type="range" id="hours-slider" min="5" max="40" value="15" step="1" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
-      </div>
-
-      <!-- Input 2: Hourly cost -->
-      <div style="margin-bottom: 32px;">
-        <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
-          AVERAGE HOURLY COST (SALARY + OVERHEAD): <span id="rate-value" style="color: var(--accent); font-weight: 600;">$20</span>/hr
-        </label>
-        <input type="range" id="rate-slider" min="20" max="150" value="20" step="5" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
-      </div>
-
-      <hr style="border: none; border-top: 1px dashed var(--dash-color); margin: 32px 0 24px 0;">
-
-      <!-- Results -->
-      <div style="text-align: center;">
-        <div style="margin-bottom: 24px;">
-          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">CURRENT ANNUAL COST</div>
-          <div style="font-size: 2rem; font-weight: 700; color: var(--text-dim);" id="current-cost">$50,700</div>
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Discovery</div>
+          <span class="step-time">FREE</span>
+          <div class="step-desc">45-minute strategy call. Identify automation opportunities.</div>
         </div>
-        <div style="margin-bottom: 24px;">
-          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">POTENTIAL ANNUAL SAVINGS</div>
-          <div style="font-size: 2.8rem; font-weight: 700; color: var(--accent);" id="savings">$43,095</div>
-        </div>
-        <div style="margin-bottom: 24px;">
-          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">ROI TIMEFRAME (ASSUMING $5K PROJECT)</div>
-          <div style="font-size: 1.4rem; font-weight: 600; color: var(--text-dim);" id="roi-time">2.8 months</div>
-        </div>
-        <div>
-          <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">5-YEAR VALUE</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--text-dim);" id="five-year">$215,475</div>
-        </div>
-      </div>
 
-      <div style="margin-top: 24px; text-align: center; font-size: 12px; color: var(--text-faint); font-style: italic;">
-        * ROI calculated assuming $3,500 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
-      </div>
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Scoping</div>
+          <span class="step-time">1-2 WEEKS</span>
+          <div class="step-desc">Requirements session. Custom roadmap & ROI analysis.</div>
+        </div>
 
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Build</div>
+          <span class="step-time">2-8 WEEKS</span>
+          <div class="step-desc">Contract signed, work begins. Prove ROI fast.</div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Scale</div>
+          <span class="step-time">ONGOING</span>
+          <div class="step-desc">Expand solutions. Continuous improvement.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px; padding: 20px; background: rgba(0,212,255,0.05); border-radius: 6px;">
+      <strong style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1px;">REALISTIC TIMELINE</strong>
+      <div style="margin-top: 8px; color: var(--text-dim);">2-6 weeks for quick wins • 6-12 weeks for complete solutions</div>
     </div>
   </div>
 </section>
-
-<script>
-// Update ROI calculations
-function updateROI() {
-  const hours = parseFloat(document.getElementById('hours-slider').value);
-  const rate = parseFloat(document.getElementById('rate-slider').value);
-  const efficiency = 0.85; // Fixed at 85%
-
-  // Update display values
-  document.getElementById('hours-value').textContent = hours;
-  document.getElementById('rate-value').textContent = '$' + rate;
-
-  // Calculate results
-  const currentAnnualCost = hours * rate * 52; // 52 weeks
-  const hoursSaved = hours * efficiency;
-  const annualSavings = hoursSaved * rate * 52;
-  const projectCost = 3500; // Assuming $3.5k average project
-  const roiMonths = (projectCost / (annualSavings / 12)).toFixed(1);
-  const fiveYearValue = (annualSavings * 5) - projectCost;
-
-  // Update results
-  document.getElementById('current-cost').textContent = '$' + currentAnnualCost.toLocaleString();
-  document.getElementById('savings').textContent = '$' + Math.round(annualSavings).toLocaleString();
-  document.getElementById('roi-time').textContent = roiMonths + ' months';
-  document.getElementById('five-year').textContent = '$' + Math.round(fiveYearValue).toLocaleString();
-}
-
-// Add event listeners
-document.getElementById('hours-slider').addEventListener('input', updateROI);
-document.getElementById('rate-slider').addEventListener('input', updateROI);
-
-// Initialize
-updateROI();
-</script>
 
 <hr class="section-divider">
 
@@ -2296,48 +2342,6 @@ updateROI();
   </div>
 </section>
 
-<hr class="section-divider">
-
-<!-- ====================================================================
-     PRICING -- Simple Tiers
-     ==================================================================== -->
-<section id="pricing" aria-label="Pricing">
-  <div class="container">
-    <div class="overline">PROCESS</div>
-    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">How We Work Together</h2>
-    <p style="color: var(--text-dim); font-size: 15px;">From first call to deployed solution. Transparent process. Clear milestones. No surprises.</p>
-
-    <div class="testimonials-grid" style="margin-top: 32px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-      <div class="testimonial-card" style="text-align: center;">
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 1</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Discovery (Free)</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Free 45-minute strategy call. Identify automation opportunities. No commitment required.</div>
-      </div>
-      <div class="testimonial-card" style="text-align: center;">
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 2</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Scoping & Proposal (1-2 weeks)</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Deep-dive requirements session. Custom roadmap & ROI analysis. Transparent pricing proposal.</div>
-      </div>
-      <div class="testimonial-card" style="text-align: center; border-color: rgba(0,212,255,0.3);">
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 3</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Quick Win (1-4 weeks)</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Contract signed, work begins. n8n workflow, RAG bot, or focused tool. Prove ROI fast.</div>
-      </div>
-      <div class="testimonial-card" style="text-align: center;">
-        <div style="font-family: var(--mono); font-size: 2rem; font-weight: 500; color: var(--accent); margin-bottom: 4px;">Step 4</div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Scale & Optimize (Ongoing)</div>
-        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.6;">Expand successful solutions. New features & integrations. Continuous improvement. $10-200/mo hosting.</div>
-      </div>
-    </div>
-
-    <div class="risk-reversal">
-      <strong>REALISTIC TIMELINE</strong> — From first call to deployed solution: 2-6 weeks for quick wins, 6-12 weeks for complete solutions. Clear milestones every step of the way.
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider">
-
 <!-- ====================================================================
      PRICING -- Investment & Timeline
      ==================================================================== -->
@@ -2412,7 +2416,59 @@ updateROI();
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;">
+    <!-- ROI Calculator integrated into pricing -->
+    <div style="margin-top: 64px; padding-top: 48px; border-top: 1px dashed var(--dash-color);">
+      <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; text-align: center;">Calculate Your Potential Savings</h3>
+      <p style="text-align: center; color: var(--text-dim); font-size: 14px; margin-bottom: 32px;">Adjust the sliders to see your estimated ROI</p>
+
+      <div style="max-width: 700px; margin: 0 auto; padding: 32px; border: 1px solid var(--dash-color); background: rgba(0, 212, 255, 0.02); border-radius: 6px;">
+
+        <!-- Input 1: Hours per week -->
+        <div style="margin-bottom: 32px;">
+          <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
+            HOURS SPENT PER WEEK ON REPETITIVE TASKS: <span id="hours-value" style="color: var(--accent); font-weight: 600;">15</span> hrs/week
+          </label>
+          <input type="range" id="hours-slider" min="5" max="40" value="15" step="1" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
+        </div>
+
+        <!-- Input 2: Hourly cost -->
+        <div style="margin-bottom: 32px;">
+          <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
+            AVERAGE HOURLY COST (SALARY + OVERHEAD): <span id="rate-value" style="color: var(--accent); font-weight: 600;">$20</span>/hr
+          </label>
+          <input type="range" id="rate-slider" min="20" max="150" value="20" step="5" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
+        </div>
+
+        <hr style="border: none; border-top: 1px dashed var(--dash-color); margin: 32px 0 24px 0;">
+
+        <!-- Results -->
+        <div style="text-align: center;">
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">CURRENT ANNUAL COST</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--text-dim);" id="current-cost">$15,600</div>
+          </div>
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">POTENTIAL ANNUAL SAVINGS</div>
+            <div style="font-size: 2.8rem; font-weight: 700; color: var(--accent);" id="savings">$13,260</div>
+          </div>
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">ROI TIMEFRAME (ASSUMING $5K PROJECT)</div>
+            <div style="font-size: 1.4rem; font-weight: 600; color: var(--text-dim);" id="roi-time">2.8 months</div>
+          </div>
+          <div>
+            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">5-YEAR VALUE</div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--text-dim);" id="five-year">$62,800</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; text-align: center; font-size: 12px; color: var(--text-faint); font-style: italic;">
+          * ROI calculated assuming $3,500 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 48px;">
       <p style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">
         All projects include 30 days of post-launch support. Custom quotes for enterprise needs.
       </p>
@@ -2421,6 +2477,40 @@ updateROI();
 
   </div>
 </section>
+
+<script>
+// Update ROI calculations
+function updateROI() {
+  const hours = parseFloat(document.getElementById('hours-slider').value);
+  const rate = parseFloat(document.getElementById('rate-slider').value);
+  const efficiency = 0.85; // Fixed at 85%
+
+  // Update display values
+  document.getElementById('hours-value').textContent = hours;
+  document.getElementById('rate-value').textContent = '$' + rate;
+
+  // Calculate results
+  const currentAnnualCost = hours * rate * 52; // 52 weeks
+  const hoursSaved = hours * efficiency;
+  const annualSavings = hoursSaved * rate * 52;
+  const projectCost = 3500; // Assuming $3.5k average project
+  const roiMonths = (projectCost / (annualSavings / 12)).toFixed(1);
+  const fiveYearValue = (annualSavings * 5) - projectCost;
+
+  // Update results
+  document.getElementById('current-cost').textContent = '$' + currentAnnualCost.toLocaleString();
+  document.getElementById('savings').textContent = '$' + Math.round(annualSavings).toLocaleString();
+  document.getElementById('roi-time').textContent = roiMonths + ' months';
+  document.getElementById('five-year').textContent = '$' + Math.round(fiveYearValue).toLocaleString();
+}
+
+// Add event listeners
+document.getElementById('hours-slider').addEventListener('input', updateROI);
+document.getElementById('rate-slider').addEventListener('input', updateROI);
+
+// Initialize
+updateROI();
+</script>
 
 <hr class="section-divider">
 
