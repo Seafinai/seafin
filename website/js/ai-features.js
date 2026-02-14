@@ -51,7 +51,7 @@ const rateLimiter = {
 /**
  * Initialize AI features when DOM is ready
  */
-window.addEventListener('load', () => {
+function initAIFeatures() {
   if (AI_FEATURES.debug) {
     console.log('🤖 AI Features initialized:', AI_FEATURES);
   }
@@ -61,16 +61,24 @@ window.addEventListener('load', () => {
     loadSmartForm();
   }
 
-  // Phase 2: Intelligent Chatbot (coming soon)
+  // Phase 2: Intelligent Chatbot
   if (AI_FEATURES.chatbot) {
     loadChatbot();
   }
 
-  // Phase 3: Live RAG Demo (coming soon)
+  // Phase 3: Live RAG Demo
   if (AI_FEATURES.ragDemo) {
     loadRAGDemo();
   }
-});
+}
+
+// Initialize when DOM is ready (handles both cases: before and after load)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAIFeatures);
+} else {
+  // DOM already loaded (common for modules which are deferred)
+  initAIFeatures();
+}
 
 /**
  * Load Smart Contact Form feature
