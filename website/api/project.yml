@@ -1,22 +1,32 @@
 packages:
   - name: default
-    environment:
-      OPENROUTER_API_KEY: ""
-      MAX_DAILY_COST: ""
-      NODE_ENV: ""
     functions:
       - name: test
         runtime: nodejs:default
         web: true
+        environment:
+          OPENROUTER_API_KEY: ""
 
       - name: analyze-form
         runtime: nodejs:default
         web: true
+        environment:
+          OPENROUTER_API_KEY: ""
+          MAX_DAILY_COST: ""
+          NODE_ENV: ""
 
       - name: chat
         runtime: nodejs:default
         web: true
+        environment:
+          OPENROUTER_API_KEY: ""
+          MAX_DAILY_COST: ""
+          NODE_ENV: ""
 
       - name: rag-query
         runtime: nodejs:default
         web: true
+        environment:
+          OPENROUTER_API_KEY: ""
+          MAX_DAILY_COST: ""
+          NODE_ENV: ""
