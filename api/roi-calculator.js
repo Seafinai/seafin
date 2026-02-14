@@ -75,11 +75,22 @@ Analyze this task and estimate automation potential.`
     });
 
     if (!response.ok) {
-      throw new Error('AI analysis failed');
+      const errorData = await response.text();
+      throw new Error(`AI analysis failed: ${response.status} - ${errorData}`);
     }
 
     const data = await response.json();
-    const aiResponse = data.choices[0].message.content.trim();
+
+    // Validate response structure
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      throw new Error(`Invalid OpenRouter response structure: ${JSON.stringify(data).substring(0, 200)}`);
+    }
+
+    const aiResponse = data.choices[0].message.content?.trim() || '';
+
+    if (!aiResponse || aiResponse.length === 0) {
+      throw new Error(`Empty AI response. Full response: ${JSON.stringify(data).substring(0, 500)}`);
+    }
 
     // Parse JSON response (handle markdown code blocks)
     let jsonText = aiResponse;
