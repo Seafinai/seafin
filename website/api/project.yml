@@ -1,9 +1,9 @@
 packages:
   - name: default
     environment:
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
-      MAX_DAILY_COST: "5"
-      NODE_ENV: "production"
+      OPENROUTER_API_KEY: ""
+      MAX_DAILY_COST: ""
+      NODE_ENV: ""
     functions:
       - name: test
         runtime: nodejs:default
