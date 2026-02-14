@@ -34,6 +34,7 @@ Seafin LLC (legal entity)
 |------|---------|
 | `seafinai/seafin` | Company hub — strategy docs, brand assets, marketing website |
 | `seafinai/solvity` | Solvity SaaS platform — Flask backend, React frontend, AI skills |
+| `seafinai/openclaw` | Internal consulting delivery toolkit — bot/RAG/SaaS templates, admin UI, deploy configs |
 
 Additional repos will be created as needed for standalone tools, client projects, or open-source components.
 
