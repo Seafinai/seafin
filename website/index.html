@@ -2632,7 +2632,7 @@ updateROI();
       <span class="bracket-tr"></span>
       <span class="bracket-bl"></span>
       <div class="contact-form-inner">
-        <form id="contact-form" action="https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-c2c466ca-a1f6-43a1-8dbe-3f0122f73d4b/default/analyze-form" method="POST">
+        <form id="contact-form" action="/api/analyze-form" method="POST">
           <!-- Honeypot spam prevention (hidden field) -->
           <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
 
@@ -2676,12 +2676,24 @@ updateROI();
       formMessage.style.display = 'none';
 
       try {
+        // Get form data as JSON
+        const formData = new FormData(form);
+        const data = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          company: formData.get('company'),
+          challenge: formData.get('challenge'),
+          // Also send as 'userInput' for analyze-form compatibility
+          userInput: formData.get('challenge') || `Contact from ${formData.get('name')} (${formData.get('email')}) at ${formData.get('company')}`
+        };
+
         const response = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(form),
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
-          }
+          },
+          body: JSON.stringify(data)
         });
 
         if (response.ok) {
