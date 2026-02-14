@@ -152,7 +152,7 @@ const QUERY_INJECTION_PATTERNS = [
 
   // Role manipulation
   /you\s+are\s+now\s+(a|an)?/i,
-  /act\s+as\s+(a|an)\s+/i,
+  /^act\s+as\s+(a|an)\s+/im,
   /pretend\s+(you\s+are|to\s+be)/i,
   /roleplay\s+as/i,
   /simulate\s+(being|a)/i,
@@ -188,6 +188,10 @@ const QUERY_INJECTION_PATTERNS = [
   /disable\s+(safety|security|filters)/i,
   /bypass\s+(safety|security|restrictions)/i,
 
+  // Indirect jailbreak attempts
+  /hypothetical\s+scenario\s+where\s+you\s+had\s+no\s+(restrictions|limits)/i,
+  /grandmother\s+(used\s+to|would)\s+(read|tell)/i,
+
   // Jailbreak names
   /\bDAN\b/,
   /do\s+anything\s+now/i,
@@ -215,6 +219,10 @@ const DOCUMENT_INJECTION_PATTERNS = [
   /you\s+are\s+now\s+operating\s+as/i,
   /your\s+new\s+(role|instructions|purpose)/i,
   /from\s+now\s+on,?\s+(you|ignore)/i,
+
+  // Prompt template tags in documents
+  /\[INST\]/i,
+  /\[\/INST\]/i,
 ];
 
 function checkDocumentInjection(document) {
