@@ -81,13 +81,33 @@ Analyze this task and estimate automation potential.`
     const data = await response.json();
     const aiResponse = data.choices[0].message.content.trim();
 
-    // Parse JSON response
-    const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Invalid AI response format');
+    // Parse JSON response (handle markdown code blocks)
+    let jsonText = aiResponse;
+
+    // Remove markdown code blocks if present
+    const codeBlockMatch = aiResponse.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
+    if (codeBlockMatch) {
+      jsonText = codeBlockMatch[1];
+    } else {
+      // Try to find raw JSON object
+      const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        jsonText = jsonMatch[0];
+      }
     }
 
-    const analysis = JSON.parse(jsonMatch[0]);
+    // Parse the JSON
+    let analysis;
+    try {
+      analysis = JSON.parse(jsonText);
+    } catch (parseError) {
+      throw new Error(`Failed to parse AI response: ${parseError.message} | Response: ${aiResponse.substring(0, 200)}`);
+    }
+
+    // Validate required fields
+    if (!analysis.automationPotential || !analysis.complexity || !analysis.estimatedCost || !analysis.timelineWeeks || !analysis.recommendation) {
+      throw new Error(`Missing required fields in AI response. Got: ${JSON.stringify(analysis)}`);
+    }
 
     // Calculate ROI metrics
     const weeklyHours = parseFloat(hoursPerWeek);
