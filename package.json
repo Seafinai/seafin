@@ -1,5 +1,10 @@
 {
   "type": "module",
+  "scripts": {
+    "security:check": "npm audit && cd api && npm audit",
+    "security:fix": "npm audit fix && cd api && npm audit fix",
+    "security:fix-force": "npm audit fix --force && cd api && npm audit fix --force"
+  },
   "devDependencies": {
     "puppeteer": "^24.37.2"
   }

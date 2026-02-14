@@ -1,0 +1,245 @@
+name: Weekly Security Scan & Auto-Update
+
+on:
+  # Run every Monday at 9:00 AM UTC
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+  # Run on push to main (optional - for testing)
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'api/package.json'
+      - '.github/workflows/security-scan.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  security-audit:
+    name: Security Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ============================================================================
+      # STEP 1: Audit root dependencies
+      # ============================================================================
+
+      - name: Install root dependencies
+        run: npm ci || npm install
+        continue-on-error: true
+
+      - name: Run npm audit (root)
+        id: audit-root
+        run: |
+          echo "## Root Dependencies Audit" >> $GITHUB_STEP_SUMMARY
+          npm audit --json > audit-root.json || true
+
+          # Check if vulnerabilities exist
+          VULNERABILITIES=$(cat audit-root.json | jq '.metadata.vulnerabilities | to_entries | map(select(.value > 0)) | length')
+
+          if [ "$VULNERABILITIES" -gt 0 ]; then
+            echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
+            echo "⚠️ **Vulnerabilities found in root dependencies**" >> $GITHUB_STEP_SUMMARY
+            npm audit >> $GITHUB_STEP_SUMMARY || true
+          else
+            echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
+            echo "✅ No vulnerabilities found in root dependencies" >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
+
+      # ============================================================================
+      # STEP 2: Audit API dependencies
+      # ============================================================================
+
+      - name: Install API dependencies
+        working-directory: ./api
+        run: npm ci || npm install
+        continue-on-error: true
+
+      - name: Run npm audit (API)
+        id: audit-api
+        working-directory: ./api
+        run: |
+          echo "## API Dependencies Audit" >> $GITHUB_STEP_SUMMARY
+          npm audit --json > audit-api.json || true
+
+          # Check if vulnerabilities exist
+          VULNERABILITIES=$(cat audit-api.json | jq '.metadata.vulnerabilities | to_entries | map(select(.value > 0)) | length')
+
+          if [ "$VULNERABILITIES" -gt 0 ]; then
+            echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
+            echo "⚠️ **Vulnerabilities found in API dependencies**" >> $GITHUB_STEP_SUMMARY
+            npm audit >> $GITHUB_STEP_SUMMARY || true
+          else
+            echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
+            echo "✅ No vulnerabilities found in API dependencies" >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
+
+      # ============================================================================
+      # STEP 3: Auto-fix vulnerabilities (creates PR)
+      # ============================================================================
+
+      - name: Auto-fix root vulnerabilities
+        if: steps.audit-root.outputs.vulnerabilities_found == 'true'
+        run: |
+          echo "Attempting to auto-fix root vulnerabilities..."
+          npm audit fix --force || npm audit fix || true
+
+          # Check if package files changed
+          if git diff --quiet package.json package-lock.json; then
+            echo "No changes after audit fix"
+          else
+            echo "✅ Root dependencies updated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Auto-fix API vulnerabilities
+        if: steps.audit-api.outputs.vulnerabilities_found == 'true'
+        working-directory: ./api
+        run: |
+          echo "Attempting to auto-fix API vulnerabilities..."
+          npm audit fix --force || npm audit fix || true
+
+          # Check if package files changed
+          if git diff --quiet package.json package-lock.json; then
+            echo "No changes after audit fix"
+          else
+            echo "✅ API dependencies updated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ============================================================================
+      # STEP 4: Create PR with fixes
+      # ============================================================================
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore(security): auto-fix npm vulnerabilities
+
+            - Automated security update from weekly scan
+            - Fixed vulnerabilities detected by npm audit
+
+            Co-Authored-By: GitHub Actions <actions@github.com>
+          branch: security/auto-fix-${{ github.run_number }}
+          delete-branch: true
+          title: '🔒 Security: Auto-fix npm vulnerabilities'
+          body: |
+            ## 🔒 Automated Security Update
+
+            This PR was automatically created by the weekly security scan workflow.
+
+            ### Changes
+            - ✅ Fixed npm vulnerabilities using `npm audit fix`
+            - 📦 Updated dependencies to secure versions
+
+            ### Audit Summary
+
+            See the workflow run for detailed audit results:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            ### Next Steps
+
+            1. Review the changes
+            2. Test locally if needed
+            3. Merge if tests pass
+            4. Vercel will auto-deploy to production
+
+            ---
+
+            **⚠️ Note:** This PR may include major version updates (`npm audit fix --force`).
+            Review breaking changes before merging.
+
+            **Generated by:** `.github/workflows/security-scan.yml`
+          labels: |
+            security
+            dependencies
+            automated
+          assignees: ${{ github.repository_owner }}
+          reviewers: ${{ github.repository_owner }}
+
+      # ============================================================================
+      # STEP 5: Create issue if vulnerabilities can't be auto-fixed
+      # ============================================================================
+
+      - name: Check for unfixed vulnerabilities
+        id: check-unfixed
+        run: |
+          # Re-run audit after fixes
+          npm audit --json > audit-final.json || true
+
+          UNFIXED=$(cat audit-final.json | jq '.metadata.vulnerabilities | to_entries | map(select(.value > 0)) | length')
+
+          if [ "$UNFIXED" -gt 0 ]; then
+            echo "unfixed_found=true" >> $GITHUB_OUTPUT
+            echo "## ⚠️ Unfixed Vulnerabilities Remain" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Some vulnerabilities could not be auto-fixed. Manual review required." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            npm audit >> $GITHUB_STEP_SUMMARY || true
+          else
+            echo "unfixed_found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create issue for unfixed vulnerabilities
+        if: steps.check-unfixed.outputs.unfixed_found == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ steps.create-pr.outputs.pull-request-number }}
+          body: |
+            ## ⚠️ Manual Review Required
+
+            Some vulnerabilities could not be automatically fixed and require manual intervention.
+
+            Run `npm audit` locally to see details:
+
+            ```bash
+            npm audit
+            cd api && npm audit
+            ```
+
+            Consider:
+            - Updating dependencies manually
+            - Checking for breaking changes
+            - Finding alternative packages
+            - Accepting risk if vulnerability doesn't apply
+
+  # ============================================================================
+  # Additional security checks
+  # ============================================================================
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          comment-summary-in-pr: true

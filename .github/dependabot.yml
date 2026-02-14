@@ -1,0 +1,78 @@
+# Dependabot Configuration
+# Automatically checks for vulnerable dependencies and creates PRs to update them
+
+version: 2
+updates:
+  # Root package.json (puppeteer dev dependency)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # Automatically merge security updates
+    allow:
+      - dependency-type: "all"
+    # Group updates to reduce PR noise
+    groups:
+      security-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+    # Only auto-update security vulnerabilities
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+      - "security"
+    reviewers:
+      - "Seafinai/maintainers"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+
+  # API package.json (serverless functions)
+  - package-ecosystem: "npm"
+    directory: "/api"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "all"
+    groups:
+      security-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+      - "security"
+      - "api"
+    reviewers:
+      - "Seafinai/maintainers"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+
+  # GitHub Actions - keep workflow actions updated
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    labels:
+      - "ci"
+      - "security"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
