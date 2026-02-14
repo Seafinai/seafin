@@ -1,49 +1,23 @@
 /**
  * RAG Demo - Slide-Out Panel
  * Interactive demonstration of document Q&A (KnowledgeClaw)
- * Opens as a slide-out panel from the right side
+ * Floating bubble trigger + slide-out panel from the right
  */
 
 function initRAGDemo() {
-  const main = document.querySelector('main');
-  if (!main) {
-    console.error('RAG Demo: main element not found');
-    return;
-  }
-
-  // 1. Create compact CTA card for the page
-  const ctaSection = document.createElement('section');
-  ctaSection.id = 'rag-demo';
-  ctaSection.className = 'rag-cta-section';
-  ctaSection.innerHTML = `
-    <div class="container">
-      <div class="rag-cta-card">
-        <div class="rag-cta-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
-            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        <span class="coord">INTERACTIVE DEMO</span>
-        <h2 class="rag-cta-title">Try KnowledgeClaw Live</h2>
-        <p class="rag-cta-desc">
-          Upload any document and ask questions. Watch AI instantly find and explain information from your content.
-        </p>
-        <button id="rag-launch-btn" class="rag-launch-button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-          Launch Interactive Demo
-        </button>
-        <span class="rag-cta-note">No signup required. Free to try.</span>
-      </div>
-    </div>
+  // 1. Create floating bubble button (like chatbot, but left side)
+  const bubble = document.createElement('button');
+  bubble.id = 'rag-bubble';
+  bubble.className = 'rag-bubble';
+  bubble.setAttribute('aria-label', 'Try AI Demo');
+  bubble.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+      <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+    <span class="rag-badge">Demo</span>
   `;
 
-  // 2. Create slide-out panel + backdrop
-  const backdrop = document.createElement('div');
-  backdrop.id = 'rag-backdrop';
-  backdrop.className = 'rag-backdrop';
-
+  // 2. Create slide-out panel
   const panel = document.createElement('div');
   panel.id = 'rag-panel';
   panel.className = 'rag-slide-panel';
@@ -126,29 +100,17 @@ Try it with a company policy, product description, meeting notes, or any text do
     </div>
 
     <div class="rag-panel-footer">
-      <p>
-        <strong>Want this for your business?</strong> KnowledgeClaw can search thousands of documents instantly.
-      </p>
       <a href="#contact" class="cta-button" id="rag-cta-contact">Get Your Custom RAG Bot</a>
     </div>
   `;
 
-  // Insert CTA card before contact section
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    main.insertBefore(ctaSection, contactSection);
-  } else {
-    main.appendChild(ctaSection);
-  }
-
-  // Append backdrop and panel to body
-  document.body.appendChild(backdrop);
+  // Append to body
+  document.body.appendChild(bubble);
   document.body.appendChild(panel);
 
   // Event listeners
-  document.getElementById('rag-launch-btn').addEventListener('click', openRAGPanel);
+  bubble.addEventListener('click', toggleRAGPanel);
   document.getElementById('rag-panel-close').addEventListener('click', closeRAGPanel);
-  backdrop.addEventListener('click', closeRAGPanel);
   document.getElementById('rag-document').addEventListener('input', () => {
     document.getElementById('char-count').textContent =
       document.getElementById('rag-document').value.length;
@@ -169,20 +131,24 @@ Try it with a company policy, product description, meeting notes, or any text do
   });
 
   if (window.AI && window.AI.log) {
-    window.AI.log('RAG Demo initialized (slide-out panel)');
+    window.AI.log('RAG Demo initialized (bubble + slide-out)');
   }
 }
 
-function openRAGPanel() {
-  document.getElementById('rag-panel').classList.add('open');
-  document.getElementById('rag-backdrop').classList.add('open');
-  document.body.style.overflow = 'hidden';
+function toggleRAGPanel() {
+  const panel = document.getElementById('rag-panel');
+  const bubble = document.getElementById('rag-bubble');
+  if (panel.classList.contains('open')) {
+    closeRAGPanel();
+  } else {
+    panel.classList.add('open');
+    bubble.classList.add('hidden');
+  }
 }
 
 function closeRAGPanel() {
   document.getElementById('rag-panel').classList.remove('open');
-  document.getElementById('rag-backdrop').classList.remove('open');
-  document.body.style.overflow = '';
+  document.getElementById('rag-bubble').classList.remove('hidden');
 }
 
 function loadSampleDocument() {
