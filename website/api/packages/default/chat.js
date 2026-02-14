@@ -78,7 +78,7 @@ function validateInput(message) {
   return message.trim().slice(0, 500);
 }
 
-export default async function handler(req, res) {
+export async function main(req, res) {
   const startTime = Date.now();
 
   try {

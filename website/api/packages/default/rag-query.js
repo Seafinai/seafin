@@ -65,7 +65,7 @@ function validateInput(text, maxLength) {
   return text.trim().slice(0, maxLength);
 }
 
-export default async function handler(req, res) {
+export async function main(req, res) {
   const startTime = Date.now();
 
   try {
