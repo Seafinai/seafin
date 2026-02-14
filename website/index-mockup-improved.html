@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seafin.ai — Improved Layout Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #001220;
+    --accent: #00d4ff;
+    --text: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.85);
+    --text-faint: rgba(255, 255, 255, 0.6);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --dash-color: rgba(0,212,255,0.25);
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg-deep);
+    color: var(--text);
+    line-height: 1.6;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 18, 32, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--dash-color);
+    padding: 16px 0;
+    z-index: 1000;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 16px;
+  }
+
+  nav a.cta {
+    background: var(--accent);
+    color: var(--bg-deep);
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  section {
+    padding: 80px 0;
+    border-bottom: 1px dashed var(--dash-color);
+  }
+
+  .overline {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 24px;
+    margin: 32px 0;
+  }
+
+  .stat-box {
+    background: rgba(0,212,255,0.05);
+    border: 1px solid var(--dash-color);
+    padding: 16px 24px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .stat-box strong {
+    display: block;
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  /* Services Grid - Keep as cards */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .service-card {
+    background: rgba(0, 18, 32, 0.6);
+    border: 1px solid var(--dash-color);
+    padding: 24px;
+    border-radius: 6px;
+  }
+
+  .service-card h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  /* PROCESS - NEW TIMELINE DESIGN */
+  .process-timeline {
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .timeline-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  /* Connecting line */
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 100%);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .timeline-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-number {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 16px;
+    background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, rgba(0,212,255,0.05) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .step-number::after {
+    content: '';
+    position: absolute;
+    right: -50%;
+    top: 50%;
+    width: 100%;
+    height: 0;
+    border-top: 2px dashed var(--dash-color);
+    z-index: -1;
+  }
+
+  .timeline-step:last-child .step-number::after {
+    display: none;
+  }
+
+  .step-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .step-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 8px;
+  }
+
+  /* Pricing Grid */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+
+  .pricing-card {
+    background: rgba(0,212,255,0.03);
+    border: 1px solid var(--dash-color);
+    padding: 32px;
+    border-radius: 6px;
+  }
+
+  .pricing-card.popular {
+    background: rgba(0,212,255,0.08);
+    border: 2px solid var(--accent);
+    transform: scale(1.05);
+  }
+
+  .price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 12px 0;
+  }
+
+  .roi-section {
+    background: rgba(0,212,255,0.05);
+    border: 1px solid var(--dash-color);
+    padding: 32px;
+    border-radius: 6px;
+    margin-top: 48px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg-deep);
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 24px;
+  }
+
+  .section-note {
+    background: rgba(255,193,7,0.1);
+    border-left: 3px solid #ffc107;
+    padding: 16px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .section-note strong {
+    color: #ffc107;
+  }
+
+  /* Animated Waves */
+  .wireframe-waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .wireframe-waves svg {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 200%;
+    height: 100%;
+  }
+
+  @keyframes waveSlide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ww1 { animation: waveSlide 8s linear infinite; }
+  .ww2 { animation: waveSlide 6s linear infinite reverse; }
+  .ww3 { animation: waveSlide 10s linear infinite; }
+  .ww4 { animation: waveSlide 12s linear infinite; }
+
+  /* Hero section needs relative positioning for waves */
+  section:first-of-type {
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed Navigation -->
+<nav>
+  <div class="container">
+    <div>
+      <strong style="color: var(--accent);">seafin.ai</strong>
+    </div>
+    <div>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="cta">Book Call</a>
+    </div>
+  </div>
+</nav>
+
+<div style="height: 72px;"></div>
+
+<!-- HERO SECTION -->
+<section>
+  <div class="container">
+    <div class="overline">MOCKUP - IMPROVED STRUCTURE</div>
+    <h1>Turn Manual Work Into<br>Automated Intelligence</h1>
+    <p style="font-size: 1.1rem; color: var(--text-dim); max-width: 600px; margin-bottom: 24px;">
+      Custom AI solutions that save 10-30 hours per week for companies with 25-500 employees. Deployed in 2-6 weeks, not months.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <strong>10-30 HRS</strong>
+        SAVED/WEEK
+      </div>
+      <div class="stat-box">
+        <strong>2-6 WEEKS</strong>
+        START TO FINISH
+      </div>
+      <div class="stat-box">
+        <strong>100%</strong>
+        CUSTOM
+      </div>
+    </div>
+    <a href="#contact" class="cta-button">Book Free Strategy Call</a>
+  </div>
+
+  <!-- Animated flowing waves -->
+  <div class="wireframe-waves" aria-hidden="true">
+    <svg class="ww1" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,50 Q150,20 300,50 T600,50 T900,50 T1200,50 T1500,50 T1800,50 T2100,50 T2400,50" fill="none" stroke="rgba(0,212,255,0.25)" stroke-width="1.5"/>
+    </svg>
+    <svg class="ww2" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,60 Q150,30 300,60 T600,60 T900,60 T1200,60 T1500,60 T1800,60 T2100,60 T2400,60" fill="none" stroke="rgba(0,153,255,0.2)" stroke-width="1"/>
+    </svg>
+    <svg class="ww3" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,70 Q150,40 300,70 T600,70 T900,70 T1200,70 T1500,70 T1800,70 T2100,70 T2400,70" fill="none" stroke="rgba(23,212,212,0.15)" stroke-width="1"/>
+    </svg>
+    <svg class="ww4" viewBox="0 0 2400 100" preserveAspectRatio="none">
+      <path d="M0,40 Q150,10 300,40 T600,40 T900,40 T1200,40 T1500,40 T1800,40 T2100,40 T2400,40" fill="none" stroke="rgba(102,204,255,0.1)" stroke-width="0.5"/>
+    </svg>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section style="background: rgba(0, 18, 32, 0.3);">
+  <div class="container">
+    <div class="overline">WHO WE ARE</div>
+    <h2>We believe small businesses deserve enterprise-grade AI without enterprise pricing.</h2>
+    <p style="color: var(--text-dim); max-width: 680px;">
+      You own every line of code we write. We deploy on your infrastructure—no vendor lock-in, no proprietary platforms. We use proven open-source tools like n8n and Claude, which means lower costs and full control.
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES (4-card grid - unchanged) -->
+<section id="services">
+  <div class="container">
+    <div class="overline">SERVICES</div>
+    <h2>What We Build</h2>
+    <p style="color: var(--text-dim); max-width: 560px;">Every solution is custom-built for your specific workflows. No templates, no generic plugins—just working code.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Custom AI Assistants</h3>
+        <p style="font-size: 14px; color: var(--text-dim);">Always-on AI agents with persistent memory across WhatsApp, Slack, email.</p>
+        <div style="margin-top: 12px; font-size: 13px; color: var(--text-faint);">Timeline: 4-8 weeks</div>
+      </div>
+      <div class="service-card">
+        <h3>RAG Knowledge Bots</h3>
+        <p style="font-size: 14px; color: var(--text-dim);">Answers from your documents. Zero hallucination. Ingests manuals, policies, contracts.</p>
+        <div style="margin-top: 12px; font-size: 13px; color: var(--text-faint);">Timeline: 2-4 weeks</div>
+      </div>
+      <div class="service-card">
+        <h3>Workflow Automation</h3>
+        <p style="font-size: 14px; color: var(--text-dim);">Connect existing tools with intelligent n8n workflows. Email triage, invoice processing.</p>
+        <div style="margin-top: 12px; font-size: 13px; color: var(--text-faint);">Timeline: 2-6 weeks</div>
+      </div>
+      <div class="service-card">
+        <h3>AI Websites</h3>
+        <p style="font-size: 14px; color: var(--text-dim);">Websites that think. AI chatbot, natural language search, personalized recommendations.</p>
+        <div style="margin-top: 12px; font-size: 13px; color: var(--text-faint);">Timeline: 3-6 weeks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS - NEW TIMELINE DESIGN (Moved up!) -->
+<section id="process" style="background: rgba(0, 18, 32, 0.3);">
+  <div class="container">
+    <div class="section-note">
+      <strong>✨ NEW:</strong> Process section moved UP and redesigned as timeline (not cards)
+    </div>
+
+    <div class="overline">PROCESS</div>
+    <h2>How We Work Together</h2>
+    <p style="color: var(--text-dim); max-width: 600px; margin-bottom: 16px;">
+      From first call to deployed solution. Transparent process. Clear milestones. No surprises.
+    </p>
+
+    <div class="process-timeline">
+      <div class="timeline-container">
+
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Discovery</div>
+          <div class="step-time">FREE</div>
+          <div class="step-desc">
+            45-minute strategy call. Identify automation opportunities.
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Scoping</div>
+          <div class="step-time">1-2 WEEKS</div>
+          <div class="step-desc">
+            Requirements session. Custom roadmap & ROI analysis.
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Build</div>
+          <div class="step-time">2-8 WEEKS</div>
+          <div class="step-desc">
+            Contract signed, work begins. Prove ROI fast.
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Scale</div>
+          <div class="step-time">ONGOING</div>
+          <div class="step-desc">
+            Expand successful solutions. Continuous improvement.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px; padding: 20px; background: rgba(0,212,255,0.05); border-radius: 6px;">
+      <strong style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1px;">REALISTIC TIMELINE</strong>
+      <div style="margin-top: 8px; color: var(--text-dim);">2-6 weeks for quick wins • 6-12 weeks for complete solutions</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES (unchanged position, comes after Process now) -->
+<section>
+  <div class="container">
+    <div class="overline">WHAT'S POSSIBLE</div>
+    <h2>Real Results from SMB Automation</h2>
+    <p style="color: var(--text-dim); margin-bottom: 32px;">Here's what businesses achieve with the same tools we use. (Documented industry examples—not Seafin clients.)</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+      <div class="service-card">
+        <div class="overline">INDUSTRY EXAMPLE</div>
+        <h3 style="color: var(--text); margin-bottom: 8px;">6-Person Marketing Agency</h3>
+        <p style="font-size: 14px; color: var(--text-dim); margin-bottom: 16px;"><strong>Challenge:</strong> Manual lead processing took 10-12 hours/week.</p>
+        <div style="background: rgba(0,212,255,0.05); padding: 16px; border-left: 3px solid var(--accent);">
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent);">20+ hrs</div>
+          <div style="font-size: 12px; color: var(--text-faint);">saved per week</div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="overline">INDUSTRY EXAMPLE</div>
+        <h3 style="color: var(--text); margin-bottom: 8px;">Professional Services Firm</h3>
+        <p style="font-size: 14px; color: var(--text-dim); margin-bottom: 16px;"><strong>Challenge:</strong> 8-10 hrs/week on admin tasks per team member.</p>
+        <div style="background: rgba(0,212,255,0.05); padding: 16px; border-left: 3px solid var(--accent);">
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent);">+20%</div>
+          <div style="font-size: 12px; color: var(--text-faint);">billable hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING + ROI MERGED -->
+<section id="pricing" style="background: rgba(0, 18, 32, 0.3);">
+  <div class="container">
+    <div class="section-note">
+      <strong>✨ NEW:</strong> ROI Calculator merged into Pricing section (was separate before)
+    </div>
+
+    <div class="overline">INVESTMENT</div>
+    <h2>Transparent Pricing</h2>
+    <p style="color: var(--text-dim); max-width: 680px; margin-bottom: 16px;">
+      We publish our pricing upfront because you deserve to know costs before scheduling a call.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="overline">QUICK WIN</div>
+        <div class="price">$2-5K</div>
+        <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">2-3 weeks</div>
+        <ul style="list-style: none; font-size: 14px; color: var(--text-dim); line-height: 2;">
+          <li>✓ Single automation</li>
+          <li>✓ n8n integration</li>
+          <li>✓ Prove ROI fast</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card popular">
+        <div style="position: absolute; top: -1px; right: 24px; background: var(--accent); color: var(--bg-deep); padding: 4px 12px; font-family: var(--mono); font-size: 10px; font-weight: 600;">POPULAR</div>
+        <div class="overline">STANDARD</div>
+        <div class="price">$5-10K</div>
+        <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">4-6 weeks</div>
+        <ul style="list-style: none; font-size: 14px; color: var(--text-dim); line-height: 2;">
+          <li>✓ Complex workflows</li>
+          <li>✓ Custom AI assistant</li>
+          <li>✓ RAG knowledge base</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <div class="overline">COMPLETE SOLUTION</div>
+        <div class="price">$10-20K</div>
+        <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">6-8 weeks</div>
+        <ul style="list-style: none; font-size: 14px; color: var(--text-dim); line-height: 2;">
+          <li>✓ Multi-channel AI system</li>
+          <li>✓ Custom dashboard</li>
+          <li>✓ 3+ integrations</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ROI CALCULATOR (now integrated here) -->
+    <div class="roi-section">
+      <h3 style="margin-bottom: 16px;">Calculate Your Potential Savings</h3>
+      <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 24px;">Adjust the sliders to see your estimated ROI</p>
+
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-size: 13px; margin-bottom: 8px; color: var(--text-dim);">HOURS SPENT PER WEEK ON REPETITIVE TASKS:</label>
+        <input type="range" min="5" max="40" value="15" style="width: 100%;">
+        <div style="text-align: center; font-family: var(--mono); color: var(--accent); margin-top: 8px;">15 hrs/week</div>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label style="display: block; font-size: 13px; margin-bottom: 8px; color: var(--text-dim);">AVERAGE HOURLY COST:</label>
+        <input type="range" min="20" max="150" value="65" style="width: 100%;">
+        <div style="text-align: center; font-family: var(--mono); color: var(--accent); margin-top: 8px;">$65/hr</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 32px;">
+        <div style="text-align: center; padding: 20px; background: rgba(0,18,32,0.5); border-radius: 4px;">
+          <div style="font-size: 11px; font-family: var(--mono); color: var(--text-faint); margin-bottom: 8px;">ANNUAL SAVINGS</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent);">$40,950</div>
+        </div>
+        <div style="text-align: center; padding: 20px; background: rgba(0,18,32,0.5); border-radius: 4px;">
+          <div style="font-size: 11px; font-family: var(--mono); color: var(--text-faint); margin-bottom: 8px;">ROI TIMEFRAME</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent);">2.1 mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="overline">FAQ</div>
+    <h2>Frequently Asked</h2>
+    <div style="max-width: 680px;">
+      <div style="border-bottom: 1px solid var(--dash-color); padding: 20px 0;">
+        <strong>01 Who is Seafin.ai built for?</strong>
+        <p style="margin-top: 12px; color: var(--text-dim); font-size: 14px;">Growing companies with 25-500 employees who need custom AI automation.</p>
+      </div>
+      <div style="border-bottom: 1px solid var(--dash-color); padding: 20px 0;">
+        <strong>02 How long does a project take?</strong>
+        <p style="margin-top: 12px; color: var(--text-dim); font-size: 14px;">2-6 weeks for quick wins, 6-12 weeks for comprehensive solutions.</p>
+      </div>
+      <div style="border-bottom: 1px solid var(--dash-color); padding: 20px 0;">
+        <strong>03 Do I own the code?</strong>
+        <p style="margin-top: 12px; color: var(--text-dim); font-size: 14px;">Yes. You own every line of code we write. No vendor lock-in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container" style="text-align: center;">
+    <h2 style="margin-bottom: 16px;">Find Out What AI Can Do for Your Business</h2>
+    <p style="color: var(--text-dim); max-width: 600px; margin: 0 auto 32px;">Free 45-minute strategy session. We'll identify your highest-impact automation opportunities.</p>
+    <a href="#" class="cta-button">Book Free Strategy Call</a>
+  </div>
+</section>
+
+<footer style="padding: 40px 0; border-top: 1px solid var(--dash-color); text-align: center;">
+  <div class="container">
+    <div style="font-size: 13px; color: var(--text-faint);">© 2026 Seafin LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -4,14 +4,11 @@ packages:
       - name: analyze-form
         runtime: nodejs:default
         web: true
-        main: analyze-form.js
 
       - name: chat
         runtime: nodejs:default
         web: true
-        main: chat.js
 
       - name: rag-query
         runtime: nodejs:default
         web: true
-        main: rag-query.js
