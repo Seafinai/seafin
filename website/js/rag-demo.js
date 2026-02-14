@@ -114,7 +114,9 @@ Try it with a company policy, product description, meeting notes, or any text do
   loadSampleBtn.addEventListener('click', loadSampleDocument);
   form.addEventListener('submit', askQuestion);
 
-  window.AI.log('RAG Demo initialized');
+  if (window.AI && window.AI.log) {
+    window.AI.log('RAG Demo initialized');
+  }
 }
 
 function loadSampleDocument() {
@@ -197,7 +199,7 @@ async function askQuestion(e) {
   }
 
   // Rate limit check
-  if (!window.AI.rateLimiter.canCall('rag-query')) {
+  if (window.AI && window.AI.rateLimiter && !window.AI.rateLimiter.canCall('rag-query')) {
     showError('Please wait a moment before asking another question');
     return;
   }
@@ -225,11 +227,15 @@ async function askQuestion(e) {
     // Display answer
     answerContent.innerHTML = escapeHTML(data.answer).replace(/\n/g, '<br>');
 
-    window.AI.log('RAG query successful:', data.metadata);
+    if (window.AI && window.AI.log) {
+      window.AI.log('RAG query successful:', data.metadata);
+    }
 
   } catch (error) {
     answerContent.innerHTML = `<div class="error-message">${escapeHTML(error.message)}</div>`;
-    window.AI.log('RAG query error:', error.message);
+    if (window.AI && window.AI.log) {
+      window.AI.log('RAG query error:', error.message);
+    }
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Ask Question';
