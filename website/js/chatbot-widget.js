@@ -272,13 +272,10 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
-// Initialize
-initChatbot();
-
 function updateCostDisplay() {
   const costEl = document.getElementById('chat-cost');
   const costText = document.getElementById('chat-cost-text');
-  
+
   if (messageCount > 0) {
     costEl.style.display = 'block';
     const formattedCost = totalCost < 0.001 ? '<$0.001' : `$${totalCost.toFixed(3)}`;
@@ -286,5 +283,5 @@ function updateCostDisplay() {
   }
 }
 
-// Initialize
+// Initialize chatbot
 initChatbot();
