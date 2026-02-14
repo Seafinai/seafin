@@ -1,122 +1,191 @@
 /**
- * RAG Demo
- * Interactive demonstration of document Q&A
+ * RAG Demo - Full-Screen Modal
+ * Interactive demonstration of document Q&A (KnowledgeClaw)
+ * Opens as a full-screen overlay triggered from a CTA card on the page
  */
 
 function initRAGDemo() {
-  // Find insertion point (after services section)
   const main = document.querySelector('main');
   if (!main) {
     console.error('RAG Demo: main element not found');
     return;
   }
 
-  // Create RAG demo section
-  const section = document.createElement('section');
-  section.id = 'rag-demo';
-  section.className = 'rag-demo-section';
-  section.innerHTML = `
+  // 1. Create compact CTA card for the page
+  const ctaSection = document.createElement('section');
+  ctaSection.id = 'rag-demo';
+  ctaSection.className = 'rag-cta-section';
+  ctaSection.innerHTML = `
     <div class="container">
-      <div class="rag-demo-header">
-        <span class="coord" style="top: -8px; left: 0;">INTERACTIVE DEMO</span>
-        <h2 class="section-title">Try KnowledgeClaw</h2>
-        <p class="section-subtitle">
-          Upload a document and ask questions. See how AI instantly finds and explains information from your content.
-        </p>
-      </div>
-
-      <div class="rag-demo-grid">
-        <!-- Document Input -->
-        <div class="rag-demo-panel">
-          <div class="panel-header">
-            <span class="panel-number">01</span>
-            <h3>Your Document</h3>
-          </div>
-          <textarea
-            id="rag-document"
-            class="rag-textarea"
-            placeholder="Paste your document here (up to 10,000 characters)
-
-Try it with a company policy, product description, meeting notes, or any text document..."
-            maxlength="10000"
-          ></textarea>
-          <div class="char-counter">
-            <span id="char-count">0</span> / 10,000 characters
-          </div>
-          <button id="load-sample" class="sample-button">
-            Load Sample Document
-          </button>
+      <div class="rag-cta-card">
+        <div class="rag-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
         </div>
-
-        <!-- Question Input -->
-        <div class="rag-demo-panel">
-          <div class="panel-header">
-            <span class="panel-number">02</span>
-            <h3>Ask a Question</h3>
-          </div>
-          <form id="rag-form">
-            <input
-              type="text"
-              id="rag-question"
-              class="rag-input"
-              placeholder="What would you like to know about this document?"
-              maxlength="500"
-            />
-            <button type="submit" class="rag-submit" id="rag-submit-btn">
-              Ask Question
-            </button>
-          </form>
-
-          <!-- Answer -->
-          <div id="rag-answer" class="rag-answer" style="display: none;">
-            <div class="answer-header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                <path d="M9 11l3 3L22 4"/>
-                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-              </svg>
-              <span>AI Answer</span>
-            </div>
-            <div id="rag-answer-content" class="answer-content"></div>
-            <div class="answer-footer">
-              Powered by Claude Sonnet 4.5
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rag-demo-cta">
-        <p>
-          <strong>Want this for your business?</strong> KnowledgeClaw can search thousands of documents instantly, integrate with your systems, and provide 24/7 answers to your team or customers.
+        <span class="coord">INTERACTIVE DEMO</span>
+        <h2 class="rag-cta-title">Try KnowledgeClaw Live</h2>
+        <p class="rag-cta-desc">
+          Upload any document and ask questions. Watch AI instantly find and explain information from your content.
         </p>
-        <a href="#contact" class="cta-button">Get Your Custom RAG Bot</a>
+        <button id="rag-launch-btn" class="rag-launch-button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Launch Interactive Demo
+        </button>
+        <span class="rag-cta-note">No signup required. Free to try.</span>
       </div>
     </div>
   `;
 
-  // Insert before contact section
+  // 2. Create full-screen modal overlay
+  const modal = document.createElement('div');
+  modal.id = 'rag-modal';
+  modal.className = 'rag-modal-overlay';
+  modal.innerHTML = `
+    <div class="rag-modal">
+      <div class="rag-modal-header">
+        <div class="rag-modal-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <div>
+            <h2>KnowledgeClaw Demo</h2>
+            <span class="rag-modal-subtitle">Document Q&A powered by AI</span>
+          </div>
+        </div>
+        <button id="rag-modal-close" class="rag-modal-close" aria-label="Close demo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="rag-modal-body">
+        <div class="rag-demo-grid">
+          <!-- Document Input -->
+          <div class="rag-demo-panel">
+            <div class="panel-header">
+              <span class="panel-number">01</span>
+              <h3>Your Document</h3>
+            </div>
+            <textarea
+              id="rag-document"
+              class="rag-textarea"
+              placeholder="Paste your document here (up to 10,000 characters)
+
+Try it with a company policy, product description, meeting notes, or any text document..."
+              maxlength="10000"
+            ></textarea>
+            <div class="char-counter">
+              <span id="char-count">0</span> / 10,000 characters
+            </div>
+            <button id="load-sample" class="sample-button">
+              Load Sample Document
+            </button>
+          </div>
+
+          <!-- Question Input -->
+          <div class="rag-demo-panel">
+            <div class="panel-header">
+              <span class="panel-number">02</span>
+              <h3>Ask a Question</h3>
+            </div>
+            <form id="rag-form">
+              <input
+                type="text"
+                id="rag-question"
+                class="rag-input"
+                placeholder="What would you like to know about this document?"
+                maxlength="500"
+              />
+              <button type="submit" class="rag-submit" id="rag-submit-btn">
+                Ask Question
+              </button>
+            </form>
+
+            <!-- Answer -->
+            <div id="rag-answer" class="rag-answer" style="display: none;">
+              <div class="answer-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M9 11l3 3L22 4"/>
+                  <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                </svg>
+                <span>AI Answer</span>
+              </div>
+              <div id="rag-answer-content" class="answer-content"></div>
+              <div class="answer-footer">
+                Powered by Claude Sonnet 4.5
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rag-modal-footer">
+        <p>
+          <strong>Want this for your business?</strong> KnowledgeClaw can search thousands of documents instantly.
+        </p>
+        <a href="#contact" class="cta-button" id="rag-cta-contact">Get Your Custom RAG Bot</a>
+      </div>
+    </div>
+  `;
+
+  // Insert CTA card before contact section
   const contactSection = document.getElementById('contact');
   if (contactSection) {
-    main.insertBefore(section, contactSection);
+    main.insertBefore(ctaSection, contactSection);
   } else {
-    main.appendChild(section);
+    main.appendChild(ctaSection);
   }
+
+  // Append modal to body (outside page flow)
+  document.body.appendChild(modal);
 
   // Event listeners
-  const docTextarea = document.getElementById('rag-document');
-  const charCount = document.getElementById('char-count');
-  const loadSampleBtn = document.getElementById('load-sample');
-  const form = document.getElementById('rag-form');
+  document.getElementById('rag-launch-btn').addEventListener('click', openRAGModal);
+  document.getElementById('rag-modal-close').addEventListener('click', closeRAGModal);
+  document.getElementById('rag-document').addEventListener('input', () => {
+    document.getElementById('char-count').textContent =
+      document.getElementById('rag-document').value.length;
+  });
+  document.getElementById('load-sample').addEventListener('click', loadSampleDocument);
+  document.getElementById('rag-form').addEventListener('submit', askQuestion);
 
-  docTextarea.addEventListener('input', () => {
-    charCount.textContent = docTextarea.value.length;
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeRAGModal();
   });
 
-  loadSampleBtn.addEventListener('click', loadSampleDocument);
-  form.addEventListener('submit', askQuestion);
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeRAGModal();
+    }
+  });
+
+  // Close modal when CTA contact link is clicked
+  document.getElementById('rag-cta-contact').addEventListener('click', () => {
+    closeRAGModal();
+  });
 
   if (window.AI && window.AI.log) {
-    window.AI.log('RAG Demo initialized');
+    window.AI.log('RAG Demo initialized (modal mode)');
   }
+}
+
+function openRAGModal() {
+  const modal = document.getElementById('rag-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRAGModal() {
+  const modal = document.getElementById('rag-modal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function loadSampleDocument() {
@@ -163,7 +232,6 @@ COMPETITIVE ADVANTAGES:
   document.getElementById('rag-document').value = sampleDoc;
   document.getElementById('char-count').textContent = sampleDoc.length;
 
-  // Suggest sample questions
   const suggestions = [
     "What services does Seafin offer?",
     "How much does a RAG Knowledge Bot cost?",
@@ -184,11 +252,10 @@ async function askQuestion(e) {
   const answerContent = document.getElementById('rag-answer-content');
   const submitBtn = document.getElementById('rag-submit-btn');
 
-  const document = docTextarea.value.trim();
+  const docText = docTextarea.value.trim();
   const question = questionInput.value.trim();
 
-  // Validation
-  if (!document || document.length < 50) {
+  if (!docText || docText.length < 50) {
     showError('Please provide a document (at least 50 characters)');
     return;
   }
@@ -198,13 +265,11 @@ async function askQuestion(e) {
     return;
   }
 
-  // Rate limit check
   if (window.AI && window.AI.rateLimiter && !window.AI.rateLimiter.canCall('rag-query')) {
     showError('Please wait a moment before asking another question');
     return;
   }
 
-  // Show loading
   submitBtn.disabled = true;
   submitBtn.textContent = 'Analyzing...';
   answerDiv.style.display = 'block';
@@ -214,7 +279,7 @@ async function askQuestion(e) {
     const response = await fetch('/api/rag-query', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ document, query: question })
+      body: JSON.stringify({ document: docText, query: question })
     });
 
     if (!response.ok) {
@@ -224,7 +289,6 @@ async function askQuestion(e) {
 
     const data = await response.json();
 
-    // Display answer with optional cost
     let costBadge = '';
     if (data.usage && data.usage.cost) {
       const cost = data.usage.cost < 0.001 ? '<$0.001' : `$${data.usage.cost.toFixed(3)}`;

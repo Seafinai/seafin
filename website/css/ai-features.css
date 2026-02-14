@@ -149,6 +149,13 @@
   font-family: var(--sans);
 }
 
+/* Push chatbot above sticky mobile CTA bar */
+@media (max-width: 768px) {
+  #chatbot-widget {
+    bottom: 76px;
+  }
+}
+
 /* Chat bubble button */
 .chat-bubble {
   position: relative;
@@ -431,53 +438,222 @@
 }
 
 /* ========================================
-   RAG DEMO (Phase 3)
+   RAG DEMO - Full-Screen Modal (Phase 3)
    ======================================== */
 
-.rag-demo-section {
-  padding: 80px 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 255, 0.02) 100%);
+/* --- CTA Card (inline on page) --- */
+.rag-cta-section {
+  padding: 60px 0;
   border-top: 1px solid var(--dash-color);
 }
 
-.rag-demo-header {
-  position: relative;
+.rag-cta-card {
   text-align: center;
-  margin-bottom: 60px;
-  padding-top: 20px;
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid var(--dash-color);
+  border-radius: 12px;
+  padding: 48px 32px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.rag-demo-header .coord {
+.rag-cta-card .coord {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text-faint);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 12px;
 }
 
+.rag-cta-icon {
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+
+.rag-cta-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.rag-cta-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rag-launch-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 16px 36px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rag-launch-button:hover {
+  background: #00c4e6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+}
+
+.rag-cta-note {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* --- Modal Overlay --- */
+.rag-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.rag-modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.rag-modal {
+  width: 95vw;
+  max-width: 1100px;
+  max-height: 90vh;
+  background: var(--bg);
+  border: 1px solid var(--dash-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.rag-modal-overlay.open .rag-modal {
+  transform: translateY(0) scale(1);
+}
+
+.rag-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--dash-color);
+  background: rgba(0, 212, 255, 0.03);
+  flex-shrink: 0;
+}
+
+.rag-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--accent);
+}
+
+.rag-modal-title-group h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.rag-modal-subtitle {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.5px;
+}
+
+.rag-modal-close {
+  background: none;
+  border: 1px solid var(--dash-color);
+  color: var(--text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.rag-modal-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.rag-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px;
+}
+
+.rag-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--dash-color);
+  background: rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.rag-modal-footer p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* --- Demo panels (inside modal) --- */
 .rag-demo-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 60px;
+  gap: 28px;
 }
 
 .rag-demo-panel {
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--dash-color);
   border-radius: 8px;
-  padding: 32px;
+  padding: 28px;
 }
 
 .panel-header {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .panel-number {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent) 0%, #0099cc 100%);
   color: var(--bg);
@@ -485,19 +661,19 @@
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 }
 
 .panel-header h3 {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text);
   margin: 0;
 }
 
 .rag-textarea {
   width: 100%;
-  min-height: 300px;
+  min-height: 260px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--dash-color);
   border-radius: 6px;
@@ -629,31 +805,18 @@
   text-align: center;
 }
 
-.rag-demo-cta {
-  text-align: center;
-  background: rgba(0, 212, 255, 0.03);
-  border: 1px dashed var(--dash-color);
-  border-radius: 8px;
-  padding: 32px;
-}
-
-.rag-demo-cta p {
-  margin-bottom: 24px;
-  font-size: 16px;
-  color: var(--text-secondary);
-}
-
 .cta-button {
   display: inline-block;
   background: var(--accent);
   color: var(--bg);
-  padding: 14px 32px;
+  padding: 12px 28px;
   border-radius: 6px;
   font-family: var(--mono);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 .cta-button:hover {
@@ -663,18 +826,40 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
+  .rag-cta-card {
+    padding: 36px 24px;
+  }
+
+  .rag-cta-title {
+    font-size: 22px;
+  }
+
+  .rag-modal {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+
   .rag-demo-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 
   .rag-demo-panel {
-    padding: 24px;
+    padding: 20px;
   }
 
   .rag-textarea {
-    min-height: 200px;
+    min-height: 180px;
     font-size: 12px;
+  }
+
+  .rag-modal-footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
   }
 }
 

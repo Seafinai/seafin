@@ -2416,57 +2416,7 @@ navLinks.querySelectorAll('a').forEach(link => {
       </div>
     </div>
 
-    <!-- ROI Calculator integrated into pricing -->
-    <div style="margin-top: 64px; padding-top: 48px; border-top: 1px dashed var(--dash-color);">
-      <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; text-align: center;">Calculate Your Potential Savings</h3>
-      <p style="text-align: center; color: var(--text-dim); font-size: 14px; margin-bottom: 32px;">Adjust the sliders to see your estimated ROI</p>
-
-      <div style="max-width: 700px; margin: 0 auto; padding: 32px; border: 1px solid var(--dash-color); background: rgba(0, 212, 255, 0.02); border-radius: 6px;">
-
-        <!-- Input 1: Hours per week -->
-        <div style="margin-bottom: 32px;">
-          <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
-            HOURS SPENT PER WEEK ON REPETITIVE TASKS: <span id="hours-value" style="color: var(--accent); font-weight: 600;">15</span> hrs/week
-          </label>
-          <input type="range" id="hours-slider" min="5" max="40" value="15" step="1" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
-        </div>
-
-        <!-- Input 2: Hourly cost -->
-        <div style="margin-bottom: 32px;">
-          <label style="display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 12px;">
-            AVERAGE HOURLY COST (SALARY + OVERHEAD): <span id="rate-value" style="color: var(--accent); font-weight: 600;">$20</span>/hr
-          </label>
-          <input type="range" id="rate-slider" min="20" max="150" value="20" step="5" style="width: 100%; height: 6px; background: var(--dash-color); outline: none; border-radius: 3px; cursor: pointer;">
-        </div>
-
-        <hr style="border: none; border-top: 1px dashed var(--dash-color); margin: 32px 0 24px 0;">
-
-        <!-- Results -->
-        <div style="text-align: center;">
-          <div style="margin-bottom: 24px;">
-            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">CURRENT ANNUAL COST</div>
-            <div style="font-size: 2rem; font-weight: 700; color: var(--text-dim);" id="current-cost">$15,600</div>
-          </div>
-          <div style="margin-bottom: 24px;">
-            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">POTENTIAL ANNUAL SAVINGS</div>
-            <div style="font-size: 2.8rem; font-weight: 700; color: var(--accent);" id="savings">$13,260</div>
-          </div>
-          <div style="margin-bottom: 24px;">
-            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">ROI TIMEFRAME (ASSUMING $5K PROJECT)</div>
-            <div style="font-size: 1.4rem; font-weight: 600; color: var(--text-dim);" id="roi-time">2.8 months</div>
-          </div>
-          <div>
-            <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px;">5-YEAR VALUE</div>
-            <div style="font-size: 1.6rem; font-weight: 700; color: var(--text-dim);" id="five-year">$62,800</div>
-          </div>
-        </div>
-
-        <div style="margin-top: 24px; text-align: center; font-size: 12px; color: var(--text-faint); font-style: italic;">
-          * ROI calculated assuming $3,500 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
-        </div>
-
-      </div>
-    </div>
+    <!-- AI-powered ROI Calculator is injected dynamically by roi-calculator.js above the services section -->
 
     <div style="text-align: center; margin-top: 48px;">
       <p style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">
@@ -2478,39 +2428,6 @@ navLinks.querySelectorAll('a').forEach(link => {
   </div>
 </section>
 
-<script>
-// Update ROI calculations
-function updateROI() {
-  const hours = parseFloat(document.getElementById('hours-slider').value);
-  const rate = parseFloat(document.getElementById('rate-slider').value);
-  const efficiency = 0.85; // Fixed at 85%
-
-  // Update display values
-  document.getElementById('hours-value').textContent = hours;
-  document.getElementById('rate-value').textContent = '$' + rate;
-
-  // Calculate results
-  const currentAnnualCost = hours * rate * 52; // 52 weeks
-  const hoursSaved = hours * efficiency;
-  const annualSavings = hoursSaved * rate * 52;
-  const projectCost = 3500; // Assuming $3.5k average project
-  const roiMonths = (projectCost / (annualSavings / 12)).toFixed(1);
-  const fiveYearValue = (annualSavings * 5) - projectCost;
-
-  // Update results
-  document.getElementById('current-cost').textContent = '$' + currentAnnualCost.toLocaleString();
-  document.getElementById('savings').textContent = '$' + Math.round(annualSavings).toLocaleString();
-  document.getElementById('roi-time').textContent = roiMonths + ' months';
-  document.getElementById('five-year').textContent = '$' + Math.round(fiveYearValue).toLocaleString();
-}
-
-// Add event listeners
-document.getElementById('hours-slider').addEventListener('input', updateROI);
-document.getElementById('rate-slider').addEventListener('input', updateROI);
-
-// Initialize
-updateROI();
-</script>
 
 <hr class="section-divider">
 
