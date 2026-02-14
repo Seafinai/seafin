@@ -2632,7 +2632,9 @@ updateROI();
       <span class="bracket-tr"></span>
       <span class="bracket-bl"></span>
       <div class="contact-form-inner">
-        <form id="contact-form" action="/api/analyze-form" method="POST">
+        <form id="contact-form" method="POST">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="e7b94135-5cc4-4a79-abbe-217cb305b4a3">
           <!-- Honeypot spam prevention (hidden field) -->
           <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
 
@@ -2661,7 +2663,7 @@ updateROI();
     </div>
 
     <script>
-    // Form submission handling
+    // Web3Forms submission handling
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('form-submit-btn');
     const formMessage = document.getElementById('form-message');
@@ -2669,32 +2671,21 @@ updateROI();
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Show loading state
+      const formData = new FormData(form);
+      const originalText = submitBtn.textContent;
+
+      submitBtn.textContent = "Sending...";
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
       submitBtn.style.opacity = '0.6';
       formMessage.style.display = 'none';
 
       try {
-        // Get form data as JSON
-        const formData = new FormData(form);
-        const data = {
-          name: formData.get('name'),
-          email: formData.get('email'),
-          company: formData.get('company'),
-          challenge: formData.get('challenge'),
-          // Also send as 'userInput' for analyze-form compatibility
-          userInput: formData.get('challenge') || `Contact from ${formData.get('name')} (${formData.get('email')}) at ${formData.get('company')}`
-        };
-
-        const response = await fetch(form.action, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data)
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
         });
+
+        const data = await response.json();
 
         if (response.ok) {
           // Success
@@ -2707,23 +2698,31 @@ updateROI();
 
           // Reset button after delay
           setTimeout(() => {
+            submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Book Free Strategy Call';
             submitBtn.style.opacity = '1';
           }, 3000);
         } else {
-          throw new Error('Form submission failed');
+          // Error from Web3Forms
+          formMessage.style.display = 'block';
+          formMessage.style.background = 'rgba(255, 80, 80, 0.1)';
+          formMessage.style.borderLeft = '3px solid #ff5050';
+          formMessage.style.color = 'var(--text)';
+          formMessage.innerHTML = '✗ Error: ' + data.message;
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
         }
+
       } catch (error) {
-        // Error
+        // Network error
         formMessage.style.display = 'block';
         formMessage.style.background = 'rgba(255, 80, 80, 0.1)';
         formMessage.style.borderLeft = '3px solid #ff5050';
         formMessage.style.color = 'var(--text)';
         formMessage.innerHTML = '✗ Something went wrong. Please email us directly at <a href="mailto:hello@seafin.ai" style="color: var(--accent);">hello@seafin.ai</a>';
-
+        submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Book Free Strategy Call';
         submitBtn.style.opacity = '1';
       }
     });
