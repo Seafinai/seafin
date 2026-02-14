@@ -1,6 +1,10 @@
 packages:
   - name: default
     functions:
+      - name: test
+        runtime: nodejs:default
+        web: true
+
       - name: analyze-form
         runtime: nodejs:default
         web: true
