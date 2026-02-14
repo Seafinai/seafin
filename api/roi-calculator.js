@@ -44,32 +44,23 @@ export default async function handler(req, res) {
         model: 'moonshotai/kimi-k2.5',
         messages: [{
           role: 'system',
-          content: `You are an AI automation expert. Analyze tasks and estimate automation potential.
+          content: `Return ONLY valid JSON. No explanation, no reasoning, just JSON.
 
-Return ONLY valid JSON with this exact structure:
-{
-  "automationPotential": 75,
-  "complexity": "medium",
-  "estimatedCost": 8000,
-  "timelineWeeks": 4,
-  "recommendation": "Brief recommendation text"
-}
+Format:
+{"automationPotential":75,"complexity":"medium","estimatedCost":8000,"timelineWeeks":4,"recommendation":"text"}
 
 Rules:
-- automationPotential: 0-100 (percentage of task that can be automated)
-- complexity: "low" (simple) | "medium" (moderate) | "high" (complex)
-- estimatedCost: Implementation cost in USD ($2,000 - $25,000)
-- timelineWeeks: Implementation timeline (1-8 weeks)
-- recommendation: One sentence recommendation`
+- automationPotential: 0-100
+- complexity: "low"|"medium"|"high"
+- estimatedCost: $2000-$25000
+- timelineWeeks: 1-8
+- recommendation: one sentence`
         }, {
           role: 'user',
-          content: `Task: "${task}"
-Hours per week: ${hoursPerWeek}
-Hourly rate: $${rate}/hour
-
-Analyze this task and estimate automation potential.`
+          content: `Task: "${task}" | ${hoursPerWeek}h/week | $${rate}/h
+Return JSON only:`
         }],
-        max_tokens: 1000,
+        max_tokens: 2000,
         temperature: 0.3
       })
     });
