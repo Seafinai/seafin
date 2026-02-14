@@ -10,7 +10,7 @@
 
 const AI_FEATURES = {
   smartForm: true,   // Phase 1: Real-time form analysis
-  chatbot: false,    // Phase 2: Claude-powered assistant
+  chatbot: true,     // Phase 2: Claude-powered assistant ✅
   ragDemo: false,    // Phase 3: Document Q&A showcase
   debug: false       // Set to true for console logging (production: false)
 };
