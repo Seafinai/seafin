@@ -1,0 +1,130 @@
+name: Monitor Deployments
+
+on:
+  # Runs every hour to check Vercel deployment status
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+
+  # Manual trigger
+  workflow_dispatch:
+
+  # On push to main (after deployment should happen)
+  push:
+    branches:
+      - main
+
+jobs:
+  check-deployment:
+    name: Check Vercel Deployment Status
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for Vercel deployment
+        if: github.event_name == 'push'
+        run: sleep 120  # Wait 2 minutes for Vercel to deploy
+
+      - name: Check if website is accessible
+        id: check
+        run: |
+          # Check if the production site is up
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.vercel.app/ || echo "000")
+
+          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
+
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Website is accessible (HTTP $HTTP_CODE)"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Website is NOT accessible (HTTP $HTTP_CODE)"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check API endpoints
+        id: check_api
+        run: |
+          # Test critical API endpoints
+          TEST_ENDPOINT=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.vercel.app/api/test || echo "000")
+
+          echo "test_endpoint=$TEST_ENDPOINT" >> $GITHUB_OUTPUT
+
+          if [ "$TEST_ENDPOINT" = "200" ]; then
+            echo "✅ API test endpoint working (HTTP $TEST_ENDPOINT)"
+            echo "api_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ API test endpoint failed (HTTP $TEST_ENDPOINT)"
+            echo "api_status=warning" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create alert if website is down
+        if: steps.check.outputs.status == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const httpCode = '${{ steps.check.outputs.http_code }}';
+
+            const title = '🚨 CRITICAL: Website Down!';
+            const body = `## 🚨 Critical Alert: Website is Down
+
+            **Status:** ❌ Not accessible
+            **HTTP Code:** ${httpCode}
+            **URL:** https://seafin.vercel.app/
+            **Detected:** ${new Date().toISOString()}
+
+            ### 🔍 Immediate Actions
+
+            1. **Check Vercel Dashboard:** https://vercel.com/seafinai/seafin
+            2. **View deployment logs** for errors
+            3. **Check recent commits** for breaking changes
+            4. **Rollback if necessary** using Vercel dashboard
+
+            ### 🔧 Quick Checks
+
+            \`\`\`bash
+            # Check recent deployments
+            gh run list --limit 5
+
+            # View latest commit
+            git log -1
+
+            # Check Vercel deployment status
+            # Go to: https://vercel.com/seafinai/seafin/deployments
+            \`\`\`
+
+            ### 📊 Error Details
+
+            **HTTP Status:** ${httpCode}
+            ${httpCode === '000' ? '- Network error or DNS issue' : ''}
+            ${httpCode === '404' ? '- Page not found' : ''}
+            ${httpCode === '500' ? '- Server error' : ''}
+            ${httpCode === '502' || httpCode === '503' ? '- Service unavailable' : ''}
+
+            ---
+
+            **⚠️ CRITICAL: Your production website is down. Immediate action required!**
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['critical', 'production-down', 'automated-alert']
+            });
+
+      - name: Post deployment summary
+        run: |
+          echo "## 🌐 Deployment Status Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Website:** ${{ steps.check.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**API:** ${{ steps.check_api.outputs.api_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**HTTP Code:** ${{ steps.check.outputs.http_code }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.check.outputs.status }}" = "success" ]; then
+            echo "✅ All systems operational" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Issues detected - check alerts" >> $GITHUB_STEP_SUMMARY
+          fi
