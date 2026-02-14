@@ -86,7 +86,15 @@ export default async function handler(req, res) {
       /SUDO\s+MODE/i,
       /developer\s+mode/i,
       /jailbreak/i,
-      /act\s+as\s+(a|an)\s+/i
+      /act\s+as\s+(a|an)\s+/i,
+      /pretend\s+(you\s+are|to\s+be)/i,
+      /\bDAN\b/i,  // "Do Anything Now" jailbreak
+      /roleplay\s+as/i,
+      /simulate\s+(being|a)/i,
+      // Leetspeak/obfuscation detection
+      /1gn[o0]r[e3]/i,  // ignore
+      /pr[e3]v[i1][o0]us/i,  // previous
+      /[i1]nstruct[i1][o0]ns?/i  // instructions
     ];
 
     const containsInjection = injectionPatterns.some(pattern => pattern.test(message));
@@ -102,7 +110,11 @@ export default async function handler(req, res) {
     const offTopicKeywords = [
       'crypto', 'cryptocurrency', 'bitcoin', 'trading', 'stocks', 'investment',
       'recipe', 'weather', 'sports', 'politics', 'dating', 'medical advice',
-      'legal advice', 'homework', 'essay', 'write code', 'hack', 'jailbreak'
+      'legal advice', 'homework', 'essay', 'write code', 'hack', 'jailbreak',
+      'poem', 'poetry', 'story', 'gaming', 'fortnite', 'game strategy',
+      'travel', 'vacation', 'restaurant', 'movie', 'music', 'celebrity',
+      'math problem', 'times', 'calculate', 'solve for', 'world war',
+      'history', 'geography', 'science experiment'
     ];
 
     const messageLower = message.toLowerCase();
