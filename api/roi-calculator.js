@@ -171,21 +171,43 @@ export default async function handler(req, res) {
         model: 'moonshotai/kimi-k2.5',
         messages: [{
           role: 'system',
-          content: `Return ONLY valid JSON. No explanation, no reasoning, just JSON.
+          content: `You are Seafin's ROI Calculator AI. Your ONLY purpose is to analyze LEGITIMATE BUSINESS TASKS for automation potential.
 
-Format:
+CRITICAL VALIDATION RULES:
+1. ONLY analyze professional business tasks (data entry, customer service, reporting, etc.)
+2. REFUSE to analyze: personal activities, inappropriate content, nonsense, non-business requests
+3. If input is NOT a legitimate business task, return: {"error": "INVALID_TASK"}
+
+WHAT YOU CAN ANALYZE:
+- Business processes (invoicing, data entry, customer support, scheduling, etc.)
+- Administrative tasks (reporting, email management, document processing)
+- Professional workflows (lead qualification, quality assurance, content moderation)
+
+WHAT YOU CANNOT ANALYZE:
+- Personal activities (sleeping, eating, hobbies, bathroom, entertainment)
+- Inappropriate or sexual content
+- Nonsense, gibberish, jokes, song lyrics
+- Non-tasks (questions, complaints, statements)
+- Anything unrelated to professional business work
+
+IF INPUT IS VALID, return JSON:
 {"automationPotential":75,"complexity":"medium","estimatedCost":8000,"timelineWeeks":4,"recommendation":"text"}
 
+IF INPUT IS INVALID, return:
+{"error":"INVALID_TASK"}
+
 Rules:
-- automationPotential: 0-100
+- automationPotential: 0-100 (realistic percentage)
 - complexity: "low"|"medium"|"high"
-- estimatedCost: $2000-$25000
+- estimatedCost: $2000-$25000 (realistic project cost)
 - timelineWeeks: 1-8
-- recommendation: one sentence`
+- recommendation: one professional sentence
+
+Return ONLY valid JSON. No explanation.`
         }, {
           role: 'user',
           content: `Task: "${sanitizedTask}" | ${hoursPerWeek}h/week | $${rate}/h
-Return JSON only:`
+Analyze:`
         }],
         max_tokens: 2000,
         temperature: 0.3
@@ -231,6 +253,17 @@ Return JSON only:`
       analysis = JSON.parse(jsonText);
     } catch (parseError) {
       throw new Error(`Failed to parse AI response: ${parseError.message} | Response: ${aiResponse.substring(0, 200)}`);
+    }
+
+    // GUARDRAIL 3: AI-level validation (dynamic)
+    // Check if AI rejected the task as invalid
+    if (analysis.error === 'INVALID_TASK') {
+      return res.status(400).json({
+        error: 'Please describe a legitimate business task that could be automated.',
+        success: false,
+        blocked: true,
+        reason: 'AI validation failed - not a business task'
+      });
     }
 
     // Validate required fields
