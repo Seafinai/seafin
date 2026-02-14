@@ -4,15 +4,17 @@
  *
  * Features:
  * - Smart Contact Form (Phase 1) ✅
- * - Intelligent Chatbot (Phase 2) 🔜
- * - Live RAG Demo (Phase 3) 🔜
+ * - Intelligent Chatbot (Phase 2) ✅
+ * - Live RAG Demo (Phase 3) ✅
+ * - ROI Calculator (Phase 4) ✅
  */
 
 const AI_FEATURES = {
-  smartForm: true,   // Phase 1: Real-time form analysis
-  chatbot: true,     // Phase 2: Claude-powered assistant ✅
-  ragDemo: true,     // Phase 3: Document Q&A showcase ✅
-  debug: false       // Set to true for console logging (production: false)
+  smartForm: true,      // Phase 1: Real-time form analysis
+  chatbot: true,        // Phase 2: Claude-powered assistant ✅
+  ragDemo: true,        // Phase 3: Document Q&A showcase ✅
+  roiCalculator: true,  // Phase 4: Automation ROI analysis ✅
+  debug: false          // Set to true for console logging (production: false)
 };
 
 /**
@@ -70,6 +72,11 @@ function initAIFeatures() {
   if (AI_FEATURES.ragDemo) {
     loadRAGDemo();
   }
+
+  // Phase 4: ROI Calculator
+  if (AI_FEATURES.roiCalculator) {
+    loadROICalculator();
+  }
 }
 
 // Initialize when DOM is ready (handles both cases: before and after load)
@@ -124,6 +131,21 @@ function loadRAGDemo() {
     })
     .catch(error => {
       console.error('❌ RAG Demo failed to load:', error);
+    });
+}
+
+/**
+ * Load ROI Calculator (Phase 4)
+ */
+function loadROICalculator() {
+  import('./roi-calculator.js')
+    .then(module => {
+      if (AI_FEATURES.debug) {
+        console.log('✅ ROI Calculator loaded');
+      }
+    })
+    .catch(error => {
+      console.error('❌ ROI Calculator failed to load:', error);
     });
 }
 
