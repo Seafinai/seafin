@@ -1,11 +1,16 @@
 /**
  * RAG Demo - Slide-Out Panel
  * Interactive demonstration of document Q&A (KnowledgeClaw)
- * Floating bubble trigger + slide-out panel from the right
+ * Floating bubble trigger + slide-out panel
+ * Client-side security: rate tracking, query limits, cost display
  */
 
+let queryCount = 0;
+let totalCost = 0;
+const MAX_QUERIES = 5;
+
 function initRAGDemo() {
-  // 1. Create floating bubble button (like chatbot, but left side)
+  // 1. Create floating bubble button
   const bubble = document.createElement('button');
   bubble.id = 'rag-bubble';
   bubble.className = 'rag-bubble';
@@ -100,6 +105,9 @@ Try it with a company policy, product description, meeting notes, or any text do
     </div>
 
     <div class="rag-panel-footer">
+      <div id="rag-usage" class="rag-usage">
+        <span id="rag-usage-text">${MAX_QUERIES} queries remaining</span>
+      </div>
       <a href="#contact" class="cta-button" id="rag-cta-contact">Get Your Custom RAG Bot</a>
     </div>
   `;
@@ -149,6 +157,22 @@ function toggleRAGPanel() {
 function closeRAGPanel() {
   document.getElementById('rag-panel').classList.remove('open');
   document.getElementById('rag-bubble').classList.remove('hidden');
+}
+
+function updateUsageDisplay(remaining) {
+  const el = document.getElementById('rag-usage-text');
+  if (!el) return;
+
+  const left = remaining !== undefined ? remaining : Math.max(0, MAX_QUERIES - queryCount);
+  const costStr = totalCost < 0.001 ? '' : ` | $${totalCost.toFixed(3)}`;
+
+  if (left <= 0) {
+    el.textContent = `Limit reached (5/hr)${costStr}`;
+    el.style.color = '#ff6b6b';
+  } else {
+    el.textContent = `${left} of ${MAX_QUERIES} queries remaining${costStr}`;
+    el.style.color = '';
+  }
 }
 
 function loadSampleDocument() {
@@ -228,6 +252,12 @@ async function askQuestion(e) {
     return;
   }
 
+  // Client-side rate limit check
+  if (queryCount >= MAX_QUERIES) {
+    showError('Demo limit reached (5 queries/hour). Contact us for unlimited access.');
+    return;
+  }
+
   if (window.AI && window.AI.rateLimiter && !window.AI.rateLimiter.canCall('rag-query')) {
     showError('Please wait a moment before asking another question');
     return;
@@ -245,13 +275,35 @@ async function askQuestion(e) {
       body: JSON.stringify({ document: docText, query: question })
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Query failed');
-    }
-
     const data = await response.json();
 
+    // Handle rate limit from server
+    if (response.status === 429) {
+      queryCount = MAX_QUERIES;
+      updateUsageDisplay(0);
+      throw new Error(data.error || 'Rate limit reached. Please try again later.');
+    }
+
+    // Handle blocked requests
+    if (data.blocked) {
+      throw new Error(data.error || 'Request blocked. Please rephrase your question.');
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Query failed');
+    }
+
+    // Success - update counters
+    queryCount++;
+
+    if (data.usage) {
+      totalCost += data.usage.cost || 0;
+      updateUsageDisplay(data.usage.remaining?.requests);
+    } else {
+      updateUsageDisplay();
+    }
+
+    // Display answer
     let costBadge = '';
     if (data.usage && data.usage.cost) {
       const cost = data.usage.cost < 0.001 ? '<$0.001' : `$${data.usage.cost.toFixed(3)}`;
@@ -284,7 +336,7 @@ function showError(message) {
 
   setTimeout(() => {
     answerDiv.style.display = 'none';
-  }, 3000);
+  }, 4000);
 }
 
 function escapeHTML(str) {
