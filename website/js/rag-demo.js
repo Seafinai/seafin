@@ -1,6 +1,6 @@
 /**
  * RAG Demo - Slide-Out Panel
- * Interactive demonstration of document Q&A (KnowledgeClaw)
+ * Interactive demonstration of document Q&A
  * Floating bubble trigger + slide-out panel
  * Client-side security: rate tracking, query limits, cost display
  */
@@ -33,8 +33,8 @@ function initRAGDemo() {
           <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
         </svg>
         <div>
-          <h2>KnowledgeClaw Demo</h2>
-          <span class="rag-panel-subtitle">Document Q&A powered by AI</span>
+          <h2>Document Q&A Demo</h2>
+          <span class="rag-panel-subtitle">Upload any document and get instant AI answers from its contents</span>
         </div>
       </div>
       <button id="rag-panel-close" class="rag-panel-close" aria-label="Close demo">

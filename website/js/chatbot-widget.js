@@ -28,6 +28,7 @@ function initChatbot() {
       <div class="chat-header">
         <div class="chat-header-content">
           <span class="chat-title">Seafin AI Assistant</span>
+          <span class="chat-subtitle">Ask about our services, pricing, and how AI can help your business</span>
           <span class="chat-status">● Online</span>
         </div>
         <button id="chat-close" class="chat-close" aria-label="Close chat">
@@ -41,7 +42,7 @@ function initChatbot() {
       <div id="chat-messages" class="chat-messages">
         <div class="chat-message bot-message">
           <div class="message-content">
-            👋 Hi! I'm Seafin's AI assistant. I can help you learn about our services and how AI can help your business. What would you like to know?
+            👋 Hi! I'm Seafin's AI assistant. Ask me about our services, pricing, timelines, or how AI can help your business. What would you like to know?
           </div>
         </div>
       </div>
