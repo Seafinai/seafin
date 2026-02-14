@@ -2137,7 +2137,7 @@ navLinks.querySelectorAll('a').forEach(link => {
       </div>
 
       <div style="margin-top: 24px; text-align: center; font-size: 12px; color: var(--text-faint); font-style: italic;">
-        * ROI calculated assuming $5,000 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
+        * ROI calculated assuming $3,500 average project cost and 85% automation efficiency. Actual costs vary by project scope — see <a href="#faq" style="color: var(--accent);">pricing FAQ</a> for details.
       </div>
 
     </div>
@@ -2159,7 +2159,7 @@ function updateROI() {
   const currentAnnualCost = hours * rate * 52; // 52 weeks
   const hoursSaved = hours * efficiency;
   const annualSavings = hoursSaved * rate * 52;
-  const projectCost = 5000; // Assuming $5k average project
+  const projectCost = 3500; // Assuming $3.5k average project
   const roiMonths = (projectCost / (annualSavings / 12)).toFixed(1);
   const fiveYearValue = (annualSavings * 5) - projectCost;
 
@@ -2236,7 +2236,7 @@ updateROI();
       <!-- Quick Win -->
       <div class="stat-card" style="padding: 32px; background: rgba(0,212,255,0.03); border: 1px solid rgba(0,212,255,0.15);">
         <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 12px;">QUICK WIN</div>
-        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$5-8K</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$2-5K</div>
         <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">2-3 weeks</div>
         <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: var(--text-dim); line-height: 1.8;">
           <li style="margin-bottom: 8px;"><span style="color: var(--accent);">✓</span> Single automation or workflow</li>
@@ -2250,7 +2250,7 @@ updateROI();
       <div class="stat-card" style="padding: 32px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.25); position: relative;">
         <div style="position: absolute; top: -1px; right: 24px; background: var(--accent); color: var(--bg-deep); padding: 4px 12px; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 1.5px;">POPULAR</div>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 12px;">STANDARD</div>
-        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$10-15K</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$5-10K</div>
         <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">4-6 weeks</div>
         <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: var(--text-dim); line-height: 1.8;">
           <li style="margin-bottom: 8px;"><span style="color: var(--accent);">✓</span> Complex multi-step workflows</li>
@@ -2263,7 +2263,7 @@ updateROI();
       <!-- Comprehensive -->
       <div class="stat-card" style="padding: 32px; background: rgba(0,212,255,0.03); border: 1px solid rgba(0,212,255,0.15);">
         <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 12px;">COMPREHENSIVE</div>
-        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$15-25K</div>
+        <div style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">$10-20K</div>
         <div style="font-size: 13px; color: var(--text-faint); margin-bottom: 20px;">6-8 weeks</div>
         <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: var(--text-dim); line-height: 1.8;">
           <li style="margin-bottom: 8px;"><span style="color: var(--accent);">✓</span> Multi-channel AI system</li>
@@ -2285,7 +2285,7 @@ updateROI();
         </div>
         <div>
           <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 8px;">CONSULTING RETAINERS</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">$2-5K/mo</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">$1.5-4K/mo</div>
           <div style="font-size: 13px; color: var(--text-faint);">Ongoing optimization & new features</div>
         </div>
       </div>
