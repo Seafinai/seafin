@@ -41,7 +41,7 @@ Pricing ranges from $2K to $25K depending on complexity.
         'X-Title': 'Seafin RAG Demo'
       },
       body: JSON.stringify({
-        model: 'moonshot/kimi-k2-5',
+        model: 'moonshotai/kimi-k2.5',
         messages: [{
           role: 'system',
           content: `You are a helpful assistant. Answer the user's question based on this context:\n\n${context}`

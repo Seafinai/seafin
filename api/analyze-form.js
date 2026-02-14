@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         'X-Title': 'Seafin Smart Form'
       },
       body: JSON.stringify({
-        model: 'moonshot/kimi-k2-5',
+        model: 'moonshotai/kimi-k2.5',
         messages: [{
           role: 'user',
           content: `You are a business consultant for Seafin, an AI consulting firm. Analyze this inquiry and suggest the most appropriate service.
