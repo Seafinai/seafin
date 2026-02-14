@@ -105,6 +105,15 @@ Approximately **$200-300/year** for static site hosting on DigitalOcean App Plat
 - The `elements/` component library has been removed — this is a docs/planning repo + production website
 - Revenue model: Seafin services (agents $5-25k, consulting $2-5k/mo), Solvity SaaS ($59-299/mo), Custodian managed backup ($9-199/mo)
 
+## Working Style
+
+**CRITICAL: Avoid excessive documentation**
+- Do NOT create multiple README/guide files unless explicitly requested
+- Focus on working code, not documentation
+- Only create docs if absolutely required for deployment or critical security info
+- When implementing features, write the code first - ask about docs later
+- Keep responses action-focused, not documentation-focused
+
 ## Browser Automation with Agent-Browser
 
 **Agent-browser** is installed globally and available for browser automation tasks. Due to Windows socket compatibility issues, it runs via WSL.

@@ -34,3 +34,17 @@ Thumbs.db
 # Test/debug files
 CHROME_DEBUG.md
 openclaw/
+
+# Environment variables and API keys
+.env
+.env.local
+.env.production
+ai-config.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+.cache/
