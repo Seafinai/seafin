@@ -51,10 +51,15 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    const reply = data.choices[0].message.content;
+    const reply = data.choices?.[0]?.message?.content;
+
+    // Validate we got a real response
+    if (!reply || reply.trim().length === 0) {
+      throw new Error('Empty response from AI');
+    }
 
     return res.status(200).json({
-      reply,
+      reply: reply.trim(),
       success: true
     });
 

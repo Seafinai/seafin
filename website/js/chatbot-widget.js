@@ -68,7 +68,9 @@ function initChatbot() {
   document.getElementById('chat-close').addEventListener('click', toggleChat);
   document.getElementById('chat-form').addEventListener('submit', sendMessage);
 
-  window.AI.log('Chatbot widget initialized');
+  if (window.AI && window.AI.log) {
+    window.AI.log('Chatbot widget initialized');
+  }
 }
 
 function toggleChat() {
@@ -95,7 +97,7 @@ async function sendMessage(e) {
   if (!message || message.length < 1) return;
 
   // Check rate limit
-  if (!window.AI.rateLimiter.canCall('chat')) {
+  if (window.AI && window.AI.rateLimiter && !window.AI.rateLimiter.canCall('chat')) {
     addMessage('Please wait a moment before sending another message.', 'bot');
     return;
   }
@@ -127,12 +129,26 @@ async function sendMessage(e) {
     const data = await response.json();
     conversationId = data.conversationId;
 
+    // Validate we got a real reply
+    if (!data.reply || data.reply.trim().length === 0) {
+      throw new Error('Received empty response from AI');
+    }
+
     addMessage(data.reply, 'bot');
 
   } catch (error) {
     removeTypingIndicator(typingId);
-    addMessage('Sorry, I\'m having trouble connecting. Please try the contact form below.', 'bot');
-    window.AI.log('Chat error:', error.message);
+
+    // Show specific error if available, otherwise generic message
+    const errorMessage = error.message === 'Message too short'
+      ? 'Please send a longer message (at least 3 characters).'
+      : error.message || 'Sorry, I\'m having trouble connecting. Please try the contact form below.';
+
+    addMessage(errorMessage, 'bot');
+
+    if (window.AI && window.AI.log) {
+      window.AI.log('Chat error:', error.message);
+    }
   }
 }
 
