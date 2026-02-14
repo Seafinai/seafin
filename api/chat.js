@@ -74,16 +74,19 @@ export default async function handler(req, res) {
 
     // GUARDRAIL 1: Prompt Injection Detection
     const injectionPatterns = [
-      /ignore\s+(previous|above|all)\s+instructions?/i,
+      /ignore\s+(all\s+)?(previous|above|prior)\s+instructions?/i,
+      /ignore\s+instructions?/i,
       /you\s+are\s+now/i,
       /new\s+instructions?/i,
       /system\s*:/i,
       /\[INST\]/i,
       /<\|system\|>/i,
-      /forget\s+(everything|all|previous)/i,
-      /disregard\s+(previous|above)/i,
+      /forget\s+(everything|all|previous|prior)/i,
+      /disregard\s+(all\s+)?(previous|above|prior)/i,
       /SUDO\s+MODE/i,
-      /developer\s+mode/i
+      /developer\s+mode/i,
+      /jailbreak/i,
+      /act\s+as\s+(a|an)\s+/i
     ];
 
     const containsInjection = injectionPatterns.some(pattern => pattern.test(message));
