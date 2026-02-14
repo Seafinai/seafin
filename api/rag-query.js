@@ -10,7 +10,7 @@
 const rateLimitStore = new Map();
 
 const LIMITS = {
-  requestsPerHour: 10,       // Lower than chatbot (RAG uses more tokens)
+  requestsPerHour: 5,        // Tight limit for demo (RAG uses more tokens)
   tokensPerHour: 15000,      // Higher token budget (documents are large)
   maxQueryLength: 500,
   maxDocumentLength: 10000,
