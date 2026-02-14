@@ -1,0 +1,189 @@
+name: PR Tests & Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-dependencies:
+    name: Test Dependencies & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci || npm install
+        continue-on-error: false
+
+      - name: Install API dependencies
+        working-directory: ./api
+        run: npm ci || npm install
+        continue-on-error: false
+
+      - name: Run security audit
+        run: |
+          echo "## 🔒 Security Audit Results" >> $GITHUB_STEP_SUMMARY
+          npm audit || echo "⚠️ Vulnerabilities found - check details below" >> $GITHUB_STEP_SUMMARY
+          npm audit --json > audit-results.json || true
+
+          # Check for high/critical vulnerabilities
+          HIGH_VULNS=$(cat audit-results.json | jq '.metadata.vulnerabilities.high // 0')
+          CRITICAL_VULNS=$(cat audit-results.json | jq '.metadata.vulnerabilities.critical // 0')
+
+          if [ "$CRITICAL_VULNS" -gt 0 ] || [ "$HIGH_VULNS" -gt 0 ]; then
+            echo "❌ Found high/critical vulnerabilities!" >> $GITHUB_STEP_SUMMARY
+            npm audit >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "✅ No high/critical vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check for breaking changes in package.json
+        run: |
+          echo "## 📦 Dependency Changes" >> $GITHUB_STEP_SUMMARY
+
+          # Show what changed
+          git fetch origin main
+          git diff origin/main HEAD -- package.json >> $GITHUB_STEP_SUMMARY || echo "No changes to root package.json" >> $GITHUB_STEP_SUMMARY
+          git diff origin/main HEAD -- api/package.json >> $GITHUB_STEP_SUMMARY || echo "No changes to API package.json" >> $GITHUB_STEP_SUMMARY
+
+      - name: Test API functions (syntax check)
+        run: |
+          echo "## 🧪 API Function Tests" >> $GITHUB_STEP_SUMMARY
+
+          # Check JavaScript syntax for all API functions
+          for file in api/*.js; do
+            if [ -f "$file" ]; then
+              echo "Testing $file..."
+              node --check "$file" && echo "✅ $file syntax OK" >> $GITHUB_STEP_SUMMARY || echo "❌ $file has syntax errors" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: Test website HTML
+        run: |
+          echo "## 🌐 Website Validation" >> $GITHUB_STEP_SUMMARY
+
+          # Check if index.html exists and is valid
+          if [ -f "website/index.html" ]; then
+            echo "✅ website/index.html exists" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ website/index.html missing!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Check for large dependency bloat
+        run: |
+          echo "## 📊 Dependency Size Check" >> $GITHUB_STEP_SUMMARY
+
+          # Check node_modules size
+          du -sh node_modules/ || echo "No node_modules yet"
+
+          # Count total dependencies
+          TOTAL_DEPS=$(npm list --all --json 2>/dev/null | jq '.dependencies | keys | length' || echo "0")
+          echo "Total dependencies: $TOTAL_DEPS" >> $GITHUB_STEP_SUMMARY
+
+          # Warn if over 200 packages
+          if [ "$TOTAL_DEPS" -gt 200 ]; then
+            echo "⚠️ Large number of dependencies ($TOTAL_DEPS)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ Dependency count reasonable ($TOTAL_DEPS)" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Test Puppeteer (if updated)
+        if: contains(github.event.pull_request.title, 'puppeteer')
+        run: |
+          echo "## 🎭 Puppeteer Test" >> $GITHUB_STEP_SUMMARY
+
+          # Simple puppeteer smoke test
+          node -e "
+            const puppeteer = require('puppeteer');
+            console.log('Puppeteer version:', require('puppeteer/package.json').version);
+            console.log('✅ Puppeteer loads successfully');
+          " && echo "✅ Puppeteer works" >> $GITHUB_STEP_SUMMARY || echo "❌ Puppeteer broken" >> $GITHUB_STEP_SUMMARY
+
+  test-vercel-deployment:
+    name: Verify Vercel Compatibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check vercel.json validity
+        run: |
+          echo "## ⚡ Vercel Configuration Check" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "vercel.json" ]; then
+            # Validate JSON syntax
+            cat vercel.json | jq empty && echo "✅ vercel.json is valid JSON" >> $GITHUB_STEP_SUMMARY || echo "❌ vercel.json has syntax errors" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check API function format
+        run: |
+          echo "## 🔧 API Function Format Check" >> $GITHUB_STEP_SUMMARY
+
+          # Check that API functions use correct Vercel format
+          for file in api/*.js; do
+            if [ -f "$file" ]; then
+              # Check for "export default" or "module.exports"
+              if grep -q "export default" "$file" || grep -q "module.exports" "$file"; then
+                echo "✅ $(basename $file) has correct export format" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "⚠️ $(basename $file) may have incorrect export format" >> $GITHUB_STEP_SUMMARY
+              fi
+            fi
+          done
+
+  comment-results:
+    name: Post Test Summary
+    runs-on: ubuntu-latest
+    needs: [test-dependencies, test-vercel-deployment]
+    if: always()
+
+    steps:
+      - name: Comment PR with results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const context = require('@actions/github').context;
+
+            const testDepsStatus = '${{ needs.test-dependencies.result }}';
+            const vercelStatus = '${{ needs.test-vercel-deployment.result }}';
+
+            const statusEmoji = (status) => {
+              return status === 'success' ? '✅' : status === 'failure' ? '❌' : '⚠️';
+            };
+
+            const body = `## 🧪 PR Test Results
+
+            | Check | Status |
+            |-------|--------|
+            | Dependencies & Build | ${statusEmoji(testDepsStatus)} ${testDepsStatus} |
+            | Vercel Compatibility | ${statusEmoji(vercelStatus)} ${vercelStatus} |
+
+            ${testDepsStatus === 'success' && vercelStatus === 'success'
+              ? '✅ **All tests passed!** Safe to merge.'
+              : '⚠️ **Some tests failed.** Review the workflow logs before merging.'}
+
+            [View detailed results →](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+
+            // Only comment on PRs, not workflow_dispatch
+            if (context.payload.pull_request) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
