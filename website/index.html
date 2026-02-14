@@ -2651,6 +2651,8 @@ updateROI();
           <div class="form-group">
             <label for="contact-challenge" class="form-label">BIGGEST CHALLENGE <span style="color: var(--text-faint); font-weight: 400;">(OPTIONAL)</span></label>
             <textarea id="contact-challenge" name="challenge" class="form-textarea" placeholder="What's the most time-consuming task you'd love to automate?" rows="3" style="min-height: 80px;"></textarea>
+            <!-- AI Suggestions Panel (injected by smart-form.js) -->
+            <div id="ai-suggestions" class="ai-suggestion-panel" style="display: none;"></div>
           </div>
           <button type="submit" class="form-submit" id="form-submit-btn">Book Free Strategy Call</button>
           <div id="form-message" style="margin-top: 20px; padding: 16px; border-radius: 3px; text-align: center; font-size: 14px; display: none;"></div>
@@ -2892,6 +2894,10 @@ updateROI();
   ]
 }
 </script>
+
+<!-- AI Features -->
+<link rel="stylesheet" href="css/ai-features.css">
+<script type="module" src="js/ai-features.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,46 @@
+{
+  "spec": {
+    "name": "seafin-website",
+    "static_sites": [
+      {
+        "name": "web",
+        "github": {
+          "repo": "Seafinai/seafin",
+          "branch": "main",
+          "deploy_on_push": true
+        },
+        "source_dir": "/website",
+        "environment_slug": "html"
+      }
+    ],
+    "functions": [
+      {
+        "name": "api",
+        "github": {
+          "repo": "Seafinai/seafin",
+          "branch": "main",
+          "deploy_on_push": true
+        },
+        "source_dir": "/website/api",
+        "environment_slug": "node-js",
+        "envs": [
+          {
+            "key": "OPENROUTER_API_KEY",
+            "scope": "RUN_TIME",
+            "type": "SECRET"
+          },
+          {
+            "key": "MAX_DAILY_COST",
+            "scope": "RUN_TIME",
+            "value": "5"
+          },
+          {
+            "key": "NODE_ENV",
+            "scope": "RUN_TIME",
+            "value": "production"
+          }
+        ]
+      }
+    ]
+  }
+}
