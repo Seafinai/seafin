@@ -86,6 +86,27 @@
 
   .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
+  /* --- Custom Scrollbar --- */
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+    border-left: 1px solid var(--dash-color);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.3);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 212, 255, 0.5);
+  }
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: rgba(0, 212, 255, 0.3) var(--bg-deep);
+  }
+
   /* --- Skip Navigation --- */
   .skip-nav {
     position: absolute;
