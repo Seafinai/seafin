@@ -24,7 +24,7 @@ seafin/
 ├── CLAUDE.md
 ├── README.md
 ├── brand/                  — Brand identity, market research, launch plan, logo guides
-├── infrastructure/         — Hosting cost breakdown (DigitalOcean)
+├── infrastructure/         — Hosting cost breakdown
 ├── mockups/                — HTML mockups (landing page iterations)
 ├── products/               — Product PRDs and roadmaps
 │   ├── SEAFIN_AI_SERVICES_PRD.md      — Master services PRD (BUILD/AUTOMATE/CONNECT/PROTECT)
@@ -48,60 +48,84 @@ Static single-page site at `website/index.html`. No build system — plain HTML/
 
 ## Deployment & Hosting
 
-### DigitalOcean App Platform
+### Vercel
 
-The website is hosted on **DigitalOcean App Platform** with automatic deployment from GitHub.
+The website is hosted on **Vercel** with automatic deployment from GitHub.
 
 **Configuration:**
-- **App name:** `seafin-website`
 - **Repository:** `Seafinai/seafin` (GitHub)
 - **Branch:** `main` (auto-deploy enabled)
-- **Source directory:** `/website`
-- **Environment:** Static site (HTML)
+- **Root Directory:** `./`
+- **Output Directory:** `website`
+- **Framework:** Other (static HTML + serverless functions)
 
-**App spec file:** `digitalocean-app-spec.json` (in repo root)
+**Config file:** `vercel.json` (in repo root)
 
 ### Deployment Workflow
 
 **Automated deployment:**
-1. Make changes to `website/index.html` (or any files in `/website`)
+1. Make changes to `website/index.html` or `website/api/*.js`
 2. Commit changes to git
 3. Push to `origin/main`
-4. DigitalOcean automatically detects the push
-5. Builds and deploys the static site (60-90 seconds)
-6. Live at: https://seafin.ai
+4. Vercel automatically detects the push
+5. Builds and deploys in ~30-60 seconds
+6. Live at: https://seafin.vercel.app (or custom domain)
 
-**No manual deployment needed** — DigitalOcean watches the GitHub repo and auto-deploys on push.
+**No manual deployment needed** — Vercel watches the GitHub repo and auto-deploys on push.
 
 ### Deployment Commands
 
 Standard git workflow:
 ```bash
-git add website/index.html
+git add .
 git commit -m "Description of changes
 
 Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 git push origin main
 ```
 
-After push, wait 60-90 seconds for DigitalOcean to build and deploy.
+After push, Vercel auto-deploys in 30-60 seconds.
 
-### Verifying Deployment
+### Environment Variables
 
-Check deployment status:
-- Visit https://seafin.ai to see live site
-- DigitalOcean dashboard shows build logs and deployment status
-- Git commits trigger immediate builds (check GitHub Actions or DigitalOcean logs)
+Set in Vercel dashboard (Settings → Environment Variables):
+- `OPENROUTER_API_KEY` - OpenRouter API key for AI features
+- `MAX_DAILY_COST` - Cost limit (e.g., "5")
+- `NODE_ENV` - "production"
+
+**No .env files needed** — Vercel injects them automatically.
+
+### Serverless Functions
+
+Functions are in `website/api/` using Next.js format:
+
+```javascript
+// website/api/function-name.js
+export default async function handler(req, res) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  return res.status(200).json({ success: true });
+}
+```
+
+Functions available at:
+- `/api/test` - Environment variable test
+- `/api/chat` - AI chatbot
+- `/api/analyze-form` - Smart form analyzer
+- `/api/rag-query` - RAG demo
 
 ### Cost
 
-Approximately **$200-300/year** for static site hosting on DigitalOcean App Platform.
+**Free tier** (Hobby plan):
+- 100GB bandwidth/month
+- Unlimited serverless function invocations
+- Sufficient for most small-medium businesses
 
 ## Key Context
 
 - Git repo initialized and connected to GitHub (`Seafinai/seafin`)
-- Deployed to DigitalOcean App Platform with auto-deploy from `main` branch
-- No test suite, build tools, or package manager at the root level (static HTML site)
+- Deployed to Vercel with auto-deploy from `main` branch
+- Static HTML site + serverless functions (Next.js format)
+- Environment variables managed in Vercel dashboard (no .env files in repo)
 - The `elements/` component library has been removed — this is a docs/planning repo + production website
 - Revenue model: Seafin services (agents $5-25k, consulting $2-5k/mo), Solvity SaaS ($59-299/mo), Custodian managed backup ($9-199/mo)
 
