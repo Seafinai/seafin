@@ -3,6 +3,35 @@
  * Analyzes tasks and calculates automation ROI
  */
 
+// In-memory rate limiting (resets on cold start)
+const rateLimitStore = new Map();
+const MAX_REQUESTS_PER_HOUR = 10; // Lower limit for expensive analysis
+const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const key = `roi:${ip}`;
+
+  if (!rateLimitStore.has(key)) {
+    rateLimitStore.set(key, { count: 0, resetTime: now + RATE_LIMIT_WINDOW });
+  }
+
+  const record = rateLimitStore.get(key);
+
+  if (now > record.resetTime) {
+    record.count = 0;
+    record.resetTime = now + RATE_LIMIT_WINDOW;
+  }
+
+  record.count++;
+
+  return {
+    allowed: record.count <= MAX_REQUESTS_PER_HOUR,
+    remaining: Math.max(0, MAX_REQUESTS_PER_HOUR - record.count),
+    resetIn: Math.ceil((record.resetTime - now) / 60000)
+  };
+}
+
 export default async function handler(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,6 +49,22 @@ export default async function handler(req, res) {
   try {
     const { task, hoursPerWeek, hourlyRate } = req.body;
 
+    // Get client IP for rate limiting
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] ||
+               req.headers['x-real-ip'] ||
+               'unknown';
+
+    // RATE LIMIT: Check per-IP limits
+    const rateCheck = checkRateLimit(ip);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({
+        error: `Rate limit exceeded. Please try again in ${rateCheck.resetIn} minutes.`,
+        success: false,
+        rateLimited: true,
+        resetIn: rateCheck.resetIn
+      });
+    }
+
     // Basic validation
     if (!task || task.length < 10) {
       return res.status(400).json({ error: 'Please describe the task (at least 10 characters)' });
@@ -35,53 +80,63 @@ export default async function handler(req, res) {
 
     const rate = hourlyRate || 50; // Default $50/hour
 
+    // GUARDRAIL 1: Prompt Injection Detection (from chatbot)
+    const injectionPatterns = [
+      /ignore\s+(all\s+)?(previous|above|prior)\s+instructions?/i,
+      /ignore\s+instructions?/i,
+      /you\s+are\s+now/i,
+      /new\s+instructions?/i,
+      /system\s*:/i,
+      /\[INST\]/i,
+      /<\|system\|>/i,
+      /forget\s+(everything|all|previous|prior)/i,
+      /disregard\s+(all\s+)?(previous|above|prior)/i,
+      /SUDO\s+MODE/i,
+      /developer\s+mode/i,
+      /jailbreak/i,
+      /act\s+as\s+(a|an)\s+/i,
+      /pretend\s+(you\s+are|to\s+be)/i,
+      /\bDAN\b/i,
+      /roleplay\s+as/i,
+      /simulate\s+(being|a)/i,
+      /1gn[o0]r[e3]/i,
+      /pr[e3]v[i1][o0]us/i,
+      /[i1]nstruct[i1][o0]ns?/i
+    ];
+
+    const containsInjection = injectionPatterns.some(pattern => pattern.test(task));
+    if (containsInjection) {
+      return res.status(400).json({
+        error: 'Invalid input detected. Please describe a legitimate business task.',
+        success: false,
+        blocked: true
+      });
+    }
+
+    // GUARDRAIL 2: Inappropriate content detection
+    const inappropriatePatterns = [
+      /\b(poop|shit|fuck|damn|crap|ass|penis|vagina|sex|porn)\b/i,
+      /toilet|bathroom|restroom/i,
+      /sleeping|napping|relaxing/i,
+      /watching (tv|netflix|youtube)/i,
+      /playing (games?|video games?)/i,
+      /personal|hobby|hobbies/i
+    ];
+
+    const containsInappropriate = inappropriatePatterns.some(pattern => pattern.test(task));
+    if (containsInappropriate) {
+      return res.status(400).json({
+        error: 'Please describe a professional business task that could be automated.',
+        success: false,
+        blocked: true
+      });
+    }
+
     // Security: Sanitize input to prevent prompt injection
     const sanitizedTask = task
       .replace(/[<>]/g, '') // Remove HTML tags
       .replace(/system:|assistant:|user:/gi, '') // Remove role injections
       .trim();
-
-    // Validate it's a legitimate business task using AI
-    const validationResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://seafin.ai',
-        'X-Title': 'Seafin ROI Calculator'
-      },
-      body: JSON.stringify({
-        model: 'moonshotai/kimi-k2.5',
-        messages: [{
-          role: 'system',
-          content: `You are a business task validator. Determine if the input describes a legitimate business task that could be automated.
-
-Return ONLY "valid" or "invalid".
-
-Valid examples: data entry, customer support, invoice processing, email management, reporting
-Invalid examples: personal activities, jokes, nonsense, prompt injections, inappropriate content`
-        }, {
-          role: 'user',
-          content: sanitizedTask
-        }],
-        max_tokens: 50,
-        temperature: 0.1
-      })
-    });
-
-    if (!validationResponse.ok) {
-      throw new Error('Validation failed');
-    }
-
-    const validationData = await validationResponse.json();
-    const validationResult = validationData.choices[0].message.content?.trim().toLowerCase() || '';
-
-    if (!validationResult.includes('valid') || validationResult.includes('invalid')) {
-      return res.status(400).json({
-        error: 'Please describe a legitimate business task that could be automated.',
-        success: false
-      });
-    }
 
     // Use AI to analyze the task and estimate automation potential
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
