@@ -69,7 +69,7 @@ Hourly rate: $${rate}/hour
 
 Analyze this task and estimate automation potential.`
         }],
-        max_tokens: 300,
+        max_tokens: 1000,
         temperature: 0.3
       })
     });
