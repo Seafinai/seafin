@@ -6,6 +6,6 @@
     "security:fix-force": "npm audit fix --force && cd api && npm audit fix --force"
   },
   "devDependencies": {
-    "puppeteer": "^24.37.2"
+    "puppeteer": "^24.37.3"
   }
 }
