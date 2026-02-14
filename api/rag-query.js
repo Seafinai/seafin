@@ -61,10 +61,19 @@ Pricing ranges from $2K to $25K depending on complexity.
     const data = await response.json();
     const answer = data.choices[0].message.content;
 
+    // Extract token usage for cost tracking
+    const usage = data.usage || {};
+    const totalTokens = usage.total_tokens || 0;
+    const estimatedCost = (totalTokens / 1000000) * 0.375;
+
     return res.status(200).json({
       answer,
       query,
-      success: true
+      success: true,
+      usage: {
+        tokens: totalTokens,
+        cost: estimatedCost
+      }
     });
 
   } catch (error) {

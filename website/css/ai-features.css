@@ -698,3 +698,20 @@
     content: '...';
   }
 }
+
+/* Real-Time Cost Tracker */
+.chat-cost {
+  padding: 8px 16px;
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: rgba(0, 212, 255, 0.6);
+  text-align: center;
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+  background: rgba(0, 18, 32, 0.3);
+  transition: opacity 0.3s ease;
+}
+
+.chat-cost:hover {
+  color: rgba(0, 212, 255, 0.9);
+  cursor: help;
+}

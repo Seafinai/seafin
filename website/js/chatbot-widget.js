@@ -7,6 +7,8 @@ let conversationId = null;
 let isOpen = false;
 let totalCost = 0;
 let messageCount = 0;
+let retryAttempts = 0; // Track total retries to prevent abuse
+let lastRetryTime = 0; // Track when last retry occurred
 
 function initChatbot() {
   // Create chat widget HTML
@@ -117,6 +119,9 @@ async function sendMessage(e) {
 
 async function sendMessageWithRetry(message, retryCount = 0) {
   const maxRetries = 2;
+  const maxRetriesPerMinute = 5; // Prevent abuse: max 5 retries per minute
+  const retryWindowMs = 60000; // 1 minute window
+
   const funnyMessages = [
     "🤔 Hmm, the AI seems to be taking a coffee break. Let me try again...",
     "🎭 The AI is being mysterious. One more time...",
@@ -124,6 +129,20 @@ async function sendMessageWithRetry(message, retryCount = 0) {
     "💭 That was awkwardly quiet. Retrying...",
     "🎲 The AI rolled snake eyes. Rolling again..."
   ];
+
+  // Anti-abuse: Check global retry limit
+  const now = Date.now();
+  if (now - lastRetryTime > retryWindowMs) {
+    // Reset counter if window expired
+    retryAttempts = 0;
+  }
+
+  if (retryAttempts >= maxRetriesPerMinute) {
+    const typingId = addTypingIndicator();
+    removeTypingIndicator(typingId);
+    addMessage('⏸️ Taking a quick breather. Please wait a moment before trying again.', 'bot');
+    return;
+  }
 
   // Show typing indicator
   const typingId = addTypingIndicator();
@@ -150,22 +169,40 @@ async function sendMessageWithRetry(message, retryCount = 0) {
 
     // Validate we got a real reply
     if (!data.reply || data.reply.trim().length === 0) {
-      // Empty response - retry with funny message
-      if (retryCount < maxRetries) {
+      // Empty response - check if we can retry
+      if (retryCount < maxRetries && retryAttempts < maxRetriesPerMinute) {
         removeTypingIndicator(typingId);
+
+        // Track retry attempt (anti-abuse)
+        retryAttempts++;
+        lastRetryTime = Date.now();
+
         const funnyMsg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
         addMessage(funnyMsg, 'bot');
 
         if (window.AI && window.AI.log) {
-          window.AI.log(`Empty response (attempt ${retryCount + 1}), retrying...`);
+          window.AI.log(`Empty response (attempt ${retryCount + 1}/${retryAttempts} total), retrying...`);
         }
 
-        // Wait a moment then retry
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Exponential backoff: 1s, 2s, 4s
+        const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), 4000);
+        await new Promise(resolve => setTimeout(resolve, backoffDelay));
+
+        // Check rate limit before retry
+        if (window.AI && window.AI.rateLimiter && !window.AI.rateLimiter.canCall('chat')) {
+          addMessage('⏸️ Rate limit reached. Please wait a moment before trying again.', 'bot');
+          return;
+        }
+
         return sendMessageWithRetry(message, retryCount + 1);
       } else {
         throw new Error('The AI is being extra shy today. Please try rephrasing your question! 😅');
       }
+    }
+
+    // Success! Reset retry counter on successful response
+    if (retryCount === 0) {
+      retryAttempts = Math.max(0, retryAttempts - 1); // Reward successful requests
     }
 
     addMessage(data.reply, 'bot');
@@ -233,6 +270,20 @@ function escapeHTML(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// Initialize
+initChatbot();
+
+function updateCostDisplay() {
+  const costEl = document.getElementById('chat-cost');
+  const costText = document.getElementById('chat-cost-text');
+  
+  if (messageCount > 0) {
+    costEl.style.display = 'block';
+    const formattedCost = totalCost < 0.001 ? '<$0.001' : `$${totalCost.toFixed(3)}`;
+    costText.textContent = `${messageCount} msg${messageCount > 1 ? 's' : ''} • ${formattedCost}`;
+  }
 }
 
 // Initialize

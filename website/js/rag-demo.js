@@ -224,11 +224,17 @@ async function askQuestion(e) {
 
     const data = await response.json();
 
-    // Display answer
-    answerContent.innerHTML = escapeHTML(data.answer).replace(/\n/g, '<br>');
+    // Display answer with optional cost
+    let costBadge = '';
+    if (data.usage && data.usage.cost) {
+      const cost = data.usage.cost < 0.001 ? '<$0.001' : `$${data.usage.cost.toFixed(3)}`;
+      costBadge = `<div style="margin-top: 12px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: rgba(0, 212, 255, 0.6);" title="Real-time AI cost">Query cost: ${cost}</div>`;
+    }
+
+    answerContent.innerHTML = escapeHTML(data.answer).replace(/\n/g, '<br>') + costBadge;
 
     if (window.AI && window.AI.log) {
-      window.AI.log('RAG query successful:', data.metadata);
+      window.AI.log('RAG query successful:', data.usage);
     }
 
   } catch (error) {

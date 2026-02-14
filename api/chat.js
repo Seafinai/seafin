@@ -58,9 +58,21 @@ export default async function handler(req, res) {
       throw new Error('Empty response from AI');
     }
 
+    // Extract token usage for cost tracking
+    const usage = data.usage || {};
+    const totalTokens = usage.total_tokens || 0;
+
+    // Kimi pricing: ~$0.15 per 1M input tokens, ~$0.60 per 1M output tokens
+    // Approximate cost (assuming 50/50 split for simplicity)
+    const estimatedCost = (totalTokens / 1000000) * 0.375;
+
     return res.status(200).json({
       reply: reply.trim(),
-      success: true
+      success: true,
+      usage: {
+        tokens: totalTokens,
+        cost: estimatedCost
+      }
     });
 
   } catch (error) {
