@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seafin.ai — Navigation Upgrades Mockup</title>
+<link rel="icon" type="image/svg+xml" href="../website/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 255, 0.25);
+    color: #fff;
+  }
+
+  :root {
+    --bg-deep: #001220;
+    --primary: #0066CC;
+    --accent: #00d4ff;
+    --secondary: #00a8cc;
+    --turquoise: #17d4d4;
+    --text: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.95);
+    --text-faint: rgba(255, 255, 255, 0.85);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --grid-minor: rgba(0,212,255,0.05);
+    --grid-major: rgba(0,212,255,0.10);
+    --bracket-color: rgba(0,212,255,0.35);
+    --dash-color: rgba(0,212,255,0.25);
+  }
+
+  body {
+    font-family: var(--sans);
+    background-color: var(--bg-deep);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+    background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 14px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); border-left: 1px solid var(--dash-color); }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.5); }
+  * { scrollbar-width: auto; scrollbar-color: rgba(0, 212, 255, 0.3) var(--bg-deep); }
+
+  .overline {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .overline::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  section { padding: clamp(48px, 8vw, 80px) 0; position: relative; }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: var(--accent);
+    padding: 14px 32px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    color: var(--bg-deep);
+    box-shadow: 0 0 24px rgba(0,212,255,0.35);
+    transform: translateY(-1px);
+  }
+
+  /* ==========================================================================
+     UPGRADE #4: SCROLL PROGRESS BAR
+     ========================================================================== */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--turquoise));
+    z-index: 1002;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+  }
+
+  /* ==========================================================================
+     UPGRADE #5: AUTO-HIDING NAV
+     ========================================================================== */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0, 18, 32, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px dashed var(--dash-color);
+    padding: 0 24px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+  }
+  .site-nav.nav-hidden {
+    transform: translateY(-100%);
+  }
+  /* Keep progress bar visible when nav is hidden */
+  .site-nav.nav-hidden ~ .scroll-progress {
+    top: 0;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
+  .nav-brand-text {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .nav-brand-text .ai-dim { color: var(--text-dim); font-weight: 500; }
+
+  /* ==========================================================================
+     UPGRADE #2: EXPANDED NAV LINKS (6 items + CTA)
+     ========================================================================== */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ==========================================================================
+     UPGRADE #1: SCROLL-SPY ACTIVE LINK
+     ========================================================================== */
+  .nav-links a.active {
+    color: var(--accent);
+  }
+  .nav-links a:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-links a.active:not(.nav-cta)::after {
+    width: 100%;
+  }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg-deep) !important;
+    background: var(--accent);
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover {
+    background: #fff;
+    color: var(--bg-deep) !important;
+    box-shadow: 0 0 16px rgba(0,212,255,0.3);
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* ==========================================================================
+     UPGRADE #6: SIDE DOT NAVIGATION (desktop only)
+     ========================================================================== */
+  .side-dots {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .side-dots.visible {
+    opacity: 1;
+  }
+  .side-dot {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .side-dot .dot-circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 212, 255, 0.4);
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+  .side-dot.active .dot-circle {
+    width: 10px;
+    height: 10px;
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+  }
+  .side-dot .dot-label {
+    position: absolute;
+    right: 24px;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0, 18, 32, 0.95);
+    padding: 4px 10px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 3px;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+  .side-dot:hover .dot-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ==========================================================================
+     UPGRADE #3: BACK-TO-TOP BUTTON WITH PROGRESS RING
+     ========================================================================== */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 998;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-to-top svg {
+    width: 48px;
+    height: 48px;
+  }
+  .back-to-top .progress-ring-bg {
+    fill: rgba(0, 18, 32, 0.9);
+    stroke: rgba(0, 212, 255, 0.15);
+    stroke-width: 2;
+  }
+  .back-to-top .progress-ring-fill {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: stroke-dashoffset 0.1s linear;
+  }
+  .back-to-top .arrow {
+    fill: var(--accent);
+    transition: fill 0.2s;
+  }
+  .back-to-top:hover .arrow {
+    fill: #fff;
+  }
+  .back-to-top:hover .progress-ring-fill {
+    stroke: #fff;
+  }
+
+  /* ==========================================================================
+     MOBILE HAMBURGER
+     ========================================================================== */
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
+  .mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+  .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+  /* ==========================================================================
+     UPGRADE #7: ENHANCED MOBILE BOTTOM NAV
+     ========================================================================== */
+  .mobile-bottom-nav {
+    display: none;
+  }
+
+  /* ========== Section content styling (simplified from main site) ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 60px;
+    padding-top: 68px;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--turquoise) 40%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 520px;
+    margin-bottom: 28px;
+  }
+  .hero-stats {
+    display: inline-flex;
+    gap: 16px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-stat-box {
+    border: 1px dashed var(--dash-color);
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .hero-stat-box strong { color: var(--accent); font-weight: 500; margin-right: 6px; }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .card {
+    border: 1px dashed var(--dash-color);
+    padding: 28px;
+    background: rgba(0, 18, 32, 0.5);
+    transition: border-color 0.3s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+  .card-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-top: 12px;
+    display: block;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 32px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .timeline-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, rgba(0,212,255,0.03) 100%);
+  }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: var(--text-dim); }
+  .step-time { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 8px; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .price-card {
+    border: 1px dashed var(--dash-color);
+    padding: 32px 24px;
+    text-align: center;
+    background: rgba(0, 18, 32, 0.5);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .price-card:hover { border-color: var(--accent); }
+  .price-card.popular {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(0, 212, 255, 0.1);
+  }
+  .price-card.popular::before {
+    content: 'POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    background: var(--accent);
+    color: var(--bg-deep);
+    padding: 4px 16px;
+    border-radius: 2px;
+  }
+  .price-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .price-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .price-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+  }
+  .price-features {
+    list-style: none;
+    text-align: left;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .price-features li { padding: 6px 0; border-top: 1px solid rgba(0,212,255,0.06); }
+
+  .faq-item {
+    border-bottom: 1px dashed var(--dash-color);
+  }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+  .faq-item summary:hover { color: var(--text); }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 24px;
+  }
+  .faq-toggle {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-answer {
+    padding: 0 0 20px 40px;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .contact-section { background: rgba(0, 212, 255, 0.02); }
+  .contact-form {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .form-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-faint);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(0, 212, 255, 0.04);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--accent); }
+
+  /* Section dividers */
+  .section-divider {
+    border: none;
+    border-top: 1px dashed var(--dash-color);
+    margin: 0;
+  }
+
+  /* Annotation badge showing which upgrade is active */
+  .upgrade-badge {
+    position: fixed;
+    top: 80px;
+    left: 24px;
+    z-index: 1001;
+    background: rgba(0, 18, 32, 0.95);
+    border: 1px solid var(--accent);
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    max-width: 280px;
+    transition: opacity 0.3s;
+    box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
+  }
+  .upgrade-badge .badge-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .upgrade-badge .badge-desc {
+    color: var(--text-faint);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  /* Toggle panel for enabling/disabling upgrades */
+  .toggle-panel {
+    position: fixed;
+    top: 80px;
+    left: 24px;
+    z-index: 1001;
+    background: rgba(0, 18, 32, 0.97);
+    border: 1px solid var(--dash-color);
+    padding: 20px;
+    font-family: var(--mono);
+    max-width: 300px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+  }
+  .toggle-panel h3 {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--dash-color);
+  }
+  .toggle-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .toggle-item:hover { color: var(--text); }
+  .toggle-item input[type="checkbox"] { display: none; }
+  .toggle-switch {
+    width: 36px;
+    height: 20px;
+    background: rgba(0, 212, 255, 0.15);
+    border-radius: 10px;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    background: var(--text-faint);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  .toggle-item input:checked + .toggle-switch {
+    background: var(--accent);
+  }
+  .toggle-item input:checked + .toggle-switch::after {
+    left: 19px;
+    background: var(--bg-deep);
+  }
+  .toggle-minimize {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-faint);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 4px;
+  }
+  .toggle-minimize:hover { color: var(--accent); }
+
+  .toggle-tab {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 1001;
+    background: var(--accent);
+    color: var(--bg-deep);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    border-radius: 0 3px 3px 0;
+    display: none;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .side-dots { display: none !important; }
+    .toggle-panel { left: 12px; right: 12px; max-width: none; }
+    .hero-stats { flex-direction: column; gap: 8px; }
+    .timeline { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .timeline::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .back-to-top { bottom: 80px; right: 16px; }
+
+    /* UPGRADE #7: Enhanced mobile bottom nav */
+    .mobile-bottom-nav {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(0, 18, 32, 0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0, 212, 255, 0.15);
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+      justify-content: space-around;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+    .mobile-bottom-nav.nav-hidden {
+      transform: translateY(100%);
+    }
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-decoration: none;
+      color: var(--text-faint);
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      font-size: 9px;
+      font-family: var(--mono);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .mobile-nav-item.active {
+      color: var(--accent);
+    }
+    .mobile-nav-item svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .mobile-nav-cta {
+      background: var(--accent);
+      color: var(--bg-deep) !important;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .mobile-nav-cta svg { stroke: var(--bg-deep); }
+    body { padding-bottom: 70px; }
+  }
+
+  @media (max-width: 560px) {
+    .mobile-menu-toggle { display: block; }
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: rgba(0, 18, 32, 0.98);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      padding: 24px;
+      gap: 20px;
+      border-top: 1px solid rgba(0, 212, 255, 0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    .nav-links.active { transform: translateX(0); }
+    .nav-links a:not(.nav-cta) { display: block; width: 100%; text-align: left; }
+    .nav-cta { width: 100%; text-align: center; padding: 12px 24px; }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-bottom-nav { display: none !important; }
+  }
+
+  /* Case study cards */
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  .case-card {
+    border: 1px dashed var(--dash-color);
+    padding: 28px;
+    background: rgba(0, 18, 32, 0.5);
+  }
+  .case-card h3 { font-size: 17px; margin-bottom: 12px; }
+  .case-stat {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 12px 0 4px;
+  }
+  .case-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--text-faint);
+  }
+  @media (max-width: 768px) {
+    .case-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- UPGRADE #4: Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Toggle Panel: Enable/disable individual upgrades -->
+<div class="toggle-panel" id="togglePanel">
+  <button class="toggle-minimize" id="toggleMinimize" title="Minimize">&minus;</button>
+  <h3>Nav Upgrades</h3>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-scrollspy" checked>
+    <span class="toggle-switch"></span>
+    #1 Scroll-spy active links
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-expanded" checked>
+    <span class="toggle-switch"></span>
+    #2 Expanded nav items
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-backtotop" checked>
+    <span class="toggle-switch"></span>
+    #3 Back-to-top + progress
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-progress" checked>
+    <span class="toggle-switch"></span>
+    #4 Scroll progress bar
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-autohide" checked>
+    <span class="toggle-switch"></span>
+    #5 Auto-hiding nav
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-sidedots" checked>
+    <span class="toggle-switch"></span>
+    #6 Side dot navigation
+  </label>
+  <label class="toggle-item">
+    <input type="checkbox" id="toggle-mobilenav" checked>
+    <span class="toggle-switch"></span>
+    #7 Mobile bottom nav
+  </label>
+</div>
+<button class="toggle-tab" id="toggleTab">UPGRADES</button>
+
+<!-- FIXED NAV -->
+<header>
+<nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+  <a href="#" class="nav-brand" aria-label="Seafin.ai - Home">
+    <svg class="nav-logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="nav-flowS" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0088EE"/>
+          <stop offset="100%" stop-color="#7FFFD4"/>
+        </linearGradient>
+      </defs>
+      <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#nav-flowS)" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="135" cy="105" r="3" fill="#7FFFD4" opacity="0.6"/>
+    </svg>
+    <span class="nav-brand-text">seafin<span class="ai-dim">.ai</span></span>
+  </a>
+  <button class="mobile-menu-toggle" id="mobileToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <!-- UPGRADE #2: Expanded nav — was 3 links, now 5 + CTA -->
+  <div class="nav-links" id="navLinks">
+    <a href="#services" data-section="services">Services</a>
+    <a href="#process" data-section="process">Process</a>
+    <a href="#results" data-section="results">Results</a>
+    <a href="#pricing" data-section="pricing">Pricing</a>
+    <a href="#faq" data-section="faq">FAQ</a>
+    <a href="#contact" class="nav-cta" data-section="contact">Book Call</a>
+  </div>
+</nav>
+</header>
+
+<!-- UPGRADE #6: Side Dot Navigation -->
+<nav class="side-dots" id="sideDots" aria-label="Section navigation">
+  <a href="#hero" class="side-dot active" data-section="hero">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Home</span>
+  </a>
+  <a href="#services" class="side-dot" data-section="services">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Services</span>
+  </a>
+  <a href="#process" class="side-dot" data-section="process">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Process</span>
+  </a>
+  <a href="#results" class="side-dot" data-section="results">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Results</span>
+  </a>
+  <a href="#pricing" class="side-dot" data-section="pricing">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Pricing</span>
+  </a>
+  <a href="#faq" class="side-dot" data-section="faq">
+    <span class="dot-circle"></span>
+    <span class="dot-label">FAQ</span>
+  </a>
+  <a href="#contact" class="side-dot" data-section="contact">
+    <span class="dot-circle"></span>
+    <span class="dot-label">Contact</span>
+  </a>
+</nav>
+
+<!-- UPGRADE #3: Back-to-top with progress ring -->
+<button class="back-to-top" id="backToTop" aria-label="Scroll to top">
+  <svg viewBox="0 0 48 48">
+    <circle class="progress-ring-bg" cx="24" cy="24" r="21"/>
+    <circle class="progress-ring-fill" id="progressRing" cx="24" cy="24" r="21"
+            stroke-dasharray="131.95" stroke-dashoffset="131.95"/>
+    <path class="arrow" d="M24 32V18M18 22l6-6 6 6"/>
+    <!-- Redraw arrow as filled polygon for visibility -->
+    <polygon class="arrow" points="24,16 18,24 21,24 21,32 27,32 27,24 30,24"/>
+  </svg>
+</button>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="container">
+    <h1>Turn Manual Work Into Automated Intelligence</h1>
+    <p class="hero-sub">Stop losing hours to repetitive work. We build custom AI solutions that save 10-30 hours per week for companies with 25-500 employees. Deployed in 2-6 weeks, not months.</p>
+    <div class="hero-stats">
+      <div class="hero-stat-box"><strong>10-30 HRS</strong> SAVED/WEEK</div>
+      <div class="hero-stat-box"><strong>2-6 WEEKS</strong> START TO FINISH</div>
+      <div class="hero-stat-box"><strong>100%</strong> CUSTOM</div>
+    </div>
+    <a href="#contact" class="btn-primary">Book Free Strategy Call</a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SERVICES -->
+<section id="services" aria-label="Services">
+  <div class="container">
+    <div class="overline">Services</div>
+    <h2>What We Build</h2>
+    <p class="section-desc">Every solution is custom-built for your specific workflows. No templates, no generic plugins — just working code that solves your actual problems.</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Custom AI Assistants</h3>
+        <p>Always-on AI agents with persistent memory across WhatsApp, Slack, email. Handles customer service, lead qualification, scheduling.</p>
+        <span class="card-tag">Timeline: 4-8 weeks</span>
+      </div>
+      <div class="card">
+        <h3>RAG Knowledge Bots</h3>
+        <p>Answers from your documents. Zero hallucination. Ingests manuals, policies, contracts, catalogs. Deploy internally or customer-facing.</p>
+        <span class="card-tag">Timeline: 2-4 weeks</span>
+      </div>
+      <div class="card">
+        <h3>Workflow Automation</h3>
+        <p>Connect your existing tools with intelligent n8n workflows. Email triage, invoice processing, lead scoring, document processing.</p>
+        <span class="card-tag">Timeline: 2-6 weeks</span>
+      </div>
+      <div class="card">
+        <h3>AI-Integrated Websites</h3>
+        <p>Websites that think. AI chatbot, natural language search, personalized recommendations. Build new or upgrade existing.</p>
+        <span class="card-tag">Timeline: 3-6 weeks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- PROCESS -->
+<section id="process" aria-label="Process" style="background: rgba(0, 18, 32, 0.3);">
+  <div class="container">
+    <div class="overline">Process</div>
+    <h2>How We Work Together</h2>
+    <p class="section-desc">From first call to deployed solution. Transparent process. Clear milestones. No surprises.</p>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Discovery</div>
+        <div class="step-desc">Free 45-minute strategy call</div>
+        <div class="step-time">FREE</div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Scoping</div>
+        <div class="step-desc">Requirements & custom roadmap</div>
+        <div class="step-time">1-2 WEEKS</div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Build</div>
+        <div class="step-desc">Contract signed, work begins</div>
+        <div class="step-time">2-8 WEEKS</div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Scale</div>
+        <div class="step-desc">Expand & improve continuously</div>
+        <div class="step-time">ONGOING</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- RESULTS (Case Studies) -->
+<section id="results" aria-label="Case studies">
+  <div class="container">
+    <div class="overline">What's Possible</div>
+    <h2>Real Results from SMB Automation</h2>
+    <p class="section-desc">Here's what businesses achieve with the same tools and approaches we use.</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <span class="card-tag">Industry Example</span>
+        <h3>6-Person Marketing Agency</h3>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:8px;">Manual lead processing + onboarding consumed 20+ hours/week. n8n automation reduced it by ~90%.</p>
+        <div class="case-stat">20+ hrs</div>
+        <div class="case-stat-label">SAVED PER WEEK</div>
+      </div>
+      <div class="case-card">
+        <span class="card-tag">Industry Example</span>
+        <h3>Professional Services Firm</h3>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:8px;">Admin tasks consumed 8-10 hours per team member weekly. AI automation freed up 20% more billable hours.</p>
+        <div class="case-stat">+20%</div>
+        <div class="case-stat-label">BILLABLE HOURS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- PRICING -->
+<section id="pricing" aria-label="Pricing and investment" style="background: rgba(0, 18, 32, 0.3);">
+  <div class="container">
+    <div class="overline">Investment</div>
+    <h2>Transparent Pricing</h2>
+    <p class="section-desc">We publish pricing upfront because you deserve to know costs before scheduling a call.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <span class="price-tag">Quick Win</span>
+        <div class="price-amount">$2-5K</div>
+        <div class="price-time">2-3 weeks</div>
+        <ul class="price-features">
+          <li>Single automation or workflow</li>
+          <li>n8n integration or simple RAG bot</li>
+          <li>Prove ROI fast</li>
+        </ul>
+      </div>
+      <div class="price-card popular">
+        <span class="price-tag">Standard</span>
+        <div class="price-amount">$5-10K</div>
+        <div class="price-time">4-6 weeks</div>
+        <ul class="price-features">
+          <li>Complex multi-step workflows</li>
+          <li>Custom AI assistant (24/7)</li>
+          <li>RAG knowledge base</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <span class="price-tag">Complete Solution</span>
+        <div class="price-amount">$10-20K</div>
+        <div class="price-time">6-8 weeks</div>
+        <ul class="price-features">
+          <li>Multi-channel AI system</li>
+          <li>Custom automation dashboard</li>
+          <li>3+ system integrations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- FAQ -->
+<section id="faq" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="overline">FAQ</div>
+    <h2>Frequently Asked</h2>
+    <div style="margin-top: 24px;">
+      <details class="faq-item">
+        <summary><span class="faq-num">01</span> Who is Seafin.ai built for? <span class="faq-toggle">+</span></summary>
+        <div class="faq-answer">Companies with 25-500 employees that have repeatable workflows and need custom solutions, not generic SaaS.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">02</span> How long does a project take? <span class="faq-toggle">+</span></summary>
+        <div class="faq-answer">2-6 weeks for quick wins, 6-12 weeks for comprehensive solutions. Includes discovery, scoping, development with weekly demos.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">03</span> Is my data secure? <span class="faq-toggle">+</span></summary>
+        <div class="faq-answer">Enterprise-grade security with encryption at rest and in transit, role-based access controls, and audit logging.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-num">04</span> What does it cost? <span class="faq-toggle">+</span></summary>
+        <div class="faq-answer">$2.5K-$17.5K+ depending on complexity. All projects include discovery, development, testing, deployment, and 30 days post-launch support.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section" aria-label="Contact">
+  <div class="container">
+    <div class="overline">Get Started</div>
+    <h2>Find Out What AI Can Do for Your Business</h2>
+    <p class="section-desc">Free 45-minute strategy session. We'll identify your highest-impact automation opportunities.</p>
+    <form class="contact-form" onsubmit="event.preventDefault()">
+      <div>
+        <label class="form-label">NAME</label>
+        <input type="text" class="form-input" placeholder="Your full name">
+      </div>
+      <div>
+        <label class="form-label">EMAIL</label>
+        <input type="email" class="form-input" placeholder="you@company.com">
+      </div>
+      <div>
+        <label class="form-label">COMPANY</label>
+        <input type="text" class="form-input" placeholder="Your company name">
+      </div>
+      <button type="submit" class="btn-primary" style="margin-top: 8px; width: 100%; text-align: center;">Book Free Strategy Call</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- UPGRADE #7: Enhanced Mobile Bottom Nav -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Quick navigation">
+  <a href="#services" class="mobile-nav-item" data-section="services">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    Services
+  </a>
+  <a href="#pricing" class="mobile-nav-item" data-section="pricing">
+    <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Pricing
+  </a>
+  <a href="#contact" class="mobile-nav-cta mobile-nav-item" data-section="contact">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Book Call
+  </a>
+  <a href="#faq" class="mobile-nav-item" data-section="faq">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+    FAQ
+  </a>
+</nav>
+
+<script>
+// ============================================================
+// Navigation Upgrades — All toggleable via the control panel
+// ============================================================
+
+const sections = document.querySelectorAll('section[id]');
+const navLinksAll = document.querySelectorAll('.nav-links a[data-section]');
+const sideDots = document.querySelectorAll('.side-dot[data-section]');
+const mobileNavItems = document.querySelectorAll('.mobile-nav-item[data-section]');
+const siteNav = document.getElementById('siteNav');
+const scrollProgress = document.getElementById('scrollProgress');
+const backToTop = document.getElementById('backToTop');
+const progressRing = document.getElementById('progressRing');
+const sideDotNav = document.getElementById('sideDots');
+const mobileBottomNav = document.getElementById('mobileBottomNav');
+
+// Toggle states
+const toggles = {
+  scrollspy: document.getElementById('toggle-scrollspy'),
+  expanded: document.getElementById('toggle-expanded'),
+  backtotop: document.getElementById('toggle-backtotop'),
+  progress: document.getElementById('toggle-progress'),
+  autohide: document.getElementById('toggle-autohide'),
+  sidedots: document.getElementById('toggle-sidedots'),
+  mobilenav: document.getElementById('toggle-mobilenav'),
+};
+
+// Toggle panel minimize
+const togglePanel = document.getElementById('togglePanel');
+const toggleMinimize = document.getElementById('toggleMinimize');
+const toggleTab = document.getElementById('toggleTab');
+
+toggleMinimize.addEventListener('click', () => {
+  togglePanel.style.display = 'none';
+  toggleTab.style.display = 'block';
+});
+toggleTab.addEventListener('click', () => {
+  togglePanel.style.display = 'block';
+  toggleTab.style.display = 'none';
+});
+
+// Hide expanded nav items when #2 is toggled off
+const expandedLinks = document.querySelectorAll('.nav-links a[data-section="results"], .nav-links a[data-section="pricing"]');
+const expandedDots = document.querySelectorAll('.side-dot[data-section="results"]');
+toggles.expanded.addEventListener('change', () => {
+  const show = toggles.expanded.checked;
+  expandedLinks.forEach(el => el.style.display = show ? '' : 'none');
+});
+
+// ============================================================
+// UPGRADE #1: Scroll-spy with IntersectionObserver
+// ============================================================
+let currentSection = 'hero';
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      currentSection = entry.target.id;
+      if (toggles.scrollspy.checked) {
+        updateActiveLinks(currentSection);
+      }
+    }
+  });
+}, {
+  rootMargin: '-30% 0px -60% 0px',
+  threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+
+function updateActiveLinks(sectionId) {
+  // Top nav
+  navLinksAll.forEach(link => {
+    link.classList.toggle('active', link.dataset.section === sectionId);
+  });
+  // Side dots
+  sideDots.forEach(dot => {
+    dot.classList.toggle('active', dot.dataset.section === sectionId);
+  });
+  // Mobile bottom nav
+  mobileNavItems.forEach(item => {
+    item.classList.toggle('active', item.dataset.section === sectionId);
+  });
+}
+
+// Clear active when scrollspy disabled
+toggles.scrollspy.addEventListener('change', () => {
+  if (!toggles.scrollspy.checked) {
+    navLinksAll.forEach(l => l.classList.remove('active'));
+    sideDots.forEach(d => d.classList.remove('active'));
+    mobileNavItems.forEach(m => m.classList.remove('active'));
+  } else {
+    updateActiveLinks(currentSection);
+  }
+});
+
+// ============================================================
+// UPGRADE #4: Scroll Progress Bar
+// ============================================================
+function updateScrollProgress() {
+  if (!toggles.progress.checked) {
+    scrollProgress.style.width = '0%';
+    return;
+  }
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  scrollProgress.style.width = progress + '%';
+}
+
+// ============================================================
+// UPGRADE #3: Back-to-top with progress ring
+// ============================================================
+const ringCircumference = 2 * Math.PI * 21; // ~131.95
+
+function updateBackToTop() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+  if (toggles.backtotop.checked && scrollTop > window.innerHeight * 0.5) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+
+  // Update ring
+  const offset = ringCircumference - (progress * ringCircumference);
+  progressRing.style.strokeDashoffset = offset;
+}
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ============================================================
+// UPGRADE #5: Auto-hiding nav
+// ============================================================
+let lastScrollY = 0;
+let navHidden = false;
+
+function updateAutoHideNav() {
+  if (!toggles.autohide.checked) {
+    siteNav.classList.remove('nav-hidden');
+    if (mobileBottomNav) mobileBottomNav.classList.remove('nav-hidden');
+    return;
+  }
+
+  const scrollY = window.scrollY;
+  const delta = scrollY - lastScrollY;
+
+  // Only auto-hide after scrolling past the hero
+  if (scrollY > 300) {
+    if (delta > 8 && !navHidden) {
+      // Scrolling down
+      siteNav.classList.add('nav-hidden');
+      if (mobileBottomNav && toggles.mobilenav.checked) {
+        mobileBottomNav.classList.add('nav-hidden');
+      }
+      navHidden = true;
+    } else if (delta < -8 && navHidden) {
+      // Scrolling up
+      siteNav.classList.remove('nav-hidden');
+      if (mobileBottomNav) mobileBottomNav.classList.remove('nav-hidden');
+      navHidden = false;
+    }
+  } else {
+    siteNav.classList.remove('nav-hidden');
+    if (mobileBottomNav) mobileBottomNav.classList.remove('nav-hidden');
+    navHidden = false;
+  }
+
+  lastScrollY = scrollY;
+}
+
+// ============================================================
+// UPGRADE #6: Side dots visibility
+// ============================================================
+function updateSideDots() {
+  if (!toggles.sidedots.checked || window.innerWidth <= 768) {
+    sideDotNav.classList.remove('visible');
+    return;
+  }
+  if (window.scrollY > window.innerHeight * 0.3) {
+    sideDotNav.classList.add('visible');
+  } else {
+    sideDotNav.classList.remove('visible');
+  }
+}
+
+// ============================================================
+// UPGRADE #7: Mobile bottom nav visibility
+// ============================================================
+toggles.mobilenav.addEventListener('change', () => {
+  if (window.innerWidth <= 768) {
+    mobileBottomNav.style.display = toggles.mobilenav.checked ? 'flex' : 'none';
+  }
+});
+
+// ============================================================
+// Combined scroll handler
+// ============================================================
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateScrollProgress();
+      updateBackToTop();
+      updateAutoHideNav();
+      updateSideDots();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// Initial calls
+updateScrollProgress();
+updateBackToTop();
+updateSideDots();
+
+// ============================================================
+// Mobile menu toggle
+// ============================================================
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinksEl = document.getElementById('navLinks');
+
+mobileToggle.addEventListener('click', () => {
+  mobileToggle.classList.toggle('active');
+  navLinksEl.classList.toggle('active');
+});
+navLinksEl.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileToggle.classList.remove('active');
+    navLinksEl.classList.remove('active');
+  });
+});
+</script>
+
+</body>
+</html>
