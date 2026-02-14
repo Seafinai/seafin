@@ -152,7 +152,8 @@ function detectEncodedAttacks(text) {
   for (const word of words) {
     if (word.length > 20 && base64Pattern.test(word)) {
       try {
-        const decoded = Buffer.from(word, 'base64').toString('utf-8');
+        // Decode Base64 manually (works in all runtimes)
+        const decoded = atob(word);
         const lower = decoded.toLowerCase();
 
         // Check for attack keywords in decoded text
