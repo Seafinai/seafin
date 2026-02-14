@@ -139,6 +139,7 @@ Analyze this task and estimate automation potential.`
     console.error('ROI Calculator error:', error);
     return res.status(500).json({
       error: 'Unable to calculate ROI. Please try again.',
+      details: error.message,
       success: false
     });
   }
