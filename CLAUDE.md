@@ -46,12 +46,63 @@ Four pillars defined in the services PRD:
 
 Static single-page site at `website/index.html`. No build system — plain HTML/CSS/JS with Google Fonts. Favicon is `website/favicon.svg`.
 
+## Deployment & Hosting
+
+### DigitalOcean App Platform
+
+The website is hosted on **DigitalOcean App Platform** with automatic deployment from GitHub.
+
+**Configuration:**
+- **App name:** `seafin-website`
+- **Repository:** `Seafinai/seafin` (GitHub)
+- **Branch:** `main` (auto-deploy enabled)
+- **Source directory:** `/website`
+- **Environment:** Static site (HTML)
+
+**App spec file:** `digitalocean-app-spec.json` (in repo root)
+
+### Deployment Workflow
+
+**Automated deployment:**
+1. Make changes to `website/index.html` (or any files in `/website`)
+2. Commit changes to git
+3. Push to `origin/main`
+4. DigitalOcean automatically detects the push
+5. Builds and deploys the static site (60-90 seconds)
+6. Live at: https://seafin.ai
+
+**No manual deployment needed** — DigitalOcean watches the GitHub repo and auto-deploys on push.
+
+### Deployment Commands
+
+Standard git workflow:
+```bash
+git add website/index.html
+git commit -m "Description of changes
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+git push origin main
+```
+
+After push, wait 60-90 seconds for DigitalOcean to build and deploy.
+
+### Verifying Deployment
+
+Check deployment status:
+- Visit https://seafin.ai to see live site
+- DigitalOcean dashboard shows build logs and deployment status
+- Git commits trigger immediate builds (check GitHub Actions or DigitalOcean logs)
+
+### Cost
+
+Approximately **$200-300/year** for static site hosting on DigitalOcean App Platform.
+
 ## Key Context
 
-- No git repo is initialized yet
-- No test suite, build tools, or package manager at the root level
-- The `elements/` component library has been removed — this is a docs/planning repo only
-- Infrastructure target: DigitalOcean App Platform (~$200-300/yr)
+- Git repo initialized and connected to GitHub (`Seafinai/seafin`)
+- Deployed to DigitalOcean App Platform with auto-deploy from `main` branch
+- No test suite, build tools, or package manager at the root level (static HTML site)
+- The `elements/` component library has been removed — this is a docs/planning repo + production website
 - Revenue model: Seafin services (agents $5-25k, consulting $2-5k/mo), Solvity SaaS ($59-299/mo), Custodian managed backup ($9-199/mo)
 
 ## Browser Automation with Agent-Browser
