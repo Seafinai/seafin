@@ -102,7 +102,7 @@ export default async function handler(req, res) {
         'X-Title': 'Seafin RAG Demo'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4.5',
+        model: 'moonshot/kimi-k2-5',
         messages: [{
           role: 'user',
           content: `You are demonstrating RAG (Retrieval-Augmented Generation) for Seafin's KnowledgeClaw product.

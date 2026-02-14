@@ -126,7 +126,7 @@ export default async function handler(req, res) {
         'X-Title': 'Seafin Chatbot'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-sonnet-4.5',
+        model: 'moonshot/kimi-k2-5',
         messages: [{
           role: 'system',
           content: `You are a helpful AI assistant for Seafin, an AI consulting firm for small businesses.
