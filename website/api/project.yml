@@ -1,0 +1,21 @@
+packages:
+  - name: default
+    environment:
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      MAX_DAILY_COST: ${MAX_DAILY_COST}
+      NODE_ENV: ${NODE_ENV}
+    functions:
+      - name: analyze-form
+        runtime: nodejs:20
+        web: true
+        main: analyze-form.js
+
+      - name: chat
+        runtime: nodejs:20
+        web: true
+        main: chat.js
+
+      - name: rag-query
+        runtime: nodejs:20
+        web: true
+        main: rag-query.js
