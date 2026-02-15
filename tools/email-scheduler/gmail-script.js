@@ -19,10 +19,14 @@ const CONFIG = {
   API_URL: 'https://seafin.vercel.app/api/classify-email',
 
   // Shared secret — must match EMAIL_API_KEY in Vercel dashboard
-  API_KEY: 'YOUR_API_KEY_HERE',
+  API_KEY: 'sk-email-e3782c7b4bafcfe94c7ceb8e87a898e3',
+
+  // Brand slug — determines tone, services, booking URL, sign-off
+  // Options: 'seafin', 'solvity', 'custodian'
+  BRAND: 'seafin',
 
   // Cal.com booking link (used as fallback; the API also injects it)
-  BOOKING_URL: 'https://cal.com/seafin/intro',
+  BOOKING_URL: 'https://cal.com/rob-crider-zu6aok',
 
   // Gmail label for processed emails
   LABEL_NAME: 'AI-Processed',
@@ -141,7 +145,7 @@ function processNewEmails() {
         classification: result.classification,
         confidence: result.confidence,
         shouldBook: result.shouldBook,
-        need: result.extracted?.need || '',
+        need: (result.extracted && result.extracted.need) || '',
         replied: CONFIG.AUTO_REPLY_ENABLED && result.suggestedReply && result.classification !== 'spam',
         cost: result.cost || 0
       });
@@ -164,7 +168,8 @@ function classifyEmail(from, subject, body) {
     from: from,
     subject: subject || '(no subject)',
     body: truncatedBody,
-    apiKey: CONFIG.API_KEY
+    apiKey: CONFIG.API_KEY,
+    brand: CONFIG.BRAND || 'seafin'
   };
 
   const options = {
@@ -261,12 +266,10 @@ function logToSheet(data) {
 // ============================================================================
 
 function testClassification() {
-  const result = classifyEmail(
-    'jane@acmecorp.com',
-    'Looking for AI chatbot solution',
-    'Hi, we are a 25-person marketing agency looking for an AI chatbot for our customer support. We currently handle about 200 tickets per day and want to automate the common ones. Budget is flexible. Can we set up a call this week?'
-  );
-
+  var testBody = 'Hi, we are a 25-person marketing agency looking for ';
+  testBody += 'an AI chatbot for our customer support. Budget is flexible. ';
+  testBody += 'Can we set up a call this week?';
+  var result = classifyEmail('jane@acmecorp.com', 'Looking for AI chatbot solution', testBody);
   Logger.log('Test result:');
   Logger.log(JSON.stringify(result, null, 2));
 }

@@ -1,0 +1,53 @@
+{
+  "seafin": {
+    "name": "Seafin",
+    "slug": "seafin",
+    "tagline": "Custom AI for small business. Results in weeks, not months.",
+    "tone": "Professional but warm, direct, not corporate. Conversational but knowledgeable.",
+    "audience": "SMB owners and CTOs at companies with 10-50 employees",
+    "services": [
+      "Custom AI agents and chatbots",
+      "RAG knowledge base bots (KnowledgeClaw)",
+      "Workflow automation (WorkClaw)",
+      "AI consulting and strategy",
+      "AI-powered websites and SaaS development"
+    ],
+    "bookingUrl": "https://cal.com/seafin/intro",
+    "signOff": "Rob at Seafin",
+    "serviceDescription": "AI consulting and custom development for small businesses"
+  },
+  "solvity": {
+    "name": "Solvity",
+    "slug": "solvity",
+    "tagline": "AI automation that works out of the box.",
+    "tone": "Friendly, product-focused, value-driven. Approachable and clear.",
+    "audience": "SMB operations managers and non-technical buyers",
+    "services": [
+      "Self-service AI automation platform",
+      "Pre-built automation workflows",
+      "Document processing",
+      "Customer support automation",
+      "Analytics and reporting"
+    ],
+    "bookingUrl": "https://cal.com/solvity/demo",
+    "signOff": "The Solvity Team",
+    "serviceDescription": "self-service AI automation platform for small businesses ($59-299/mo)"
+  },
+  "custodian": {
+    "name": "Custodian",
+    "slug": "custodian",
+    "tagline": "Your data, always protected.",
+    "tone": "Trustworthy, security-focused, reassuring. Calm and authoritative.",
+    "audience": "SMB IT managers and compliance officers",
+    "services": [
+      "Managed cloud backup",
+      "Ransomware protection and recovery",
+      "Compliance-ready data retention",
+      "Disaster recovery planning",
+      "Endpoint backup for remote teams"
+    ],
+    "bookingUrl": "https://cal.com/custodian/consult",
+    "signOff": "The Custodian Team",
+    "serviceDescription": "managed backup and ransomware protection ($9-199/mo)"
+  }
+}

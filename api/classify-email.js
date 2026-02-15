@@ -1,8 +1,13 @@
 /**
  * Email Classification API - Vercel Serverless Function
+ * Multi-brand: accepts a `brand` slug to load brand-specific config.
  * Classifies incoming emails and generates auto-replies with booking links.
  * Auth: shared secret via apiKey field.
  */
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const brands = require('./lib/brands.json');
 
 // ============================================================================
 // RATE LIMITING
@@ -53,16 +58,30 @@ function sanitizeInput(text) {
 // SYSTEM PROMPT
 // ============================================================================
 
-function buildSystemPrompt(bookingUrl) {
-  return `You are an email classification assistant for Seafin, an AI consulting company.
+function getBrand(slug) {
+  const brand = brands[slug || 'seafin'];
+  if (!brand) return brands['seafin']; // fallback to seafin
+  return brand;
+}
+
+function buildSystemPrompt(brand) {
+  const servicesList = brand.services.map(s => `  - ${s}`).join('\n');
+
+  return `You are an email classification assistant for ${brand.name}, ${brand.serviceDescription}.
 
 Your job: Analyze an incoming email and return a JSON object with your classification.
 
+=== ABOUT ${brand.name.toUpperCase()} ===
+Tagline: "${brand.tagline}"
+Target audience: ${brand.audience}
+Services offered:
+${servicesList}
+
 === CLASSIFICATIONS ===
-- "lead" — Someone interested in buying AI services (chatbots, automation, consulting, development). They mention a business need, team size, budget, or project.
+- "lead" — Someone interested in buying services. They mention a business need, team size, budget, or project.
 - "scheduling" — Someone trying to schedule a meeting, call, or demo that's already in progress (follow-up, rescheduling).
-- "inquiry" — General question about Seafin's services, pricing, or capabilities. Not yet a strong lead.
-- "spam" — Marketing, newsletters, automated notifications, cold outreach selling TO Seafin, or irrelevant.
+- "inquiry" — General question about ${brand.name}'s services, pricing, or capabilities. Not yet a strong lead.
+- "spam" — Marketing, newsletters, automated notifications, cold outreach selling TO ${brand.name}, or irrelevant.
 - "other" — Anything that doesn't fit above (personal, internal, support, etc).
 
 === EXTRACTION ===
@@ -75,15 +94,15 @@ Extract from the email:
 
 === REPLY GENERATION ===
 Generate a short, professional reply (3-5 sentences max):
-- For "lead": Thank them, briefly acknowledge their need, include this booking link naturally: ${bookingUrl}
-- For "scheduling": Confirm interest, provide the booking link: ${bookingUrl}
-- For "inquiry": Answer briefly, mention Seafin's services, invite them to book a call: ${bookingUrl}
+- For "lead": Thank them, briefly acknowledge their need, include this booking link naturally: ${brand.bookingUrl}
+- For "scheduling": Confirm interest, provide the booking link: ${brand.bookingUrl}
+- For "inquiry": Answer briefly, mention ${brand.name}'s services, invite them to book a call: ${brand.bookingUrl}
 - For "spam" or "other": Set suggestedReply to null
 
 === REPLY STYLE ===
-- Professional but warm, not corporate
+- ${brand.tone}
 - Never mention AI or automation in the reply process itself
-- Sign off as "Rob at Seafin"
+- Sign off as "${brand.signOff}"
 - Keep it concise — busy people appreciate short emails
 
 === OUTPUT FORMAT ===
@@ -122,7 +141,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { from, subject, body, apiKey } = req.body;
+    const { from, subject, body, apiKey, brand: brandSlug } = req.body;
 
     // --- AUTH ---
     const expectedKey = process.env.EMAIL_API_KEY;
@@ -151,9 +170,9 @@ export default async function handler(req, res) {
     const cleanSubject = sanitizeInput(subject).slice(0, 500);
     const cleanBody = sanitizeInput(body).slice(0, 5000);
 
-    // --- BUILD PROMPT ---
-    const bookingUrl = process.env.BOOKING_URL || 'https://cal.com/seafin/intro';
-    const systemPrompt = buildSystemPrompt(bookingUrl);
+    // --- LOAD BRAND CONFIG ---
+    const brand = getBrand(brandSlug);
+    const systemPrompt = buildSystemPrompt(brand);
 
     const userMessage = `Classify this email:
 
@@ -229,6 +248,7 @@ ${cleanBody}`;
 
     return res.status(200).json({
       success: true,
+      brand: brand.slug,
       classification: parsed.classification,
       confidence: parsed.confidence,
       extracted: parsed.extracted || {},
