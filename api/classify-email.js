@@ -177,7 +177,7 @@ ${cleanBody}`;
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userMessage }
         ],
-        max_tokens: 500,
+        max_tokens: 2000,
         temperature: 0.3
       })
     });
