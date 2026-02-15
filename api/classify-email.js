@@ -240,7 +240,7 @@ ${cleanBody}`;
   } catch (error) {
     console.error('Email classification error:', error);
     return res.status(500).json({
-      error: 'Classification failed',
+      error: 'Classification failed: ' + error.message,
       success: false
     });
   }
