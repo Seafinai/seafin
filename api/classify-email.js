@@ -183,14 +183,15 @@ ${cleanBody}`;
     });
 
     if (!response.ok) {
-      throw new Error(`AI service error: ${response.status}`);
+      const errBody = await response.text();
+      throw new Error(`AI service error ${response.status}: ${errBody.slice(0, 200)}`);
     }
 
     const data = await response.json();
     const llmReply = data.choices?.[0]?.message?.content;
 
-    if (!llmReply) {
-      throw new Error('Empty response from AI');
+    if (!llmReply || llmReply.trim().length === 0) {
+      throw new Error(`Empty response from AI. Model: ${data.model || 'unknown'}, finish: ${data.choices?.[0]?.finish_reason || 'unknown'}, error: ${JSON.stringify(data.error || 'none')}`);
     }
 
     // --- PARSE JSON RESPONSE ---
