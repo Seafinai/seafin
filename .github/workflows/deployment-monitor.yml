@@ -60,7 +60,7 @@ jobs:
 
       - name: Create alert if website is down
         if: steps.check.outputs.status == 'failure'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const httpCode = '${{ steps.check.outputs.http_code }}';
