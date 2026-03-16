@@ -1,0 +1,167 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@puppeteer/browsers": {
+      "name": "@puppeteer/browsers",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "extract-zip"
+      ],
+      "effects": [
+        "puppeteer",
+        "puppeteer-core"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@puppeteer/browsers"
+      ],
+      "fixAvailable": {
+        "name": "puppeteer",
+        "version": "19.8.0",
+        "isSemVerMajor": true
+      }
+    },
+    "basic-ftp": {
+      "name": "basic-ftp",
+      "severity": "critical",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1113518,
+          "name": "basic-ftp",
+          "dependency": "basic-ftp",
+          "title": "Basic FTP has Path Traversal Vulnerability in its downloadToDir() method",
+          "url": "https://github.com/advisories/GHSA-5rq4-664w-9x2c",
+          "severity": "critical",
+          "cwe": [
+            "CWE-22"
+          ],
+          "cvss": {
+            "score": 9.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H"
+          },
+          "range": "<5.2.0"
+        }
+      ],
+      "effects": [],
+      "range": "<5.2.0",
+      "nodes": [
+        "node_modules/basic-ftp"
+      ],
+      "fixAvailable": true
+    },
+    "extract-zip": {
+      "name": "extract-zip",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "yauzl"
+      ],
+      "effects": [
+        "@puppeteer/browsers"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/extract-zip"
+      ],
+      "fixAvailable": {
+        "name": "puppeteer",
+        "version": "19.8.0",
+        "isSemVerMajor": true
+      }
+    },
+    "puppeteer": {
+      "name": "puppeteer",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "@puppeteer/browsers",
+        "puppeteer-core"
+      ],
+      "effects": [],
+      "range": ">=19.8.1",
+      "nodes": [
+        "node_modules/puppeteer"
+      ],
+      "fixAvailable": {
+        "name": "puppeteer",
+        "version": "19.8.0",
+        "isSemVerMajor": true
+      }
+    },
+    "puppeteer-core": {
+      "name": "puppeteer-core",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "@puppeteer/browsers"
+      ],
+      "effects": [
+        "puppeteer"
+      ],
+      "range": ">=19.8.4",
+      "nodes": [
+        "node_modules/puppeteer-core"
+      ],
+      "fixAvailable": {
+        "name": "puppeteer",
+        "version": "19.8.0",
+        "isSemVerMajor": true
+      }
+    },
+    "yauzl": {
+      "name": "yauzl",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1114530,
+          "name": "yauzl",
+          "dependency": "yauzl",
+          "title": "yauzl contains an off-by-one error",
+          "url": "https://github.com/advisories/GHSA-gmq8-994r-jv83",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-193"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<3.2.1"
+        }
+      ],
+      "effects": [
+        "extract-zip"
+      ],
+      "range": "<3.2.1",
+      "nodes": [
+        "node_modules/yauzl"
+      ],
+      "fixAvailable": {
+        "name": "puppeteer",
+        "version": "19.8.0",
+        "isSemVerMajor": true
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 5,
+      "high": 0,
+      "critical": 1,
+      "total": 6
+    },
+    "dependencies": {
+      "prod": 1,
+      "dev": 98,
+      "optional": 9,
+      "peer": 1,
+      "peerOptional": 0,
+      "total": 98
+    }
+  }
+}
