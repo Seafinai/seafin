@@ -22,8 +22,9 @@ export default async function handler(req, res) {
       redirect: 'follow',
     });
 
-    // 200 or any 3xx redirect counts as live
-    const ready = response.status < 500;
+    // Only 200 means the tenant app is actually up and serving
+    // 404 = Traefik default backend (tenant not provisioned yet)
+    const ready = response.status === 200;
     return res.status(200).json({ ready, status: response.status });
 
   } catch {
