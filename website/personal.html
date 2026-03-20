@@ -584,16 +584,21 @@
     btn.textContent = 'Reserving…';
 
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, subdomain })
+        body: JSON.stringify({
+          access_key: 'e7b94135-5cc4-4a79-abbe-217cb305b4a3',
+          subject: `New Seafin Personal signup: ${subdomain}.seafin.ai`,
+          email,
+          message: `Subdomain requested: ${subdomain}.seafin.ai\nEmail: ${email}`
+        })
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        formError.textContent = data.error || 'Something went wrong. Please try again.';
+      if (!data.success) {
+        formError.textContent = 'Something went wrong. Please try again.';
         formError.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Claim My Workspace →';
@@ -601,7 +606,7 @@
       }
 
       // Redirect to welcome page
-      window.location.href = `/welcome.html?sub=${encodeURIComponent(subdomain)}&email=${encodeURIComponent(email)}`;
+      window.location.href = `/welcome?sub=${encodeURIComponent(subdomain)}&email=${encodeURIComponent(email)}`;
 
     } catch (err) {
       formError.textContent = 'Network error. Please check your connection and try again.';
