@@ -390,38 +390,29 @@
   </p>
 
   <div class="signup-form" id="get-started">
-    <div class="form-title">Get your workspace</div>
-    <div class="form-sub">Claim your subdomain and we'll set everything up.</div>
+    <div class="form-title">Join the waitlist</div>
+    <div class="form-sub">We're onboarding early customers. Drop your email and we'll reach out when your spot is ready.</div>
 
-    <form id="signupForm" novalidate>
+    <form id="waitlistForm" novalidate>
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
         <div class="error-msg" id="emailError"></div>
       </div>
 
-      <div class="form-group">
-        <label for="subdomain">Your workspace address</label>
-        <div class="subdomain-wrap">
-          <input type="text" id="subdomain" name="subdomain"
-            class="subdomain-input"
-            placeholder="alice"
-            maxlength="32"
-            autocomplete="off"
-            required>
-          <span class="subdomain-suffix">.seafin.ai</span>
-        </div>
-        <div class="field-hint">3–32 characters, lowercase letters and hyphens only</div>
-        <div class="error-msg" id="subdomainError"></div>
-      </div>
-
       <button type="submit" class="submit-btn" id="submitBtn">
-        Claim My Workspace →
+        Request Early Access →
       </button>
       <div class="error-msg" id="formError" style="display:none; text-align:center; margin-top:12px;"></div>
     </form>
 
-    <p class="form-note">No credit card required to reserve your spot.</p>
+    <div id="successMsg" style="display:none; text-align:center; padding:16px 0;">
+      <div style="font-size:1.5rem; margin-bottom:8px;">✓</div>
+      <div style="font-weight:600; margin-bottom:4px;">You're on the list.</div>
+      <div style="color:#a0b4c4; font-size:0.9rem;">We'll email you when your workspace is ready.</div>
+    </div>
+
+    <p class="form-note">No credit card required. Early access only.</p>
   </div>
 </section>
 
@@ -548,40 +539,25 @@
 </footer>
 
 <script>
-  // Sanitize subdomain input as user types
-  document.getElementById('subdomain').addEventListener('input', function() {
-    this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
-  });
-
-  document.getElementById('signupForm').addEventListener('submit', async function(e) {
+  document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const email = document.getElementById('email').value.trim();
-    const subdomain = document.getElementById('subdomain').value.trim();
     const btn = document.getElementById('submitBtn');
     const formError = document.getElementById('formError');
+    const emailError = document.getElementById('emailError');
 
-    // Clear errors
-    document.getElementById('emailError').style.display = 'none';
-    document.getElementById('subdomainError').style.display = 'none';
+    emailError.style.display = 'none';
     formError.style.display = 'none';
 
-    // Validate
-    let valid = true;
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-      document.getElementById('emailError').style.display = 'block';
-      valid = false;
+      emailError.textContent = 'Please enter a valid email address.';
+      emailError.style.display = 'block';
+      return;
     }
-    if (!subdomain || !/^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$/.test(subdomain)) {
-      document.getElementById('subdomainError').textContent = 'Must be 3–32 characters, lowercase letters and hyphens only.';
-      document.getElementById('subdomainError').style.display = 'block';
-      valid = false;
-    }
-    if (!valid) return;
 
     btn.disabled = true;
-    btn.textContent = 'Reserving…';
+    btn.textContent = 'Submitting…';
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -589,9 +565,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: 'e7b94135-5cc4-4a79-abbe-217cb305b4a3',
-          subject: `New Seafin Personal signup: ${subdomain}.seafin.ai`,
+          subject: 'Seafin Personal — waitlist signup',
           email,
-          message: `Subdomain requested: ${subdomain}.seafin.ai\nEmail: ${email}`
+          message: `Waitlist request from: ${email}`
         })
       });
 
@@ -601,18 +577,18 @@
         formError.textContent = 'Something went wrong. Please try again.';
         formError.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'Claim My Workspace →';
+        btn.textContent = 'Request Early Access →';
         return;
       }
 
-      // Redirect to welcome page
-      window.location.href = `/welcome?sub=${encodeURIComponent(subdomain)}&email=${encodeURIComponent(email)}`;
+      document.getElementById('waitlistForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
 
     } catch (err) {
       formError.textContent = 'Network error. Please check your connection and try again.';
       formError.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = 'Claim My Workspace →';
+      btn.textContent = 'Request Early Access →';
     }
   });
 </script>
