@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting up your workspace — Seafin</title>
+<meta name="theme-color" content="#001220">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #001220;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px; font-weight: 500; color: #fff;
+    text-decoration: none; letter-spacing: -0.5px;
+    display: inline-block; margin-bottom: 64px;
+  }
+  .logo span { color: #00d4ff; }
+
+  /* SPINNER */
+  .spinner-wrap { margin-bottom: 40px; }
+  .spinner {
+    width: 64px; height: 64px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .spinner-ring {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #00d4ff;
+    animation: spin 1.2s linear infinite;
+  }
+  .spinner-ring:nth-child(2) {
+    inset: 8px;
+    border-top-color: rgba(0,212,255,0.4);
+    animation-duration: 1.8s;
+    animation-direction: reverse;
+  }
+  .spinner-dot {
+    position: absolute;
+    inset: 22px;
+    background: rgba(0,212,255,0.15);
+    border-radius: 50%;
+    border: 1px solid rgba(0,212,255,0.3);
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  h1 {
+    font-size: 28px; font-weight: 700; color: #fff;
+    letter-spacing: -0.5px; margin-bottom: 12px;
+  }
+
+  .workspace-url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px; color: #00d4ff;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  .status-msg {
+    font-size: 15px; color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    min-height: 48px;
+    transition: opacity 0.3s;
+  }
+
+  /* PROGRESS STEPS */
+  .steps {
+    margin: 40px auto;
+    text-align: left;
+    max-width: 360px;
+  }
+  .step-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+    transition: color 0.4s;
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-item.done { color: rgba(255,255,255,0.75); }
+  .step-item.active { color: #fff; }
+  .step-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: all 0.4s;
+  }
+  .step-item.done .step-icon {
+    background: rgba(0,212,255,0.1);
+    border-color: rgba(0,212,255,0.3);
+    color: #00d4ff;
+  }
+  .step-item.active .step-icon {
+    background: rgba(0,212,255,0.15);
+    border-color: #00d4ff;
+    color: #00d4ff;
+    animation: stepPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes stepPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(0,212,255,0); }
+  }
+
+  /* READY STATE */
+  .ready-state { display: none; }
+  .ready-icon {
+    width: 72px; height: 72px;
+    background: rgba(0,212,255,0.1);
+    border: 2px solid rgba(0,212,255,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 32px;
+    animation: readyPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes readyPop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .launch-btn {
+    display: inline-block;
+    background: #00d4ff; color: #001220;
+    padding: 16px 40px; border-radius: 10px;
+    font-size: 17px; font-weight: 700; color: #001220;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 24px;
+  }
+  .launch-btn:hover { background: #33ddff; transform: translateY(-2px); }
+
+  /* ERROR STATE */
+  .error-state { display: none; }
+  .error-state p { color: rgba(255,255,255,0.5); font-size: 15px; margin-bottom: 20px; }
+  .retry-btn {
+    background: transparent;
+    border: 1px solid rgba(0,212,255,0.3);
+    color: #00d4ff;
+    padding: 10px 24px; border-radius: 8px;
+    font-size: 14px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .retry-btn:hover { background: rgba(0,212,255,0.08); }
+
+  .eta-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: rgba(255,255,255,0.2);
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="logo">sea<span>fin</span></a>
+
+  <!-- PROVISIONING STATE -->
+  <div id="provisioningState">
+    <div class="spinner-wrap">
+      <div class="spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-dot"></div>
+      </div>
+    </div>
+
+    <h1>Setting up your workspace</h1>
+    <span class="workspace-url" id="workspaceUrl"></span>
+    <p class="status-msg" id="statusMsg">Initializing your private environment…</p>
+
+    <div class="steps" id="stepsList">
+      <div class="step-item active" id="step-db">
+        <div class="step-icon">⬡</div>
+        <span>Creating your database</span>
+      </div>
+      <div class="step-item" id="step-ns">
+        <div class="step-icon">⬡</div>
+        <span>Provisioning workspace namespace</span>
+      </div>
+      <div class="step-item" id="step-deploy">
+        <div class="step-icon">⬡</div>
+        <span>Deploying AI assistant</span>
+      </div>
+      <div class="step-item" id="step-ready">
+        <div class="step-icon">⬡</div>
+        <span>Running health checks</span>
+      </div>
+    </div>
+
+    <p class="eta-note">Typical setup time: 60–120 seconds</p>
+  </div>
+
+  <!-- READY STATE -->
+  <div id="readyState" class="ready-state">
+    <div class="ready-icon">✓</div>
+    <h1>Your workspace is ready</h1>
+    <span class="workspace-url" id="readyUrl"></span>
+    <p class="status-msg">Everything is set up and waiting for you.</p>
+    <br>
+    <a href="#" id="launchBtn" class="launch-btn">Open My Workspace →</a>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div id="errorState" class="error-state">
+    <h1 style="margin-bottom:16px;">Setup is taking longer than expected</h1>
+    <p>Your workspace is still being configured. This can take a few minutes on the first deploy.</p>
+    <button class="retry-btn" onclick="startPolling()">Check again</button>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const sub = params.get('sub') || '';
+  const url = `https://${sub}.seafin.ai`;
+
+  // Display URL
+  document.getElementById('workspaceUrl').textContent = `${sub}.seafin.ai`;
+  document.getElementById('readyUrl').textContent = `${sub}.seafin.ai`;
+  document.getElementById('launchBtn').href = url;
+
+  const steps = ['step-db', 'step-ns', 'step-deploy', 'step-ready'];
+  const messages = [
+    'Initializing your private environment…',
+    'Provisioning workspace namespace…',
+    'Deploying your AI assistant…',
+    'Running health checks…',
+  ];
+
+  let currentStep = 0;
+  let pollInterval;
+  let stepInterval;
+  let attempts = 0;
+  const MAX_ATTEMPTS = 36; // 3 minutes at 5s intervals
+
+  function setStep(index) {
+    // Mark all previous as done
+    for (let i = 0; i < index; i++) {
+      const el = document.getElementById(steps[i]);
+      el.classList.remove('active');
+      el.classList.add('done');
+      el.querySelector('.step-icon').textContent = '✓';
+    }
+    // Set current as active
+    if (index < steps.length) {
+      document.getElementById(steps[index]).classList.add('active');
+      document.getElementById('statusMsg').textContent = messages[index];
+    }
+  }
+
+  function advanceStepVisually() {
+    if (currentStep < steps.length - 1) {
+      currentStep++;
+      setStep(currentStep);
+    }
+  }
+
+  async function checkReady() {
+    if (!sub) return;
+    attempts++;
+
+    try {
+      const res = await fetch(`/api/provision-status?sub=${encodeURIComponent(sub)}`);
+      const data = await res.json();
+
+      if (data.ready) {
+        clearInterval(pollInterval);
+        clearInterval(stepInterval);
+        showReady();
+        return;
+      }
+    } catch (e) {
+      // Network error — keep trying
+    }
+
+    if (attempts >= MAX_ATTEMPTS) {
+      clearInterval(pollInterval);
+      clearInterval(stepInterval);
+      showError();
+    }
+  }
+
+  function showReady() {
+    // Complete all steps
+    steps.forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active');
+      el.classList.add('done');
+      el.querySelector('.step-icon').textContent = '✓';
+    });
+
+    setTimeout(() => {
+      document.getElementById('provisioningState').style.display = 'none';
+      const rs = document.getElementById('readyState');
+      rs.style.display = 'block';
+
+      // Auto-redirect after 3 seconds
+      setTimeout(() => {
+        window.location.href = url;
+      }, 3000);
+    }, 800);
+  }
+
+  function showError() {
+    document.getElementById('provisioningState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+  }
+
+  function startPolling() {
+    document.getElementById('errorState').style.display = 'none';
+    document.getElementById('provisioningState').style.display = 'block';
+    attempts = 0;
+    currentStep = 0;
+    setStep(0);
+    clearInterval(pollInterval);
+    clearInterval(stepInterval);
+    pollInterval = setInterval(checkReady, 5000);
+    stepInterval = setInterval(advanceStepVisually, 22000);
+    checkReady();
+  }
+
+  // Start immediately
+  if (sub) {
+    startPolling();
+  } else {
+    showError();
+  }
+</script>
+</body>
+</html>
