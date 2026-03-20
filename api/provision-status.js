@@ -22,9 +22,10 @@ export default async function handler(req, res) {
       redirect: 'follow',
     });
 
-    // Only 200 means the tenant app is actually up and serving
-    // 404 = Traefik default backend (tenant not provisioned yet)
-    const ready = response.status === 200;
+    // 404 = Traefik no-route (tenant not provisioned yet) → not ready
+    // 5xx = server error → not ready
+    // 200, 302 (Clerk redirect), 401, 403 (Cloudflare auth) → app is serving → ready
+    const ready = response.status !== 404 && response.status < 500;
     return res.status(200).json({ ready, status: response.status });
 
   } catch {
