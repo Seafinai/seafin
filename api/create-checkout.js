@@ -39,7 +39,8 @@ export default async function handler(req, res) {
 
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const priceId = process.env.STRIPE_PRICE_ID;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://seafin.ai';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'seafin.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || `https://${host}`;
 
   if (!stripeSecretKey || !priceId) {
     console.error('Missing STRIPE_SECRET_KEY or STRIPE_PRICE_ID');
@@ -64,6 +65,6 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error('Stripe session creation failed:', err.message);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Failed to create checkout session' });
   }
 }
