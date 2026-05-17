@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Seafin</title>
+<meta name="description" content="Seafin LLC terms of service.">
+<meta name="theme-color" content="#03060f">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand.css">
+
+<style>
+  .legal-hero {
+    padding: 160px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .legal-hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(127, 223, 255, 0.12), transparent 60%);
+    filter: blur(40px);
+  }
+  .legal-hero > .container { position: relative; }
+  .legal-h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .legal-updated {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text-3);
+    text-transform: uppercase;
+  }
+
+  .legal-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 64px;
+    padding-bottom: 100px;
+    position: relative;
+  }
+  .legal-toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    padding: 22px 18px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .legal-toc-title {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 14px;
+  }
+  .legal-toc a {
+    display: block;
+    padding: 7px 10px;
+    font-size: 13.5px;
+    color: var(--text-2);
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    line-height: 1.4;
+  }
+  .legal-toc a:hover { color: var(--aqua-100); background: rgba(127, 223, 255, 0.05); }
+
+  .legal-body { max-width: 720px; }
+  .legal-body p {
+    color: var(--text-2);
+    font-size: 15.5px;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .legal-body h2 {
+    font-family: var(--sans);
+    font-size: 1.55rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin: 56px 0 16px;
+    color: var(--text);
+    scroll-margin-top: 100px;
+  }
+  .legal-body h2:first-of-type { margin-top: 0; }
+  .legal-body h2::before {
+    content: '— ';
+    color: var(--aqua-300);
+  }
+  .legal-body ul {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+  .legal-body ul li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text-2);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .legal-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 17px;
+    width: 6px;
+    height: 1px;
+    background: var(--aqua-300);
+  }
+  .legal-body strong { color: var(--text); font-weight: 500; }
+  .legal-body a { color: var(--aqua-100); border-bottom: 1px solid rgba(127, 223, 255, 0.3); }
+  .legal-body a:hover { border-bottom-color: var(--aqua-100); }
+
+  .legal-callout {
+    margin-top: 40px;
+    padding: 22px 26px;
+    border-radius: var(--radius);
+    background: rgba(255, 157, 92, 0.04);
+    border: 1px solid rgba(255, 157, 92, 0.15);
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+  .legal-callout strong { color: var(--warm-200); font-weight: 500; }
+
+  @media (max-width: 880px) {
+    .legal-layout { grid-template-columns: 1fr; gap: 32px; }
+    .legal-toc { position: relative; top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<nav class="nav" aria-label="Primary">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M8 24 C 10 18 13 13 18 9 C 18 14 20 20 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 26 Q 10 24 16 25 Q 22 26 28 25" stroke="currentColor" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+        <circle cx="22" cy="26" r="0.7" fill="currentColor" opacity="0.6"/>
+      </svg>
+    </span>
+    <span>seafin</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#services">Services</a>
+    <a href="sovereign.html">Sovereign</a>
+    <a href="personal.html">Personal</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a href="index.html#contact" class="nav-cta">Book a call</a>
+</nav>
+
+<main>
+
+<section class="legal-hero">
+  <div class="container">
+    <h1 class="legal-h1">Terms of service</h1>
+    <div class="legal-updated">Last updated · February 8, 2026</div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="legal-layout">
+
+      <aside class="legal-toc">
+        <div class="legal-toc-title">Contents</div>
+        <a href="#services">Services</a>
+        <a href="#process">Engagement process</a>
+        <a href="#payment">Payment terms</a>
+        <a href="#ip">Intellectual property</a>
+        <a href="#confidentiality">Confidentiality</a>
+        <a href="#warranties">Warranties &amp; disclaimers</a>
+        <a href="#liability">Limitation of liability</a>
+        <a href="#client">Client responsibilities</a>
+        <a href="#termination">Termination</a>
+        <a href="#disputes">Disputes</a>
+        <a href="#changes">Changes</a>
+        <a href="#general">General</a>
+        <a href="#contact">Contact</a>
+      </aside>
+
+      <article class="legal-body">
+        <p style="font-size: 17px; color: var(--text); line-height: 1.6; margin-bottom: 40px;">
+          These Terms of Service ("Terms") govern your access to and use of the services provided by Seafin LLC ("Seafin," "we," "us," or "our"). By accessing our website or using our services, you agree to be bound by these Terms.
+        </p>
+
+        <h2 id="services">1. Services</h2>
+        <p>Seafin provides custom AI development, workflow automation, and related consulting services to businesses. Our services include but are not limited to:</p>
+        <ul>
+          <li>Custom AI assistant development</li>
+          <li>RAG (Retrieval-Augmented Generation) knowledge bots</li>
+          <li>Workflow automation using n8n and custom tools</li>
+          <li>AI-integrated website development</li>
+          <li>Consulting and strategic guidance for AI implementation</li>
+          <li>Self-hosted LLM deployments for regulated environments</li>
+        </ul>
+
+        <h2 id="process">2. Engagement process</h2>
+        <p>Our typical engagement process includes:</p>
+        <ul>
+          <li><strong>Discovery call.</strong> Initial 30-minute consultation to understand your needs.</li>
+          <li><strong>Proposal.</strong> Detailed scope of work, timeline, and pricing.</li>
+          <li><strong>Agreement.</strong> Formal contract executed before work begins.</li>
+          <li><strong>Development.</strong> Implementation with regular progress updates.</li>
+          <li><strong>Delivery.</strong> Final deliverables and post-launch support.</li>
+        </ul>
+        <p>Specific terms, timelines, and pricing will be outlined in individual service agreements.</p>
+
+        <h2 id="payment">3. Payment terms</h2>
+        <p>Payment terms will be specified in your service agreement. Generally:</p>
+        <ul>
+          <li>Payment schedules are defined per project (milestone-based or monthly retainer)</li>
+          <li>Invoices are due within 15 days of issuance unless otherwise agreed</li>
+          <li>Late payments may incur interest charges or suspension of services</li>
+          <li>All fees are non-refundable unless otherwise stated in your service agreement</li>
+        </ul>
+
+        <h2 id="ip">4. Intellectual property</h2>
+        <p><strong>Client ownership.</strong> Upon full payment, you will own all custom work product created specifically for you, including code, designs, and documentation.</p>
+        <p><strong>Seafin IP.</strong> We retain ownership of:</p>
+        <ul>
+          <li>Our proprietary tools, frameworks, and methodologies</li>
+          <li>Pre-existing intellectual property and reusable components</li>
+          <li>General knowledge and experience gained during the engagement</li>
+        </ul>
+        <p><strong>Third-party components.</strong> Solutions may incorporate third-party software, APIs, or open-source components subject to their respective licenses.</p>
+
+        <h2 id="confidentiality">5. Confidentiality</h2>
+        <p>Both parties agree to maintain confidentiality of proprietary information shared during the engagement. This includes:</p>
+        <ul>
+          <li>Business processes and strategies</li>
+          <li>Technical implementations and custom code</li>
+          <li>Financial information and pricing</li>
+          <li>Any information marked as confidential</li>
+        </ul>
+        <p>Confidentiality obligations survive termination of the service agreement.</p>
+
+        <h2 id="warranties">6. Warranties and disclaimers</h2>
+        <p><strong>Our commitment.</strong> We will provide services with reasonable skill and care consistent with industry standards.</p>
+        <p><strong>Disclaimers.</strong> Our services are provided "as is" without warranties of any kind, express or implied. We do not guarantee:</p>
+        <ul>
+          <li>Specific performance metrics or business outcomes</li>
+          <li>Uninterrupted or error-free operation of delivered solutions</li>
+          <li>Compatibility with all third-party systems or future changes</li>
+          <li>Particular results from AI models or automation workflows</li>
+        </ul>
+
+        <h2 id="liability">7. Limitation of liability</h2>
+        <p>To the maximum extent permitted by law:</p>
+        <ul>
+          <li>Our total liability for any claim will not exceed the fees paid for the specific service giving rise to the claim</li>
+          <li>We are not liable for indirect, incidental, consequential, or punitive damages</li>
+          <li>We are not responsible for losses resulting from data breaches, system failures, or third-party services</li>
+        </ul>
+
+        <h2 id="client">8. Client responsibilities</h2>
+        <p>You agree to:</p>
+        <ul>
+          <li>Provide timely access to necessary systems, data, and personnel</li>
+          <li>Respond to requests for information and feedback within reasonable timeframes</li>
+          <li>Ensure you have rights to any data or content you provide</li>
+          <li>Comply with all applicable laws and third-party terms of service</li>
+          <li>Maintain appropriate backups of your data</li>
+        </ul>
+
+        <h2 id="termination">9. Termination</h2>
+        <p>Either party may terminate services as specified in the service agreement. Generally:</p>
+        <ul>
+          <li>Termination for convenience requires written notice (typically 30 days)</li>
+          <li>Immediate termination is permitted for material breach</li>
+          <li>Upon termination, you pay for work completed through the termination date</li>
+          <li>We will provide deliverables for completed milestones</li>
+        </ul>
+
+        <h2 id="disputes">10. Dispute resolution</h2>
+        <p>Any disputes arising from these Terms or our services will be resolved through:</p>
+        <ul>
+          <li>Good faith negotiation between the parties</li>
+          <li>Mediation if negotiation fails</li>
+          <li>Binding arbitration if mediation is unsuccessful</li>
+        </ul>
+        <p>These Terms are governed by the laws of the jurisdiction where Seafin LLC is registered.</p>
+
+        <h2 id="changes">11. Changes to terms</h2>
+        <p>We may modify these Terms at any time by posting updated terms on our website. Continued use of our services after changes constitutes acceptance of the modified Terms. Material changes will be communicated via email to active clients.</p>
+
+        <h2 id="general">12. General provisions</h2>
+        <ul>
+          <li><strong>Entire agreement.</strong> Your service agreement and these Terms constitute the entire agreement between parties.</li>
+          <li><strong>Severability.</strong> If any provision is found unenforceable, the remaining provisions remain in effect.</li>
+          <li><strong>No waiver.</strong> Failure to enforce any provision does not waive our right to enforce it later.</li>
+          <li><strong>Assignment.</strong> You may not assign your rights without our written consent.</li>
+        </ul>
+
+        <h2 id="contact">Contact us</h2>
+        <p>For questions about these Terms, email <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>.</p>
+
+        <div class="legal-callout">
+          <strong>Note.</strong> These terms of service are a template and should be reviewed by a qualified attorney to ensure compliance with applicable laws and your specific business needs.
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-block">
+        <div class="footer-brand">
+          <span class="nav-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M8 24 C 10 18 13 13 18 9 C 18 14 20 20 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 26 Q 10 24 16 25 Q 22 26 28 25" stroke="currentColor" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+              <circle cx="22" cy="26" r="0.7" fill="currentColor" opacity="0.6"/>
+            </svg>
+          </span>
+          <span>seafin</span>
+        </div>
+        <p class="footer-tag">An AI department for businesses that don't have one — yet.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Seafin</div>
+        <a href="index.html#services">Services</a>
+        <a href="sovereign.html">Sovereign</a>
+        <a href="personal.html">Personal</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+        <a href="index.html#contact">Book a call</a>
+      </div>
+    </div>
+    <div class="footer-built">
+      <div>© 2026 Seafin LLC</div>
+      <span>Built with intention.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="brand.js"></script>
+
+</body>
+</html>

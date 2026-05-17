@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seafin — A Claude deployment partner for businesses without an AI team</title>
+<meta name="description" content="Strategy audits, fixed-fee builds, and managed AI on retainer for businesses that don't have anyone in-house owning AI.">
+<meta name="theme-color" content="#03060f">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  /* ====================================================================
+     RESET + TOKENS
+     ==================================================================== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  :root {
+    /* Surfaces — deeper, more tonal range */
+    --ink-void: #03060f;
+    --ink-deep: #060c1a;
+    --ink: #0a1424;
+    --ink-rise: #101e36;
+    --ink-elev: #1a2c4a;
+
+    /* Glass */
+    --glass: rgba(255, 255, 255, 0.035);
+    --glass-strong: rgba(255, 255, 255, 0.06);
+    --hairline: rgba(255, 255, 255, 0.075);
+    --hairline-soft: rgba(255, 255, 255, 0.04);
+    --hairline-aqua: rgba(127, 223, 255, 0.18);
+
+    /* Aqua scale — softer */
+    --aqua-50:  #eaf9ff;
+    --aqua-100: #b8edff;
+    --aqua-200: #7fdfff;
+    --aqua-300: #4cc8ee;
+    --aqua-400: #2aa9d4;
+    --aqua-500: #1a7a99;
+    --aqua-600: #114e64;
+
+    /* Warm — counter to the cyan */
+    --warm-100: #ffe2c0;
+    --warm-200: #ffc398;
+    --warm: #ff9d5c;
+    --warm-deep: #e88a4a;
+    --warm-soft: rgba(255, 157, 92, 0.72);
+    --warm-glow: rgba(255, 157, 92, 0.4);
+
+    /* Legacy gold alias (still used in a few spots) */
+    --gold: #f4c267;
+    --gold-soft: rgba(244, 194, 103, 0.75);
+
+    /* Text */
+    --text: #f3f8ff;
+    --text-2: rgba(243, 248, 255, 0.72);
+    --text-3: rgba(243, 248, 255, 0.5);
+    --text-faint: rgba(243, 248, 255, 0.32);
+
+    /* Type */
+    --sans: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --radius-sm: 6px;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    --shadow-soft: 0 1px 0 rgba(255,255,255,0.04) inset, 0 12px 40px -16px rgba(0,0,0,0.6);
+    --shadow-glow: 0 0 80px -20px rgba(127, 223, 255, 0.25);
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft: cubic-bezier(0.45, 0.1, 0.15, 1);
+  }
+
+  html, body {
+    background: var(--ink-void);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: rgba(127, 223, 255, 0.3); color: var(--ink-void); }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--ink-void); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(127, 223, 255, 0.25); }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; border: none; background: none; cursor: pointer; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ====================================================================
+     PAGE BACKGROUND — deep oceanic gradient with subtle aurora
+     ==================================================================== */
+  .page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26, 122, 153, 0.18), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 30%, rgba(76, 200, 238, 0.08), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 0% 70%, rgba(26, 78, 100, 0.15), transparent 60%),
+      linear-gradient(180deg, var(--ink-void) 0%, var(--ink-deep) 40%, var(--ink) 100%);
+  }
+  .page-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* ====================================================================
+     CONTAINER + UTILITIES
+     ==================================================================== */
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; }
+  .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 28px; position: relative; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--aqua-200);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--aqua-200);
+    box-shadow: 0 0 12px rgba(127, 223, 255, 0.6);
+  }
+
+  .section-label {
+    font-family: var(--body);
+    font-size: 13px;
+    color: var(--text-3);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .section-label::before {
+    content: '— ';
+    color: var(--aqua-300);
+    margin-right: 4px;
+  }
+
+  .h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    color: var(--text);
+  }
+  .h2 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.45rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .serif-italic { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  .text-aqua-gradient {
+    background: linear-gradient(135deg, var(--aqua-100) 0%, var(--aqua-300) 60%, var(--aqua-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lede {
+    font-family: var(--body);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.65;
+    color: var(--text-2);
+    font-weight: 400;
+    max-width: 56ch;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--body);
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    padding: 13px 22px;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, var(--aqua-100) 0%, var(--aqua-200) 100%);
+    color: var(--ink-void);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.4) inset,
+      0 0 0 1px rgba(127, 223, 255, 0.3),
+      0 8px 28px -8px rgba(127, 223, 255, 0.45);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.4) inset,
+      0 0 0 1px rgba(127, 223, 255, 0.5),
+      0 14px 40px -8px rgba(127, 223, 255, 0.6);
+  }
+  .btn-ghost {
+    background: var(--glass);
+    color: var(--text);
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .btn-ghost:hover {
+    background: var(--glass-strong);
+    border-color: var(--hairline-aqua);
+  }
+  .btn-arrow { font-size: 17px; transition: transform 0.25s ease; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  /* Hairline divider */
+  .hairline { height: 1px; background: var(--hairline-soft); border: none; }
+
+  section { padding: clamp(72px, 9vw, 130px) 0; position: relative; }
+
+  /* ====================================================================
+     NAV
+     ==================================================================== */
+  .nav {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 1180px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 10px 22px;
+    background: rgba(6, 12, 26, 0.6);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.03) inset;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.025em;
+    color: var(--text);
+  }
+  .nav-brand-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--aqua-200), var(--aqua-500));
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 16px rgba(127, 223, 255, 0.4), 0 1px 0 rgba(255,255,255,0.3) inset;
+  }
+  .nav-brand-mark svg { width: 16px; height: 16px; color: var(--ink-void); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-links a {
+    padding: 8px 14px;
+    font-size: 14px;
+    color: var(--text-2);
+    border-radius: 999px;
+    transition: color 0.2s, background 0.2s;
+    font-weight: 450;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--glass); }
+  .nav-cta {
+    margin-left: 6px;
+    padding: 10px 18px;
+    background: var(--text);
+    color: var(--ink-void);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--aqua-100); }
+
+  /* ====================================================================
+     HERO
+     ==================================================================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 140px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-canvas-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-canvas-wrap canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* fade-out gradient overlay so canvas blends into rest of page */
+  .hero-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: linear-gradient(180deg, transparent, var(--ink-void));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-fade-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 160px;
+    background: linear-gradient(180deg, var(--ink-void) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 0 100px;
+  }
+  .hero-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 8px;
+    background: var(--glass);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text-2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .hero-pill-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(255, 157, 92, 0.18);
+    color: var(--warm-200);
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 157, 92, 0.4);
+    box-shadow: 0 0 12px rgba(255, 157, 92, 0.35);
+  }
+  .hero h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .hero h1 em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--aqua-100);
+    letter-spacing: -0.01em;
+    margin-right: 0.18em;
+  }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    color: var(--text-2);
+    max-width: 58ch;
+    line-height: 1.55;
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .hero-ctas .meta {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-left: 6px;
+  }
+
+  /* Hero meta strip — refined replacement for boxy stat cards */
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 720px;
+    padding: 24px 0;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  .hero-meta-item {
+    padding: 0 24px 0 0;
+    border-right: 1px solid var(--hairline-soft);
+  }
+  .hero-meta-item:last-child { border-right: none; }
+  .hero-meta-item:not(:first-child) { padding-left: 24px; }
+  .hero-meta-value {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .hero-meta-value .unit { color: var(--text-3); font-weight: 400; font-size: 14px; margin-left: 4px; }
+  .hero-meta-label { font-size: 12.5px; color: var(--text-3); letter-spacing: 0; }
+
+  /* ====================================================================
+     PARTNER BAND
+     ==================================================================== */
+  .partner-band {
+    padding: 48px 0 24px;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  .partner-band-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    opacity: 0.6;
+  }
+  .partner-label {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-right: 12px;
+  }
+  .partner-logo {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-2);
+  }
+  .partner-logo.dim { opacity: 0.7; }
+
+  /* ====================================================================
+     SECTION HEADERS
+     ==================================================================== */
+  .section-head {
+    margin-bottom: 60px;
+    max-width: 760px;
+  }
+  .section-head .h2 { margin-bottom: 20px; }
+  .section-head .h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--aqua-100); }
+  .section-head .lede { color: var(--text-2); font-size: 1.05rem; max-width: 60ch; }
+
+  /* ====================================================================
+     SERVICES — glass cards, depth
+     ==================================================================== */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .svc-card {
+    position: relative;
+    padding: 36px 32px 32px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+  }
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 223, 255, 0.5), transparent);
+    opacity: 0.6;
+  }
+  .svc-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--hairline-aqua);
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7), 0 0 60px -20px rgba(127, 223, 255, 0.25);
+  }
+  .svc-card.featured {
+    background: linear-gradient(180deg, rgba(127, 223, 255, 0.07) 0%, rgba(127, 223, 255, 0.015) 100%);
+    border-color: rgba(127, 223, 255, 0.25);
+  }
+  .svc-card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-3);
+    margin-bottom: 32px;
+    text-transform: uppercase;
+  }
+  .svc-card h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.22;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .svc-card p {
+    color: var(--text-2);
+    font-size: 14.5px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  .svc-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  .svc-card-price {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .svc-card-price .from { color: var(--text-3); font-size: 12px; font-weight: 400; margin-right: 4px; }
+  .svc-card-time {
+    font-size: 12.5px;
+    color: var(--text-3);
+    font-family: var(--body);
+  }
+
+  .stack-strip {
+    margin-top: 28px;
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--hairline-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .stack-strip-label {
+    font-size: 12.5px;
+    color: var(--text-3);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+  .stack-strip-items {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .stack-strip-items span {
+    font-size: 14px;
+    color: var(--text-2);
+    font-weight: 450;
+  }
+
+  /* ====================================================================
+     PROCESS — flowing horizontal with connecting line
+     ==================================================================== */
+  .process-rail {
+    position: relative;
+    padding: 40px 0 20px;
+  }
+  .process-rail::before {
+    content: '';
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 64px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 223, 255, 0.35), rgba(127, 223, 255, 0.35), transparent);
+  }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .proc-step { position: relative; }
+  .proc-node {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--ink-rise);
+    border: 1px solid var(--hairline-aqua);
+    display: grid;
+    place-items: center;
+    margin: 0 auto 24px;
+    position: relative;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--aqua-200);
+    font-weight: 500;
+  }
+  .proc-node::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(127, 223, 255, 0.15);
+  }
+  .proc-step.active .proc-node {
+    background: linear-gradient(180deg, var(--aqua-100), var(--aqua-300));
+    color: var(--ink-void);
+    border-color: var(--aqua-200);
+    box-shadow: 0 0 24px rgba(127, 223, 255, 0.5);
+  }
+  .proc-step h4 {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.015em;
+    text-align: center;
+  }
+  .proc-step .proc-time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--aqua-200);
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .proc-step p {
+    font-size: 13.5px;
+    color: var(--text-2);
+    line-height: 1.55;
+    text-align: center;
+    max-width: 28ch;
+    margin: 0 auto;
+  }
+
+  /* ====================================================================
+     CASE STUDIES — refined cards
+     ==================================================================== */
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .case-card {
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.015) 100%);
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .case-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--aqua-200);
+    margin-bottom: 20px;
+    padding: 5px 12px;
+    background: rgba(127, 223, 255, 0.08);
+    border-radius: 999px;
+  }
+  .case-tag.industry { color: var(--warm-200); background: rgba(255, 157, 92, 0.12); border: 1px solid rgba(255, 157, 92, 0.28); }
+  .case-card h3 {
+    font-family: var(--sans);
+    font-size: 1.55rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+  }
+  .case-meta { font-size: 13px; color: var(--text-3); margin-bottom: 28px; }
+  .case-block { margin-bottom: 24px; }
+  .case-block-label {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .case-block p {
+    color: var(--text-2);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .case-outcome {
+    margin-top: 28px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: rgba(127, 223, 255, 0.05);
+    border: 1px solid rgba(127, 223, 255, 0.15);
+  }
+  .case-outcome-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    color: var(--aqua-200);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .case-outcome-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .case-stat-num {
+    font-family: var(--sans);
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--aqua-100);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .case-card:nth-child(2) .case-stat-num,
+  .case-card.warm .case-stat-num { color: var(--warm-100); }
+  .case-card:nth-child(2) .case-outcome,
+  .case-card.warm .case-outcome {
+    background: rgba(255, 157, 92, 0.06);
+    border-color: rgba(255, 157, 92, 0.28);
+  }
+  .case-card:nth-child(2) .case-outcome-label,
+  .case-card.warm .case-outcome-label { color: var(--warm-200); }
+  .case-stat-label { font-size: 12.5px; color: var(--text-3); }
+  .case-fineprint { margin-top: 14px; font-size: 11.5px; color: var(--text-faint); }
+
+  /* ====================================================================
+     COMPARE TABLE — refined
+     ==================================================================== */
+  .compare-wrap {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--hairline);
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+  }
+  .compare {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .compare th, .compare td {
+    padding: 18px 22px;
+    text-align: left;
+    border-bottom: 1px solid var(--hairline-soft);
+    vertical-align: top;
+  }
+  .compare thead th {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 12.5px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 22px 22px 18px;
+  }
+  .compare thead th.us {
+    color: var(--aqua-200);
+    background: rgba(127, 223, 255, 0.06);
+  }
+  .compare tbody tr:last-child td { border-bottom: none; }
+  .compare tbody td:first-child { color: var(--text); font-weight: 500; width: 22%; }
+  .compare td.us {
+    background: rgba(127, 223, 255, 0.04);
+    color: var(--text);
+  }
+  .compare td.us strong { color: var(--aqua-100); font-weight: 500; }
+  .compare td.dim { color: var(--text-3); }
+
+  /* ====================================================================
+     PRICING
+     ==================================================================== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .price-card {
+    position: relative;
+    padding: 36px 32px 32px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid var(--hairline);
+    transition: transform 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .price-card:hover { transform: translateY(-3px); border-color: var(--hairline-aqua); }
+  .price-card.featured {
+    background: linear-gradient(180deg, rgba(127, 223, 255, 0.09) 0%, rgba(127, 223, 255, 0.02) 100%);
+    border-color: rgba(127, 223, 255, 0.3);
+    box-shadow: 0 30px 80px -30px rgba(127, 223, 255, 0.3);
+  }
+  .price-badge {
+    position: absolute;
+    top: -10px;
+    left: 32px;
+    padding: 5px 12px;
+    background: linear-gradient(135deg, var(--warm-100), var(--warm));
+    color: var(--ink-void);
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 999px;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(255, 157, 92, 0.55), 0 1px 0 rgba(255,255,255,0.4) inset;
+  }
+  .price-num {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 28px;
+  }
+  .price-name {
+    font-family: var(--sans);
+    font-size: 1.45rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+  }
+  .price-when { font-size: 13px; color: var(--text-3); margin-bottom: 24px; }
+  .price-amount {
+    font-family: var(--sans);
+    font-size: 2.6rem;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .price-amount .range { color: var(--text-3); font-size: 1.3rem; font-weight: 400; }
+  .price-cadence { font-size: 13px; color: var(--text-3); margin-bottom: 28px; }
+  .price-features { list-style: none; flex: 1; margin-bottom: 24px; }
+  .price-features li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text-2);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .price-features li:last-child { border-bottom: none; }
+  .price-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 11px;
+    height: 6px;
+    border-left: 1.5px solid var(--aqua-200);
+    border-bottom: 1.5px solid var(--aqua-200);
+    transform: rotate(-45deg);
+  }
+  .price-cta {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    border-radius: 999px;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--hairline);
+    background: rgba(255,255,255,0.02);
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .price-cta:hover { border-color: var(--aqua-200); background: rgba(127, 223, 255, 0.08); }
+  .price-card.featured .price-cta {
+    background: var(--text);
+    color: var(--ink-void);
+    border-color: var(--text);
+  }
+  .price-card.featured .price-cta:hover {
+    background: var(--aqua-100);
+    border-color: var(--aqua-100);
+  }
+
+  .passthrough {
+    margin-top: 32px;
+    padding: 22px 28px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--hairline-soft);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .passthrough-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(127, 223, 255, 0.1);
+    color: var(--aqua-200);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .passthrough-text { flex: 1; min-width: 280px; }
+  .passthrough-text strong { color: var(--text); font-weight: 500; }
+  .passthrough-text p { font-size: 13.5px; color: var(--text-3); margin-top: 4px; }
+
+  /* ====================================================================
+     ABOUT / FOUNDER
+     ==================================================================== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .about-quote {
+    font-family: var(--sans);
+    font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .about-quote em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--aqua-100);
+    font-weight: 400;
+  }
+  .about-body p {
+    color: var(--text-2);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .founder-card {
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid var(--hairline);
+  }
+  .founder-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--warm-100) 0%, var(--aqua-200) 60%, var(--aqua-500) 100%);
+    margin-bottom: 20px;
+    display: grid;
+    place-items: center;
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink-void);
+  }
+  .founder-name { font-family: var(--sans); font-size: 1.2rem; font-weight: 500; letter-spacing: -0.02em; }
+  .founder-role { font-size: 12.5px; color: var(--text-3); margin-bottom: 18px; }
+  .founder-card p { font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 20px; }
+  .founder-link { color: var(--aqua-200); font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+  .founder-link:hover { color: var(--aqua-100); }
+
+  /* ====================================================================
+     FAQ
+     ==================================================================== */
+  .faq-list { display: flex; flex-direction: column; }
+  details.faq {
+    border-bottom: 1px solid var(--hairline-soft);
+    padding: 4px 0;
+  }
+  details.faq summary {
+    list-style: none;
+    padding: 24px 16px 24px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: color 0.2s;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary:hover { color: var(--aqua-100); }
+  .faq-num { font-family: var(--mono); font-size: 12px; color: var(--text-3); flex-shrink: 0; width: 32px; }
+  .faq-q { flex: 1; font-family: var(--sans); font-size: 17px; font-weight: 500; letter-spacing: -0.01em; }
+  .faq-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--hairline);
+    display: grid;
+    place-items: center;
+    color: var(--text-2);
+    transition: transform 0.3s ease, background 0.2s;
+    flex-shrink: 0;
+  }
+  details.faq[open] .faq-toggle { transform: rotate(45deg); background: rgba(127, 223, 255, 0.1); border-color: var(--aqua-200); color: var(--aqua-200); }
+  .faq-a {
+    padding: 0 16px 28px 52px;
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.7;
+    max-width: 70ch;
+  }
+  .faq-a strong { color: var(--text); font-weight: 500; }
+
+  /* ====================================================================
+     CONTACT / CTA
+     ==================================================================== */
+  .cta-card {
+    position: relative;
+    padding: clamp(48px, 7vw, 88px) clamp(32px, 6vw, 80px);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 0%, rgba(255, 157, 92, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 60% at 70% 0%, rgba(127, 223, 255, 0.18) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid var(--hairline);
+    overflow: hidden;
+    text-align: center;
+  }
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--warm-200), rgba(127, 223, 255, 0.7), transparent);
+  }
+  .cta-card h2 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    margin-bottom: 20px;
+    text-wrap: balance;
+  }
+  .cta-card h2 em { font-family: var(--serif); font-style: italic; color: var(--aqua-100); font-weight: 400; }
+  .cta-card p { color: var(--text-2); font-size: 17px; max-width: 56ch; margin: 0 auto 36px; }
+  .cta-ctas { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  /* Contact form */
+  .contact-form {
+    margin-top: 56px;
+    padding: 36px;
+    border-radius: var(--radius-lg);
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(20px);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--aqua-200);
+    background: rgba(255,255,255,0.05);
+  }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    padding: 14px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--aqua-100), var(--aqua-200));
+    color: var(--ink-void);
+    font-family: var(--body);
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 28px -8px rgba(127, 223, 255, 0.45);
+  }
+  .form-submit:hover { transform: translateY(-1px); }
+
+  /* ====================================================================
+     FOOTER
+     ==================================================================== */
+  footer {
+    padding: 80px 0 40px;
+    border-top: 1px solid var(--hairline-soft);
+    margin-top: 60px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 64px;
+    margin-bottom: 64px;
+  }
+  .footer-brand-block { max-width: 360px; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .footer-brand .nav-brand-mark { width: 28px; height: 28px; }
+  .footer-brand span { font-family: var(--sans); font-size: 18px; font-weight: 600; letter-spacing: -0.025em; }
+  .footer-tag { color: var(--text-3); font-size: 14px; line-height: 1.6; }
+  .footer-col-title {
+    font-family: var(--body);
+    font-size: 12px;
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--text-2);
+    font-size: 14.5px;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--aqua-100); }
+  .footer-built {
+    padding-top: 32px;
+    border-top: 1px solid var(--hairline-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-3);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-built-on { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .footer-built-on span { color: var(--text-3); }
+  .footer-built-on .sep { opacity: 0.3; }
+
+  /* ====================================================================
+     POLISH PASS — scroll reveal, hero stagger, section atmosphere,
+     refined logo, micro-interactions
+     ==================================================================== */
+
+  /* Scroll-reveal — only hides when JS is loaded; observer or fail-safe makes it visible */
+  body.js-loaded .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  body.js-loaded .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hero stagger entrance — transform-only, so content is always visible
+     even if animations pause (background tab, reduced-motion, etc.) */
+  body.js-loaded .hero-content > * {
+    animation: heroRise 0.9s var(--ease) backwards;
+  }
+  body.js-loaded .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+  body.js-loaded .hero-content > *:nth-child(2) { animation-delay: 0.15s; }
+  body.js-loaded .hero-content > *:nth-child(3) { animation-delay: 0.25s; }
+  body.js-loaded .hero-content > *:nth-child(4) { animation-delay: 0.35s; }
+  body.js-loaded .hero-content > *:nth-child(5) { animation-delay: 0.45s; }
+  @keyframes heroRise {
+    from { transform: translateY(10px); opacity: 0.6; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* h1 word-by-word reveal — transform only, content always visible */
+  .hero h1 {
+    overflow: visible;
+  }
+  body.js-loaded .hero h1 .word {
+    display: inline-block;
+    animation: wordRise 0.7s var(--ease) backwards;
+    animation-delay: calc(0.15s + var(--w, 0) * 0.05s);
+  }
+  @keyframes wordRise {
+    from { transform: translateY(10px); opacity: 0.55; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Section atmosphere — each section gets a soft ambient glow */
+  section::before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+  #services::before {
+    top: 40%;
+    left: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(127, 223, 255, 0.05), transparent 60%);
+    filter: blur(40px);
+  }
+  #process::before {
+    top: 20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(127, 223, 255, 0.05), transparent 60%);
+    filter: blur(40px);
+  }
+  #pricing::before {
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(127, 223, 255, 0.06), transparent 65%);
+    filter: blur(50px);
+  }
+  #contact::before {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(127, 223, 255, 0.07), transparent 65%);
+    filter: blur(40px);
+  }
+  section > .container { position: relative; z-index: 1; }
+
+  /* Subtle section divider with horizon glow */
+  .section-divider {
+    height: 1px;
+    border: none;
+    background: linear-gradient(90deg, transparent, var(--hairline), transparent);
+    margin: 0;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* Refined logo mark — flowing wave with subtle gradient */
+  .nav-brand-mark.refined {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(127, 223, 255, 0.4), transparent 70%),
+      linear-gradient(135deg, var(--ink-elev), var(--ink-rise));
+    border: 1px solid rgba(127, 223, 255, 0.25);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.3),
+      0 0 24px rgba(127, 223, 255, 0.25),
+      0 1px 0 rgba(255, 255, 255, 0.1) inset;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .nav-brand-mark.refined svg {
+    width: 22px;
+    height: 22px;
+    color: var(--aqua-100);
+    filter: drop-shadow(0 0 6px rgba(127, 223, 255, 0.6));
+  }
+
+  /* Refined eyebrow pill in hero */
+  .hero-pill {
+    transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+  }
+  .hero-pill:hover {
+    border-color: var(--hairline-aqua);
+    background: var(--glass-strong);
+    transform: translateY(-1px);
+  }
+
+  /* Primary button gleam on hover */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform 0.7s var(--ease);
+    pointer-events: none;
+  }
+  .btn-primary:hover::after { transform: translateX(110%); }
+
+  /* Service cards — add a subtle gradient corner accent */
+  .svc-card {
+    isolation: isolate;
+  }
+  .svc-card::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle at top right, rgba(127, 223, 255, 0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+    pointer-events: none;
+    border-top-right-radius: var(--radius-lg);
+  }
+  .svc-card:hover::after { opacity: 1; }
+  .svc-card.featured::after { opacity: 0.6; }
+
+  /* Process timeline — animated rail when section is in view */
+  .process-rail::before {
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(127, 223, 255, 0.4) 8%,
+      rgba(127, 223, 255, 0.4) 92%,
+      transparent 100%
+    );
+  }
+  .process-rail::after {
+    content: '';
+    position: absolute;
+    left: 4%;
+    top: 63px;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(127, 223, 255, 0.9), transparent);
+    box-shadow: 0 0 16px rgba(127, 223, 255, 0.6);
+    pointer-events: none;
+    transition: width 1.6s var(--ease), opacity 0.4s ease;
+    opacity: 0;
+  }
+  .process-rail.in::after { width: 92%; opacity: 1; }
+
+  .proc-node {
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .proc-step:hover .proc-node {
+    transform: scale(1.08);
+    border-color: var(--aqua-200);
+    box-shadow: 0 0 20px rgba(127, 223, 255, 0.35);
+  }
+
+  /* Pricing card featured — animated subtle border glow */
+  .price-card.featured {
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--warm-100), rgba(127, 223, 255, 0.9), transparent);
+    opacity: 0.9;
+  }
+  .price-card.featured::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(ellipse at center top, rgba(255, 157, 92, 0.22), rgba(127, 223, 255, 0.18) 40%, transparent 60%);
+    filter: blur(30px);
+    pointer-events: none;
+    animation: glide 12s var(--ease) infinite;
+  }
+  @keyframes glide {
+    0%, 100% { left: -30%; }
+    50% { left: 70%; }
+  }
+
+  .price-features li::before {
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .price-card:hover .price-features li::before {
+    border-color: var(--aqua-100);
+  }
+
+  /* Case card subtle hover lift */
+  .case-card {
+    transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .case-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--hairline-aqua);
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7), 0 0 60px -20px rgba(127, 223, 255, 0.2);
+  }
+
+  /* Compare table row hover */
+  .compare tbody tr {
+    transition: background 0.25s ease;
+  }
+  .compare tbody tr:hover {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  /* FAQ — softer summary, smoother open */
+  details.faq summary {
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+  details.faq summary:hover {
+    background: rgba(127, 223, 255, 0.025);
+  }
+  details.faq .faq-a {
+    animation: faqOpen 0.4s var(--ease);
+  }
+  @keyframes faqOpen {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Founder avatar — soft pulse ring */
+  .founder-avatar {
+    position: relative;
+  }
+  .founder-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(127, 223, 255, 0.25);
+    animation: pulseRing 3s ease-in-out infinite;
+  }
+  @keyframes pulseRing {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 0; }
+  }
+
+  /* CTA card — orbiting particle effect */
+  .cta-card {
+    isolation: isolate;
+  }
+  .cta-card .cta-orbit {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .cta-card .cta-orbit::before,
+  .cta-card .cta-orbit::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(127, 223, 255, 0.08);
+  }
+  .cta-card .cta-orbit::before {
+    inset: 10%;
+  }
+  .cta-card .cta-orbit::after {
+    inset: 25%;
+  }
+
+  /* Form inputs — slight glow on focus */
+  .form-input, .form-textarea {
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus {
+    box-shadow: 0 0 0 4px rgba(127, 223, 255, 0.1);
+  }
+
+  /* Partner band — subtle horizontal scroll-like marquee feel; we keep it static but with a soft fade at edges */
+  .partner-band {
+    position: relative;
+  }
+  .partner-band::before, .partner-band::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .partner-band::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--ink-void), transparent);
+  }
+  .partner-band::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--ink-void), transparent);
+  }
+
+  /* Nav scroll state — denser background when scrolled */
+  .nav.scrolled {
+    background: rgba(6, 12, 26, 0.85);
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.04) inset;
+  }
+
+  /* ====================================================================
+     RESPONSIVE
+     ==================================================================== */
+  @media (max-width: 960px) {
+    .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .process-rail::before { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .hero-meta { max-width: 100%; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav { padding: 8px 8px 8px 16px; }
+    .hero { padding: 120px 0 0; min-height: auto; }
+    .hero-content { padding: 40px 0 60px; }
+    .hero-meta { grid-template-columns: 1fr; gap: 20px; }
+    .hero-meta-item { border-right: none; border-bottom: 1px solid var(--hairline-soft); padding: 0 0 20px !important; }
+    .hero-meta-item:last-child { border-bottom: none; padding-bottom: 0 !important; }
+    .process-grid { grid-template-columns: 1fr; gap: 28px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .compare-wrap { overflow-x: auto; }
+    .compare { min-width: 720px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .hero-content > *, .hero h1 .word { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* Stagger reveal within grids — subtle cascade */
+  .services-grid.in .svc-card,
+  .pricing-grid.in .price-card,
+  .case-grid.in .case-card {
+    animation: cardIn 0.9s var(--ease) backwards;
+  }
+  .services-grid.in .svc-card:nth-child(1),
+  .pricing-grid.in .price-card:nth-child(1),
+  .case-grid.in .case-card:nth-child(1) { animation-delay: 0.1s; }
+  .services-grid.in .svc-card:nth-child(2),
+  .pricing-grid.in .price-card:nth-child(2),
+  .case-grid.in .case-card:nth-child(2) { animation-delay: 0.2s; }
+  .services-grid.in .svc-card:nth-child(3),
+  .pricing-grid.in .price-card:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .process-grid.in .proc-step {
+    animation: cardIn 0.7s var(--ease) backwards;
+  }
+  .process-grid.in .proc-step:nth-child(1) { animation-delay: 0.1s; }
+  .process-grid.in .proc-step:nth-child(2) { animation-delay: 0.25s; }
+  .process-grid.in .proc-step:nth-child(3) { animation-delay: 0.4s; }
+  .process-grid.in .proc-step:nth-child(4) { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<!-- ====================================================================
+     NAV
+     ==================================================================== -->
+<nav class="nav" aria-label="Primary">
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-mark refined" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M8 24 C 10 18 13 13 18 9 C 18 14 20 20 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 26 Q 10 24 16 25 Q 22 26 28 25" stroke="currentColor" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+        <circle cx="22" cy="26" r="0.7" fill="currentColor" opacity="0.6"/>
+      </svg>
+    </span>
+    <span>seafin</span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="sovereign.html">Sovereign</a>
+    <a href="personal.html">Personal</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#contact" class="nav-cta">Book a call</a>
+</nav>
+
+<main>
+
+<!-- ====================================================================
+     HERO
+     ==================================================================== -->
+<section class="hero" id="hero">
+  <div class="hero-canvas-wrap" aria-hidden="true">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="hero-fade-top"></div>
+  <div class="hero-fade-bottom"></div>
+
+  <div class="container hero-content">
+    <div class="hero-eyebrow-row">
+      <span class="hero-pill">
+        <span class="hero-pill-badge">Live</span>
+        Anthropic Claude deployment partner
+      </span>
+    </div>
+
+    <h1>
+      An AI department,<br>
+      <em>without</em> the headcount.
+    </h1>
+
+    <p class="hero-sub">
+      Strategy audits, fixed-fee builds, and managed AI on retainer — for businesses that don't have anyone in-house owning AI. Solo operator through 500-person team.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Book a discovery call <span class="btn-arrow">→</span></a>
+      <a href="#services" class="btn btn-ghost">See how we work</a>
+      <span class="meta">30 minutes · no commitment</span>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">1<span class="unit">wk</span></div>
+        <div class="hero-meta-label">Audit to written roadmap</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">2–6<span class="unit">wks</span></div>
+        <div class="hero-meta-label">Fixed-fee build to deployed</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">$0<span class="unit">lock-in</span></div>
+        <div class="hero-meta-label">You own every line we ship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     PARTNER BAND
+     ==================================================================== -->
+<section class="partner-band" aria-label="Stack">
+  <div class="container partner-band-inner">
+    <span class="partner-label">Built on</span>
+    <span class="partner-logo">Anthropic Claude</span>
+    <span class="partner-logo dim">Claude for Small Business</span>
+    <span class="partner-logo dim">MCP</span>
+    <span class="partner-logo dim">QuickBooks</span>
+    <span class="partner-logo dim">HubSpot</span>
+    <span class="partner-logo dim">Microsoft 365</span>
+    <span class="partner-logo dim">Slack</span>
+  </div>
+</section>
+
+<!-- ====================================================================
+     SERVICES
+     ==================================================================== -->
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Services</div>
+      <h2 class="h2">Three ways to work with us. <em class="serif-italic">Start anywhere</em>, stack them however you need.</h2>
+      <p class="lede">Begin with an audit to map the opportunity. Scope a fixed-fee build when you're ready. Keep us on retainer to run it. Each tier stands alone — or pick the ladder.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="svc-card">
+        <div class="svc-card-num">01 · Strategy Audit</div>
+        <h3>Find out what AI can actually do for your business.</h3>
+        <p>90-minute deep-dive plus a written report. Top 3 opportunities, ROI estimates, the right Claude tier, and a 90-day roadmap. Yours to keep, whether or not you hire us.</p>
+        <div class="svc-card-meta">
+          <div class="svc-card-price"><span class="from">from</span>$499</div>
+          <div class="svc-card-time">1 week</div>
+        </div>
+      </div>
+
+      <div class="svc-card featured">
+        <div class="svc-card-num">02 · AI-Native Builds</div>
+        <h3>Custom workflows beyond Claude's defaults.</h3>
+        <p>Voice agents, internal copilots, knowledge agents, MCP integrations to the stack you already run. Fixed-fee, scope locked, 30 days post-launch support included.</p>
+        <div class="svc-card-meta">
+          <div class="svc-card-price"><span class="from">from</span>$5,000</div>
+          <div class="svc-card-time">2–6 weeks</div>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-card-num">03 · AI Concierge</div>
+        <h3>Your AI department, on retainer.</h3>
+        <p>We run the stack. Unlimited Slack support, cost guardrails, one new workflow per month, eval &amp; drift monitoring, quarterly review, monthly KPI report.</p>
+        <div class="svc-card-meta">
+          <div class="svc-card-price"><span class="from">from</span>$1,500<span class="unit" style="color: var(--text-3); font-weight: 400; font-size: 13px;">/mo</span></div>
+          <div class="svc-card-time">Month-to-month</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack-strip">
+      <span class="stack-strip-label">Primary platform</span>
+      <div class="stack-strip-items">
+        <span>Anthropic Claude</span>
+        <span>Claude for Small Business</span>
+        <span>MCP integrations</span>
+        <span>Multi-platform when it fits</span>
+        <span>Sovereign / on-prem option</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     PROCESS
+     ==================================================================== -->
+<section id="process">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">How we work</div>
+      <h2 class="h2">From first call to deployed solution. <em class="serif-italic">No surprises</em>.</h2>
+      <p class="lede">Transparent process, weekly demos, clear milestones. You see the work as it ships.</p>
+    </div>
+
+    <div class="process-rail">
+      <div class="process-grid">
+        <div class="proc-step active">
+          <div class="proc-node">1</div>
+          <div class="proc-time">Free</div>
+          <h4>Discovery</h4>
+          <p>45-minute strategy call. We identify automation opportunities and tell you if we're the right fit.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">2</div>
+          <div class="proc-time">1–2 wks</div>
+          <h4>Scoping</h4>
+          <p>Requirements session, custom roadmap, ROI analysis, transparent fixed-fee proposal.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">3</div>
+          <div class="proc-time">2–6 wks</div>
+          <h4>Build</h4>
+          <p>Weekly demos. Working workflow shipped to production. 30 days of post-launch support included.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">4</div>
+          <div class="proc-time">Ongoing</div>
+          <h4>Scale</h4>
+          <p>Concierge takes over. New workflows monthly, cost monitoring, drift checks, quarterly review.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     CASE STUDIES
+     ==================================================================== -->
+<section id="case-studies">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">What's possible</div>
+      <h2 class="h2">What a real deployment looks like.</h2>
+      <p class="lede">One scenario we'd scope on Claude today, plus a documented industry example showing the order of magnitude. Real customer case studies replace these as we win them.</p>
+    </div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <span class="case-tag">Our approach · Claude</span>
+        <h3>8-person marketing agency</h3>
+        <div class="case-meta">Generic scenario · Multiple retainer clients</div>
+
+        <div class="case-block">
+          <div class="case-block-label">Challenge</div>
+          <p>Client reporting takes ~4 hours per account per week. Five accounts = 20 hrs/wk locked up. Inbound leads sit unanswered for 24–48 hours.</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label">What we'd build</div>
+          <p>Claude reporting agent pulling from HubSpot, GA, and Asana via MCP. Lead-triage agent that scores inbound, drafts a tailored reply, and routes to Slack within minutes. Both wrapped in Claude for Small Business.</p>
+        </div>
+
+        <div class="case-outcome">
+          <div class="case-outcome-label">Target outcome</div>
+          <div class="case-outcome-stats">
+            <div>
+              <div class="case-stat-num">~15 hrs</div>
+              <div class="case-stat-label">reclaimed per week</div>
+            </div>
+            <div>
+              <div class="case-stat-num">&lt;30 min</div>
+              <div class="case-stat-label">lead response time</div>
+            </div>
+          </div>
+          <div class="case-fineprint">Estimate: $10–14K build · 3–4 weeks · Concierge $1,500/mo</div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <span class="case-tag industry">Industry example</span>
+        <h3>Professional services firm</h3>
+        <div class="case-meta">Legal &amp; consulting · SMB</div>
+
+        <div class="case-block">
+          <div class="case-block-label">Challenge</div>
+          <p>Administrative tasks consumed 8–10 hours per week per team member, reducing billable hour capacity and client service quality.</p>
+        </div>
+
+        <div class="case-block">
+          <div class="case-block-label">Solution</div>
+          <p>AI automation for document processing, scheduling, client intake, and routine correspondence — wrapped in a familiar chat interface for non-technical staff.</p>
+        </div>
+
+        <div class="case-outcome">
+          <div class="case-outcome-label">Documented results</div>
+          <div class="case-outcome-stats">
+            <div>
+              <div class="case-stat-num">8–10 hrs</div>
+              <div class="case-stat-label">saved per week</div>
+            </div>
+            <div>
+              <div class="case-stat-num">+20%</div>
+              <div class="case-stat-label">billable hours</div>
+            </div>
+          </div>
+          <div class="case-fineprint">Source: Done For You — industry case study</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     COMPARE
+     ==================================================================== -->
+<section id="compare">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Why Seafin</div>
+      <h2 class="h2">Honest math on your other options.</h2>
+      <p class="lede">Three other paths exist for getting AI into your business. Here's how they compare — including when one of them is the right answer instead of us.</p>
+    </div>
+
+    <div class="compare-wrap">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="us">Seafin</th>
+            <th>DIY</th>
+            <th>Big-4 firm</th>
+            <th>Do nothing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Time to deployed AI</td>
+            <td class="us"><strong>1–6 weeks</strong></td>
+            <td>3–12 months</td>
+            <td>6–18 months</td>
+            <td class="dim">Indefinite</td>
+          </tr>
+          <tr>
+            <td>First-year cost</td>
+            <td class="us"><strong>$5K–$50K all-in</strong></td>
+            <td>$0 + your salary</td>
+            <td>$200K–$1M+</td>
+            <td class="dim">$0 cash, real opportunity cost</td>
+          </tr>
+          <tr>
+            <td>Your time investment</td>
+            <td class="us"><strong>~3–5 hrs/wk during build</strong></td>
+            <td>Full-time second job</td>
+            <td>Stakeholder meetings, RFPs</td>
+            <td class="dim">None</td>
+          </tr>
+          <tr>
+            <td>Risk of failure</td>
+            <td class="us"><strong>Low — we own delivery</strong></td>
+            <td>High — most efforts stall by month 3</td>
+            <td>Medium — scope bloat, change orders</td>
+            <td class="dim">High — competitors compound</td>
+          </tr>
+          <tr>
+            <td>Ongoing support</td>
+            <td class="us"><strong>$1.5–5K/mo Concierge</strong></td>
+            <td>You are the support team</td>
+            <td>$25K+/mo retainers typical</td>
+            <td class="dim">N/A</td>
+          </tr>
+          <tr>
+            <td>Lock-in</td>
+            <td class="us"><strong>None — you own everything</strong></td>
+            <td>None, but maintenance is on you</td>
+            <td>Often proprietary platforms</td>
+            <td class="dim">N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 14px; color: var(--text-3); text-align: center; max-width: 60ch; margin-left: auto; margin-right: auto; font-style: italic; line-height: 1.6;">
+      We'll tell you in the audit if one of the other three is actually the right call. Sometimes it is.
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================
+     PRICING
+     ==================================================================== -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Investment</div>
+      <h2 class="h2">Transparent pricing. <em class="serif-italic">Published upfront</em>.</h2>
+      <p class="lede">You deserve to know costs before scheduling a call. Three tiers, no surprises. Project work is fixed-fee; concierge is month-to-month, cancel anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-num">01 · Strategy Audit</div>
+        <div class="price-name">Audit</div>
+        <div class="price-when">One-time · 1 week</div>
+        <div class="price-amount">$499<span class="range">–$1,500</span></div>
+        <div class="price-cadence">flat fee</div>
+        <ul class="price-features">
+          <li>90-minute deep-dive call</li>
+          <li>Top 3 opportunities + ROI estimate</li>
+          <li>Right-sized Claude tier recommendation</li>
+          <li>90-day implementation roadmap</li>
+          <li>Yours to keep — no commitment</li>
+        </ul>
+        <a href="#contact" class="price-cta">Book audit</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-badge">Most popular</span>
+        <div class="price-num">02 · AI-Native Builds</div>
+        <div class="price-name">Build</div>
+        <div class="price-when">2–6 weeks · fixed fee</div>
+        <div class="price-amount">$5K<span class="range">–$25K</span></div>
+        <div class="price-cadence">scope locked, no change-order surprises</div>
+        <ul class="price-features">
+          <li>Custom workflows beyond Claude defaults</li>
+          <li>Voice agents, copilots, knowledge agents</li>
+          <li>MCP integrations to your existing tools</li>
+          <li>Weekly demos during build</li>
+          <li>30 days post-launch support</li>
+        </ul>
+        <a href="#contact" class="price-cta">Scope a build</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-num">03 · AI Concierge</div>
+        <div class="price-name">Concierge</div>
+        <div class="price-when">Month-to-month · cancel anytime</div>
+        <div class="price-amount">$1,500<span class="range">–$5K/mo</span></div>
+        <div class="price-cadence">your AI department on retainer</div>
+        <ul class="price-features">
+          <li>Unlimited Slack support, business hours</li>
+          <li>Cost guardrails + spend alerting</li>
+          <li>One new workflow per month</li>
+          <li>Eval &amp; drift monitoring</li>
+          <li>Quarterly review + team training</li>
+          <li>Monthly KPI + cost report</li>
+        </ul>
+        <a href="#contact" class="price-cta">Start concierge</a>
+      </div>
+    </div>
+
+    <div class="passthrough">
+      <div class="passthrough-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M5 12l4-4M5 12l4 4"/></svg>
+      </div>
+      <div class="passthrough-text">
+        <strong>Pass-through costs:</strong> Claude API + hosting ($10–$200/mo typical) billed directly through your accounts.
+        <p>You own the keys, you see the bill, you control the cap. We never resell or mark up infrastructure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     ABOUT
+     ==================================================================== -->
+<section id="about">
+  <div class="container">
+    <div class="section-head" style="margin-bottom: 48px;">
+      <div class="section-label">About</div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-body">
+        <p class="about-quote">
+          Anthropic ships the platform. <em>We make it actually work</em> in your business.
+        </p>
+        <p>
+          Seafin is a Claude deployment partner — we set up <strong style="color: var(--text); font-weight: 500;">Claude for Small Business</strong>, build the workflows it doesn't ship, integrate with the tools you already use (QuickBooks, HubSpot, Microsoft 365, Google Workspace), and stay on retainer to keep it running.
+        </p>
+        <p>
+          You own everything we deploy. No vendor lock-in, no proprietary platforms, no surprise fees. We're Claude-native by choice — and multi-platform competent (ChatGPT, Gemini, Codex, self-hosted Llama/Qwen) when the job calls for it.
+        </p>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-avatar">RC</div>
+        <div class="founder-name">Rob Crider</div>
+        <div class="founder-role">Founder, Seafin LLC</div>
+        <p>
+          I'm the one who audits your stack, writes the scope, and ships the build. No bait-and-switch to a junior after the sale. If a project is bigger than I can handle solo, I'll tell you in the audit and recommend the right path — even if that path isn't us.
+        </p>
+        <a href="#contact" class="founder-link">Book a call with Rob →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     FAQ
+     ==================================================================== -->
+<section id="faq">
+  <div class="container container-narrow">
+    <div class="section-head">
+      <div class="section-label">FAQ</div>
+      <h2 class="h2">Common questions.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq" open>
+        <summary>
+          <span class="faq-num">01</span>
+          <span class="faq-q">Who is Seafin built for?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          Businesses without dedicated AI staff — solo operators through ~500-person teams. If nobody in-house owns AI, you've heard about Claude but aren't sure where to start, or you've signed up and gotten stuck, we're the team that makes it actually work. Any industry; we don't require deep vertical expertise from you.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">02</span>
+          <span class="faq-q">How long does a project take?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          <strong>Audit:</strong> 1 week from kickoff to written report. <strong>Builds:</strong> 2–6 weeks from contract to deployed, depending on scope. Most workflows ship in 2–3 weeks; multi-system integrations run 4–6. <strong>Concierge:</strong> live within 1 week of signing. You see weekly demos during every build — no surprises at the end.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">03</span>
+          <span class="faq-q">Is my data secure?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          Yes. Enterprise-grade encryption at rest and in transit, role-based access, audit logging. Cloud APIs are governed by provider security terms (Anthropic, OpenAI, Google). For complete sovereignty or air-gapped environments, we deploy local models on your infrastructure.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">04</span>
+          <span class="faq-q">Will it work with our existing tools?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          Almost certainly. We integrate Claude with QuickBooks, HubSpot, Microsoft 365, Google Workspace, Slack, Salesforce, Shopify, and many more — via Claude for Small Business connectors or custom MCP servers. During discovery we map your full stack.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">05</span>
+          <span class="faq-q">Why Claude specifically?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          Anthropic shipped the strongest packaged SMB workflow product on the market with Claude for Small Business, and their partner economics are accessible to small consultancies. We deploy Claude as the anchor and reach for ChatGPT, Gemini, or Codex when the job calls for it. We sell results, not platform loyalty.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">06</span>
+          <span class="faq-q">What if we can't use cloud AI? (Sovereign / air-gapped)</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          We build local LLM workflows for customers with data sovereignty, compliance, or air-gap requirements. Models: Llama 3.3, Qwen 2.5, Mistral, DeepSeek. Inference via vLLM, Ollama, or llama.cpp with quantization. Runs on your on-prem GPU server, private cloud, or hybrid. Open-weight models are Haiku-class today — we'll tell you when local works and when cloud is the right call. Custom-scoped, typically $25K–$150K + GPU infra at cost.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     CONTACT / CTA
+     ==================================================================== -->
+<section id="contact">
+  <div class="container container-narrow">
+    <div class="cta-card">
+      <div class="cta-orbit" aria-hidden="true"></div>
+      <h2>Find out what AI can do for <em>your</em> business.</h2>
+      <p>Free 30-minute intro call. We'll cover what you're trying to solve and recommend a starting point. No commitment, no pressure.</p>
+      <div class="cta-ctas">
+        <a href="#" class="btn btn-primary" id="cta-book">Book discovery call <span class="btn-arrow">→</span></a>
+        <a href="#pricing" class="btn btn-ghost">Or start with the $499 audit</a>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-input" type="text" name="name" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" name="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Company</label>
+          <input class="form-input" type="text" name="company" placeholder="Your company">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">What are you trying to solve?</label>
+          <textarea class="form-textarea" name="challenge" placeholder="The most time-consuming task you'd love to automate, or a vague AI idea you've been thinking about..."></textarea>
+        </div>
+        <button type="submit" class="form-submit form-group full">Send →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-block">
+        <div class="footer-brand">
+          <span class="nav-brand-mark refined" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M8 24 C 10 18 13 13 18 9 C 18 14 20 20 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 26 Q 10 24 16 25 Q 22 26 28 25" stroke="currentColor" stroke-width="1.2" opacity="0.55" stroke-linecap="round"/>
+              <circle cx="22" cy="26" r="0.7" fill="currentColor" opacity="0.6"/>
+            </svg>
+          </span>
+          <span>seafin</span>
+        </div>
+        <p class="footer-tag">An AI department for businesses that don't have one — yet. Strategy audits, fixed-fee builds, and managed AI on retainer. Solo operator through 500-person team.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <a href="#services">Audit · Build · Concierge</a>
+        <a href="sovereign.html">Sovereign AI</a>
+        <a href="personal.html">Seafin Personal</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#case-studies">Case studies</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+        <a href="#contact">Book a call</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+
+    <div class="footer-built">
+      <div>© 2026 Seafin LLC · <a href="privacy.html" style="color: var(--text-2);">Privacy</a> · <a href="terms.html" style="color: var(--text-2);">Terms</a></div>
+      <div class="footer-built-on">
+        <span>Built with</span>
+        <span style="color: var(--text-2);">Anthropic Claude</span>
+        <span class="sep">·</span>
+        <span style="color: var(--text-2);">MCP</span>
+        <span class="sep">·</span>
+        <span>Built with intention.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ====================================================================
+     POLISH JS — scroll reveal, nav scroll state, word wrap
+     ==================================================================== -->
+<script>
+(() => {
+  // Progressive enhancement marker
+  document.body.classList.add('js-loaded');
+
+  // 1. Nav scroll state
+  const nav = document.querySelector('.nav');
+  const onScroll = () => {
+    if (window.scrollY > 16) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // 2. Scroll reveal — auto-tag common elements + IntersectionObserver
+  const autoReveal = document.querySelectorAll(
+    '.section-head, .services-grid, .stack-strip, .process-rail, .process-grid, .case-grid, .compare-wrap, .pricing-grid, .passthrough, .about-grid, .faq-list, .cta-card, .contact-form, .partner-band-inner'
+  );
+  autoReveal.forEach(el => el.classList.add('reveal'));
+
+  const revealTargets = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealTargets.forEach(el => io.observe(el));
+    // Fail-safe: reveal any leftovers after 3s (e.g. if tab was hidden)
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+      });
+    }, 3000);
+  } else {
+    revealTargets.forEach(el => el.classList.add('in'));
+  }
+
+  // 3. Word-wrap headline for stagger reveal
+  function wrapWords(el) {
+    if (!el || el.dataset.wrapped) return;
+    el.dataset.wrapped = '1';
+    // Walk children: split text nodes into word spans, preserve <em>, <br>
+    const walk = (node, baseIdx) => {
+      let idx = baseIdx;
+      const children = [...node.childNodes];
+      const frag = document.createDocumentFragment();
+      for (const child of children) {
+        if (child.nodeType === 3) {
+          // text node
+          const words = child.textContent.split(/(\s+)/);
+          for (const word of words) {
+            if (!word.trim()) {
+              frag.appendChild(document.createTextNode(word));
+              continue;
+            }
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.style.setProperty('--w', idx++);
+            span.textContent = word;
+            frag.appendChild(span);
+          }
+        } else if (child.nodeName === 'BR') {
+          frag.appendChild(child.cloneNode());
+        } else if (child.nodeName === 'EM') {
+          // wrap inner words but keep <em>
+          const em = document.createElement('em');
+          const innerWords = child.textContent.split(/(\s+)/);
+          for (const word of innerWords) {
+            if (!word.trim()) {
+              em.appendChild(document.createTextNode(word));
+              continue;
+            }
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.style.setProperty('--w', idx++);
+            span.textContent = word;
+            em.appendChild(span);
+          }
+          frag.appendChild(em);
+        } else {
+          frag.appendChild(child.cloneNode(true));
+        }
+      }
+      node.innerHTML = '';
+      node.appendChild(frag);
+      return idx;
+    };
+    walk(el, 0);
+  }
+  const h1 = document.querySelector('.hero h1');
+  if (h1) wrapWords(h1);
+
+  // Re-wrap when headline copy changes (via tweaks)
+  if (h1) {
+    const obs = new MutationObserver(() => {
+      // If the h1 no longer contains .word spans, re-wrap
+      if (!h1.querySelector('.word')) {
+        delete h1.dataset.wrapped;
+        wrapWords(h1);
+      }
+    });
+    obs.observe(h1, { childList: true });
+  }
+})();
+</script>
+
+<!-- ====================================================================
+     HERO CANVAS ANIMATION
+     ==================================================================== -->
+<script>
+(() => {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let mode = (new URLSearchParams(location.search).get('hero')) || window.__seafinHero || 'currents';
+
+  // Sizing
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = rect.width;
+    H = rect.height;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    initParticles();
+  }
+  window.addEventListener('resize', resize);
+
+  // Particles for "currents"
+  let lines = [];
+  let particles = [];
+  function initParticles() {
+    lines = [];
+    // 14 horizontal flowing lines at varying depth/y
+    const N = 16;
+    for (let i = 0; i < N; i++) {
+      const depth = i / (N - 1); // 0 = near, 1 = far
+      lines.push({
+        y: H * (0.15 + depth * 0.75),
+        amp: 12 + (1 - depth) * 30 + Math.random() * 30,
+        freq: 0.0012 + Math.random() * 0.0012,
+        speed: 0.00012 + (1 - depth) * 0.00025 + Math.random() * 0.0001,
+        phase: Math.random() * Math.PI * 2,
+        depth,
+        thickness: 0.5 + (1 - depth) * 1.2,
+        hue: depth, // deeper = more aqua
+      });
+    }
+    // floating dust particles
+    particles = [];
+    const PN = Math.floor((W * H) / 22000);
+    for (let i = 0; i < PN; i++) {
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vy: -0.05 - Math.random() * 0.15,
+        vx: (Math.random() - 0.5) * 0.04,
+        r: Math.random() * 1.2 + 0.3,
+        a: Math.random() * 0.5 + 0.1,
+      });
+    }
+  }
+
+  // Sonar pulse mode
+  let pulses = [];
+  let nodes = [];
+  function initSonar() {
+    pulses = [];
+    nodes = [];
+    const NN = Math.floor((W * H) / 16000);
+    for (let i = 0; i < NN; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        twinkle: Math.random() * Math.PI * 2,
+        r: Math.random() * 1.4 + 0.4,
+      });
+    }
+  }
+  function spawnPulse(now) {
+    pulses.push({ t0: now, x: W * 0.5, y: H * 0.55 });
+  }
+  let lastPulseSpawn = 0;
+
+  // Particles for 'aurora'
+  let blobs = [];
+  function initAurora() {
+    blobs = [];
+    const N = 5;
+    for (let i = 0; i < N; i++) {
+      blobs.push({
+        x: Math.random() * W,
+        y: H * (0.3 + Math.random() * 0.5),
+        r: 200 + Math.random() * 220,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.05,
+        hue: Math.random(),
+      });
+    }
+  }
+
+  function reset() {
+    if (mode === 'currents') initParticles();
+    else if (mode === 'sonar') initSonar();
+    else if (mode === 'aurora') initAurora();
+  }
+
+  const start = performance.now();
+  function tick(now) {
+    const t = now - start;
+    ctx.clearRect(0, 0, W, H);
+
+    if (mode === 'currents') {
+      // Currents: flowing horizontal sine layers
+      for (const line of lines) {
+        const opacity = 0.12 + (1 - line.depth) * 0.7;
+        const colorStop = line.depth;
+        // gradient: aqua-bright on near, deeper teal on far
+        const r = Math.round(127 - colorStop * 75);
+        const g = Math.round(223 - colorStop * 130);
+        const b = Math.round(255 - colorStop * 100);
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        ctx.lineWidth = line.thickness;
+        const yBase = line.y;
+        for (let x = 0; x <= W; x += 6) {
+          const y = yBase
+            + Math.sin(x * line.freq + t * line.speed + line.phase) * line.amp
+            + Math.sin(x * line.freq * 2.3 + t * line.speed * 0.7) * (line.amp * 0.3);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      // particles drift upward (bubbles)
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(127, 223, 255, ${p.a * 0.6})`;
+        ctx.fill();
+      }
+
+      // soft horizon glow at center
+      const g = ctx.createRadialGradient(W * 0.5, H * 0.55, 0, W * 0.5, H * 0.55, W * 0.6);
+      g.addColorStop(0, 'rgba(127, 223, 255, 0.12)');
+      g.addColorStop(0.5, 'rgba(127, 223, 255, 0.04)');
+      g.addColorStop(1, 'rgba(127, 223, 255, 0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+
+    } else if (mode === 'sonar') {
+      // Constellation nodes
+      for (const n of nodes) {
+        n.twinkle += 0.02;
+        const a = 0.2 + Math.sin(n.twinkle) * 0.18 + 0.18;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(127, 223, 255, ${a})`;
+        ctx.fill();
+      }
+      // connect close pairs
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < 140) {
+            ctx.strokeStyle = `rgba(127, 223, 255, ${(1 - d/140) * 0.15})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // pulse rings every 2.4s
+      if (now - lastPulseSpawn > 2400) { spawnPulse(now); lastPulseSpawn = now; }
+      pulses = pulses.filter(p => now - p.t0 < 8000);
+      for (const p of pulses) {
+        const age = (now - p.t0) / 1000;
+        const r = age * 110;
+        const a = Math.max(0, 0.5 - age * 0.07);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(127, 223, 255, ${a})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      // center glow
+      const cg = ctx.createRadialGradient(W * 0.5, H * 0.55, 0, W * 0.5, H * 0.55, 200);
+      cg.addColorStop(0, 'rgba(127, 223, 255, 0.25)');
+      cg.addColorStop(1, 'rgba(127, 223, 255, 0)');
+      ctx.fillStyle = cg;
+      ctx.fillRect(0, 0, W, H);
+
+    } else if (mode === 'aurora') {
+      // Soft drifting blobs
+      ctx.globalCompositeOperation = 'screen';
+      for (const b of blobs) {
+        b.x += b.vx;
+        b.y += b.vy;
+        if (b.x < -b.r) b.x = W + b.r;
+        if (b.x > W + b.r) b.x = -b.r;
+        const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+        const hue = b.hue;
+        const r = Math.round(40 + hue * 80);
+        const g = Math.round(150 + hue * 80);
+        const bl = Math.round(220 - hue * 40);
+        grad.addColorStop(0, `rgba(${r}, ${g}, ${bl}, 0.25)`);
+        grad.addColorStop(1, `rgba(${r}, ${g}, ${bl}, 0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  requestAnimationFrame(tick);
+
+  // expose mode switcher
+  window.__seafinSetHeroMode = (m) => {
+    mode = m;
+    reset();
+  };
+})();
+</script>
+
+<!-- ====================================================================
+     TWEAKS PANEL
+     ==================================================================== -->
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script src="seafin-tweaks.js"></script>
+
+</body>
+</html>
