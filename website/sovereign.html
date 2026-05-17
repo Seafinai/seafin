@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign AI — Self-Hosted LLMs for Regulated &amp; Air-Gapped Environments | Seafin.ai</title>
+<meta name="description" content="On-premise and air-gapped LLM deployments for businesses where data can't leave the network. Llama, Qwen, Mistral via vLLM, llama.cpp, Ollama. Transparent pricing, honest scope.">
+<meta name="keywords" content="self-hosted LLM, on-premise AI, sovereign AI, air-gapped LLM, Llama deployment, Qwen Mistral hosting, vLLM consultant, CMMC AI, regulated industry LLM">
+<meta name="theme-color" content="#001220">
+<link rel="canonical" href="https://seafin.ai/sovereign.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Sovereign AI — Self-Hosted LLMs for Regulated &amp; Air-Gapped Environments">
+<meta property="og:description" content="On-premise LLM deployments where cloud AI isn't an option. Transparent pricing, honest scope on what open-weight models can and can't do.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seafin.ai/sovereign.html">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  ::selection { background: rgba(0, 212, 255, 0.25); color: #fff; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #001220; }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.2); border-radius: 3px; }
+
+  :root {
+    --bg-deep: #001220;
+    --primary: #0066CC;
+    --accent: #00d4ff;
+    --turquoise: #17d4d4;
+    --warning: #FFB81C;
+    --text: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.95);
+    --text-faint: rgba(255, 255, 255, 0.85);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --grid-minor: rgba(0,212,255,0.05);
+    --grid-major: rgba(0,212,255,0.10);
+    --bracket-color: rgba(0,212,255,0.35);
+    --dash-color: rgba(0,212,255,0.25);
+  }
+
+  body {
+    font-family: var(--sans);
+    background-color: var(--bg-deep);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+    background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  section { padding: clamp(48px, 8vw, 80px) 0; position: relative; }
+
+  *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Brackets */
+  .brackets { position: relative; }
+  .brackets::before, .brackets::after {
+    content: ''; position: absolute; width: 12px; height: 12px; pointer-events: none; z-index: 2;
+  }
+  .brackets::before { top: 0; left: 0; border-top: 1px solid var(--bracket-color); border-left: 1px solid var(--bracket-color); }
+  .brackets::after { bottom: 0; right: 0; border-bottom: 1px solid var(--bracket-color); border-right: 1px solid var(--bracket-color); }
+  .bracket-tr, .bracket-bl { position: absolute; width: 12px; height: 12px; pointer-events: none; z-index: 2; }
+  .bracket-tr { top: 0; right: 0; border-top: 1px solid var(--bracket-color); border-right: 1px solid var(--bracket-color); }
+  .bracket-bl { bottom: 0; left: 0; border-bottom: 1px solid var(--bracket-color); border-left: 1px solid var(--bracket-color); }
+
+  /* Overline */
+  .overline {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .overline::before {
+    content: ''; display: block; width: 32px; height: 2px; background: var(--accent);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block; font-family: var(--mono); font-size: 13px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase; color: #FFFFFF; background: var(--accent);
+    padding: 14px 32px; border: none; border-radius: 3px; cursor: pointer;
+    text-decoration: none; transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background: #fff; color: var(--bg-deep); box-shadow: 0 0 24px rgba(0,212,255,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--accent);
+    padding: 12px 24px; border: 1px dashed var(--accent); text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background: rgba(0,212,255,0.08); border-style: solid;
+  }
+
+  /* Nav */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(0, 18, 32, 0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px dashed var(--dash-color); padding: 0 24px; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-brand-text { font-family: var(--sans); font-size: 18px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.5px; }
+  .nav-brand-text .ai-dim { color: var(--text-dim); font-weight: 500; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+  .nav-cta {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--bg-deep); background: var(--accent); padding: 8px 18px; border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover { background: #fff; box-shadow: 0 0 16px rgba(0,212,255,0.3); }
+
+  /* Hero */
+  .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; padding-top: 100px; position: relative; }
+  .hero-inner { position: relative; padding: 60px 40px; }
+  .hero-context-tag {
+    display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--warning); border: 1px dashed var(--warning);
+    padding: 6px 14px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--turquoise) 40%, #fff 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-dim); font-weight: 300; max-width: 620px;
+    margin-bottom: 28px;
+  }
+  .hero-stats { display: inline-flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
+  .hero-stat-box {
+    border: 1px dashed var(--dash-color); padding: 10px 18px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; color: var(--text-dim);
+  }
+  .hero-stat-box strong { color: var(--accent); font-weight: 500; margin-right: 6px; }
+  .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* Decision Matrix */
+  .matrix-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;
+  }
+  .matrix-card {
+    border: 1px dashed var(--dash-color); padding: 28px 24px; position: relative;
+    background: rgba(0,18,32,0.6);
+  }
+  .matrix-card.cloud { border-color: rgba(0,212,255,0.3); }
+  .matrix-card.local { border-color: rgba(255,184,28,0.4); }
+  .matrix-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 1px dashed var(--dash-color);
+  }
+  .matrix-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .matrix-card.cloud .matrix-dot { background: var(--accent); }
+  .matrix-card.local .matrix-dot { background: var(--warning); }
+  .matrix-title { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+  .matrix-card.cloud .matrix-title { color: var(--accent); }
+  .matrix-card.local .matrix-title { color: var(--warning); }
+  .matrix-list { list-style: none; }
+  .matrix-list li {
+    font-size: 14px; color: var(--text-dim); padding: 8px 0 8px 20px;
+    position: relative; line-height: 1.5;
+  }
+  .matrix-list li::before {
+    content: ''; position: absolute; left: 0; top: 16px;
+    width: 8px; height: 4px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+  .matrix-card.local .matrix-list li::before { border-color: var(--warning); }
+
+  /* Service Tiers */
+  .tier-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 32px;
+  }
+  .tier-card {
+    padding: 32px; background: rgba(0,212,255,0.03); border: 1px solid rgba(0,212,255,0.15);
+    position: relative;
+  }
+  .tier-card.featured { background: rgba(0,212,255,0.05); border-color: rgba(0,212,255,0.25); }
+  .tier-label {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .tier-price {
+    font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;
+  }
+  .tier-price-suffix { font-size: 1.1rem; color: var(--text-faint); font-weight: 500; }
+  .tier-duration { font-size: 13px; color: var(--text-faint); margin-bottom: 20px; font-family: var(--mono); }
+  .tier-list { list-style: none; font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+  .tier-list li { padding-left: 18px; position: relative; margin-bottom: 6px; }
+  .tier-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); }
+
+  /* Stack Grid */
+  .stack-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+  .stack-block {
+    border: 1px dashed var(--dash-color); padding: 20px;
+    background: rgba(255,255,255,0.015);
+  }
+  .stack-block-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+  }
+  .stack-block-content {
+    font-family: var(--mono); font-size: 14px; color: var(--text); line-height: 1.7;
+  }
+  .stack-block-note {
+    font-size: 12px; color: var(--text-faint); margin-top: 8px; font-style: normal;
+  }
+
+  /* Hardware Table */
+  .hw-table {
+    width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px;
+    border: 1px dashed var(--dash-color);
+  }
+  .hw-table th, .hw-table td {
+    padding: 14px 16px; text-align: left; border-bottom: 1px dashed var(--dash-color);
+  }
+  .hw-table th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent); background: rgba(0,212,255,0.03);
+    font-weight: 600;
+  }
+  .hw-table td { color: var(--text-dim); }
+  .hw-table tr:last-child td { border-bottom: none; }
+  .hw-table .hw-cost { color: var(--accent); font-family: var(--mono); font-weight: 500; }
+
+  /* Honest Scope */
+  .scope-callout {
+    border-left: 3px solid var(--warning); padding: 24px 28px;
+    background: rgba(255,184,28,0.04); margin-top: 24px;
+  }
+  .scope-callout-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
+    color: var(--warning); margin-bottom: 12px; font-weight: 600;
+  }
+  .scope-callout ul { list-style: none; margin-top: 12px; }
+  .scope-callout li {
+    font-size: 14px; color: var(--text-dim); padding: 8px 0 8px 20px;
+    position: relative; line-height: 1.6;
+  }
+  .scope-callout li::before {
+    content: '!'; position: absolute; left: 4px; top: 8px;
+    color: var(--warning); font-family: var(--mono); font-weight: 600;
+  }
+
+  /* Compliance Badges */
+  .compliance-row {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px;
+  }
+  .compliance-badge {
+    border: 1px dashed var(--dash-color); padding: 14px 20px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 1px;
+    color: var(--text-dim); display: flex; align-items: center; gap: 10px;
+  }
+  .compliance-badge strong { color: var(--accent); font-weight: 500; }
+
+  /* FAQ */
+  .faq-container { position: relative; margin-top: 32px; padding: 24px; }
+  .faq-item { border-bottom: 1px dashed var(--dash-color); }
+  .faq-item summary {
+    display: flex; align-items: center; gap: 12px; padding: 18px 4px;
+    cursor: pointer; list-style: none; transition: color 0.2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-num {
+    font-family: var(--mono); font-size: 10px; color: var(--text-faint);
+    letter-spacing: 1px; flex-shrink: 0; width: 36px;
+  }
+  .faq-question { font-size: 15px; font-weight: 500; flex: 1; }
+  .faq-toggle {
+    font-family: var(--mono); font-size: 16px; color: var(--accent);
+    transition: transform 0.3s ease; flex-shrink: 0;
+  }
+  .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-answer {
+    padding: 0 4px 20px 56px; font-size: 14.5px; color: var(--text-dim);
+    line-height: 1.7; border-left: 3px solid var(--accent);
+    margin-left: 4px; padding-left: 16px;
+  }
+
+  /* CTA */
+  .cta-section { text-align: center; padding: 80px 0 100px; }
+  .cta-inner { position: relative; padding: 48px 40px; }
+  .cta-section h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; margin-bottom: 14px;
+  }
+  .cta-section p { color: var(--text-dim); margin-bottom: 28px; font-size: 15px; }
+
+  /* Footer */
+  footer { border-top: 1px dashed var(--dash-color); padding: 32px 0; margin-top: 24px; }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-faint);
+  }
+  .footer-row a { color: var(--text-faint); text-decoration: none; transition: color 0.2s; }
+  .footer-row a:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .matrix-grid { grid-template-columns: 1fr; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .hero { min-height: 70vh; padding-top: 90px; }
+    .hero-inner { padding: 32px 20px; }
+    .hw-table { font-size: 12px; }
+    .hw-table th, .hw-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====================================================================
+     FIXED NAV BAR
+     ==================================================================== -->
+<header>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a href="/" class="nav-brand" aria-label="Seafin.ai - Home">
+    <svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="nav-flowS-sov" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0088EE"/>
+          <stop offset="100%" stop-color="#7FFFD4"/>
+        </linearGradient>
+      </defs>
+      <path d="M 120 40 C 140 42 148 55 145 68 C 142 82 115 90 100 92 C 80 94 60 90 58 100 C 55 112 68 122 85 125 C 105 128 125 120 132 110" fill="none" stroke="url(#nav-flowS-sov)" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 115 48 C 130 50 136 60 134 70 C 131 80 112 86 100 88 C 84 90 68 88 65 96 C 62 105 72 113 86 116" fill="none" stroke="#FFB81C" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+    <span class="nav-brand-text">seafin<span class="ai-dim">.ai</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/sovereign.html" class="active">Sovereign AI</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/#contact" class="nav-cta">Book Discovery Call</a>
+  </div>
+</nav>
+</header>
+
+<main id="main-content">
+
+<!-- ====================================================================
+     HERO -- Problem-First Filter
+     ==================================================================== -->
+<section class="hero" aria-label="Sovereign AI Introduction">
+  <div class="container">
+    <div class="hero-inner brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+      <div class="hero-context-tag">SOVEREIGN AI — A SPECIALTY OFFERING</div>
+      <h1>When Your Data Can't Leave Your Network.</h1>
+      <p class="hero-sub">
+        Self-hosted, on-premise, and air-gapped LLM deployments for regulated industries, attorney-client privileged workflows, defense contractors, and IP-sensitive enterprises. We pick the right open-weight model, size the hardware, build the inference stack, and tell you honestly when local is the wrong call.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat-box"><strong>2-4 WEEKS</strong> TO PRODUCTION</div>
+        <div class="hero-stat-box"><strong>$25K-$150K</strong> TYPICAL BUILD</div>
+        <div class="hero-stat-box"><strong>FULL</strong> DATA SOVEREIGNTY</div>
+      </div>
+      <div class="hero-cta-row">
+        <a href="/#contact" class="btn-primary">Book Sovereign AI Audit</a>
+        <a href="/" class="btn-secondary">← Back to Main Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     DECISION MATRIX -- When Cloud vs. When Local
+     ==================================================================== -->
+<section style="background: rgba(0, 18, 32, 0.3); border-top: 1px dashed var(--dash-color); border-bottom: 1px dashed var(--dash-color);" aria-label="Cloud vs Local Decision">
+  <div class="container">
+    <div class="overline">DECISION MATRIX</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Cloud Claude vs. Self-Hosted: Pick the Right One</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 680px;">Most businesses should stay on Claude. Local LLMs are a specialty answer to a specific problem. Here's the honest decision tree we walk every customer through.</p>
+
+    <div class="matrix-grid">
+      <div class="matrix-card cloud">
+        <div class="matrix-header">
+          <span class="matrix-dot"></span>
+          <span class="matrix-title">Cloud Claude is right when…</span>
+        </div>
+        <ul class="matrix-list">
+          <li>Anthropic's BAAs and DPAs cover your data classification</li>
+          <li>You want the best frontier capability (Sonnet/Opus class)</li>
+          <li>Workload is bursty or unpredictable</li>
+          <li>You don't have GPU infrastructure or want to avoid managing it</li>
+          <li>Time-to-value matters more than data residency</li>
+          <li>Total monthly API spend is under ~$3,000–$5,000</li>
+          <li>You're using Claude for Small Business workflows or MCP connectors</li>
+        </ul>
+      </div>
+      <div class="matrix-card local">
+        <div class="matrix-header">
+          <span class="matrix-dot"></span>
+          <span class="matrix-title">Self-Hosted is right when…</span>
+        </div>
+        <ul class="matrix-list">
+          <li>Compliance forbids sending data to third-party APIs (CMMC, certain FedRAMP, ITAR, classified)</li>
+          <li>Attorney-client privilege, M&amp;A, or other absolute-confidentiality data</li>
+          <li>Air-gapped or low-connectivity environment (manufacturing floors, ships, defense)</li>
+          <li>Sustained high-volume workload where API costs exceed amortized GPU spend (~$5K+/mo at scale)</li>
+          <li>Sub-100ms latency required for embedded or edge inference</li>
+          <li>Auditable, deterministic model versioning required by regulation</li>
+          <li>Cloud AI usage is explicitly disallowed by customer contracts or industry rules</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px; padding: 18px; background: rgba(0,212,255,0.05); border-radius: 4px; font-size: 14px; color: var(--text-dim);">
+      <strong style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1.5px;">HONEST DEFAULT:</strong>
+      &nbsp;Start on Claude. Move workloads to local only when one of the right-column conditions is firm. Hybrid (sensitive inference local, general tooling cloud) is the most common real-world answer.
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     WHAT WE DEPLOY -- Service Tiers
+     ==================================================================== -->
+<section aria-label="Sovereign service tiers">
+  <div class="container">
+    <div class="overline">WHAT WE DEPLOY</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Three Sovereign Tiers</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 620px;">Same shape as our main services, scoped for the regulated buyer. Pricing is custom because hardware and integration complexity vary; ranges below are typical.</p>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-label">01 · SOVEREIGN AUDIT</div>
+        <div class="tier-price">$1,500<span class="tier-price-suffix">–$3,000</span></div>
+        <div class="tier-duration">1-2 weeks · One-time</div>
+        <ul class="tier-list">
+          <li>Cloud vs. local decision analysis for your specific workload</li>
+          <li>Model selection (Llama / Qwen / Mistral / Phi / Gemma)</li>
+          <li>Hardware sizing + procurement spec</li>
+          <li>Compliance mapping (CMMC, SOC 2, HIPAA, FedRAMP-aligned)</li>
+          <li>Honest TCO comparison vs. continuing on cloud APIs</li>
+          <li>90-day implementation roadmap</li>
+        </ul>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-label">02 · SOVEREIGN BUILD</div>
+        <div class="tier-price">$25K<span class="tier-price-suffix">–$150K</span></div>
+        <div class="tier-duration">2-6 weeks · Fixed-fee + GPU infra at cost</div>
+        <ul class="tier-list">
+          <li>Model deployment with quantization (GGUF / AWQ / GPTQ)</li>
+          <li>Production inference stack (vLLM / llama.cpp / Ollama)</li>
+          <li>RAG + agent orchestration layer on your data</li>
+          <li>Observability, eval suite, cost &amp; latency monitoring</li>
+          <li>Security hardening (network isolation, mTLS, audit logging)</li>
+          <li>Runbook + handoff documentation</li>
+          <li>30 days post-launch support</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-label">03 · SOVEREIGN OPS</div>
+        <div class="tier-price">$3K<span class="tier-price-suffix">–$8K/mo</span></div>
+        <div class="tier-duration">Month-to-month · Cancel anytime</div>
+        <ul class="tier-list">
+          <li>GPU health monitoring + driver/firmware updates</li>
+          <li>Model upgrades + regression testing</li>
+          <li>Load balancing, eval regression, observability</li>
+          <li>Quarterly model refresh evaluation</li>
+          <li>On-call response for production breakage</li>
+          <li>Compliance documentation maintenance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     STACK -- Named Components for Credibility
+     ==================================================================== -->
+<section style="background: rgba(0, 18, 32, 0.3);" aria-label="Technology stack">
+  <div class="container">
+    <div class="overline">STACK</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">What's Under the Hood</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 620px;">We pick from the production-grade open-weight ecosystem. No proprietary lock-in, no custom forks — your team can take over if we ever part ways.</p>
+
+    <div class="stack-grid">
+      <div class="stack-block">
+        <div class="stack-block-label">MODELS</div>
+        <div class="stack-block-content">Llama 3.3<br>Qwen 2.5<br>Mistral / Mixtral<br>DeepSeek<br>Phi 3.5 / 4<br>Gemma 2</div>
+        <div class="stack-block-note">Chosen per workload — chat, code, RAG, agentic.</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-block-label">INFERENCE</div>
+        <div class="stack-block-content">vLLM (production)<br>llama.cpp (CPU / edge)<br>Ollama (prototyping)<br>TGI / TensorRT-LLM</div>
+        <div class="stack-block-note">vLLM: ~35x throughput vs. llama.cpp at peak load.</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-block-label">QUANTIZATION</div>
+        <div class="stack-block-content">GGUF<br>AWQ<br>GPTQ<br>FP8 / INT4</div>
+        <div class="stack-block-note">50–75% memory reduction; ≥95% accuracy preserved.</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-block-label">ORCHESTRATION</div>
+        <div class="stack-block-content">LangChain / LlamaIndex<br>MCP (custom servers)<br>pgvector / Qdrant<br>Langfuse / Helicone</div>
+        <div class="stack-block-note">Same patterns as our cloud builds, local endpoints.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     HARDWARE SIZING -- Credibility Table
+     ==================================================================== -->
+<section aria-label="Hardware sizing reference">
+  <div class="container">
+    <div class="overline">HARDWARE</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Sizing Reference</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 680px;">Honest ranges, not vendor markup. Hardware is passed through at cost — you procure directly or we coordinate with your IT.</p>
+
+    <table class="hw-table">
+      <thead>
+        <tr>
+          <th>Workload</th>
+          <th>Hardware</th>
+          <th>Model Class</th>
+          <th>Hardware Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Single-user prototyping</td>
+          <td>RTX 4090 (24GB) or A6000</td>
+          <td>7B–13B quantized</td>
+          <td class="hw-cost">$2K–$8K</td>
+        </tr>
+        <tr>
+          <td>Small team (5–20 users)</td>
+          <td>2x A6000 or 1x A100 (80GB)</td>
+          <td>30B quantized · 70B with GGUF</td>
+          <td class="hw-cost">$15K–$35K</td>
+        </tr>
+        <tr>
+          <td>Mid-volume (20–100 users)</td>
+          <td>1–2x H100 (80GB)</td>
+          <td>70B production · 405B quantized</td>
+          <td class="hw-cost">$40K–$90K</td>
+        </tr>
+        <tr>
+          <td>High concurrency / low latency</td>
+          <td>H100/H200 nodes (4-8 GPU)</td>
+          <td>Full 70B–405B · multi-tenant</td>
+          <td class="hw-cost">$120K–$400K+</td>
+        </tr>
+        <tr>
+          <td>Air-gapped edge (no GPU)</td>
+          <td>CPU + llama.cpp + INT4</td>
+          <td>3B–8B quantized</td>
+          <td class="hw-cost">Existing hardware</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size: 13px; color: var(--text-faint); margin-top: 12px;">Cloud-rented GPU (Lambda, RunPod, Modal) is also an option for sovereignty without buying hardware — we'll cover it in the Audit.</p>
+  </div>
+</section>
+
+<!-- ====================================================================
+     HONEST SCOPE -- What Local Can't Do
+     ==================================================================== -->
+<section style="background: rgba(0, 18, 32, 0.3);" aria-label="Honest scope and limitations">
+  <div class="container">
+    <div class="overline">HONEST SCOPE</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 16px;">What Open-Weight Models Can't Do (Yet)</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 720px;">If we don't tell you this upfront, someone else will after you've spent the money. Open-weight models are excellent for many use cases — and meaningfully behind frontier cloud models for others.</p>
+
+    <div class="scope-callout">
+      <div class="scope-callout-label">⚠ READ THIS BEFORE YOU COMMIT</div>
+      <ul>
+        <li><strong style="color: var(--text);">Capability gap.</strong> Open-weight models (Llama 3.3, Qwen 2.5) are roughly Claude Haiku-class today, not Sonnet/Opus-class. For deep reasoning, complex agentic workflows, or frontier coding tasks, cloud still wins.</li>
+        <li><strong style="color: var(--text);">Ongoing ops burden.</strong> Industry consensus: budget <strong>0.3–0.5 FTE of an infra engineer</strong> per self-hosted LLM for GPU failures, driver updates, model upgrades, eval regressions, observability. Teams that underestimate this typically abandon self-hosting within 12 months.</li>
+        <li><strong style="color: var(--text);">Model updates require redeployment.</strong> Unlike cloud where Anthropic ships new Claude versions transparently, you re-evaluate, re-quantize, re-deploy every model upgrade.</li>
+        <li><strong style="color: var(--text);">Initial setup is weeks, not minutes.</strong> Cloud Claude is live same-day. Self-hosted is 2–4 weeks for production-grade.</li>
+        <li><strong style="color: var(--text);">Tooling ecosystem is shallower.</strong> Claude for Small Business ships with QuickBooks, HubSpot, Microsoft 365 connectors. Local stacks require custom MCP servers for each integration.</li>
+        <li><strong style="color: var(--text);">Total cost of ownership rarely beats cloud until volume is sustained and high.</strong> If you're spending under ~$3K/mo on Claude API today, self-hosting will cost more all-in for 18+ months. We'll show you the math in the Audit.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     COMPLIANCE
+     ==================================================================== -->
+<section aria-label="Compliance frameworks">
+  <div class="container">
+    <div class="overline">COMPLIANCE</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Frameworks We Build For</h2>
+    <p style="color: var(--text-dim); font-size: 15px; max-width: 680px;">We don't sell certifications — those come from auditors. We build deployments that <em>map to</em> the controls these frameworks require, with documented network isolation, audit logging, access control, and data flow controls.</p>
+
+    <div class="compliance-row">
+      <div class="compliance-badge"><strong>CMMC</strong> Level 2-3 aligned</div>
+      <div class="compliance-badge"><strong>SOC 2</strong> Type II controls</div>
+      <div class="compliance-badge"><strong>FedRAMP</strong> high-baseline aligned</div>
+      <div class="compliance-badge"><strong>HIPAA</strong> technical safeguards</div>
+      <div class="compliance-badge"><strong>ITAR</strong> data residency</div>
+      <div class="compliance-badge"><strong>Attorney-client</strong> privilege isolation</div>
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-faint); margin-top: 24px; max-width: 720px;">
+      <strong style="color: var(--text-dim);">Important:</strong> Compliance is a system property of your full environment, not just the AI layer. We work alongside your existing compliance posture; we don't replace it. For HIPAA specifically, we work on non-clinical use cases — we don't currently take projects involving Protected Health Information.
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================
+     FAQ
+     ==================================================================== -->
+<section style="background: rgba(0, 18, 32, 0.3);" aria-label="Sovereign FAQ">
+  <div class="container">
+    <div class="overline">FAQ</div>
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px;">Sovereign-Specific Questions</h2>
+
+    <div class="faq-container brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">01</span>
+          <span class="faq-question">Can self-hosted LLMs really replace Claude for our use case?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          For most use cases that fit Claude Haiku — customer support, document classification, basic RAG, structured data extraction, drafting from templates — yes, with thoughtful prompt engineering. For deep reasoning, complex multi-step agents, or frontier code generation, open-weight models are meaningfully behind today. The Sovereign Audit gives you a workload-by-workload assessment instead of a blanket yes/no.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">02</span>
+          <span class="faq-question">What if we want hybrid — some workloads local, others on Claude?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Hybrid is the most common real-world answer. Sensitive workflows (M&amp;A docs, attorney work product, regulated data) run on self-hosted; general productivity (meeting summaries, internal Q&amp;A, marketing copy) stays on Claude. We build the routing layer so users have a single interface and don't think about which model is answering.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">03</span>
+          <span class="faq-question">Do you fine-tune open-weight models on our data?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          When it's the right call. Most workloads do better with RAG (retrieval over your docs) than with fine-tuning, and RAG is dramatically cheaper to maintain. We use LoRA fine-tuning for narrow, stable use cases where prompt engineering and RAG have proven insufficient. The Audit identifies whether your case is fine-tune-worthy or whether RAG is enough.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">04</span>
+          <span class="faq-question">Can we run this without buying GPUs?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Yes. Lambda Labs, RunPod, CoreWeave, and Modal offer dedicated-tenancy GPU rental with stronger isolation than shared cloud APIs — you still own the model weights and control the data flow, but you don't capex-buy the hardware. Suitable for many "sovereign in spirit, not in physical location" requirements. We'll lay out the trade-offs in the Audit.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">05</span>
+          <span class="faq-question">How long until production?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          Audit: 1–2 weeks. Build: 2–6 weeks from contract to deployed inference endpoint with RAG layer and observability. Compare to same-day onboarding for Claude — local is meaningfully slower to start but pays off when sovereignty is non-negotiable.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-num">06</span>
+          <span class="faq-question">What happens if we ever want to leave self-hosting and go back to cloud?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-answer">
+          The orchestration layer we build (RAG, agents, MCP integrations) is model-agnostic. Swapping the inference endpoint from local vLLM back to the Claude API is a configuration change, not a rewrite. No lock-in is one of our explicit deliverables.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     CTA
+     ==================================================================== -->
+<section class="cta-section" aria-label="Sovereign CTA">
+  <div class="container">
+    <div class="cta-inner brackets">
+      <span class="bracket-tr"></span>
+      <span class="bracket-bl"></span>
+      <h2>Find Out If Self-Hosted Is Right for You.</h2>
+      <p>A Sovereign Audit is $1,500–$3,000 and tells you honestly whether local makes sense for <em>your</em> workload — including when the answer is "stay on Claude."</p>
+      <a href="/#contact" class="btn-primary">Book Sovereign Audit</a>
+      <div style="margin-top: 20px;">
+        <a href="/" class="btn-secondary">← Back to Main Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div>
+        <span>&copy; 2026 Seafin LLC</span>
+        <span style="margin: 0 12px; opacity: 0.3;">•</span>
+        <a href="/privacy-policy.html">Privacy</a>
+        <span style="margin: 0 12px; opacity: 0.3;">•</span>
+        <a href="/terms-of-service.html">Terms</a>
+      </div>
+      <span>Sovereign AI — a specialty service.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
