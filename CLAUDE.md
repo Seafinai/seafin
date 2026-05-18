@@ -24,43 +24,54 @@ seafin/
 ├── CLAUDE.md
 ├── README.md
 ├── api/                    — Serverless functions (Vercel)
-│   ├── test.js             — Environment variable test
-│   ├── chat.js             — AI chatbot
-│   ├── analyze-form.js     — Smart form analyzer
-│   ├── rag-query.js        — RAG demo
-│   └── roi-calculator.js   — ROI calculator API
+│   ├── test.js             — Environment variable sanity check
+│   ├── create-checkout.js  — Stripe checkout for Seafin Personal
+│   ├── webhook-stripe.js   — Stripe webhook handler
+│   ├── provision-status.js — Provisioning status for welcome page
+│   ├── waitlist.js         — Seafin Personal waitlist capture
+│   ├── classify-email.js   — Internal marketing automation (email triage)
+│   └── lib/                — Shared utilities
 ├── brand/                  — Brand identity, market research, launch plan, logo guides
 ├── infrastructure/         — Hosting cost breakdown
 ├── mockups/                — HTML mockups (landing page iterations)
 ├── products/               — Product PRDs and roadmaps
-│   ├── SEAFIN_AI_SERVICES_PRD.md      — Master services PRD (BUILD/AUTOMATE/CONNECT/PROTECT)
+│   ├── SEAFIN_AI_SERVICES_PRD.md      — Legacy services PRD (SUPERSEDED — see seafin-site for current positioning)
 │   ├── SEAFIN_PRODUCT_CATALOG_RESEARCH.md
 │   └── custodian/          — Custodian backup product (ransomware protection roadmap)
-└── website/                — Static marketing site + client-side JS
-    ├── index.html
-    ├── favicon.svg
-    └── js/                 — AI feature modules
-        ├── ai-features.js      — Module loader/orchestrator
-        ├── chatbot-widget.js   — AI chatbot widget
-        ├── roi-calculator.js   — ROI calculator UI
-        ├── smart-form.js       — AI-powered contact form
-        └── rag-demo.js         — RAG knowledge base demo
+└── seafin-site/            — Production marketing site (deployed to seafin.ai)
+    ├── index.html              — Main landing
+    ├── sovereign.html          — Self-hosted / regulated AI offering
+    ├── personal.html           — Seafin Personal signup
+    ├── welcome.html            — Post-checkout provisioning screen
+    ├── privacy.html / terms.html
+    ├── brand.css               — Shared design system tokens + components
+    ├── brand.js                — Nav densify + IntersectionObserver reveal
+    └── README.md               — Site-specific notes
 ```
 
-## Products & Services
+## Products & Services (current positioning)
 
-Four pillars defined in the services PRD:
+Seafin is positioned as a **Claude deployment partner for businesses without dedicated AI staff** (solo operator through ~500-person teams).
 
-- **BUILD** — Custom AI agents, KnowledgeClaw (RAG bots), SaaS dev, AI websites
-- **AUTOMATE** — WorkClaw (workflow automation), document processing, AI analytics
-- **CONNECT** — SupportClaw, ChatClaw, VoiceClaw, ContentClaw (hosted via OpenClaw platform)
-- **PROTECT** — Custodian managed backup ($9-199/mo tiers)
+**Three-SKU commercial ladder:**
+- **AI Strategy Audit** — $499–$1,500 · 1 week · written report with top 3 opportunities + 90-day roadmap
+- **AI-Native Builds** — $5K–$25K · 2–6 weeks · fixed-fee custom workflows and agents
+- **AI Concierge** — $1,500–$5K/mo · month-to-month managed AI operations
+
+**Eight build patterns surfaced on the site:**
+01 AI Receptionist (voice), 02 Knowledge Agent, 03 Internal Copilot, 04 Workflow Agent, 05 Browser Agent, 06 Custom Build (apps/sites), 07 Training & Enablement, 08 Sovereign AI (specialty, see `sovereign.html`)
+
+Plus add-on services: Cost Optimization Audit, Eval & Governance retainer, Migration from ChatGPT/Gemini, Fine-Tuning.
+
+**Sister products under Seafin LLC** (separate funnels, not on the consulting site): Solvity (SaaS), Custodian (managed backup). See `COMPANY_STRUCTURE.md`.
+
+**Note on legacy docs:** `products/SEAFIN_AI_SERVICES_PRD.md` describes an older four-pillar framework (BUILD/AUTOMATE/CONNECT/PROTECT) with "claw" product names. That framework was abandoned in favor of the Claude-deployment-partner positioning. Treat the old PRD as historical reference.
 
 ## Website
 
-Static single-page site at `website/index.html`. No build system — plain HTML/CSS/JS with Google Fonts. Favicon is `website/favicon.svg`.
+Production site at `seafin-site/index.html` (plus sovereign/personal/welcome/privacy/terms). No build system — plain HTML/CSS/JS with shared `brand.css` and `brand.js`.
 
-**AI Features:** The site includes a modular AI features system (`website/js/ai-features.js`) that loads chatbot, ROI calculator, smart form, and RAG demo as independent modules. Each module is self-contained with its own UI injection and API calls.
+**Design system:** Inter Tight + Instrument Serif + JetBrains Mono. Deep ink-void surfaces, dual aqua/warm accent palette (cyan for system/tech moments, warm orange for human/featured moments). Glass morphism + IntersectionObserver reveal animations.
 
 **Security Layers:** Input validation, rate limiting, cost controls, and prompt injection protection are implemented in the serverless functions. See `AI_SECURITY_BLUEPRINT.md` for the reusable security pattern.
 
@@ -74,7 +85,7 @@ The website is hosted on **Vercel** with automatic deployment from GitHub.
 - **Repository:** `Seafinai/seafin` (GitHub)
 - **Branch:** `main` (auto-deploy enabled)
 - **Root Directory:** `./`
-- **Output Directory:** `website`
+- **Output Directory:** `seafin-site` (set in `vercel.json`)
 - **Framework:** Other (static HTML + serverless functions)
 
 **Config file:** `vercel.json` (in repo root)
@@ -82,7 +93,7 @@ The website is hosted on **Vercel** with automatic deployment from GitHub.
 ### Deployment Workflow
 
 **Automated deployment:**
-1. Make changes to `website/index.html`, `website/js/*.js`, or `api/*.js`
+1. Make changes to `seafin-site/*.html`, `seafin-site/brand.css`, `seafin-site/brand.js`, or `api/*.js`
 2. Commit changes to git
 3. Push to `origin/main`
 4. Vercel automatically detects the push
@@ -196,7 +207,7 @@ wsl bash -c "source ~/.nvm/nvm.sh && agent-browser type 'selector' 'text'"
 To view local HTML files from this repo:
 
 ```bash
-wsl bash -c "source ~/.nvm/nvm.sh && agent-browser open file:///mnt/c/Projects/seafin/website/index.html"
+wsl bash -c "source ~/.nvm/nvm.sh && agent-browser open file:///mnt/c/seafin-web/seafin-site/index.html"
 ```
 
 ### Installation Details

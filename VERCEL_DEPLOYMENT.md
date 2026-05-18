@@ -59,19 +59,22 @@ Click **"Deploy"** - Vercel will:
 ```
 seafin/
 ├── api/                        # Serverless functions (project root)
-│   ├── test.js                 # Function at /api/test
-│   ├── analyze-form.js         # Function at /api/analyze-form
-│   ├── chat.js                 # Function at /api/chat
-│   ├── rag-query.js            # Function at /api/rag-query
-│   └── roi-calculator.js       # Function at /api/roi-calculator
-├── website/
-│   ├── index.html              # Static site
-│   └── js/                     # Client-side AI feature modules
-│       ├── ai-features.js      # Module loader
-│       ├── chatbot-widget.js   # Chatbot UI
-│       ├── roi-calculator.js   # ROI calculator UI
-│       ├── smart-form.js       # Smart contact form
-│       └── rag-demo.js         # RAG demo UI
+│   ├── test.js                 # Function at /api/test (env sanity check)
+│   ├── create-checkout.js      # Stripe checkout for Seafin Personal
+│   ├── webhook-stripe.js       # Stripe webhook handler
+│   ├── provision-status.js     # Provisioning status for welcome page
+│   ├── waitlist.js             # Personal waitlist capture
+│   ├── classify-email.js       # Internal marketing automation
+│   └── lib/                    # Shared utilities
+├── seafin-site/                # Static marketing site (production)
+│   ├── index.html              # Main landing
+│   ├── sovereign.html          # Self-hosted / regulated AI offering
+│   ├── personal.html           # Seafin Personal signup
+│   ├── welcome.html            # Post-checkout provisioning screen
+│   ├── privacy.html
+│   ├── terms.html
+│   ├── brand.css               # Shared design system
+│   └── brand.js                # Nav + reveal-on-scroll
 ├── vercel.json                 # Vercel config
 └── package.json                # Dependencies
 ```
@@ -149,7 +152,7 @@ curl -X POST https://your-project.vercel.app/api/test \
 
 ## vercel.json Configuration
 
-The current `vercel.json` is minimal (`{}`). Vercel auto-detects the `api/` directory for serverless functions and serves `website/` as the output directory (configured in Vercel dashboard settings).
+The current `vercel.json` sets `outputDirectory: "seafin-site"` and standard URL handling (cleanUrls + trailingSlash:false). Vercel auto-detects the `api/` directory for serverless functions and serves `seafin-site/` as the static output. If a dashboard-level Output Directory is configured, ensure it matches or is cleared so vercel.json governs.
 
 ## Common Issues
 
@@ -201,7 +204,7 @@ For most small-medium businesses, **free tier is enough**.
 3. ✅ Add environment variables
 4. ✅ Deploy
 5. ✅ Test functions
-6. ✅ Update website API URLs (if needed)
+6. ✅ Update seafin-site API URLs (if needed)
 7. ✅ Point domain (optional)
 
 ---
