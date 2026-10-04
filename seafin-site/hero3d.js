@@ -1,9 +1,9 @@
-// The opening's one crafted object: a sculpted fin (for Seafin) in glossy indigo
-// with a teal edge light, turning slowly and leaning a little toward the pointer.
+// The opening's one crafted object: an abstract twisted ribbon ring in glossy,
+// near-black indigo with teal and violet edge light. It turns slowly, the twist
+// carries the highlights round the loop, and it leans a little toward the pointer.
 // Progressive: if WebGL or the module fails, the hero keeps its indigo field.
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const canvas = document.querySelector('.hero-object');
 const hero = canvas?.closest('.hero');
@@ -28,51 +28,70 @@ function start() {
   const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
   camera.position.set(0, 0, 11);
 
-  // Fin profile: a swept leading edge, a concave trailing edge, a slightly arched base.
-  const s = new THREE.Shape();
-  s.moveTo(-1.7, -1.5);
-  s.bezierCurveTo(-1.1, -0.4, -0.35, 1.15, 1.05, 2.05);
-  s.bezierCurveTo(0.62, 0.95, 0.78, -0.45, 1.75, -1.5);
-  s.quadraticCurveTo(0.02, -1.12, -1.7, -1.5);
-  let geometry = new THREE.ExtrudeGeometry(s, {
-    depth: 0.62, curveSegments: 96,
-    bevelEnabled: true, bevelThickness: 0.44, bevelSize: 0.3, bevelSegments: 24,
-  });
-  geometry.center();
-
-  // Twist and lean the blade along its height so it reads as a sculpted form,
-  // not a flat cut-out.
-  geometry.computeBoundingBox();
-  const { min, max } = geometry.boundingBox;
-  const span = max.y - min.y;
-  const pos = geometry.attributes.position;
-  const v = new THREE.Vector3();
-  for (let i = 0; i < pos.count; i += 1) {
-    v.fromBufferAttribute(pos, i);
-    const k = (v.y - min.y) / span; // 0 at the base, 1 at the tip
-    const a = (k - 0.35) * 1.05;
-    const x = v.x * Math.cos(a) - v.z * Math.sin(a);
-    const z = v.x * Math.sin(a) + v.z * Math.cos(a) + 0.55 * k * k;
-    pos.setXYZ(i, x, v.y, z);
+  // A ribbon ring with one full twist: a stadium-shaped section (wide, thin,
+  // fully rounded edges) swept round a circle while it turns 360 degrees.
+  // Abstract on purpose; the finish and the moving highlights carry it.
+  const R = 1.55;          // ring radius
+  const W = 0.62;          // half-width of the ribbon
+  const T = 0.17;          // half-thickness, also the edge radius
+  const SEG_U = 320;       // around the ring
+  const SEG_V = 64;        // around the section
+  const section = [];
+  for (let j = 0; j < SEG_V; j += 1) {
+    // Stadium outline: two straight runs joined by half-circles.
+    const t = j / SEG_V;
+    const straight = 2 * (W - T);
+    const arc = Math.PI * T;
+    const total = 2 * straight + 2 * arc;
+    let d = t * total;
+    let x; let y;
+    if (d < straight) { x = -(W - T) + d; y = T; }
+    else if ((d -= straight) < arc) { const a = d / T; x = (W - T) + Math.sin(a) * T; y = Math.cos(a) * T; }
+    else if ((d -= arc) < straight) { x = (W - T) - d; y = -T; }
+    else { d -= straight; const a = d / T; x = -(W - T) - Math.sin(a) * T; y = -Math.cos(a) * T; }
+    section.push([x, y]);
   }
-  // Extruded geometry comes unindexed, which shades every strip flat; weld the
-  // vertices so the normals smooth across the bevels.
-  geometry.deleteAttribute('normal');
-  geometry.deleteAttribute('uv');
-  geometry = mergeVertices(geometry, 1e-4);
-  geometry.center();
+  const positions = new Float32Array(SEG_U * SEG_V * 3);
+  for (let i = 0; i < SEG_U; i += 1) {
+    const u = (i / SEG_U) * Math.PI * 2;
+    const twist = u; // one full turn of the section per lap
+    const cu = Math.cos(u); const su = Math.sin(u);
+    const ct = Math.cos(twist); const st = Math.sin(twist);
+    for (let j = 0; j < SEG_V; j += 1) {
+      const [sx, sy] = section[j];
+      const rx = sx * ct - sy * st;   // along the radius
+      const rz = sx * st + sy * ct;   // along the ring's axis
+      const k = (i * SEG_V + j) * 3;
+      positions[k] = (R + rx) * cu;
+      positions[k + 1] = (R + rx) * su;
+      positions[k + 2] = rz;
+    }
+  }
+  const index = [];
+  for (let i = 0; i < SEG_U; i += 1) {
+    const i2 = (i + 1) % SEG_U;
+    for (let j = 0; j < SEG_V; j += 1) {
+      const j2 = (j + 1) % SEG_V;
+      const a = i * SEG_V + j; const b = i2 * SEG_V + j; const c = i2 * SEG_V + j2; const d = i * SEG_V + j2;
+      index.push(a, b, d, b, c, d);
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setIndex(index);
   geometry.computeVertexNormals();
   geometry.computeBoundingSphere();
   const radius = geometry.boundingSphere.radius;
-
   // Near-black indigo with a mirror clearcoat: the light, not the colour, draws the form.
   const material = new THREE.MeshPhysicalMaterial({
     color: 0x151b6e, metalness: 0.55, roughness: 0.17,
     clearcoat: 1, clearcoatRoughness: 0.05, envMapIntensity: 1.5,
   });
-  const fin = new THREE.Mesh(geometry, material);
+  const form = new THREE.Mesh(geometry, material);
+  const lean = new THREE.Group(); // tilt toward the viewer; the ring spins inside it
+  lean.add(form);
   const rig = new THREE.Group();
-  rig.add(fin);
+  rig.add(lean);
   scene.add(rig);
 
   const tealRim = new THREE.DirectionalLight(0x38b3da, 6);
@@ -100,7 +119,7 @@ function start() {
     if (w >= 900) {
       const r = Math.min(halfH * 0.98, halfW * 0.5);
       rig.scale.setScalar(r / radius);
-      rig.position.set(halfW * 0.5, halfH * 0.16, 0);
+      rig.position.set(halfW * 0.56, halfH * 0.2, 0);
     } else {
       const r = Math.min(halfH * 0.42, halfW * 0.82);
       rig.scale.setScalar(r / radius);
@@ -128,9 +147,11 @@ function start() {
   function pose(t) {
     tilt.x += (pointer.y * 0.18 - tilt.x) * 0.05;
     tilt.y += (pointer.x * 0.28 - tilt.y) * 0.05;
-    // A slow sway around a three-quarter view; it never turns edge-on.
-    fin.rotation.set(-0.1 + Math.sin(t * 0.31) * 0.07 + tilt.x, 0.3 + Math.sin(t * 0.22) * 0.5 + tilt.y, 0.1);
-    fin.position.y = Math.sin(t * 0.55) * 0.05;
+    // The ring turns about its own axis (the twist travels round it) inside a
+    // slow lean that never shows it edge-on.
+    form.rotation.z = t * 0.14;
+    lean.rotation.set(-0.98 + Math.sin(t * 0.27) * 0.06 + tilt.x, 0.36 + Math.sin(t * 0.19) * 0.1 + tilt.y, 0.2);
+    lean.position.y = Math.sin(t * 0.55) * 0.05;
   }
 
   function frame() {
@@ -143,7 +164,8 @@ function start() {
   }
 
   function still() {
-    fin.rotation.set(-0.1, 0.3, 0.1);
+    form.rotation.z = 0.6;
+    lean.rotation.set(-0.98, 0.36, 0.2);
     renderer.render(scene, camera);
     if (!shown) { shown = true; canvas.classList.add('is-ready'); }
   }
