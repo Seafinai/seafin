@@ -76,9 +76,11 @@ typography:
     fontWeight: 600
     lineHeight: 1.3
 rounded:
+  highlight: "4px"
   control: "6px"
   input: "10px"
   panel: "14px"
+  media: "26px"
 spacing:
   gutter: "clamp(16px, 4vw, 32px)"
   section: "clamp(56px, 7vw, 96px)"
@@ -108,16 +110,19 @@ components:
     rounded: "{rounded.panel}"
     padding: "18px 20px 20px"
   demo-stage:
-    padding: "18px"
-    height: "500px"
+    rounded: "{rounded.media}"
+    padding: "16px"
+    height: "486px"
   demo-card:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink-900}"
+    rounded: "{rounded.input}"
   demo-chip:
     backgroundColor: "{colors.teal}"
     textColor: "#ffffff"
-    rounded: "{rounded.control}"
-    padding: "1px 8px"
+    rounded: "{rounded.highlight}"
+    padding: "0 4px"
+    height: "1.5rem"
   index-row:
     typography: "{typography.index}"
     padding: "{spacing.row-pad} 0"
@@ -150,12 +155,12 @@ Seafin does not have its own visual world. By the user's standing pin (PRODUCT.m
 
 The page should look like it comes from the same company as Wardix: it opens on the Wardix dark hero (Deep Indigo under a fading engineering grid and a soft teal glow, the same treatment `tracelet-landing.css` uses), then runs white with hairline rules, one Canvas band, one bordered panel, serif headings, sans everything else, and one gradient button. Restraint carries the premium feel everywhere except one place: the hero's demo, "the build, played", where the page shows what Seafin does by playing it. It reads as a consulting practice's page, not a person's or a product's. Density is moderate: a compact first viewport and generous spacing below.
 
-Seafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. The pictures are built from markup: the hero demo's mock app cards and the drawn teal route diagrams. The brand gradient is narrowed to the single primary action. And motion has one focal point, the demo; everything else that moves is quiet.
+Seafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. The pictures are built from markup: the hero demo's mock app cards, whose four scenes are modelled on published small-business cases, and the drawn teal route diagrams. The brand gradient is narrowed to the single primary action. And motion has one focal point, the demo; everything else that moves is quiet.
 
 **Key Characteristics:**
 - A Deep Indigo opening with the upstream engineering grid, then a white page with one Canvas band and a Bastion close; dark mode from the same token pairs.
 - Source Serif 4 for the page's headings and the service names, Public Sans for everything readable, Geist Mono only for short functional tags and mock-software chrome.
-- One radius family: 6 / 10 / 14.
+- One radius family: 6 / 10 / 14 / 26, plus 4px for inline highlights.
 - One action per page, one label for it, one gradient on it.
 - One focal motion (the hero demo), quiet supporting motion elsewhere; no photography; no invented proof.
 
@@ -214,12 +219,12 @@ All three are self-hosted WOFF2 files in `seafin-site/fonts`, using `font-displa
 - **Body** (400, 1.0625rem, 1.6): running text. Descriptions cap at 52 to 60ch.
 - **Label** (Geist Mono 600, 0.75rem, 0.06em, uppercase, teal): duration tags in the practice index; the demo's step label. The diagram boundary label and the demo's app-bar and document headers use the same face at 0.6875rem.
 - **Field label** (Public Sans 600, 0.875rem, 1.3, ink-700): form labels and diagram node labels.
-- **Demo scale:** inside the demo cards text runs smaller to read as software: 0.875rem body, 0.8125rem documents, chips and tabs, 0.75rem field keys (all one step smaller at ≤480px).
+- **Demo scale:** inside the demo cards text runs smaller to read as software: 0.875rem body, field values and chips (one fixed 1.5rem line), 0.8125rem documents, tables and tabs, 0.75rem field keys (body, values and chips one step smaller at ≤480px).
 
 ### Named Rules
 **The Serif-Is-For-The-Page Rule.** Serif is for page-level headings (the H1, section H2s, the closing H2) and for the service names in the practice index, which act as the headings of what Seafin sells. Panel titles, including the form-panel heading and the route H3s, are Public Sans bold. Nothing inside the demo is serif.
 
-**The Mono-Tags-Never-Lead Rule.** On the page, Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), the step label on the demo's wire, and the one label that names a drawn boundary in a diagram. A mono label never sits above a page heading and never leads a page row. Inside the demo's mock app cards, mono is the mock software's own chrome (app name, time, document header, speaker name) and depicts an interface; it is not a page device to reuse elsewhere.
+**The Mono-Tags-Never-Lead Rule.** On the page, Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), the step label on the demo's wire, and the one label that names a drawn boundary in a diagram. A mono label never sits above a page heading and never leads a page row. Inside the demo's mock app cards, mono is the mock software's own chrome (app name and meta, document and table headers, speaker names) and depicts an interface; it is not a page device to reuse elsewhere.
 
 ## Layout
 
@@ -254,7 +259,7 @@ A hybrid that leans flat: hairline borders, rules and two dark fields do the sep
 
 ## Shapes
 
-One radius family from upstream, narrowed to what the page uses: 6px for buttons and demo chips, 10px for inputs and diagram wells, 14px for the form panel and the routes panel. The practice index and flow rows have no corners at all: they are rules, not containers. No pills, no icon tiles; the only round shape is the 8px demo status dot. Borders and rules are 1px; lines inside a panel use Line Soft, outer lines use Line. Two marked exceptions: the ink-900 rule that opens the practice index, and the 1.5px dashed teal boundary around the self-hosted diagram. Icons and arrows are open line strokes (1.5 to 1.75, round caps and joins) in teal, never filled. The demo stage (20px), its app cards (12px) and the document inset (8px) currently sit outside the family; they are recorded here as shipped, not as steps to reuse.
+One radius family from upstream: 6px for buttons and the documents and tables inside demo cards, 10px for inputs, diagram wells and demo app cards, 14px for the form panel and the routes panel, 26px (upstream's media radius) for the demo stage. Below the family, 4px rounds inline highlights: lit demo marks, chips, filled demo fields and the focus ring. The practice index and flow rows have no corners at all: they are rules, not containers. No pills, no icon tiles; the only round shape is the 8px demo status dot. Borders and rules are 1px; lines inside a panel use Line Soft, outer lines use Line. Two marked exceptions: the ink-900 rule that opens the practice index, and the 1.5px dashed teal boundary around the self-hosted diagram. Icons and arrows are open line strokes (1.5 to 1.75, round caps and joins) in teal, never filled.
 
 ## Components
 
@@ -288,13 +293,13 @@ The one action, in the hero's left column under the lede: Paper fill, transparen
 
 ### The Build, Played (signature)
 The hero's right column: a looping demo of four example builds (invoices, leads, inbox, meetings), each showing a message turning into finished work in a real tool.
-- **Stage:** a glass panel 500px tall (512px at ≤480px), 18px padding, a top-to-bottom white sheen (7% to 2.5%), a 13% white border and the Stage shadow. Three rows: the source card, a 52px relay, the destination card.
-- **App cards:** Paper, 1px Line border, Card on Stage shadow. A Line Soft app bar carries the mock app's name and meta in 0.6875rem mono ink-500. The source body is a fixed 204px; the destination holds a three-column field list (key in 0.75rem ink-500, value in 600 ink-900, empty values drawn as shimmering Line bars), an optional typed reply, and a status row with an 8px dot pinned to the bottom.
+- **Stage:** a glass panel 486px tall (470px and 12px padding at ≤480px), 26px radius, 16px padding, a top-to-bottom white sheen (7% to 2.5%), a 13% white border and the Stage shadow. Three rows: the source card, a 44px relay, the destination card.
+- **App cards:** two fixed frames, Paper, 1px Line border, 10px radius, Card on Stage shadow; they never leave the stage. A Line Soft app bar carries the mock app's name and meta in 0.6875rem mono ink-500. The source body is a fixed 188px (180px at ≤480px) holding an email, document, carrier table, fax or transcript in 6px-radius Paper 2 insets. The destination holds a two-by-two field list (key in 0.75rem ink-500; value in 600 ink-900 on one fixed 1.5rem line with ellipsis, so nothing shifts when a value lands; an empty value is a short Line bar) and a status row with an 8px dot pinned to the bottom.
 - **Relay:** a vertical 2px dashed Soft Teal wire drifting downward (900ms linear) beside a mono step label in #8fd6ee that changes per step with a 280ms fade-up.
-- **Tabs:** four progress tabs under the stage, each a 2px track (white 16%) that fills with Soft Teal across its scene's duration. Clicking a tab jumps to that scene. Hidden without JS.
-- **Rhythm (one for every scene):** cards enter rising 14px (520ms, cubic-bezier(0.16, 1, 0.3, 1), destination 140ms later); a Soft Teal scan line sweeps the source (1100ms) and lights each mark Teal Tint / Deep Teal as it passes; Signal Teal chips fly from each mark to its destination field (820ms, staggered 150ms) and the field flashes Teal Tint as it fills (700ms); an optional reply types at 22ms per character behind a teal caret; the status dot stops breathing and settles to teal with a halo; hold 2.2s; cards leave rising 10px (320ms ease-in).
+- **Tabs:** four progress tabs (Invoices, Shipping, Referrals, Intake) under the stage, each a 2px track (white 16%) that fills with Soft Teal over 7.6s, the exact length of a scene (the hold stretches to land on it). Clicking a tab jumps to that scene. Hidden without JS.
+- **Rhythm (one for every scene):** the frames' contents cross-fade (out 200ms, in 360ms with a 40ms stagger); a Soft Teal scan line sweeps the source (1300ms) and lights each mark Teal Tint / Deep Teal as it passes; Signal Teal chips travel one at a time (280ms apart, 900ms each, cubic-bezier(0.45, 0, 0.2, 1)) on a shallow arc and settle exactly on the field's value line, which flashes Teal Tint as it fills (900ms); computed fields (an overcharge, a next step) then land in place without a chip; the status dot stops breathing and settles to teal with a halo; the record holds until the scene reaches 7.6s (at least 1.6s). Sequencing runs on timers, never on animation completion, so a throttled browser cannot stall the loop.
 - **Restraint:** the loop pauses when less than 20% of the stage is on screen and when the browser tab is hidden. Under reduced motion, and without JS, the markup shows one composed still frame (the finished invoice scene); with reduced motion, tabs swap still frames.
-- **Sample data:** names, companies and amounts are illustrative examples (approved by the user), labelled "Example build" to assistive tech, and never presented as clients or results.
+- **Sample data:** each scene is modelled on a published small-business case (sources in PRODUCT.md); names, amounts and dates are illustrative, labelled "Example build" to assistive tech, and the source businesses are never named, quoted or presented as Seafin's clients.
 
 ### Practice Index (signature)
 The three services as an open, ruled index: a 1px ink-900 rule on top, a 1px Line rule under each row, no panel, fill or shadow. Each row (24px top and bottom) sets the serif service name, the teal mono duration tag and the ink-500 description on one baseline across 16rem / 13.5rem / 1fr columns, 32px apart. At ≤960px each row stacks with the tag directly beneath the name.
@@ -312,7 +317,7 @@ Full-bleed Bastion Navy, padded clamp(56px, 7vw, 96px), with a white serif headl
 One line under the band: "Seafin LLC" in ink-700 600 on the left, then the mail, Privacy and Terms links in ink-500 at 0.875rem, unadorned until hover (ink-900, underline).
 
 ### Motion
-One focal motion and quiet support. The hero demo is the page's focal motion, with the shared rhythm above. Supporting motion is limited to the drifting dashed wires (route diagrams and demo relay, 900ms linear), the form's sent state, and hover and focus transitions (140 to 160ms ease-out). Entrances ease out on cubic-bezier(0.16, 1, 0.3, 1); exits ease in and run faster than entrances. All motion turns off under prefers-reduced-motion, leaving composed still frames.
+One focal motion and quiet support. The hero demo is the page's focal motion, with the shared rhythm above. Supporting motion is limited to the drifting dashed wires (route diagrams and demo relay, 900ms linear), the form's sent state, and hover and focus transitions (140 to 160ms ease-out). Entrances ease out on cubic-bezier(0.16, 1, 0.3, 1); outgoing content leaves faster than incoming content arrives; containers stay put and only their contents change. All motion turns off under prefers-reduced-motion, leaving composed still frames.
 
 ## Do's and Don'ts
 
@@ -322,7 +327,7 @@ One focal motion and quiet support. The hero demo is the page's focal motion, wi
 - **Do** open on the upstream dark hero (Deep Indigo, 54px grid, radial mask, teal glow) and close on Bastion Navy; keep everything between them light.
 - **Do** use Source Serif 4 for page-level headings and practice-index service names only, and Public Sans 700 for panel titles.
 - **Do** use Geist Mono uppercase only for short functional tags beside or beneath their title, step labels on a wire, a drawn boundary's name, or the chrome of a mock app.
-- **Do** give every looping animation a shared rhythm, pause it off-screen and in hidden tabs, and make its markup a composed still frame for reduced motion and no-JS.
+- **Do** give every looping animation a shared rhythm, keep its frames fixed so nothing shifts as content lands, pause it off-screen and in hidden tabs, and make its markup a composed still frame for reduced motion and no-JS.
 - **Do** list services and examples as open ruled rows, and put a two-option comparison in one 14px panel, rather than a grid of cards.
 - **Do** keep every color a light/dark token pair; check link and hover colors in both modes.
 
@@ -333,5 +338,5 @@ One focal motion and quiet support. The hero demo is the page's focal motion, wi
 - **Don't** add a second focal motion; anything else that moves stays as quiet as the dashed wires.
 - **Don't** use deep shadows (Hero Lift, Stage, Card on Stage, Chip Glow) off the dark hero, or Raised and Overlay on anything at rest.
 - **Don't** add prose explaining the page to the visitor, section intros, decorative bold, or decorative numbers.
-- **Don't** show invented proof: no hypothetical case studies, logos, testimonials or counts. Demo sample data stays illustrative and is never framed as a client or a result.
-- **Don't** use pills, mixed radii, or sharp cards; one radius family per surface.
+- **Don't** show invented proof: no hypothetical case studies, logos, testimonials or counts. Demo scenes may be modelled on published cases, but their data stays illustrative and the source businesses are never named or framed as clients or results.
+- **Don't** use pills, radii outside 4 / 6 / 10 / 14 / 26, or sharp cards.

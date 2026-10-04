@@ -23,7 +23,8 @@
 
   const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
   const SCAN_MS = 1300;
-  const HOLD_MS = 2800;
+  const SCENE_MS = 7600; // from first frame to the end of the hold; the tab's bar fills over exactly this
+  const MIN_HOLD_MS = 1600;
   const STOP = Symbol('stop');
 
   // src: [app, meta, body]. Each <mark data-f="n"> fills field n; data-v is the
@@ -158,7 +159,8 @@
     // 1. The previous example fades out inside the same frames; the next fades in.
     await wait(fade(contents, 1, 0, 200), id);
     render(i, false);
-    tabs[i].firstElementChild.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 8200, fill: 'forwards' });
+    const t0 = performance.now();
+    tabs[i].firstElementChild.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: SCENE_MS, fill: 'forwards' });
     await wait(fade(contents, 0, 1, 360, 40) + 200, id);
 
     // 2. A scan reads the document; each detail lights up as the scan passes.
@@ -217,7 +219,7 @@
     status.className = 'app-status is-done';
     statusText.textContent = s.done;
     statusText.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: EASE });
-    await wait(HOLD_MS, id);
+    await wait(Math.max(MIN_HOLD_MS, SCENE_MS - (performance.now() - t0)), id);
   }
 
   async function loop(start) {
