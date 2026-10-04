@@ -35,10 +35,9 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="hero-top">
+      <div class="hero-copy">
         <h1 id="hero-title">Your AI department, without the headcount.</h1>
         <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team. You own everything we build.</p>
-      </div>
 
       <div class="book" id="book">
         <div class="book-head">
@@ -53,6 +52,44 @@
           <p class="status" role="status" aria-live="polite"></p>
         </form>
       </div>
+      </div>
+
+      <!-- The build, played: four example builds as one looping demo (demo.js). This markup is the still frame shown without JS or with reduced motion. -->
+      <figure class="demo" id="demo">
+        <div class="demo-stage" role="img" aria-label="Example build: an emailed invoice becomes a draft bill in QuickBooks, waiting for your approval.">
+          <article class="app app-src" aria-hidden="true">
+            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">9:41</span></header>
+            <div class="app-body">
+              <div class="mail"><span class="from">Harbor Supply Co.</span><span class="subj">Invoice INV-2207</span></div>
+              <div class="doc">
+                <span class="ln doc-h">Invoice</span>
+                <span class="ln"><mark class="hit">Harbor Supply Co.</mark></span>
+                <span class="ln">Packaging, 40 cases</span>
+                <span class="ln">Total <mark class="hit">$1,240.00</mark></span>
+                <span class="ln">Due <mark class="hit">Oct 18</mark></span>
+              </div>
+              <span class="scan"></span>
+            </div>
+          </article>
+          <div class="relay" aria-hidden="true"><span class="relay-wire"></span><span class="relay-state">Drafting bill</span></div>
+          <article class="app app-dst" aria-hidden="true">
+            <header class="app-bar"><span class="app-name">QuickBooks &middot; Draft bill</span></header>
+            <dl class="fields">
+              <div><dt>Supplier</dt><dd>Harbor Supply Co.</dd></div>
+              <div><dt>Amount</dt><dd>$1,240.00</dd></div>
+              <div><dt>Due</dt><dd>Oct 18</dd></div>
+            </dl>
+            <p class="typed"></p>
+            <p class="app-status is-done"><span class="dot"></span><span class="status-text">Waiting for your approval</span></p>
+          </article>
+        </div>
+        <div class="demo-tabs" role="group" aria-label="Example builds" hidden>
+          <button type="button" class="tab" aria-pressed="true"><span class="fill"></span>Invoices</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Leads</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Inbox</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Meetings</button>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -153,5 +190,6 @@
 </footer>
 
 <script src="home.js" defer></script>
+<script src="demo.js" defer></script>
 </body>
 </html>
