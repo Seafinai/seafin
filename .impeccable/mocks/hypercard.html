@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seafin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000;
+  --paper:#fff;
+  --chrome:"Pixelify Sans","Chicago",monospace;
+  --body:"Atkinson Hyperlegible","Geneva",Verdana,sans-serif;
+  --gray25:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' shape-rendering='crispEdges'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E");
+  --gray50:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1H0zM1 1h1v1H1z'/%3E%3C/svg%3E");
+  --win:min(1080px, calc(100vw - 64px));
+  color-scheme:light;
+}
+*{box-sizing:border-box;font-variant-ligatures:none!important}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--paper) var(--gray25) 0 0/2px 2px;
+  font:400 18px/1.5 var(--body);
+}
+::selection{background:var(--ink);color:var(--paper)}
+a{color:inherit}
+:focus{outline:none}
+:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+
+/* Menu bar */
+.menubar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:stretch;height:46px;
+  padding:0 16px 0 6px;
+  background:var(--paper);border-bottom:1px solid var(--ink);
+  font:500 17px/1 var(--chrome);
+}
+.menubar nav{display:flex}
+.menu{display:flex;align-items:center;gap:9px;padding:0 15px;text-decoration:none}
+.menu:hover,.menu:active{background:var(--ink);color:var(--paper)}
+.menu:focus-visible{outline-offset:-5px;outline-color:currentColor}
+.brand{font-weight:700;font-size:19px}
+.menubar .btn{margin-left:auto;align-self:center}
+
+/* Buttons */
+.btn{
+  display:inline-block;cursor:pointer;text-decoration:none;
+  font:600 16px/1 var(--chrome);color:var(--ink);background:var(--paper);
+  border:1px solid var(--ink);border-radius:8px;padding:7px 18px;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.btn.default{box-shadow:0 0 0 2px var(--paper),0 0 0 5px var(--ink)}
+.btn:hover,.btn:active{background:var(--ink);color:var(--paper)}
+.btn.default:focus-visible{outline-offset:8px}
+
+/* Desk and stacks */
+.desk{display:grid;justify-items:center;gap:48px;padding:30px 32px 110px}
+.stack{position:relative;isolation:isolate;width:var(--win)}
+.stack::before,.stack::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
+}
+.stack::before{transform:translate(12px,12px)}
+.stack::after{transform:translate(6px,6px)}
+
+/* Window */
+.window{background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.titlebar{position:relative;height:23px;border-bottom:1px solid var(--ink);display:grid;place-items:center}
+.titlebar::before{
+  content:"";position:absolute;inset:5px 3px 5px;
+  background:repeating-linear-gradient(var(--ink) 0 1px,var(--paper) 1px 2px);
+}
+.title{position:relative;background:var(--paper);padding:0 10px;font:700 15px/22px var(--chrome)}
+.closebox{
+  position:absolute;left:12px;top:4px;width:14px;height:14px;
+  background:var(--paper);border:1px solid var(--ink);box-shadow:0 0 0 2px var(--paper);
+  pointer-events:none;
+}
+
+/* Card */
+.card{
+  aspect-ratio:8/5;
+  display:grid;grid-template-columns:minmax(0,1fr) 396px;gap:56px;
+  padding:42px 48px 34px 52px;
+}
+.pane{display:flex;flex-direction:column;min-width:0}
+h1{font:700 58px/1.04 var(--chrome);margin:0 0 22px;text-wrap:balance}
+.lead{font-size:21px;line-height:1.45;margin:0 0 28px;max-width:26em}
+
+.field{background:var(--paper);border:1px solid var(--ink)}
+.shadow{box-shadow:3px 3px 0 var(--ink)}
+dl.field{margin:0}
+dl.field>div{display:grid;grid-template-columns:128px 1fr;gap:16px;padding:12px 18px;scroll-margin-top:90px}
+dl.field>div+div{border-top:1px dotted var(--ink)}
+dt{font:600 15px/27px var(--chrome)}
+dd{margin:0}
+
+.iconbtn{
+  margin-top:auto;align-self:flex-start;
+  display:grid;justify-items:center;gap:5px;padding:4px 6px;
+  text-decoration:none;font:600 14px/1 var(--chrome);
+}
+.iconbtn span{padding:3px 5px}
+.iconbtn:hover svg,.iconbtn:active svg{filter:invert(1)}
+.iconbtn:hover span,.iconbtn:active span{background:var(--ink);color:var(--paper)}
+
+/* Dialog card with the form */
+.dialog{
+  align-self:start;padding:32px 32px 36px;
+  border:1px solid var(--ink);
+  box-shadow:3px 3px 0 var(--ink),inset 0 0 0 2px var(--paper),inset 0 0 0 5px var(--ink);
+  scroll-margin-top:90px;
+}
+.msg{display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;margin:0 0 26px;font-size:18px;line-height:1.45}
+.msg p{margin:0}
+.row{display:grid;gap:8px;margin-bottom:20px}
+label{font:600 16px/1.2 var(--chrome)}
+.opt{font:400 14px/1.2 var(--body)}
+input,textarea{
+  width:100%;margin:0;border-radius:0;
+  font:400 17px/1.4 var(--body);color:var(--ink);background:var(--paper);
+  border:1px solid var(--ink);padding:11px 12px;
+}
+input:focus,textarea:focus{box-shadow:inset 0 0 0 1px var(--ink)}
+textarea{resize:none;height:108px;display:block}
+.actions{display:flex;justify-content:flex-end;margin-top:28px;padding-right:5px}
+.actions .btn{font-size:17px;padding:9px 22px}
+
+/* Services */
+.sheet{
+  background:var(--paper);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
+  padding:34px 48px 46px 52px;scroll-margin-top:80px;
+}
+.sheet-head{display:flex;align-items:center;gap:24px;margin-bottom:34px}
+h2{font:700 36px/1 var(--chrome);margin:0}
+.band{flex:1;height:18px;border:1px solid var(--ink);background:var(--paper) var(--gray50) 0 0/2px 2px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px}
+.svc{padding:22px 24px 26px}
+.svc header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+h3{font:700 23px/1.15 var(--chrome);margin:0}
+.term{display:inline-block;margin:0 0 14px;padding:5px 8px;background:var(--ink);color:var(--paper);font:600 14px/1 var(--chrome)}
+.svc p:last-child{margin:0}
+
+@media (max-width:980px){
+  .card{grid-template-columns:1fr;aspect-ratio:auto}
+  .svc-grid{grid-template-columns:1fr}
+  .menubar nav .menu:not(.brand){display:none}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="menubar">
+  <nav aria-label="Main">
+    <a class="menu brand" href="#top">
+      <svg width="20" height="20" viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><path d="M2 12C6 11 9 7 10 2h1v10z"/><rect y="13" width="16" height="2"/></svg>
+      Seafin
+    </a>
+    <a class="menu" href="#services">Services</a>
+    <a class="menu" href="#where">Where it runs</a>
+    <a class="menu" href="#wardix">Wardix</a>
+    <a class="menu" href="#about">About</a>
+  </nav>
+  <a class="btn default" href="#book">Book a free call</a>
+</header>
+
+<main class="desk">
+
+  <div class="stack">
+    <div class="window">
+      <div class="titlebar"><span class="closebox" aria-hidden="true"></span><span class="title">Seafin</span></div>
+
+      <div class="card">
+        <div class="pane">
+          <h1>Your AI department, without the headcount.</h1>
+          <p class="lead">Strategy audits, custom builds and managed AI for businesses with no AI team.</p>
+
+          <dl class="field shadow">
+            <div id="where">
+              <dt>Where it runs</dt>
+              <dd>Anthropic’s Claude, or your own servers when your data can’t leave the building.</dd>
+            </div>
+            <div>
+              <dt>Who owns it</dt>
+              <dd>You own everything we build.</dd>
+            </div>
+          </dl>
+
+          <a class="iconbtn" href="#services">
+            <svg width="36" height="36" viewBox="0 0 32 32" shape-rendering="crispEdges" aria-hidden="true"><path d="M3 12h14V5l12 11-12 11v-7H3z" fill="#fff" stroke="#000" stroke-width="2"/></svg>
+            <span>Services</span>
+          </a>
+        </div>
+
+        <form class="dialog" id="book" action="#" method="post" aria-label="Book a free call">
+          <div class="msg">
+            <svg width="40" height="40" viewBox="0 0 32 32" shape-rendering="crispEdges" aria-hidden="true"><path d="M2 8h28v6h-7v-3H9v3H2z"/><path d="M9 15h14l5 12H4z"/><circle cx="16" cy="21" r="4" fill="#fff"/><circle cx="16" cy="21" r="1.5"/></svg>
+            <p>Rob Crider, founder. The person on your call is the person who builds it.</p>
+          </div>
+
+          <div class="row">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="row">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="row">
+            <label for="handoff">What would you hand off first? <span class="opt">(optional)</span></label>
+            <textarea id="handoff" name="handoff"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn default" type="submit">Book a free call</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <section class="sheet" id="services" aria-labelledby="services-h">
+      <div class="sheet-head">
+        <h2 id="services-h">Services</h2>
+        <span class="band" aria-hidden="true"></span>
+      </div>
+
+      <div class="svc-grid">
+        <article class="svc field shadow">
+          <header>
+            <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="#000" stroke-width="2"/><path d="M10 10l4.5 4.5" stroke="#000" stroke-width="2.5"/></svg>
+            <h3>Strategy Audit</h3>
+          </header>
+          <p class="term">1 week</p>
+          <p>A 90-minute working session, then a written report: your top three AI opportunities and a 90-day plan.</p>
+        </article>
+
+        <article class="svc field shadow">
+          <header>
+            <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path transform="rotate(-45 8 8)" d="M4 2h8v3.5H4zM2.5 2.5H4V5H2.5zM6.75 5.5h2.5v9h-2.5z"/></svg>
+            <h3>Custom Builds</h3>
+          </header>
+          <p class="term">Fixed fee, 2 to 6 weeks</p>
+          <p>The workflow, agent or integration the audit points to, connected to the tools you already use.</p>
+        </article>
+
+        <article class="svc field shadow">
+          <header>
+            <svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#000" stroke-width="2"/><path d="M7 4h2v5H7zM9 7h3v2H9z"/></svg>
+            <h3>Managed AI</h3>
+          </header>
+          <p class="term">Month to month</p>
+          <p>We keep it running: support, cost limits, and one new workflow each month.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+</main>
+</body>
+</html>

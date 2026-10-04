@@ -54,6 +54,7 @@ The live site also lists five add-ons (Cost Optimization Audit, Eval & Governanc
 
 ## Brand Commitments
 
+- **Seafin's site uses the Wardix design system** ("Vigilant Infrastructure", `tracelet` repo `design.md`: indigo `#1A227E` + signal teal `#0076A3`, light canvas `#F5F6F9`, white surfaces, Public Sans / Source Serif 4 / Geist Mono, radii 6/10/14/26). Standing preference from the user, 2026-10-04: "keep the same design scheme as most of the apps." Themed concept worlds (nameplate, storefront, work order) were rejected.
 - Company name **Seafin** (LLC); founder **Rob Crider** is the face of the consulting.
 - Prior tagline candidates: "Your AI department — without the headcount." (current site) and "Custom AI for small business. Results in weeks, not months." (brand doc). Not locked.
 - Existing brand doc (`brand/SEAFIN_BRAND_IDENTITY.md`) specifies Deep Ocean Blue `#1a2f5a`, Cyan `#00d4ff`, Inter, and a fin logo mark. The user's standing UI rules (`ui-slop.md`) flag Inter as a generated-look tell; treat the old palette/type as replaceable in the redesign unless the user says otherwise.

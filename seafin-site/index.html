@@ -8,10 +8,11 @@
 <meta property="og:title" content="Seafin | AI consulting for businesses without an AI team">
 <meta property="og:description" content="Strategy audits, custom builds and managed AI, on Claude or on your own servers. You own everything we build.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#1e4a8a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e4a8a'/%3E%3Cg fill='%23b9c3cf'%3E%3Ccircle cx='7' cy='7' r='2.4'/%3E%3Ccircle cx='25' cy='7' r='2.4'/%3E%3Ccircle cx='7' cy='25' r='2.4'/%3E%3Ccircle cx='25' cy='25' r='2.4'/%3E%3C/g%3E%3Crect x='9' y='14.5' width='14' height='3' rx='1' fill='%23e9eef5'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/barlow-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#1a227e">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%231a227e'/%3E%3Cstop offset='.62' stop-color='%230076a3'/%3E%3Cstop offset='1' stop-color='%2338b3da'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='18' font-weight='700' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="home.css">
 </head>
 <body>
@@ -27,158 +28,154 @@
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
-    <a class="btn-amber" href="#request">Book a free call</a>
+    <a class="btn btn-primary" href="#book">Book a free call</a>
   </div>
 </header>
 
 <main>
-  <div class="wrap stage">
-    <section class="plate" aria-labelledby="hero-title">
-      <span class="plate-sheen" aria-hidden="true"></span>
-      <span class="screw tl" aria-hidden="true"></span>
-      <span class="screw tr" aria-hidden="true"></span>
-      <span class="screw bl" aria-hidden="true"></span>
-      <span class="screw br" aria-hidden="true"></span>
-
-      <h1 id="hero-title">Your AI department, without the headcount.</h1>
-
-      <div class="plate-body">
-        <dl class="fields">
-          <div><dt>Service</dt><dd>Strategy audits, custom builds and managed AI for businesses with no AI team.</dd></div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <h1 id="hero-title">Your AI department, without the headcount.</h1>
+        <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team.</p>
+        <dl class="facts">
           <div><dt>Runs on</dt><dd>Anthropic&rsquo;s Claude, or your own servers when your data can&rsquo;t leave the building.</dd></div>
-          <div><dt>Serviced by</dt><dd>Rob Crider, founder. The person on your call is the person who builds it.</dd></div>
-        </dl>
-        <dl class="property">
-          <dt>Property of</dt>
-          <dd><span class="big">Your business</span><span class="note">You own everything we build.</span></dd>
+          <div><dt>Built by</dt><dd>Rob Crider, founder. The person on your call is the person who builds it.</dd></div>
+          <div><dt>You own</dt><dd>Everything we build. No lock-in.</dd></div>
         </dl>
       </div>
 
-      <form class="service-band" id="request" novalidate>
-        <div class="band-row">
-          <h2 class="band-title">Request service</h2>
-          <div class="band-fields">
-            <label><span>Name</span><input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
-            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="200" required></label>
-            <label><span>What would you hand off first? <span class="opt">Optional</span></span><input name="message" maxlength="500"></label>
-            <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <button class="btn-amber" type="submit">Book a free call</button>
-          </div>
-        </div>
-        <p class="band-status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
-  </div>
+      <div class="book" id="book">
+        <h2 id="book-title">Free 30-minute call</h2>
+        <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
+        <form id="request" aria-labelledby="book-title" novalidate>
+          <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+          <label><span>What would you hand off first? <span class="opt">Optional</span></span><textarea name="message" rows="3" maxlength="500"></textarea></label>
+          <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Book a free call</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
 
-  <div class="wrap">
-    <section class="row" id="services" aria-labelledby="services-title">
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap head-row">
       <h2 id="services-title">Services</h2>
-      <div class="row-body">
-        <ul class="list">
-          <li>
-            <div><h3>Strategy Audit</h3><span class="term">1 week</span></div>
-            <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90-day plan. Yours to keep either way.</p>
-          </li>
-          <li>
-            <div><h3>Custom Builds</h3><span class="term">Fixed fee &middot; 2 to 6 weeks</span></div>
-            <p>We build the workflow, agent or integration the audit points to, connected to the tools you already use: QuickBooks, HubSpot, Microsoft 365, Google Workspace. Thirty days of support after launch.</p>
-          </li>
-          <li>
-            <div><h3>Managed AI</h3><span class="term">Month to month</span></div>
-            <p>We keep it running: support over Slack, cost limits, and one new workflow each month. Cancel any time.</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+      <ul class="offers panel">
+        <li>
+          <div><h3>Strategy Audit</h3><span class="term">1 week</span></div>
+          <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90-day plan. Yours to keep either way.</p>
+        </li>
+        <li>
+          <div><h3>Custom Builds</h3><span class="term">Fixed fee &middot; 2 to 6 weeks</span></div>
+          <p>The workflow, agent or integration the audit points to, connected to the tools you already use: QuickBooks, HubSpot, Microsoft 365, Google Workspace. Thirty days of support after launch.</p>
+        </li>
+        <li>
+          <div><h3>Managed AI</h3><span class="term">Month to month</span></div>
+          <p>We keep it running: support over Slack, cost limits, and one new workflow each month. Cancel any time.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <section class="row" id="where-it-runs" aria-labelledby="runs-title">
+  <section class="section" id="where-it-runs" aria-labelledby="runs-title">
+    <div class="wrap head-row">
       <h2 id="runs-title">Where it runs</h2>
-      <div class="row-body">
-        <div class="split">
+      <div>
+        <div class="compare panel">
           <div>
             <h3>On Claude</h3>
             <p>Anthropic&rsquo;s models, in their cloud. Fastest to set up and the most capable. Right for most businesses.</p>
           </div>
           <div>
             <h3>On your own servers</h3>
-            <p>Open models on your hardware or private cloud, so client data stays in your building. For healthcare, legal, finance and government contractors.</p>
+            <p>Open models on your hardware or private cloud. For healthcare, legal, finance and government contractors.</p>
           </div>
         </div>
-        <p>The audit tells you which one fits.</p>
+        <p class="fit">The audit tells you which one fits.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="row" id="wardix" aria-labelledby="wardix-title">
-      <h2 id="wardix-title">Software we run</h2>
-      <div class="row-body">
-        <p class="product-name">Wardix</p>
-        <p class="product-line">Monitoring for Windows networks that runs on your own server. We build it, ship it and support it.</p>
-        <figure class="display">
+  <section class="section" id="wardix" aria-labelledby="wardix-title">
+    <div class="wrap">
+      <div class="product-top">
+        <div>
+          <h2 id="wardix-title">Wardix</h2>
+          <p class="line">Monitoring for Windows networks that runs on your own server. We build it, ship it and support it.</p>
+        </div>
+        <div>
+          <ul class="chips">
+            <li>Free to start</li>
+            <li>Runs on your Windows server</li>
+            <li>Monitoring data stays on that server</li>
+          </ul>
+          <a class="btn btn-secondary" href="https://tracelet.seafin.ai">Get Wardix free</a>
+        </div>
+      </div>
+      <figure class="shot">
+        <picture>
+          <source media="(max-width: 560px)" srcset="assets/wardix-dashboard-mobile.png" width="678" height="356">
           <img src="assets/wardix-dashboard.png" width="1392" height="412" loading="lazy"
                alt="Wardix dashboard: system health, applications, network, outages, response times and open incidents for the last 24 hours.">
-        </figure>
-        <ul class="facts">
-          <li>Free to start</li>
-          <li>Runs on your Windows server</li>
-          <li>Monitoring data stays on that server</li>
-        </ul>
-        <div class="product-actions"><a class="btn-line" href="https://tracelet.seafin.ai">Get Wardix free</a></div>
-      </div>
-    </section>
+        </picture>
+      </figure>
+    </div>
+  </section>
 
-    <section class="row" id="building" aria-labelledby="building-title">
-      <h2 id="building-title">Also building</h2>
-      <div class="row-body">
-        <ul class="list">
-          <li><div><h3>Authwell</h3></div><p>Prior authorization for small medical practices: case tracking, denial appeals and payer rules.</p></li>
-          <li><div><h3>Remana</h3></div><p>Medication reminders and a family dashboard for seniors living at home.</p></li>
-          <li><div><h3>Wardex Operator</h3></div><p>Agent-driven monitoring and operations for Windows and Linux.</p></li>
-        </ul>
-      </div>
-    </section>
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="wrap head-row">
+      <h2 id="projects-title">Other projects</h2>
+      <ul class="projects">
+        <li><h3>Authwell</h3><p>Prior authorization for small medical practices: case tracking, denial appeals and payer rules.</p></li>
+        <li><h3>Remana</h3><p>Medication reminders and a family dashboard for seniors living at home.</p></li>
+        <li><h3>Wardex Operator</h3><p>Agent-driven monitoring and operations.</p></li>
+      </ul>
+    </div>
+  </section>
 
-    <section class="row" id="about" aria-labelledby="about-title">
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap head-row">
       <h2 id="about-title">Who you work with</h2>
-      <div class="row-body">
+      <div>
         <p class="person">Rob Crider <span>Founder, Seafin LLC</span></p>
-        <p>I&rsquo;m the one who audits your business, writes the scope and ships the build. No hand-off to a junior after the sale. If a project is bigger than I can handle, I&rsquo;ll say so in the audit and point you to the right option, even if that isn&rsquo;t us.</p>
+        <p class="about-text">I audit your business, write the scope and ship the build myself. No hand-off to a junior after the sale. If a project is bigger than I can handle, I&rsquo;ll say so in the audit and point you to the right option, even if that isn&rsquo;t us.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="row" id="questions" aria-labelledby="questions-title">
+  <section class="section" id="questions" aria-labelledby="questions-title">
+    <div class="wrap head-row">
       <h2 id="questions-title">Questions</h2>
-      <div class="row-body qa">
+      <div class="qa panel">
         <details>
           <summary>Do we need anyone technical on staff?</summary>
           <p>No. We set it up, train your team, and keep it running if you want us to.</p>
         </details>
         <details>
-          <summary>Where does our data go?</summary>
-          <p>With Claude, requests go to Anthropic&rsquo;s API. If your data can&rsquo;t leave your building, we run open models on your own servers instead.</p>
-        </details>
-        <details>
-          <summary>Do we own what you build?</summary>
-          <p>Yes. The code, the prompts and the workflows are yours, with no lock-in.</p>
+          <summary>Do you only work with Claude?</summary>
+          <p>Mostly. We also work with ChatGPT, Gemini and open models when the job calls for it.</p>
         </details>
         <details>
           <summary>What does it cost?</summary>
           <p>It depends on scope. The audit and every build are fixed price, agreed before we start. You&rsquo;ll have a number after the first call.</p>
         </details>
       </div>
-    </section>
-
-    <section class="row" id="start" aria-labelledby="start-title">
-      <h2 id="start-title">Next step</h2>
-      <div class="row-body">
-        <p class="close-line">A free 30-minute call. We&rsquo;ll tell you whether AI is worth it for your business.</p>
-        <div class="close-actions">
-          <a class="btn-amber" href="#request">Book a free call</a>
-          <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </main>
+
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap">
+    <h2 id="close-title">Start with a free call.</h2>
+    <div class="actions">
+      <a class="btn btn-primary" href="#book">Book a free call</a>
+      <a class="mail" href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+    </div>
+  </div>
+</section>
 
 <footer class="foot">
   <div class="wrap">

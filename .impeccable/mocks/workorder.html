@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seafin Work Order</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f9e47e;        /* canary carbonless */
+    --paper-deep: #eed25c;
+    --ink: #b81030;          /* printed form red: 5.1:1 on paper */
+    --ink-dark: #970c27;
+    --pen: #1f3592;          /* ballpoint blue: 8.2:1 on paper */
+    --pink: #f5bfcb;
+    --white-copy: #fbfaf3;
+    --print: "Archivo", "Arial Narrow", sans-serif;
+    --hand: "Kalam", "Segoe Print", cursive;
+    --hair: 1.5px solid var(--ink);
+    --frame: 2.5px solid var(--ink);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--white-copy); }
+  body {
+    margin: 0 14px 0 0;
+    min-height: 100vh;
+    background-color: var(--paper);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .42 0 0 0 0 .05 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    /* the pink and white parts of the set, a few millimetres out of register */
+    box-shadow: 1px 0 0 rgba(120, 80, 0, .25), 7px 0 0 var(--pink), 8px 0 0 rgba(150, 40, 70, .2);
+    color: var(--ink);
+    font-family: var(--print);
+    font-stretch: 85%;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2.5px solid var(--pen); outline-offset: 3px; }
+
+  /* binding stub + perforation */
+  .stub {
+    height: 24px;
+    background: linear-gradient(var(--paper-deep), rgba(242, 217, 104, 0) 85%);
+    position: relative;
+  }
+  .stub::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: radial-gradient(circle, rgba(130, 92, 0, .5) 1.3px, transparent 1.9px) 0 50% / 9px 4px repeat-x;
+  }
+
+  .sheet { max-width: 1480px; margin: 0 auto; padding: 14px 28px 0; }
+
+  /* header band: company name + nav */
+  .band {
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    height: 66px; padding: 0 24px;
+    background: var(--ink); color: var(--paper);
+  }
+  .brand {
+    font-weight: 850; font-stretch: 62%; font-size: 42px; line-height: 1;
+    letter-spacing: .005em; text-decoration: none; color: var(--paper);
+  }
+  .band nav { display: flex; align-items: center; gap: 34px; }
+  .band ul { display: flex; gap: 30px; margin: 0; padding: 0; list-style: none; }
+  .band nav a {
+    font-size: 14.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; color: var(--paper);
+  }
+  .band nav a:hover { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1.5px; }
+  .band nav a.nav-cta {
+    background: var(--paper); color: var(--ink); padding: 10px 16px 9px; font-weight: 800;
+  }
+  .band nav a.nav-cta:hover { text-decoration: none; background: #fff3b8; }
+  .band :focus-visible { outline-color: var(--paper); }
+
+  /* the form grid */
+  .wo {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: minmax(412px, auto) auto auto;
+    margin-top: 12px; border: var(--frame);
+  }
+  .cell { padding: 20px 24px 22px; border-right: var(--hair); border-bottom: var(--hair); }
+  .lbl, .wo label {
+    display: block; margin: 0 0 8px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .hand { font-family: var(--hand); color: var(--pen); font-weight: 400; }
+
+  .desc { grid-column: 1 / 3; grid-row: 1; display: grid; grid-template-columns: 46px 1fr; padding: 0; }
+  .side { display: flex; align-items: center; justify-content: center; border-right: var(--hair); }
+  .side span {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .desc-body { padding: 40px 44px 34px; }
+  h1 {
+    margin: 0; font-size: clamp(56px, calc(6.2vw - 12px), 78px); line-height: 1.04; letter-spacing: -.01em;
+    transform: rotate(-1.1deg); transform-origin: 0 50%;
+  }
+  .what { margin: 30px 0 0; max-width: 40ch; font-size: 29px; line-height: 1.3; transform: rotate(-.5deg); }
+
+  .where { grid-column: 1; grid-row: 2; }
+  .tech { grid-column: 2; grid-row: 2; }
+  .where p, .tech p { margin: 0; font-size: 23.5px; line-height: 1.36; }
+  .tech .sig {
+    display: block; margin: 0 0 10px; padding: 0 2px 1px; border-bottom: var(--hair);
+    font-size: 31px; line-height: 1.25;
+  }
+  .terms { grid-column: 1 / 3; grid-row: 3; border-bottom: 0; display: flex; align-items: center; gap: 26px; }
+  .terms .lbl { margin: 0; }
+  .terms p {
+    margin: 0; font-size: 30px; font-weight: 800; font-stretch: 72%; letter-spacing: .03em;
+    text-transform: uppercase; line-height: 1;
+  }
+
+  /* customer section = the visitor's form */
+  .cust { grid-column: 3; grid-row: 1 / 4; display: grid; grid-template-rows: subgrid; }
+  .cust-top { grid-row: 1 / 3; display: flex; flex-direction: column; border-bottom: var(--hair); }
+  .bar {
+    margin: 0; padding: 11px 24px 10px; background: var(--ink); color: var(--paper);
+    font-size: 15px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; line-height: 1.2;
+  }
+  .fields { flex: 1; display: flex; flex-direction: column; gap: 24px; padding: 24px 26px 22px; }
+  .field { display: flex; flex-direction: column; }
+  .field.grow { flex: 1; }
+  .opt { text-transform: none; letter-spacing: .02em; font-weight: 500; }
+  .wo input, .wo textarea {
+    width: 100%; margin: 0; border: 0; border-radius: 0; background: transparent;
+    font-family: var(--hand); font-size: 25px; color: var(--pen); caret-color: var(--pen);
+  }
+  .wo input { height: 44px; padding: 14px 4px 0; border-bottom: var(--hair); }
+  .wo textarea {
+    flex: 1; min-height: 132px; resize: none; padding: 0 4px; line-height: 44px;
+    background: repeating-linear-gradient(to bottom, transparent 0 36px, var(--ink) 36px 37.5px, transparent 37.5px 44px);
+    background-attachment: local;
+  }
+  .wo input:hover, .wo textarea:hover { background-color: rgba(255, 252, 230, .35); }
+  .wo input:focus-visible, .wo textarea:focus-visible {
+    outline: 2.5px solid var(--pen); outline-offset: 4px; background-color: rgba(255, 252, 230, .5);
+  }
+  .stamp-cell { grid-row: 3; display: flex; align-items: center; justify-content: center; padding: 36px 24px; }
+  .stamp {
+    font-family: var(--print); font-stretch: 68%; font-weight: 850; font-size: 31px;
+    letter-spacing: .06em; text-transform: uppercase; line-height: 1;
+    color: var(--paper); background: var(--ink); border: 0; border-radius: 5px;
+    padding: 19px 34px 17px; cursor: pointer;
+    box-shadow: inset 0 0 0 4px var(--ink), inset 0 0 0 6.5px var(--paper);
+    transform: rotate(-2.5deg);
+    transition: transform .12s ease, background-color .12s ease;
+  }
+  .stamp:hover { background: var(--ink-dark); box-shadow: inset 0 0 0 4px var(--ink-dark), inset 0 0 0 6.5px var(--paper); transform: rotate(-1.5deg) translateY(1px); }
+  .stamp:active { transform: rotate(-1.5deg) scale(.97); }
+  .stamp:focus-visible { outline: 3px solid var(--pen); outline-offset: 5px; }
+
+  /* services: the line items, same sheet */
+  .services { margin: 60px 0 0; padding-bottom: 88px; }
+  .services .bar { font-size: 21px; padding: 14px 24px 13px; }
+  .services table { width: 100%; border-collapse: collapse; table-layout: fixed; border: var(--frame); border-top: 0; }
+  .services col.c-svc { width: 33.333%; }
+  .services col.c-term { width: 23%; }
+  .services th {
+    padding: 11px 24px 10px; text-align: left; border-bottom: var(--hair); border-right: var(--hair);
+    font-size: 12.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+  }
+  .services td, .services tbody th { padding: 26px 24px 28px; vertical-align: top; border-bottom: var(--hair); border-right: var(--hair); }
+  .services tbody th { text-transform: none; letter-spacing: 0; font-size: inherit; font-weight: inherit; }
+  .services tbody tr:last-child > * { border-bottom: 0; }
+  .services th:last-child, .services td:last-child { border-right: 0; }
+  .svc {
+    display: flex; gap: 18px; align-items: flex-start;
+    font-size: 28px; font-weight: 800; font-stretch: 72%; letter-spacing: .02em; line-height: 1.05;
+  }
+  .svc::before { content: ""; flex: none; width: 24px; height: 24px; margin-top: 1px; border: 2px solid var(--ink); }
+  .services td.hand { font-size: 24px; line-height: 1.36; }
+  .services td.term { padding-top: 24px; }
+
+  @media (max-width: 1340px) {
+    .what { font-size: 26px; }
+    .band ul { gap: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .stamp { transition: none; } }
+</style>
+</head>
+<body>
+<div class="stub" aria-hidden="true"></div>
+<div class="sheet">
+  <header class="band">
+    <a class="brand" href="#">Seafin LLC</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#where">Where it runs</a></li>
+        <li><a href="#wardix">Wardix</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a class="nav-cta" href="#book">Book a free call</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wo">
+      <div class="cell desc">
+        <div class="side"><span>Description of work</span></div>
+        <div class="desc-body">
+          <h1 class="hand">Your AI department,<br>without the headcount.</h1>
+          <p class="hand what">Strategy audits, custom builds and managed AI for businesses with no AI team.</p>
+        </div>
+      </div>
+
+      <div class="cell where" id="where">
+        <span class="lbl">Where it runs</span>
+        <p class="hand">Anthropic’s Claude, or your own servers when your data can’t leave the building.</p>
+      </div>
+
+      <div class="cell tech" id="about">
+        <span class="lbl">Technician</span>
+        <span class="hand sig">Rob Crider, founder.</span>
+        <p class="hand">The person on your call is the person who builds it.</p>
+      </div>
+
+      <div class="cell terms">
+        <span class="lbl">Terms</span>
+        <p>You own everything we build.</p>
+      </div>
+
+      <form class="cust" id="book" action="#" aria-labelledby="cust-h">
+        <div class="cust-top">
+          <h2 class="bar" id="cust-h">Customer</h2>
+          <div class="fields">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Work email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field grow">
+              <label for="f-first">What would you hand off first? <span class="opt">(optional)</span></label>
+              <textarea id="f-first" name="first"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="stamp-cell">
+          <button class="stamp" type="submit">Book a free call</button>
+        </div>
+      </form>
+    </div>
+
+    <section class="services" id="services" aria-labelledby="svc-h">
+      <h2 class="bar" id="svc-h">Services</h2>
+      <table>
+        <colgroup><col class="c-svc"><col class="c-term"><col></colgroup>
+        <thead>
+          <tr><th scope="col">Service</th><th scope="col">Term</th><th scope="col">Description of work</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="svc-h"><span class="svc">Strategy Audit</span></th>
+            <td class="hand term">1 week</td>
+            <td class="hand">A 90-minute working session, then a written report: your top three AI opportunities and a 90-day plan.</td>
+          </tr>
+          <tr>
+            <th scope="row" class="svc-h"><span class="svc">Custom Builds</span></th>
+            <td class="hand term">Fixed fee, 2 to 6 weeks</td>
+            <td class="hand">The workflow, agent or integration the audit points to, connected to the tools you already use.</td>
+          </tr>
+          <tr>
+            <th scope="row" class="svc-h"><span class="svc">Managed AI</span></th>
+            <td class="hand term">Month to month</td>
+            <td class="hand">We keep it running: support, cost limits, and one new workflow each month.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+</body>
+</html>
