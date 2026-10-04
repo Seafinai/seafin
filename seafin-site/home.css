@@ -103,21 +103,15 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .nav .btn { min-height: 40px; padding: 0 16px; }
 
 /* ---------- hero ---------- */
-/* The opening, on the Metalab model: one big serif statement and one crafted
-   object (hero3d.js) on deep indigo. Nothing else on the first screen. */
+/* The opening: one big serif statement on deep indigo, type only. */
 .hero {
   position: relative; isolation: isolate; overflow: hidden;
   display: flex; align-items: flex-end;
-  min-height: clamp(560px, calc(100svh - 64px), 880px);
+  min-height: clamp(460px, 72svh, 720px);
   padding-block: clamp(48px, 6vw, 96px) clamp(48px, 6vw, 88px);
   background: radial-gradient(120% 90% at 75% 40%, #19207a 0%, var(--tracelet-indigo-deep) 45%, #080c33 100%);
   color: #e9ecf6;
 }
-.hero-object {
-  position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;
-  opacity: 0; transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hero-object.is-ready { opacity: 1; }
 .hero-inner { position: relative; width: 100%; }
 .hero-foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; margin-top: clamp(28px, 3vw, 40px); }
 .btn-lg { min-height: 54px; padding: 0 28px; font-size: 1.0625rem; }
