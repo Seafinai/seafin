@@ -22,7 +22,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
   const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
-  const SCAN_MS = 1300;
+  const SCAN_MS = 1300; // reading pace, top to bottom
   const SCENE_MS = 7600; // from first frame to the end of the hold; the tab's bar fills over exactly this
   const MIN_HOLD_MS = 1600;
   const STOP = Symbol('stop');
@@ -100,7 +100,7 @@
   const wait = (ms, id) => new Promise((resolve, reject) => {
     setTimeout(() => (id === run ? resolve() : reject(STOP)), ms);
   });
-  const tint = () => getComputedStyle(document.documentElement).getPropertyValue('--tracelet-teal-tint').trim();
+  const tint = (el) => getComputedStyle(el).getPropertyValue('--tracelet-teal-tint').trim();
 
   function clear() {
     stage.querySelectorAll('.chip').forEach((c) => c.remove());
@@ -124,7 +124,7 @@
     clear();
     stage.setAttribute('aria-label', s.label);
     [srcName.textContent, srcMeta.textContent] = s.src;
-    srcBody.innerHTML = s.src[2] + '<span class="scan"></span>';
+    srcBody.innerHTML = s.src[2];
     dstName.textContent = s.dst[0];
     const byField = Object.fromEntries(marks().map((m) => [m.dataset.f, value(m)]));
     fields.innerHTML = s.dst[1].map((k, n) => `<div><dt>${k}</dt><dd>${final ? (s.calc[n] || byField[n]) : ''}</dd></div>`).join('');
@@ -145,7 +145,7 @@
 
   function land(slot, text) {
     slot.textContent = text;
-    const t = tint();
+    const t = tint(slot);
     slot.animate([
       { opacity: 0, backgroundColor: t },
       { opacity: 1, backgroundColor: t, offset: 0.3 },
@@ -163,15 +163,8 @@
     tabs[i].firstElementChild.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: SCENE_MS, fill: 'forwards' });
     await wait(fade(contents, 0, 1, 360, 40) + 200, id);
 
-    // 2. A scan reads the document; each detail lights up as the scan passes.
-    const scan = srcBody.querySelector('.scan');
+    // 2. The document is read top to bottom; each detail lights up in turn.
     const h = srcBody.clientHeight;
-    scan.animate([
-      { opacity: 0, transform: 'translateY(-40px)' },
-      { opacity: 1, offset: 0.15 },
-      { opacity: 1, offset: 0.85 },
-      { opacity: 0, transform: `translateY(${h}px)` },
-    ], { duration: SCAN_MS, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
     const top = srcBody.getBoundingClientRect().top;
     const found = marks();
     await Promise.all(found.map(async (m) => {
