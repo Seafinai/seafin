@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T20:00:00Z",
+  "generatedAt": "2026-10-04T22:00:00Z",
   "title": "Design System: Seafin",
   "extensions": {
     "inheritsFrom": {
@@ -283,17 +283,17 @@
         "name": "brand-gradient",
         "value": "linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)",
         "dark": "linear-gradient(100deg, #2b35a8 0%, #0a85b6 62%, #38b3da 100%)",
-        "purpose": "\"Request a free call\" buttons and the favicon tile only. The hero grid, glow, demo glass sheen and scan line are translucent hero-only tints, not this gradient."
+        "purpose": "\"Request a free call\" buttons and the favicon tile only. The indigo radials behind the opening and the demo stage, their grids and the teal glow are fields, not this gradient."
       }
     ],
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero H1 only; serif, white on the dark hero."
+        "purpose": "The opening statement only; serif 500, white, closing phrase held on one line above 480px."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section and closing-band H2s; serif."
+        "purpose": "Section H2s (including the call heading) and the closing-band H2; serif."
       },
       "index": {
         "displayName": "Index",
@@ -301,23 +301,23 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Panel titles (route H3s); Public Sans bold. Form-panel heading uses 1.0625rem."
+        "purpose": "Route H3s in the routes panel; Public Sans bold."
       },
       "body-large": {
         "displayName": "Body Large",
-        "purpose": "Flow rows: input ink-500, result ink-900 at 600."
+        "purpose": "The call section sub-line, ink-500, max 34ch."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Running text, tabular numerals."
+        "purpose": "Running text, tabular numerals. Case rows: input 0.9375rem, result 600 1.0625rem."
       },
       "lede": {
         "displayName": "Lede",
-        "purpose": "Hero sentence beside the H1, #b9c4de on the dark hero, max 40ch."
+        "purpose": "The opening sentence, #b9c4de, max 38ch."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Geist Mono uppercase: duration tags beside or beneath their title, the demo step label, the diagram boundary label and mock-app chrome (app bars, document and table headers, speaker names; 0.6875rem). Never above a page heading or leading a page row."
+        "purpose": "Geist Mono uppercase teal: duration tags beside or beneath their title, and the one diagram boundary label (0.6875rem). Never above a heading, leading a row, or as interface chrome."
       },
       "button": {
         "displayName": "Button",
@@ -338,33 +338,23 @@
         "name": "shadow-2",
         "value": "0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04)",
         "dark": "0 4px 14px rgba(0, 0, 0, 0.4)",
-        "purpose": "Raised: button hover and the form panel sent state only."
-      },
-      {
-        "name": "hero-lift",
-        "value": "0 24px 56px rgba(3, 6, 30, 0.45)",
-        "purpose": "The form panel on the dark hero."
-      },
-      {
-        "name": "stage",
-        "value": "0 40px 90px rgba(3, 6, 30, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
-        "purpose": "The demo glass stage; dark hero only."
+        "purpose": "Raised: the form panel at rest (the one action), button hover, and under the sent-state halo."
       },
       {
         "name": "card-on-stage",
         "value": "0 10px 30px rgba(3, 6, 30, 0.35)",
-        "purpose": "Demo app cards; dark hero only."
+        "purpose": "Demo app cards on the dark stage only."
       },
       {
-        "name": "chip-glow",
-        "value": "0 8px 20px rgba(0, 118, 163, 0.4)",
+        "name": "chip",
+        "value": "0 2px 6px rgba(3, 6, 30, 0.18)",
         "purpose": "A demo chip in transit."
       },
       {
         "name": "shadow-3",
         "value": "0 14px 32px rgba(15, 21, 86, 0.1), 0 4px 12px rgba(15, 21, 86, 0.05)",
         "dark": "0 18px 40px rgba(0, 0, 0, 0.5)",
-        "purpose": "Overlays only; unused on the homepage."
+        "purpose": "Overlay: menus and dialogs only."
       },
       {
         "name": "focus-halo",
@@ -394,19 +384,14 @@
         "purpose": "Confirmation line fades up 4px. All motion off under prefers-reduced-motion."
       },
       {
-        "name": "wire-flow",
-        "value": "900ms linear infinite",
-        "purpose": "Dashed wires drift 10px per cycle (route diagrams, demo relay); quiet supporting motion. Off under prefers-reduced-motion."
+        "name": "demo-read",
+        "value": "1300ms",
+        "purpose": "The source is read top to bottom; each mark lights (260ms ease-out) in turn. No scan line."
       },
       {
         "name": "demo-swap",
         "value": "out 200ms ease-out; in 360ms ease-out, 40ms stagger",
         "purpose": "Scene change: the two app frames stay put; only their contents cross-fade."
-      },
-      {
-        "name": "demo-scan",
-        "value": "1300ms cubic-bezier(0.45, 0, 0.55, 1)",
-        "purpose": "Soft Teal scan line sweeps the source; marks light (260ms ease-out) as it passes."
       },
       {
         "name": "demo-chip",
@@ -437,6 +422,26 @@
         "name": "demo-sequencing",
         "value": "timers",
         "purpose": "Steps are sequenced with timers, never on animation completion, so a throttled browser cannot stall the loop."
+      },
+      {
+        "name": "case-color",
+        "value": "200ms ease-out",
+        "purpose": "Case row text color on hover and when it starts playing; its 2px teal line grows over the 7.6s scene."
+      },
+      {
+        "name": "object-turn",
+        "value": "continuous: spin 0.14 rad/s about its own axis; lean wobble at 0.27 and 0.19 rad/s; float at 0.55 rad/s",
+        "purpose": "The opening object turns slowly; the twist carries the highlights round the loop."
+      },
+      {
+        "name": "object-tilt",
+        "value": "pointer-follow, eased 5% per frame, up to ~0.18 / 0.28 rad",
+        "purpose": "The object leans a few degrees toward the pointer; returns to rest on pointer leave."
+      },
+      {
+        "name": "object-reveal",
+        "value": "900ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The canvas fades in on its first rendered frame. Off screen or hidden: paused. Reduced motion: one still pose."
       }
     ],
     "breakpoints": [
@@ -454,10 +459,19 @@
       }
     ],
     "heroTreatment": {
-      "source": "tracelet-vendor/pages/css/tracelet-landing.css (hero grid, 54px)",
-      "field": "#0f1556 (dark mode #070a18)",
+      "source": "tracelet-vendor/pages/css/tracelet-landing.css (hero grid, 54px); layout on the Metalab model (chosen 2026-10-04)",
+      "field": "radial-gradient(120% 90% at 75% 40%, #19207a 0%, #0f1556 45%, #080c33 100%), same in both modes",
       "grid": "linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px); background-size 54px 54px; mask radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%)",
-      "glow": "radial-gradient(closest-side, rgba(0, 118, 163, 0.35), transparent), blur(30px), bottom right"
+      "glow": "radial-gradient(closest-side, rgba(0, 118, 163, 0.35), transparent), blur(30px), bottom right",
+      "object": {
+        "renderer": "seafin-site/hero3d.js, three.js 0.170 via jsDelivr import map, WebGL, DPR capped at 1.75, ACES tone mapping, RoomEnvironment",
+        "form": "ribbon ring, stadium section (half-width 0.62, half-thickness and edge radius 0.17, ring radius 1.55), one full twist per lap",
+        "material": "MeshPhysicalMaterial #151b6e, metalness 0.55, roughness 0.17, clearcoat 1, clearcoatRoughness 0.05, envMapIntensity 1.5",
+        "lights": "teal rim #38b3da (6), violet rim #7d86ff (4), white key (0.7)",
+        "framing": "canvas >= 900px wide: large, partly cropped, right of the statement; narrower: above it",
+        "fallback": "no WebGL or module failure: the indigo field stays"
+      },
+      "minHeight": "clamp(560px, calc(100svh - 64px), 880px); content anchored to the bottom"
     }
   },
   "components": [
@@ -481,25 +495,33 @@
       "name": "Navigation",
       "kind": "nav",
       "refersTo": "nav",
-      "description": "Sticky translucent white bar over the dark hero: serif wordmark, three sans links, primary button right. Links hide at <=760px on the one-page build.",
+      "description": "Sticky translucent white bar over the dark opening: serif wordmark, three sans links, primary button right. Links hide at <=760px on the one-page build.",
       "html": "<header class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Seafin</a><ul><li><a href=\"#\">Services</a></li><li><a href=\"#\">What we build</a></li><li><a href=\"#\">Where it runs</a></li></ul></header>",
       "css": ".ds-nav { display:flex; align-items:center; gap:32px; min-height:64px; padding:0 24px; background:color-mix(in srgb, var(--paper, #fff) 94%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line, #e2e6ec); } .ds-wordmark { font:700 1.375rem/1 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.02em; color:var(--ink-900, #1a1f2a); text-decoration:none; } .ds-nav ul { display:flex; gap:28px; margin:0 0 0 auto; padding:0; list-style:none; } .ds-nav ul a { font:500 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); text-decoration:none; } .ds-nav ul a:hover { color:var(--ink-900, #1a1f2a); } .ds-nav a:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
     },
     {
-      "name": "Hero with Form Panel",
+      "name": "Opening",
       "kind": "custom",
       "refersTo": "hero",
-      "description": "The upstream Wardix dark opening (Deep Indigo, 54px grid, radial mask, teal glow) carrying the form panel on Hero Lift: fields side by side over a full-width button. Hover shows the sent state.",
-      "html": "<section class=\"ds-hero\"><div class=\"ds-hero-grid\"></div><h1>Your AI department, without the headcount.</h1><div class=\"ds-book\"><div class=\"ds-book-head\"><h2>Free 30-minute call</h2><p>We’ll tell you whether AI is worth it for your business.</p></div><div class=\"ds-book-row\"><label>Name<span class=\"ds-book-input\"></span></label><label>Work email<span class=\"ds-book-input\"></span></label><span class=\"ds-book-btn\">Request a free call</span></div></div></section>",
-      "css": ".ds-hero { position:relative; isolation:isolate; overflow:hidden; padding:48px 28px; background:var(--tracelet-indigo-deep, #0f1556); color:#e9ecf6; } .ds-hero-grid { position:absolute; inset:0; z-index:-1; background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:54px 54px; -webkit-mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); } .ds-hero::after { content:\"\"; position:absolute; z-index:-1; right:-10%; bottom:-45%; width:70%; height:90%; background:radial-gradient(closest-side, rgba(0,118,163,.35), transparent); filter:blur(30px); } .ds-hero h1 { margin:0; color:#fff; font:600 2.625rem/1.03 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.025em; } .ds-book { max-width:520px; margin-top:28px; padding:18px 20px 20px; background:var(--paper, #fff); border:1px solid transparent; border-radius:14px; box-shadow:0 24px 56px rgba(3,6,30,.45); transition:border-color 400ms ease-out, box-shadow 400ms ease-out; } .ds-book-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; } .ds-book h2 { margin:0; font:700 1.0625rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; letter-spacing:-0.01em; color:var(--ink-900, #1a1f2a); } .ds-book p { margin:0; font:400 1rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-book-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; align-items:end; margin-top:14px; } .ds-book label { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-book-input { display:block; min-height:46px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-strong, #cbd2dc); border-radius:10px; } .ds-book-btn { grid-column:1 / -1; display:flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; font:700 1rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border-radius:6px; white-space:nowrap; } .ds-book:hover { border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9), 0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } @media (max-width:760px) { .ds-book-row { grid-template-columns:1fr; } }"
+      "description": "Signature: one serif statement, one lede line and one large primary button anchored to the bottom of the deep indigo field with the 54px grid and teal glow. The WebGL ribbon ring (hero3d.js) renders behind the text on the live page and is not reproduced here.",
+      "html": "<section class=\"ds-open\"><div class=\"ds-open-grid\"></div><h1>Your AI department, <span>without the headcount.</span></h1><div class=\"ds-open-foot\"><p>Strategy audits, custom builds and managed AI for businesses with no AI team.</p><a class=\"ds-btn-lg\" href=\"#\">Request a free call</a></div></section>",
+      "css": ".ds-open { position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; min-height:420px; padding:48px 32px; background:radial-gradient(120% 90% at 75% 40%, #19207a 0%, var(--tracelet-indigo-deep, #0f1556) 45%, #080c33 100%); color:#e9ecf6; } .ds-open-grid { position:absolute; inset:0; z-index:-1; background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:54px 54px; -webkit-mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); } .ds-open::after { content:\"\"; position:absolute; z-index:-1; right:-10%; bottom:-45%; width:70%; height:90%; background:radial-gradient(closest-side, rgba(0,118,163,.35), transparent); filter:blur(30px); } .ds-open h1 { margin:0; max-width:11.5em; color:#fff; font:500 clamp(2.75rem, 6.6vw, 6rem)/0.98 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.03em; } .ds-open h1 span { white-space:nowrap; } .ds-open-foot { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px 48px; margin-top:32px; } .ds-open p { margin:0; max-width:38ch; font:400 1.1875rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color:#b9c4de; } .ds-btn-lg { display:inline-flex; align-items:center; min-height:54px; padding:0 28px; font:700 1.0625rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; text-decoration:none; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border-radius:6px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); transition:filter 160ms ease-out, box-shadow 160ms ease-out, transform 160ms ease-out; } .ds-btn-lg:hover { filter:brightness(1.08); box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-btn-lg:active { transform:translateY(1px); filter:brightness(0.96); } .ds-btn-lg:focus-visible { outline:2px solid var(--tracelet-teal-soft, #38b3da); outline-offset:3px; } @media (max-width:480px) { .ds-open h1 { font-size:2.625rem; line-height:1.02; } .ds-open h1 span { white-space:normal; } .ds-btn-lg { width:100%; justify-content:center; } }"
+    },
+    {
+      "name": "Call Section with Form Panel",
+      "kind": "custom",
+      "refersTo": "form-panel",
+      "description": "The call in its own section: serif heading and sub-line left, light-pinned form panel on Raised right. Hover shows the sent state.",
+      "html": "<section class=\"ds-call\"><div><h2>Free 30-minute call</h2><p>We’ll tell you whether AI is worth it for your business.</p></div><div class=\"ds-book\"><label>Name<span class=\"ds-book-input\"></span></label><label>Work email<span class=\"ds-book-input\"></span></label><span class=\"ds-book-btn\">Request a free call</span></div></section>",
+      "css": ".ds-call { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); gap:24px 48px; align-items:center; padding:32px; } .ds-call h2 { margin:0; font:600 clamp(1.875rem, 3vw, 2.5rem)/1.12 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; color:var(--ink-900, #1a1f2a); } .ds-call p { margin:10px 0 0; max-width:34ch; font:400 1.125rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-book { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:end; padding:clamp(20px, 2.2vw, 28px); background:#fff; border:1px solid #e2e6ec; border-radius:14px; box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); transition:border-color 400ms ease-out, box-shadow 400ms ease-out; color-scheme:light; } .ds-book label { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#2d3748; } .ds-book-input { display:block; min-height:46px; background:#fbfcfe; border:1px solid #cbd2dc; border-radius:10px; } .ds-book-btn { grid-column:1 / -1; display:flex; align-items:center; justify-content:center; min-height:48px; font:700 1rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%); border-radius:6px; } .ds-book:hover { border-color:#0076a3; box-shadow:0 0 0 3px #e1f4f9, 0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } @media (max-width:760px) { .ds-call { grid-template-columns:1fr; } .ds-book { grid-template-columns:1fr; } }"
     },
     {
       "name": "The Build, Played",
       "kind": "custom",
       "refersTo": "demo-stage",
-      "description": "Signature: the hero demo as its composed still frame (the reduced-motion and no-JS state): glass stage, fixed source and destination frames, relay wire with a mono step label, a two-by-two field list on fixed lines, four progress tabs. Scenes are modelled on published small-business cases with illustrative data. Hover a tab to see its active state.",
-      "html": "<figure class=\"ds-demo\"><div class=\"ds-stage\"><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>Inbox</span><span>Northline Packaging</span></header><div class=\"ds-app-body\"><p class=\"ds-subj\">Invoice 10482 attached</p><div class=\"ds-doc\"><span class=\"ds-doc-h\">Invoice <mark>10482</mark></span><span><mark>Northline Packaging</mark></span><span>Corrugated boxes, 40 cases</span><span>Total <mark>$1,240.00</mark> · Due <mark>Oct 30</mark></span></div></div></article><div class=\"ds-relay\"><span class=\"ds-relay-wire\"></span><span class=\"ds-relay-state\">Drafting bill</span></div><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>QuickBooks · Bill</span></header><dl class=\"ds-fields\"><div><dt>Vendor</dt><dd>Northline Packaging</dd></div><div><dt>Bill no.</dt><dd>10482</dd></div><div><dt>Due date</dt><dd>Oct 30, 2026</dd></div><div><dt>Amount</dt><dd>$1,240.00</dd></div></dl><p class=\"ds-app-status\"><span class=\"ds-dot\"></span>Waiting for your approval</p></article></div><div class=\"ds-tabs\"><button class=\"ds-tab is-on\"><span class=\"ds-fill\"></span>Invoices</button><button class=\"ds-tab\"><span class=\"ds-fill\"></span>Shipping</button><button class=\"ds-tab\"><span class=\"ds-fill\"></span>Referrals</button><button class=\"ds-tab\"><span class=\"ds-fill\"></span>Intake</button></div></figure>",
-      "css": ".ds-demo { margin:0; padding:24px; background:#0f1556; } .ds-stage { display:grid; grid-template-rows:auto 44px auto; padding:16px; border-radius:26px; background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)); border:1px solid rgba(255,255,255,.13); box-shadow:0 40px 90px rgba(3,6,30,.55), inset 0 1px 0 rgba(255,255,255,.08); } .ds-app { overflow:hidden; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:10px; box-shadow:0 10px 30px rgba(3,6,30,.35); color:var(--ink-900, #1a1f2a); font:400 0.875rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; } .ds-app-bar { display:flex; justify-content:space-between; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line-soft, #eef0f4); font:600 0.6875rem/1.2 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-500, #4a5568); } .ds-app-body { height:188px; padding:14px; color:var(--ink-700, #2d3748); } .ds-subj { margin:0 0 10px; font-weight:700; color:var(--ink-900, #1a1f2a); } .ds-doc { display:grid; gap:3px; padding:10px 12px; border:1px solid var(--line-soft, #eef0f4); border-radius:6px; background:var(--paper-2, #fbfcfe); font-size:0.8125rem; } .ds-doc-h { font:600 0.6875rem/1.4 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-500, #4a5568); } .ds-doc mark { background:var(--tracelet-teal-tint, #e1f4f9); color:var(--tracelet-teal-deep, #005682); border-radius:4px; padding:0 3px; margin:0 -3px; } .ds-relay { display:flex; align-items:center; gap:14px; padding-left:26px; } .ds-relay-wire { align-self:stretch; width:2px; background-image:linear-gradient(180deg, var(--tracelet-teal-soft, #38b3da) 55%, transparent 0); background-size:2px 10px; animation:ds-down 900ms linear infinite; } @keyframes ds-down { to { background-position:0 10px; } } .ds-relay-state { font:600 0.75rem/1 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:#8fd6ee; } .ds-fields { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px 16px; margin:0; padding:12px 14px 4px; } .ds-fields > div { min-width:0; } .ds-fields dt { font-size:0.75rem; line-height:1.4; color:var(--ink-500, #4a5568); } .ds-fields dd { height:1.5rem; margin:1px -4px 0; padding:0 4px; border-radius:4px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font:600 0.875rem/1.5rem \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-app-status { display:flex; align-items:center; gap:8px; margin:0; padding:10px 14px; border-top:1px solid var(--line-soft, #eef0f4); font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-dot { width:8px; height:8px; border-radius:50%; background:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9); } .ds-tabs { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; margin-top:16px; } .ds-tab { position:relative; padding:12px 0 2px; border:0; background:none; text-align:left; font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#9fb0d4; cursor:pointer; } .ds-tab::before, .ds-tab .ds-fill { content:\"\"; position:absolute; top:0; left:0; right:0; height:2px; border-radius:2px; } .ds-tab::before { background:rgba(255,255,255,.16); } .ds-tab .ds-fill { background:var(--tracelet-teal-soft, #38b3da); transform:scaleX(0); transform-origin:left; transition:transform 600ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tab.is-on .ds-fill, .ds-tab:hover .ds-fill { transform:scaleX(1); } .ds-tab.is-on, .ds-tab:hover { color:#fff; } .ds-tab:focus-visible { outline:2px solid var(--tracelet-teal-soft, #38b3da); outline-offset:3px; } @media (prefers-reduced-motion: reduce) { .ds-relay-wire { animation:none; } .ds-tab .ds-fill { transition:none; } }"
+      "description": "Signature: the case list (the controls) beside the solid indigo demo stage, shown as the composed still frame. No mono, plain hairline relay, no scan line. Hover a case to see its playing state.",
+      "html": "<div class=\"ds-build\"><div class=\"ds-cases\"><button class=\"ds-case is-on\"><span class=\"ds-fill\"></span><span class=\"ds-in\">Supplier invoices arrive by email</span><span class=\"ds-out\">Draft bills wait in QuickBooks for your approval</span></button><button class=\"ds-case\"><span class=\"ds-fill\"></span><span class=\"ds-in\">The weekly carrier invoice arrives</span><span class=\"ds-out\">Charges above your contract rate are flagged and a dispute drafted</span></button><button class=\"ds-case\"><span class=\"ds-fill\"></span><span class=\"ds-in\">A referral comes in by fax</span><span class=\"ds-out\">The patient and the order are created, ready for staff review</span></button></div><div class=\"ds-stage\"><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>Inbox</span><span class=\"ds-meta\">Northline Packaging</span></header><div class=\"ds-app-body\"><p class=\"ds-subj\">Invoice 10482 attached</p><div class=\"ds-doc\"><span class=\"ds-doc-h\">Invoice <mark>10482</mark></span><span><mark>Northline Packaging</mark></span><span>Total <mark>$1,240.00</mark> · Due <mark>Oct 30</mark></span></div></div></article><div class=\"ds-relay\"><span class=\"ds-relay-wire\"></span><span class=\"ds-relay-state\">Drafting bill</span></div><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>QuickBooks · Bill</span></header><dl class=\"ds-fields\"><div><dt>Vendor</dt><dd>Northline Packaging</dd></div><div><dt>Bill no.</dt><dd>10482</dd></div><div><dt>Due date</dt><dd>Oct 30, 2026</dd></div><div><dt>Amount</dt><dd>$1,240.00</dd></div></dl><p class=\"ds-app-status\"><span class=\"ds-dot\"></span>Waiting for your approval</p></article></div></div>",
+      "css": ".ds-build { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:32px; align-items:center; } .ds-cases { display:grid; border-top:1px solid var(--line, #e2e6ec); } .ds-case { position:relative; display:grid; gap:4px; padding:18px 0 20px; border:0; border-bottom:1px solid var(--line, #e2e6ec); background:none; text-align:left; font:400 0.9375rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); cursor:pointer; transition:color 200ms ease-out; } .ds-out { font:600 1.0625rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); transition:color 200ms ease-out; } .ds-fill { position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--tracelet-teal, #0076a3); transform:scaleX(0); transform-origin:left; transition:transform 7600ms linear; } .ds-case.is-on .ds-in, .ds-case:hover .ds-in { color:var(--tracelet-teal, #0076a3); } .ds-case.is-on .ds-out, .ds-case:hover .ds-out { color:var(--ink-900, #1a1f2a); } .ds-case:hover .ds-fill { transform:scaleX(1); } .ds-case.is-on .ds-fill { transform:scaleX(0.6); } .ds-case:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; } .ds-stage { display:grid; grid-template-rows:auto 44px auto; padding:16px; border-radius:26px; overflow:hidden; background:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 40px 40px, radial-gradient(120% 100% at 80% 0%, #1d2590 0%, var(--tracelet-indigo-deep, #0f1556) 60%, #0a0f40 100%); box-shadow:0 14px 32px rgba(15,21,86,.1), 0 4px 12px rgba(15,21,86,.05); } .ds-app { overflow:hidden; background:#fff; border:1px solid #e2e6ec; border-radius:10px; box-shadow:0 10px 30px rgba(3,6,30,.35); color:#1a1f2a; font:400 0.875rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color-scheme:light; } .ds-app-bar { display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:10px 14px; border-bottom:1px solid #eef0f4; font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-meta { font-weight:400; color:#4a5568; } .ds-app-body { height:188px; padding:14px; color:#2d3748; } .ds-subj { margin:0 0 10px; font-weight:700; color:#1a1f2a; } .ds-doc { display:grid; gap:3px; padding:10px 12px; border:1px solid #eef0f4; border-radius:6px; background:#fbfcfe; font-size:0.8125rem; } .ds-doc-h { font:700 0.8125rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-doc mark { background:#e1f4f9; color:#005682; border-radius:4px; padding:0 3px; margin:0 -3px; } .ds-relay { display:flex; align-items:center; gap:12px; padding-left:26px; } .ds-relay-wire { align-self:stretch; width:1px; background:rgba(255,255,255,.28); } .ds-relay-state { font:500 0.8125rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#b9c4de; } .ds-fields { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px 16px; margin:0; padding:12px 14px 4px; } .ds-fields > div { min-width:0; } .ds-fields dt { font-size:0.75rem; line-height:1.4; color:#4a5568; } .ds-fields dd { height:1.5rem; margin:1px -4px 0; padding:0 4px; border-radius:4px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font:600 0.875rem/1.5rem \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-app-status { display:flex; align-items:center; gap:8px; margin:0; padding:10px 14px; border-top:1px solid #eef0f4; font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#2d3748; } .ds-dot { width:8px; height:8px; border-radius:50%; background:#0076a3; box-shadow:0 0 0 3px #e1f4f9; } @media (max-width:960px) { .ds-build { grid-template-columns:1fr; } } @media (prefers-reduced-motion: reduce) { .ds-case, .ds-out, .ds-fill { transition:none; } }"
     },
     {
       "name": "Practice Index",
@@ -510,20 +532,12 @@
       "css": ".ds-index { margin:0; padding:0; list-style:none; border-top:1px solid var(--ink-900, #1a1f2a); } .ds-index li { display:grid; grid-template-columns:minmax(0,16rem) minmax(0,13.5rem) minmax(0,1fr); gap:6px 32px; align-items:baseline; padding-block:24px; border-bottom:1px solid var(--line, #e2e6ec); } .ds-index h3 { margin:0; font:600 clamp(1.625rem, 2.4vw, 2.125rem)/1.15 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; color:var(--ink-900, #1a1f2a); } .ds-term { display:block; font:600 0.75rem/1.5 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-index p { margin:0; max-width:60ch; color:var(--ink-500, #4a5568); } @media (max-width:960px) { .ds-index li { grid-template-columns:1fr; gap:4px; } .ds-index p { margin-top:6px; } }"
     },
     {
-      "name": "Flow Rows",
-      "kind": "custom",
-      "refersTo": "flow-row",
-      "description": "Full-width ruled rows: input, drawn teal arrow, result. No label leads a row; the arrow turns down when stacked.",
-      "html": "<ul class=\"ds-flows\"><li><p>Supplier invoices arrive by email</p><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><p class=\"ds-out\">Draft bills wait in QuickBooks for your approval</p></li><li><p>A client meeting ends</p><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><p class=\"ds-out\">Notes, decisions and tasks land in Docs and Sheets</p></li></ul>",
-      "css": ".ds-flows { margin:0; padding:0; list-style:none; } .ds-flows li { display:grid; grid-template-columns:minmax(0,1fr) 22px minmax(0,1.25fr); gap:6px clamp(20px,3vw,40px); align-items:center; padding-block:22px; border-top:1px solid var(--line, #e2e6ec); } .ds-flows li:last-child { border-bottom:1px solid var(--line, #e2e6ec); } .ds-flows p { margin:0; font:400 1.125rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-flows .ds-out { color:var(--ink-900, #1a1f2a); font-weight:600; } .ds-arrow { width:22px; height:22px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; } @media (max-width:760px) { .ds-flows li { grid-template-columns:1fr; } .ds-arrow { transform:rotate(90deg); } }"
-    },
-    {
       "name": "Routes Panel",
       "kind": "card",
       "refersTo": "panel",
-      "description": "Two options in one 14px panel split by a line-soft divider, each with a route diagram: drawn teal icons, an animated dashed wire, and a dashed teal boundary with a mono label on the self-hosted side.",
+      "description": "Two options in one 14px panel split by a line-soft divider, each with a route diagram: teal line icons, a static dashed wire, and a dashed teal boundary with a mono label on the self-hosted side.",
       "html": "<div class=\"ds-routes\"><div class=\"ds-route\"><div class=\"ds-diagram\"><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><path d=\"M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z\"/></svg>Anthropic’s cloud</span></div><h3>On Claude</h3><p>Fastest to set up. Right for most businesses.</p></div><div class=\"ds-route\"><div class=\"ds-diagram ds-diagram-local\"><span class=\"ds-fence\">Your building</span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"8\" rx=\"2\"/><rect x=\"2\" y=\"14\" width=\"20\" height=\"8\" rx=\"2\"/><path d=\"M6 6h.01M6 18h.01\"/></svg>Your server</span></div><h3>On your own servers</h3><p>For data that can’t leave the building.</p></div></div>",
-      "css": ".ds-routes { display:grid; grid-template-columns:1fr 1fr; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); } .ds-route { padding:28px; } .ds-route + .ds-route { border-left:1px solid var(--line-soft, #eef0f4); } .ds-route h3 { margin:24px 0 8px; font:700 1.1875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-route p { margin:0; color:var(--ink-500, #4a5568); } .ds-diagram { position:relative; display:flex; align-items:flex-start; padding:26px 20px 20px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-soft, #eef0f4); border-radius:10px; } .ds-diagram-local { border:1.5px dashed var(--tracelet-teal, #0076a3); } .ds-fence { position:absolute; top:-0.6rem; left:16px; padding:0 6px; background:var(--paper, #fff); font:600 0.6875rem/1.2rem \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-node { flex:none; width:7.5rem; display:grid; justify-items:center; gap:10px; text-align:center; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-node svg { width:36px; height:36px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; } .ds-wire { flex:1; height:2px; margin:17px 4px 0; background-image:linear-gradient(90deg, var(--tracelet-teal-soft, #38b3da) 55%, transparent 0); background-size:10px 2px; animation:ds-flow 900ms linear infinite; } @keyframes ds-flow { to { background-position:10px 0; } } @media (prefers-reduced-motion: reduce) { .ds-wire { animation:none; } } @media (max-width:760px) { .ds-routes { grid-template-columns:1fr; } .ds-route + .ds-route { border-left:0; border-top:1px solid var(--line-soft, #eef0f4); } }"
+      "css": ".ds-routes { display:grid; grid-template-columns:1fr 1fr; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); } .ds-route { padding:28px; } .ds-route + .ds-route { border-left:1px solid var(--line-soft, #eef0f4); } .ds-route h3 { margin:24px 0 8px; font:700 1.1875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-route p { margin:0; color:var(--ink-500, #4a5568); } .ds-diagram { position:relative; display:flex; align-items:flex-start; padding:26px 20px 20px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-soft, #eef0f4); border-radius:10px; } .ds-diagram-local { border:1.5px dashed var(--tracelet-teal, #0076a3); } .ds-fence { position:absolute; top:-0.6rem; left:16px; padding:0 6px; background:var(--paper, #fff); font:600 0.6875rem/1.2rem \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-node { flex:none; width:7.5rem; display:grid; justify-items:center; gap:10px; text-align:center; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-node svg { width:36px; height:36px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; } .ds-wire { flex:1; height:2px; margin:17px 4px 0; background-image:linear-gradient(90deg, var(--tracelet-teal-soft, #38b3da) 55%, transparent 0); background-size:10px 2px; } @media (max-width:760px) { .ds-routes { grid-template-columns:1fr; } .ds-route + .ds-route { border-left:0; border-top:1px solid var(--line-soft, #eef0f4); } }"
     },
     {
       "name": "Closing Band",
@@ -536,23 +550,23 @@
   ],
   "narrative": {
     "northStar": "Vigilant Infrastructure (inherited)",
-    "overview": "Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` (\"Vigilant Infrastructure\") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.\n\nThe page should look like it comes from the same company as Wardix: it opens on the Wardix dark hero (Deep Indigo under a fading engineering grid and a soft teal glow, the same treatment `tracelet-landing.css` uses), then runs white with hairline rules, one Canvas band, one bordered panel, serif headings, sans everything else, and one gradient button. Restraint carries the premium feel everywhere except one place: the hero's demo, \"the build, played\", where the page shows what Seafin does by playing it. It reads as a consulting practice's page, not a person's or a product's. Density is moderate: a compact first viewport and generous spacing below.\n\nSeafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. The pictures are built from markup: the hero demo's mock app cards, whose four scenes are modelled on published small-business cases, and the drawn teal route diagrams. The brand gradient is narrowed to the single primary action. And motion has one focal point, the demo; everything else that moves is quiet.",
+    "overview": "Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` (\"Vigilant Infrastructure\") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.\n\nThe page is built on the Metalab model (chosen 2026-10-04 after a study of leading design studios): the opening is one big serif statement and one crafted object on the Wardix dark field (deep indigo under the fading engineering grid and a soft teal glow), with nothing else on the first screen. Below it the page runs white with hairline rules, one Canvas band and a Bastion close: the form in its own section, the practice index, a played demo of real-world builds, and where the work runs. Serif headings, sans everything else, one gradient button. Restraint carries the premium feel; the two crafted pieces (the opening object and the build demo) carry the craft. It reads as a consulting practice's page, not a person's or a product's.\n\nSeafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. The pictures are made, not shot: one rendered 3D object in the opening, the demo's mock app cards (four scenes modelled on published small-business cases), and drawn teal route diagrams. The brand gradient is narrowed to the single primary action. And only two things move on their own, each in its own section.",
     "keyCharacteristics": [
-      "A Deep Indigo opening with the upstream engineering grid, then a white page with one Canvas band and a Bastion close; dark mode from the same token pairs.",
-      "Source Serif 4 for the page's headings and the service names, Public Sans for everything readable, Geist Mono only for short functional tags and mock-software chrome.",
+      "A deep indigo opening holding one serif statement and one glossy 3D object, then a white page with one Canvas band and a Bastion close; dark mode from the same token pairs, with light surfaces pinned light.",
+      "Source Serif 4 for the statement, the section headings and the service names; Public Sans for everything readable; Geist Mono only for short functional tags.",
       "One radius family: 6 / 10 / 14 / 26, plus 4px for inline highlights.",
       "One action per page, one label for it, one gradient on it.",
-      "One focal motion (the hero demo), quiet supporting motion elsewhere; no photography; no invented proof."
+      "Two self-moving pieces (the opening object, the build demo), everything else still; no photography; no invented proof."
     ],
     "rules": [
       {
         "name": "The One Gradient Rule",
-        "body": "The indigo-to-teal brand gradient appears only on \"Request a free call\" buttons (nav, form submit, closing band) and on the favicon tile. Not on text, cards, section backgrounds, or a second button. The hero's grid, teal glow, the demo's glass sheen and its scan line are translucent tints confined to the hero, not the brand gradient.",
+        "body": "The indigo-to-teal brand gradient appears only on \"Request a free call\" buttons (nav, opening, form submit, closing band) and on the favicon tile. Not on text, cards, section backgrounds, or a second button. The tonal indigo radials behind the opening and the demo stage, their grid lines and the teal glow are fields, not the brand gradient, and appear nowhere else.",
         "section": "colors"
       },
       {
-        "name": "The Two Dark Fields Rule",
-        "body": "Deep Indigo opens the page (the hero); Bastion Navy closes it (the closing band). Neither appears anywhere else, and they never swap.",
+        "name": "The Dark Grounds Rule",
+        "body": "Deep Indigo is for the opening field and the demo stage; Bastion Navy is for the closing band. They never swap, and no other surface goes dark.",
         "section": "colors"
       },
       {
@@ -562,36 +576,36 @@
       },
       {
         "name": "The Serif-Is-For-The-Page Rule",
-        "body": "Serif is for page-level headings (the H1, section H2s, the closing H2) and for the service names in the practice index, which act as the headings of what Seafin sells. Panel titles, including the form-panel heading and the route H3s, are Public Sans bold. Nothing inside the demo is serif.",
+        "body": "Serif is for the opening statement, section H2s, the closing H2 and the service names in the practice index, which act as the headings of what Seafin sells. Panel titles and everything inside the demo are Public Sans.",
         "section": "typography"
       },
       {
         "name": "The Mono-Tags-Never-Lead Rule",
-        "body": "On the page, Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), the step label on the demo's wire, and the one label that names a drawn boundary in a diagram. A mono label never sits above a page heading and never leads a page row. Inside the demo's mock app cards, mono is the mock software's own chrome (app name and meta, document and table headers, speaker names) and depicts an interface; it is not a page device to reuse elsewhere.",
+        "body": "Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), and the one label that names a drawn boundary in a diagram. A mono label never sits above a heading, never leads a row, and never stands in for interface chrome.",
         "section": "typography"
       },
       {
         "name": "The Quiet Elevation Rule",
-        "body": "On light ground nothing at rest sits above Resting; Raised appears only in response to state (hover, a sent form) and Overlay is for overlays. Deep shadows (Hero Lift, Stage, Card on Stage, Chip Glow) exist only on the dark hero, where a light shadow would vanish.",
+        "body": "Nothing at rest sits above Resting except the form panel (the one action) and the demo stage (the one showcase), which rest on Raised. Overlay is for overlays. The deep Card on Stage shadow exists only on a dark ground, where a light shadow would vanish.",
         "section": "elevation"
       }
     ],
     "dos": [
       "Do take every token from the Wardix set (upstream `design.md` + `tracelet-landing.css`) and add a Seafin-local token only when the build needs it (as with `line-strong`, `danger`).",
       "Do reserve the brand gradient for \"Request a free call\" buttons, and use that same label everywhere the action appears.",
-      "Do open on the upstream dark hero (Deep Indigo, 54px grid, radial mask, teal glow) and close on Bastion Navy; keep everything between them light.",
-      "Do use Source Serif 4 for page-level headings and practice-index service names only, and Public Sans 700 for panel titles.",
-      "Do use Geist Mono uppercase only for short functional tags beside or beneath their title, step labels on a wire, a drawn boundary's name, or the chrome of a mock app.",
-      "Do give every looping animation a shared rhythm, keep its frames fixed so nothing shifts as content lands, pause it off-screen and in hidden tabs, and make its markup a composed still frame for reduced motion and no-JS.",
-      "Do list services and examples as open ruled rows, and put a two-option comparison in one 14px panel, rather than a grid of cards.",
-      "Do keep every color a light/dark token pair; check link and hover colors in both modes."
+      "Do open with one serif statement, one lede line, one button and one crafted object on the deep indigo field with the 54px grid; nothing else on the first screen.",
+      "Do use Source Serif 4 for the statement, section headings and practice-index service names only, and Public Sans for panel titles and everything inside a mock interface.",
+      "Do use Geist Mono uppercase only for short functional tags beside or beneath their title, or to name a drawn boundary.",
+      "Do give every looping animation a shared rhythm, keep its frames fixed so nothing shifts as content lands, pause it off screen and in hidden tabs, and make its markup a composed still frame for reduced motion and no-JS.",
+      "Do pin light surfaces (the form panel, demo cards) to the light tokens when they sit on a dark ground or in dark mode.",
+      "Do list services and cases as open ruled rows, and put a two-option comparison in one 14px panel, rather than a grid of cards."
     ],
     "donts": [
-      "Don't place an uppercase mono label, kicker or eyebrow above a page heading or at the head of a page row (the Wardix marketing site's `.eyebrow` pattern is not carried over).",
+      "Don't place an uppercase mono label, kicker or eyebrow above a heading or at the head of a row, or use mono as interface chrome (the Wardix marketing site's `.eyebrow` pattern is not carried over).",
       "Don't add photography or raster imagery to the consulting page: no scenic photos, no founder portrait, no product screenshots.",
+      "Don't add a second 3D object or a third self-moving piece; anything else stays still until the visitor acts.",
       "Don't put icons in tiles, circles or filled badges, or use emoji icons.",
-      "Don't add a second focal motion; anything else that moves stays as quiet as the dashed wires.",
-      "Don't use deep shadows (Hero Lift, Stage, Card on Stage, Chip Glow) off the dark hero, or Raised and Overlay on anything at rest.",
+      "Don't use Card on Stage off a dark ground, or Overlay on anything at rest.",
       "Don't add prose explaining the page to the visitor, section intros, decorative bold, or decorative numbers.",
       "Don't show invented proof: no hypothetical case studies, logos, testimonials or counts. Demo scenes may be modelled on published cases, but their data stays illustrative and the source businesses are never named or framed as clients or results.",
       "Don't use pills, radii outside 4 / 6 / 10 / 14 / 26, or sharp cards."
