@@ -24,8 +24,6 @@
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#where-it-runs">Where it runs</a></li>
-        <li><a href="#wardix">Wardix</a></li>
-        <li><a href="#about">About</a></li>
       </ul>
     </nav>
     <a class="btn btn-primary" href="#book">Request a free call</a>
@@ -35,48 +33,41 @@
 <main>
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
-      <div class="copy">
+      <div class="hero-top">
         <h1 id="hero-title">Your AI department, without the headcount.</h1>
         <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team. You own everything we build.</p>
-
-        <div class="book" id="book">
-          <h2 id="book-title">Free 30-minute call</h2>
-          <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
-          <form id="request" aria-labelledby="book-title" novalidate>
-            <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
-            <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
-            <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <button class="btn btn-primary" type="submit">Request a free call</button>
-            <p class="status" role="status" aria-live="polite"></p>
-          </form>
-        </div>
       </div>
 
-      <figure class="portrait">
-        <!-- TODO before launch: replace the placeholder with <img src="assets/founder.jpg" alt="Rob Crider" width="…" height="…"> -->
-        <span class="placeholder">Photo of Rob</span>
-        <figcaption>
-          <p class="name">Rob Crider</p>
-          <p class="role">Founder. The person on your call is the person who builds it.</p>
-        </figcaption>
-      </figure>
+      <div class="book" id="book">
+        <div class="book-head">
+          <h2 id="book-title">Free 30-minute call</h2>
+          <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
+        </div>
+        <form id="request" aria-labelledby="book-title" novalidate>
+          <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+          <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Request a free call</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="services" aria-labelledby="services-title">
-    <div class="wrap head-row">
-      <h2 id="services-title">Services</h2>
+  <section class="section index" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title" class="sr-only">Services</h2>
       <ul class="offers">
         <li>
-          <div><h3>Strategy Audit</h3><span class="term">1 week</span></div>
-          <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90-day plan. Yours to keep either way.</p>
+          <h3>Strategy Audit</h3><span class="term">1 week</span>
+          <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90&#8209;day plan.</p>
         </li>
         <li>
-          <div><h3>Custom Builds</h3><span class="term">Fixed fee &middot; 2 to 6 weeks</span></div>
-          <p>The workflow, agent or integration the audit points to, connected to the tools you already use: QuickBooks, HubSpot, Microsoft 365, Google Workspace. Thirty days of support after launch.</p>
+          <h3>Custom Builds</h3><span class="term">Fixed fee &middot; 2 to 6 weeks</span>
+          <p>The workflow, agent or integration the audit points to, connected to QuickBooks, HubSpot, Microsoft 365 or Google Workspace. Thirty days of support after launch.</p>
         </li>
         <li>
-          <div><h3>Managed AI</h3><span class="term">Month to month</span></div>
+          <h3>Managed AI</h3><span class="term">Month to month</span>
           <p>We keep it running: support over Slack, cost limits, and one new workflow each month. Cancel any time.</p>
         </li>
       </ul>
@@ -86,61 +77,16 @@
   <section class="section" id="where-it-runs" aria-labelledby="runs-title">
     <div class="wrap head-row">
       <h2 id="runs-title">Where it runs</h2>
-      <div>
-        <div class="compare panel">
-          <div>
-            <h3>On Claude</h3>
-            <p>Anthropic&rsquo;s models, in their cloud. Fastest to set up and the most capable. Right for most businesses.</p>
-          </div>
-          <div>
-            <h3>On your own servers</h3>
-            <p>Open models on your hardware or private cloud. For healthcare, legal, finance and government contractors.</p>
-          </div>
-          <p class="fit">The audit tells you which one fits.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section band" id="wardix" aria-labelledby="wardix-title">
-    <div class="wrap">
-      <div class="product-top">
+      <div class="compare panel">
         <div>
-          <h2 id="wardix-title">Wardix</h2>
-          <p class="line">Monitoring for Windows networks that runs on your own server. We build it, ship it and support it.</p>
+          <h3>On Claude</h3>
+          <p>Anthropic&rsquo;s models, in Anthropic&rsquo;s cloud. Fastest to set up and the most capable. Right for most businesses.</p>
         </div>
         <div>
-          <ul class="chips">
-            <li>Free to start</li>
-            <li>Monitoring data stays on your server</li>
-          </ul>
-          <a class="btn btn-secondary" href="https://tracelet.seafin.ai">Get Wardix free</a>
+          <h3>On your own servers</h3>
+          <p>Open-source models on your hardware or private cloud, for data that can&rsquo;t leave the building. Common in healthcare, legal, finance and government contracting.</p>
         </div>
-      </div>
-      <figure class="shot">
-        <picture>
-          <source media="(max-width: 560px)" srcset="assets/wardix-dashboard-mobile.png" width="336" height="372">
-          <img src="assets/wardix-dashboard.png" width="1392" height="412" loading="lazy"
-               alt="Wardix dashboard: system health, applications, network, outages, response times and open incidents for the last 24 hours.">
-        </picture>
-      </figure>
-    </div>
-  </section>
-
-  <section class="section" id="about" aria-labelledby="about-title">
-    <div class="wrap duo">
-      <div>
-        <h2 id="about-title">Who you work with</h2>
-        <p class="person">Rob Crider <span>Founder, Seafin LLC</span></p>
-        <p class="about-text">Rob audits your business, writes the scope and ships the build himself. No hand-off to a junior after the sale. If a project is too big for one person, he says so in the audit and points you to the right option, even if that isn&rsquo;t Seafin.</p>
-      </div>
-      <div id="projects">
-        <h2 id="projects-title">Other projects</h2>
-        <ul class="projects">
-          <li><h3>Authwell</h3><p>Prior authorization for small medical practices: case tracking, denial appeals and payer rules.</p></li>
-          <li><h3>Remana</h3><p>Medication reminders and a family dashboard for seniors living at home.</p></li>
-          <li><h3>Wardex Operator</h3><p>Agent-driven monitoring and operations.</p></li>
-        </ul>
+        <p class="fit">The audit tells you which one fits.</p>
       </div>
     </div>
   </section>
