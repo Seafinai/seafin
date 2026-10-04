@@ -34,16 +34,23 @@
 <main>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-grid" aria-hidden="true"></div>
-    <div class="wrap">
-      <div class="hero-copy">
-        <h1 id="hero-title">Your AI department, <span class="nb">without the headcount.</span></h1>
+    <canvas class="hero-object" aria-hidden="true"></canvas>
+    <div class="wrap hero-inner">
+      <h1 id="hero-title">Your AI department, <span class="nb">without the headcount.</span></h1>
+      <div class="hero-foot">
         <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team. You own everything we build.</p>
+        <a class="btn btn-primary btn-lg" href="#book">Request a free call</a>
+      </div>
+    </div>
+  </section>
 
+  <section class="section call" aria-labelledby="book-title">
+    <div class="wrap call-row">
+      <div>
+        <h2 id="book-title">Free 30-minute call</h2>
+        <p class="call-sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
+      </div>
       <div class="book" id="book">
-        <div class="book-head">
-          <h2 id="book-title">Free 30-minute call</h2>
-          <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
-        </div>
         <form id="request" aria-labelledby="book-title" novalidate>
           <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
           <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
@@ -52,42 +59,6 @@
           <p class="status" role="status" aria-live="polite"></p>
         </form>
       </div>
-      </div>
-
-      <!-- The build, played: four example builds as one looping demo (demo.js). This markup is the still frame shown without JS or with reduced motion. -->
-      <figure class="demo" id="demo">
-        <div class="demo-stage" role="img" aria-label="Example build: an emailed supplier invoice becomes a QuickBooks bill, waiting for your approval.">
-          <article class="app app-src" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">Northline Packaging</span></header>
-            <div class="app-body">
-              <p class="subj">Invoice 10482 attached</p>
-              <div class="doc">
-                <span class="ln doc-h">Invoice <mark class="hit">10482</mark></span>
-                <span class="ln"><mark class="hit">Northline Packaging</mark></span>
-                <span class="ln">Corrugated boxes, 40 cases</span>
-                <span class="ln">Total <mark class="hit">$1,240.00</mark> &middot; Due <mark class="hit">Oct 30</mark></span>
-              </div>
-            </div>
-          </article>
-          <div class="relay" aria-hidden="true"><span class="relay-wire"></span><span class="relay-state">Drafting bill</span></div>
-          <article class="app app-dst" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">QuickBooks &middot; Bill</span></header>
-            <dl class="fields">
-              <div><dt>Vendor</dt><dd>Northline Packaging</dd></div>
-              <div><dt>Bill no.</dt><dd>10482</dd></div>
-              <div><dt>Due date</dt><dd>Oct 30, 2026</dd></div>
-              <div><dt>Amount</dt><dd>$1,240.00</dd></div>
-            </dl>
-            <p class="app-status is-done"><span class="dot"></span><span class="status-text">Waiting for your approval</span></p>
-          </article>
-        </div>
-        <div class="demo-tabs" role="group" aria-label="Example builds" hidden>
-          <button type="button" class="tab" aria-pressed="true"><span class="fill"></span>Invoices</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Shipping</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Referrals</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Intake</button>
-        </div>
-      </figure>
     </div>
   </section>
 
@@ -114,31 +85,44 @@
   <section class="section" id="what-we-build" aria-labelledby="build-title">
     <div class="wrap">
       <h2 id="build-title">What a build looks like</h2>
-      <ul class="flows">
-        <li>
-          <p>Supplier invoices arrive by email</p>
-          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">Draft bills wait in QuickBooks for your approval</p>
-        </li>
-        <li>
-          <p>The weekly carrier invoice arrives</p>
-          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">Charges above your contract rate are flagged and a dispute drafted</p>
-        </li>
-        <li>
-          <p>A referral comes in by fax</p>
-          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">The patient and the order are created, ready for staff review</p>
-        </li>
-        <li>
-          <p>A new client&rsquo;s intake call is recorded</p>
-          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">Possible claims, strengths and weaknesses are summarized for the attorney</p>
-        </li>
-      </ul>
+      <!-- The build, played (demo.js): the four cases are the controls; the stage markup is the still frame for no-JS and reduced motion. -->
+      <div class="build" id="demo">
+        <div class="cases demo-tabs" role="group" aria-label="Example builds">
+          <button type="button" class="tab" aria-pressed="true"><span class="fill"></span><span class="case-in">Supplier invoices arrive by email</span><span class="case-out">Draft bills wait in QuickBooks for your approval</span></button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">The weekly carrier invoice arrives</span><span class="case-out">Charges above your contract rate are flagged and a dispute drafted</span></button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">A referral comes in by fax</span><span class="case-out">The patient and the order are created, ready for staff review</span></button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">A new client&rsquo;s intake call is recorded</span><span class="case-out">Possible claims, strengths and weaknesses are summarized for the attorney</span></button>
+        </div>
+        <figure class="demo">
+        <div class="demo-stage" role="img" aria-label="Example build: an emailed supplier invoice becomes a QuickBooks bill, waiting for your approval.">
+          <article class="app app-src" aria-hidden="true">
+            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">Northline Packaging</span></header>
+            <div class="app-body">
+              <p class="subj">Invoice 10482 attached</p>
+              <div class="doc">
+                <span class="ln doc-h">Invoice <mark class="hit">10482</mark></span>
+                <span class="ln"><mark class="hit">Northline Packaging</mark></span>
+                <span class="ln">Corrugated boxes, 40 cases</span>
+                <span class="ln">Total <mark class="hit">$1,240.00</mark> &middot; Due <mark class="hit">Oct 30</mark></span>
+              </div>
+            </div>
+          </article>
+          <div class="relay" aria-hidden="true"><span class="relay-wire"></span><span class="relay-state">Drafting bill</span></div>
+          <article class="app app-dst" aria-hidden="true">
+            <header class="app-bar"><span class="app-name">QuickBooks &middot; Bill</span></header>
+            <dl class="fields">
+              <div><dt>Vendor</dt><dd>Northline Packaging</dd></div>
+              <div><dt>Bill no.</dt><dd>10482</dd></div>
+              <div><dt>Due date</dt><dd>Oct 30, 2026</dd></div>
+              <div><dt>Amount</dt><dd>$1,240.00</dd></div>
+            </dl>
+            <p class="app-status is-done"><span class="dot"></span><span class="status-text">Waiting for your approval</span></p>
+          </article>
+        </div>
+        </figure>
+      </div>
     </div>
   </section>
-
   <section class="section band" id="where-it-runs" aria-labelledby="runs-title">
     <div class="wrap">
       <h2 id="runs-title">Where it runs</h2>
@@ -189,5 +173,7 @@
 
 <script src="home.js" defer></script>
 <script src="demo.js" defer></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="hero3d.js"></script>
 </body>
 </html>
