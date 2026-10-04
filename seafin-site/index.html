@@ -56,37 +56,37 @@
 
       <!-- The build, played: four example builds as one looping demo (demo.js). This markup is the still frame shown without JS or with reduced motion. -->
       <figure class="demo" id="demo">
-        <div class="demo-stage" role="img" aria-label="Example build: an emailed invoice becomes a draft bill in QuickBooks, waiting for your approval.">
+        <div class="demo-stage" role="img" aria-label="Example build: an emailed supplier invoice becomes a QuickBooks bill, waiting for your approval.">
           <article class="app app-src" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">9:41</span></header>
+            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">Northline Packaging</span></header>
             <div class="app-body">
-              <div class="mail"><span class="from">Harbor Supply Co.</span><span class="subj">Invoice INV-2207</span></div>
+              <p class="subj">Invoice 10482 attached</p>
               <div class="doc">
-                <span class="ln doc-h">Invoice</span>
-                <span class="ln"><mark class="hit">Harbor Supply Co.</mark></span>
-                <span class="ln">Packaging, 40 cases</span>
-                <span class="ln">Total <mark class="hit">$1,240.00</mark> &middot; Due <mark class="hit">Oct 18</mark></span>
+                <span class="ln doc-h">Invoice <mark class="hit">10482</mark></span>
+                <span class="ln"><mark class="hit">Northline Packaging</mark></span>
+                <span class="ln">Corrugated boxes, 40 cases</span>
+                <span class="ln">Total <mark class="hit">$1,240.00</mark> &middot; Due <mark class="hit">Oct 30</mark></span>
               </div>
               <span class="scan"></span>
             </div>
           </article>
           <div class="relay" aria-hidden="true"><span class="relay-wire"></span><span class="relay-state">Drafting bill</span></div>
           <article class="app app-dst" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">QuickBooks &middot; Draft bill</span></header>
+            <header class="app-bar"><span class="app-name">QuickBooks &middot; Bill</span></header>
             <dl class="fields">
-              <div><dt>Supplier</dt><dd>Harbor Supply Co.</dd></div>
+              <div><dt>Vendor</dt><dd>Northline Packaging</dd></div>
+              <div><dt>Bill no.</dt><dd>10482</dd></div>
+              <div><dt>Due date</dt><dd>Oct 30, 2026</dd></div>
               <div><dt>Amount</dt><dd>$1,240.00</dd></div>
-              <div><dt>Due</dt><dd>Oct 18</dd></div>
             </dl>
-            <p class="typed"></p>
             <p class="app-status is-done"><span class="dot"></span><span class="status-text">Waiting for your approval</span></p>
           </article>
         </div>
         <div class="demo-tabs" role="group" aria-label="Example builds" hidden>
           <button type="button" class="tab" aria-pressed="true"><span class="fill"></span>Invoices</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Leads</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Inbox</button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Meetings</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Shipping</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Referrals</button>
+          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span>Intake</button>
         </div>
       </figure>
     </div>
@@ -122,19 +122,19 @@
           <p class="out">Draft bills wait in QuickBooks for your approval</p>
         </li>
         <li>
-          <p>A lead fills in your website form</p>
+          <p>The weekly carrier invoice arrives</p>
           <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">The contact is researched and a first reply drafted in HubSpot</p>
+          <p class="out">Charges above your contract rate are flagged and a dispute drafted</p>
         </li>
         <li>
-          <p>Customer email lands in a shared inbox</p>
+          <p>A referral comes in by fax</p>
           <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">Each message is sorted, answered in draft and routed in Outlook</p>
+          <p class="out">The patient and the order are created, ready for staff review</p>
         </li>
         <li>
-          <p>A client meeting ends</p>
+          <p>A new client&rsquo;s intake call is recorded</p>
           <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          <p class="out">Notes, decisions and tasks land in Docs and Sheets</p>
+          <p class="out">Possible claims, strengths and weaknesses are summarized for the attorney</p>
         </li>
       </ul>
     </div>

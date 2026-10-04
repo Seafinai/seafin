@@ -1,6 +1,8 @@
 // The build, played: four example builds shown as one looping demo in the hero.
-// Every scene has the same rhythm: a message arrives, a scan reads it, its key
-// details fly into the tool, and the result is confirmed. The markup in
+// Each scene is modelled on a published small-business case (sources in
+// PRODUCT.md); names and amounts are illustrative. Every scene has the same
+// rhythm: a document arrives, a scan reads it, its key details travel into the
+// destination record, and the record waits for a person. The markup in
 // index.html is the still frame for no-JS and reduced motion.
 (() => {
   const root = document.getElementById('demo');
@@ -9,76 +11,78 @@
   const stage = root.querySelector('.demo-stage');
   const tabsWrap = root.querySelector('.demo-tabs');
   const tabs = [...tabsWrap.querySelectorAll('.tab')];
-  const src = stage.querySelector('.app-src');
-  const dst = stage.querySelector('.app-dst');
-  const srcName = src.querySelector('.app-name');
-  const srcMeta = src.querySelector('.app-meta');
-  const srcBody = src.querySelector('.app-body');
-  const dstName = dst.querySelector('.app-name');
-  const fields = dst.querySelector('.fields');
-  const typed = dst.querySelector('.typed');
-  const status = dst.querySelector('.app-status');
-  const statusText = dst.querySelector('.status-text');
+  const srcName = stage.querySelector('.app-src .app-name');
+  const srcMeta = stage.querySelector('.app-src .app-meta');
+  const srcBody = stage.querySelector('.app-src .app-body');
+  const dstName = stage.querySelector('.app-dst .app-name');
+  const fields = stage.querySelector('.app-dst .fields');
+  const status = stage.querySelector('.app-dst .app-status');
+  const statusText = status.querySelector('.status-text');
   const relayState = stage.querySelector('.relay-state');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
   const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
-  const EASE_IN = 'cubic-bezier(0.7, 0, 0.84, 0)';
-  const SCAN_MS = 1100;
-  const TYPE_MS = 22;
-  const HOLD_MS = 2200;
+  const SCAN_MS = 1300;
+  const HOLD_MS = 2800;
   const STOP = Symbol('stop');
 
+  // src: [app, meta, body]. Each <mark data-f="n"> fills field n; data-v is the
+  // value as the destination stores it. calc holds fields worked out, not copied.
   const SCENES = [
     {
-      label: 'Example build: an emailed invoice becomes a draft bill in QuickBooks, waiting for your approval.',
-      src: ['Inbox', '9:41',
-        '<div class="mail"><span class="from">Harbor Supply Co.</span><span class="subj">Invoice INV-2207</span></div>' +
-        '<div class="doc"><span class="ln doc-h">Invoice</span><span class="ln"><mark>Harbor Supply Co.</mark></span>' +
-        '<span class="ln">Packaging, 40 cases</span>' +
-        '<span class="ln">Total <mark>$1,240.00</mark> &middot; Due <mark>Oct 18</mark></span></div>'],
-      steps: ['Reading invoice', 'Pulling out details', 'Drafting bill'],
-      dst: ['QuickBooks · Draft bill', ['Supplier', 'Amount', 'Due']],
-      typed: '',
+      // Bookkeeping firm: client invoices become bills the owner approves (Dext case).
+      label: 'Example build: an emailed supplier invoice becomes a QuickBooks bill, waiting for your approval.',
+      src: ['Inbox', 'Northline Packaging',
+        '<p class="subj">Invoice 10482 attached</p>' +
+        '<div class="doc"><span class="ln doc-h">Invoice <mark data-f="1">10482</mark></span>' +
+        '<span class="ln"><mark data-f="0">Northline Packaging</mark></span>' +
+        '<span class="ln">Corrugated boxes, 40 cases</span>' +
+        '<span class="ln">Total <mark data-f="3">$1,240.00</mark> &middot; Due <mark data-f="2" data-v="Oct 30, 2026">Oct 30</mark></span></div>'],
+      steps: ['Reading invoice', 'Matching vendor', 'Drafting bill'],
+      dst: ['QuickBooks · Bill', ['Vendor', 'Bill no.', 'Due date', 'Amount']],
+      calc: {},
       done: 'Waiting for your approval',
     },
     {
-      label: 'Example build: a website enquiry becomes a researched HubSpot contact with a first reply drafted.',
-      src: ['Website form', 'New',
-        '<div class="row"><span class="k">Name</span><span>Dana Ruiz</span></div>' +
-        '<div class="row"><span class="k">Email</span><span>dana@bayside.example</span></div>' +
-        '<div class="row"><span class="k">Company</span><span><mark>Bayside Dental</mark></span></div>' +
-        '<div class="row"><span class="k">Message</span><span>Can you help with <mark data-v="After-hours booking">after-hours booking</mark>? ' +
-        'We&rsquo;re a team of <mark data-v="12 staff">12</mark>.</span></div>'],
-      steps: ['Reading enquiry', 'Researching company', 'Drafting reply'],
-      dst: ['HubSpot · New contact', ['Company', 'Interest', 'Team']],
-      typed: 'Hi Dana, thanks for asking about after-hours booking. Here’s how it would work…',
-      done: 'First reply drafted',
+      // Shipper: weekly carrier invoices checked against the contract rate (Fortune, Claude-built agent).
+      label: 'Example build: a weekly carrier invoice is checked against the contract rate and an overcharge dispute is drafted.',
+      src: ['Carrier invoice', 'Week 39',
+        '<div class="tbl"><span class="tr th"><span>Service</span><span>Billed</span></span>' +
+        '<span class="tr"><span>Ground &middot; Zone 3 &middot; 4 lb</span><span>$12.85</span></span>' +
+        '<span class="tr"><span><mark data-f="0" data-v="Ground, Zone 5, 12 lb">Ground &middot; Zone 5 &middot; 12 lb</mark></span><span><mark data-f="1">$38.40</mark></span></span>' +
+        '<span class="tr"><span>Residential surcharge</span><span>$5.95</span></span></div>' +
+        '<p class="ref">Contract rate, Zone 5, 12 lb <mark data-f="2">$31.10</mark></p>'],
+      steps: ['Reading invoice', 'Checking contract rates', 'Drafting dispute'],
+      dst: ['Carrier audit · Overcharge', ['Shipment', 'Billed', 'Contract rate', 'Overcharge']],
+      calc: { 3: '$7.30' },
+      done: 'Dispute drafted for your approval',
     },
     {
-      label: 'Example build: a customer email in a shared inbox is sorted, answered in draft and routed in Outlook.',
-      src: ['Shared inbox', '10:12',
-        '<div class="mail"><span class="from">Jordan Lee</span><span class="subj">Order <mark data-f="1">#4471</mark> hasn&rsquo;t arrived</span></div>' +
-        '<p class="msg">I ordered last week and it still isn&rsquo;t here. Can someone check ' +
-        '<mark data-f="0" data-v="Delivery">the delivery</mark>? It&rsquo;s <mark data-f="2" data-v="High">urgent</mark>, ' +
-        'it&rsquo;s a gift for Saturday.</p><p class="msg sig">Thanks, Jordan</p>'],
-      steps: ['Reading message', 'Sorting', 'Routing to Operations'],
-      dst: ['Outlook · Operations', ['Topic', 'Order', 'Priority']],
-      typed: 'Thanks for letting us know. I’m checking order #4471 now and…',
-      done: 'Draft reply ready',
+      // Medical equipment supplier: faxed referrals become a patient and an order (Tennr cases).
+      label: 'Example build: a faxed referral becomes a patient record and an equipment order, ready for staff review.',
+      src: ['Fax', 'Page 1 of 3',
+        '<div class="doc"><span class="ln doc-h">Order / referral</span>' +
+        '<span class="ln">Patient <mark data-f="0" data-v="Maria Delgado">DELGADO, MARIA</mark></span>' +
+        '<span class="ln">DOB <mark data-f="1">04/12/1951</mark> &middot; Ins. <mark data-f="2" data-v="Medicare Part B">MEDICARE B</mark></span>' +
+        '<span class="ln">Item <mark data-f="3" data-v="Wheelchair, K0001">Std wheelchair K0001</mark></span>' +
+        '<span class="ln">Ordering: Dr. R. Shah</span></div>'],
+      steps: ['Reading fax', 'Finding patient details', 'Creating order'],
+      dst: ['Patient record · New order', ['Patient', 'Date of birth', 'Insurance', 'Item']],
+      calc: {},
+      done: 'Ready for staff review',
     },
     {
-      label: 'Example build: a client call becomes meeting notes in Google Docs, with the task added to Sheets.',
-      src: ['Client call', '32 min',
-        '<p class="line"><span class="who">Client</span>The new site looks good. One change on timing.</p>' +
-        '<p class="line"><span class="who">Client</span>Can we <mark data-f="0" data-v="Launch moves to the 14th">move the launch to the 14th</mark>?</p>' +
-        '<p class="line"><span class="who">You</span>Yes. <mark data-f="2" data-v="Sam">Sam</mark> will ' +
-        '<mark data-f="1" data-v="Send pricing sheet">send the pricing sheet</mark> by Friday.</p>' +
-        '<p class="line"><span class="who">Client</span>Perfect, talk then.</p>'],
-      steps: ['Reading transcript', 'Finding decisions', 'Filing tasks'],
-      dst: ['Google Docs · Meeting notes', ['Decision', 'Task', 'Owner']],
-      typed: '',
-      done: 'Task added to Sheets',
+      // Employment law firm: recorded intake calls become a summary for the attorney (Eve case).
+      label: 'Example build: a recorded intake call becomes a case summary with possible claims, strengths and weaknesses for the attorney.',
+      src: ['Intake call', '14 min',
+        '<p class="line"><span class="who">Intake</span>What happened after you raised it?</p>' +
+        '<p class="line"><span class="who">Caller</span>They let me go two weeks after I <mark data-f="0" data-v="Retaliation">reported the safety issue</mark>.</p>' +
+        '<p class="line"><span class="who">Caller</span>I kept the <mark data-f="1" data-v="Emails to HR">emails I sent HR</mark>.</p>' +
+        '<p class="line"><span class="who">Caller</span>I <mark data-f="2" data-v="Signed exit paperwork">signed something at the exit meeting</mark>.</p>'],
+      steps: ['Transcribing call', 'Flagging claims', 'Writing summary'],
+      dst: ['Case intake · Summary', ['Possible claim', 'Strength', 'Weakness', 'Next step']],
+      calc: { 3: 'Attorney review' },
+      done: 'Waiting for attorney review',
     },
   ];
 
@@ -86,19 +90,31 @@
   let current = 0;
   let inView = false;
 
+  // Everything that changes between scenes. The two app frames never leave
+  // the stage; only what is inside them cross-fades.
+  const contents = [srcName, srcMeta, srcBody, dstName, fields, status];
+
   const value = (m) => m.dataset.v || m.textContent;
-  const marksInOrder = () => [...srcBody.querySelectorAll('mark')]
-    .map((m, n) => [m, m.dataset.f ? Number(m.dataset.f) : n])
-    .sort((a, b) => a[1] - b[1])
-    .map(([m]) => m);
+  const marks = () => [...srcBody.querySelectorAll('mark')].sort((a, b) => a.dataset.f - b.dataset.f);
   const wait = (ms, id) => new Promise((resolve, reject) => {
     setTimeout(() => (id === run ? resolve() : reject(STOP)), ms);
   });
+  const tint = () => getComputedStyle(document.documentElement).getPropertyValue('--tracelet-teal-tint').trim();
 
   function clear() {
     stage.querySelectorAll('.chip').forEach((c) => c.remove());
-    [src, dst, relayState, statusText, ...tabs.map((t) => t.firstElementChild)]
+    [...contents, relayState, statusText, ...tabs.map((t) => t.firstElementChild)]
       .forEach((el) => el.getAnimations().forEach((a) => a.cancel()));
+  }
+
+  // Sequencing runs on timers, never on animation.finished, so a browser that
+  // throttles animations can't stall the loop.
+  function fade(els, from, to, ms, stagger = 0) {
+    els.forEach((el, n) => el.animate(
+      [{ opacity: from }, { opacity: to }],
+      { duration: ms, delay: n * stagger, easing: 'ease-out', fill: 'both' },
+    ));
+    return ms + stagger * (els.length - 1);
   }
 
   function render(i, final) {
@@ -106,15 +122,12 @@
     current = i;
     clear();
     stage.setAttribute('aria-label', s.label);
-    srcName.textContent = s.src[0];
-    srcMeta.textContent = s.src[1];
+    [srcName.textContent, srcMeta.textContent] = s.src;
     srcBody.innerHTML = s.src[2] + '<span class="scan"></span>';
     dstName.textContent = s.dst[0];
-    const marks = marksInOrder();
-    fields.innerHTML = s.dst[1].map((k, n) => `<div><dt>${k}</dt><dd>${final ? value(marks[n]) : ''}</dd></div>`).join('');
-    if (final) marks.forEach((m) => m.classList.add('hit'));
-    typed.hidden = !s.typed;
-    typed.textContent = final ? s.typed : '';
+    const byField = Object.fromEntries(marks().map((m) => [m.dataset.f, value(m)]));
+    fields.innerHTML = s.dst[1].map((k, n) => `<div><dt>${k}</dt><dd>${final ? (s.calc[n] || byField[n]) : ''}</dd></div>`).join('');
+    if (final) marks().forEach((m) => m.classList.add('hit'));
     relayState.textContent = s.steps[final ? 2 : 0];
     status.className = `app-status ${final ? 'is-done' : 'is-working'}`;
     statusText.textContent = final ? s.done : 'Working';
@@ -129,20 +142,26 @@
     relayState.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 280, easing: EASE });
   }
 
+  function land(slot, text) {
+    slot.textContent = text;
+    const t = tint();
+    slot.animate([
+      { opacity: 0, backgroundColor: t },
+      { opacity: 1, backgroundColor: t, offset: 0.3 },
+      { opacity: 1, backgroundColor: 'transparent' },
+    ], { duration: 900, easing: 'ease-out' });
+  }
+
   async function scene(i, id) {
     const s = SCENES[i];
+
+    // 1. The previous example fades out inside the same frames; the next fades in.
+    await wait(fade(contents, 1, 0, 200), id);
     render(i, false);
+    tabs[i].firstElementChild.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 8200, fill: 'forwards' });
+    await wait(fade(contents, 0, 1, 360, 40) + 200, id);
 
-    const total = 6400 + (s.typed ? s.typed.length * TYPE_MS - 500 : 0);
-    tabs[i].firstElementChild.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: total, fill: 'forwards' });
-
-    // 1. The message and the destination arrive.
-    const enter = [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }];
-    src.animate(enter, { duration: 520, easing: EASE, fill: 'both' });
-    dst.animate(enter, { duration: 520, delay: 140, easing: EASE, fill: 'both' });
-    await wait(650, id);
-
-    // 2. A scan reads it; each detail lights up as the scan passes.
+    // 2. A scan reads the document; each detail lights up as the scan passes.
     const scan = srcBody.querySelector('.scan');
     const h = srcBody.clientHeight;
     scan.animate([
@@ -152,63 +171,53 @@
       { opacity: 0, transform: `translateY(${h}px)` },
     ], { duration: SCAN_MS, easing: 'cubic-bezier(0.45, 0, 0.55, 1)' });
     const top = srcBody.getBoundingClientRect().top;
-    const marks = marksInOrder();
-    await Promise.all(marks.map(async (m) => {
+    const found = marks();
+    await Promise.all(found.map(async (m) => {
       const y = m.getBoundingClientRect().top - top;
       await wait(Math.min(SCAN_MS, ((y + 40) / (h + 40)) * SCAN_MS), id);
       m.classList.add('hit');
     }));
     await wait(250, id);
 
-    // 3. The details fly into the tool.
+    // 3. The details travel into the record one at a time, each on a shallow
+    //    arc, and settle exactly where the field's value sits.
     step(s.steps[1]);
     const box = stage.getBoundingClientRect();
     const slots = [...fields.querySelectorAll('dd')];
-    await Promise.all(marks.map(async (m, n) => {
-      await wait(n * 150, id);
+    await Promise.all(found.map(async (m, n) => {
+      await wait(n * 280, id);
+      const slot = slots[m.dataset.f];
       const a = m.getBoundingClientRect();
-      const b = slots[n].getBoundingClientRect();
+      const b = slot.getBoundingClientRect();
+      const dx = b.left - a.left;
+      const dy = b.top - a.top;
       const chip = document.createElement('span');
       chip.className = 'chip';
       chip.textContent = value(m);
       chip.style.left = `${a.left - box.left}px`;
       chip.style.top = `${a.top - box.top}px`;
       stage.append(chip);
-      const fly = chip.animate([
-        { transform: 'translate(0, 0) scale(0.9)', opacity: 0 },
-        { transform: 'translate(0, 0) scale(1)', opacity: 1, offset: 0.12 },
-        { transform: `translate(${b.left - a.left}px, ${b.top - a.top}px)`, opacity: 1 },
-      ], { duration: 820, easing: EASE, fill: 'forwards' });
-      await fly.finished.catch(() => {});
-      if (id !== run) { chip.remove(); throw STOP; }
-      slots[n].textContent = value(m);
-      const tint = getComputedStyle(document.documentElement).getPropertyValue('--tracelet-teal-tint').trim();
-      slots[n].animate([{ backgroundColor: tint }, { backgroundColor: 'transparent' }], { duration: 700, easing: 'ease-out' });
-      chip.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' }).finished.then(() => chip.remove(), () => chip.remove());
+      chip.animate([
+        { transform: 'translate(0, 0) scale(0.96)', opacity: 0 },
+        { transform: 'translate(0, 0) scale(1)', opacity: 1, offset: 0.1 },
+        { transform: `translate(${dx * 0.5 + 26}px, ${dy * 0.5}px) scale(1.03)`, offset: 0.55 },
+        { transform: `translate(${dx}px, ${dy}px) scale(1)`, opacity: 1 },
+      ], { duration: 900, easing: 'cubic-bezier(0.45, 0, 0.2, 1)', fill: 'forwards' });
+      try { await wait(900, id); } catch (e) { chip.remove(); throw e; }
+      land(slot, value(m));
+      chip.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'ease-out', fill: 'forwards' });
+      setTimeout(() => chip.remove(), 240);
     }));
 
-    // 4. The tool finishes the job.
+    // 4. The record is finished and waits for a person.
     step(s.steps[2]);
-    if (s.typed) {
-      typed.classList.add('typing');
-      for (let k = 1; k <= s.typed.length; k += 1) {
-        typed.textContent = s.typed.slice(0, k);
-        await wait(TYPE_MS, id);
-      }
-      typed.classList.remove('typing');
-    } else {
-      await wait(500, id);
-    }
+    await wait(350, id);
+    Object.entries(s.calc).forEach(([n, v]) => land(slots[n], v));
+    await wait(Object.keys(s.calc).length ? 600 : 200, id);
     status.className = 'app-status is-done';
     statusText.textContent = s.done;
     statusText.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: EASE });
     await wait(HOLD_MS, id);
-
-    // 5. Clear the stage for the next example.
-    const leave = [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-10px)' }];
-    src.animate(leave, { duration: 320, easing: EASE_IN, fill: 'forwards' });
-    dst.animate(leave, { duration: 320, delay: 60, easing: EASE_IN, fill: 'forwards' });
-    await wait(420, id);
   }
 
   async function loop(start) {

@@ -66,6 +66,11 @@ The live site also lists five add-ons (Cost Optimization Audit, Eval & Governanc
 
 - **No real case studies, client logos, testimonials, or customer counts.** The current site's case studies ("8-person marketing agency", "professional services firm") are hypothetical and must be removed, not reworded. Do not invent proof.
 - Real, showable evidence: the service terms (durations, fixed fees, month-to-month) and, once confirmed, the published pricing. Wardix and the founder exist but are deliberately not used on this page.
+- **The hero demo and "What a build looks like" are modelled on published small-business cases** (user, 2026-10-04: "base it off real world cases"). None are Seafin clients: never name them, quote their results, or imply Seafin did the work. Names, amounts and dates in the demo are illustrative. Researched 2026-10-04:
+  - Invoices → QuickBooks bill, owner approves: Skybound Bookkeeping, 2 staff (Dext, 2023-09-14) https://dext.com/us/blog/single/how-skybound-bookkeeping-unlocked-a-market-for-bookkeeping-data. Bill field labels from Intuit: https://quickbooks.intuit.com/learn-support/en-us/help-article/pay-bills/enter-bills-record-bill-payments-quickbooks-online/L1e9Ce5J7_US_en_US
+  - Carrier invoices checked against contract rates, overcharges disputed: Rebel Cheese, Claude-built agent (Fortune, 2026-05-01, independent) https://fortune.com/2026/05/01/rebel-cheese-mark-cuban-ai-shipping/
+  - Faxed referrals → patient and order: NEB Medical and FloMed (Tennr, undated) https://www.tennr.com/customer-stories/neb-medical-services
+  - Recorded intake call → claims, strengths, weaknesses for the attorney: Frontier Law Center (Eve, 2026-03-12) https://www.eve.legal/case-studies/frontier-law-center-case-study
 
 ## Product Principles
 
