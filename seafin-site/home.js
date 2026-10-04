@@ -3,7 +3,7 @@ const panel = document.getElementById('book');
 const form = document.getElementById('request');
 const nameField = document.getElementById('f-name');
 
-// Every "Book a free call" link lands on the form, cursor in the first field.
+// Every "Request a free call" link lands on the form, cursor in the first field.
 document.querySelectorAll('a[href="#book"]').forEach((a) => a.addEventListener('click', (e) => {
   e.preventDefault();
   panel.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'center' });

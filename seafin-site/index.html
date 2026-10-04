@@ -23,6 +23,7 @@
     <nav aria-label="Main">
       <ul>
         <li><a href="#services">Services</a></li>
+        <li><a href="#what-we-build">What we build</a></li>
         <li><a href="#where-it-runs">Where it runs</a></li>
       </ul>
     </nav>
@@ -32,6 +33,7 @@
 
 <main>
   <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero-top">
         <h1 id="hero-title">Your AI department, without the headcount.</h1>
@@ -74,20 +76,59 @@
     </div>
   </section>
 
-  <section class="section" id="where-it-runs" aria-labelledby="runs-title">
-    <div class="wrap head-row">
+  <section class="section" id="what-we-build" aria-labelledby="build-title">
+    <div class="wrap">
+      <h2 id="build-title">What a build looks like</h2>
+      <ul class="flows">
+        <li>
+          <p>Supplier invoices arrive by email</p>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <p class="out">Draft bills wait in QuickBooks for your approval</p>
+        </li>
+        <li>
+          <p>A lead fills in your website form</p>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <p class="out">The contact is researched and a first reply drafted in HubSpot</p>
+        </li>
+        <li>
+          <p>Customer email lands in a shared inbox</p>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <p class="out">Each message is sorted, answered in draft and routed in Outlook</p>
+        </li>
+        <li>
+          <p>A client meeting ends</p>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <p class="out">Notes, decisions and tasks land in Docs and Sheets</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band" id="where-it-runs" aria-labelledby="runs-title">
+    <div class="wrap">
       <h2 id="runs-title">Where it runs</h2>
-      <div class="compare panel">
-        <div>
+      <div class="routes">
+        <div class="route">
+          <div class="diagram" aria-hidden="true">
+            <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Your tools</span>
+            <span class="wire"></span>
+            <span class="node node-cloud"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Anthropic&rsquo;s cloud</span>
+          </div>
           <h3>On Claude</h3>
           <p>Anthropic&rsquo;s models, in Anthropic&rsquo;s cloud. Fastest to set up and the most capable. Right for most businesses.</p>
         </div>
-        <div>
+        <div class="route">
+          <div class="diagram diagram-local" aria-hidden="true">
+            <span class="fence">Your building</span>
+            <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Your tools</span>
+            <span class="wire"></span>
+            <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>Your server</span>
+          </div>
           <h3>On your own servers</h3>
           <p>Open-source models on your hardware or private cloud, for data that can&rsquo;t leave the building. Common in healthcare, legal, finance and government contracting.</p>
         </div>
-        <p class="fit">The audit tells you which one fits.</p>
       </div>
+      <p class="fit">The audit tells you which one fits.</p>
     </div>
   </section>
 </main>
