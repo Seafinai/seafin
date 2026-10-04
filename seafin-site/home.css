@@ -49,7 +49,7 @@
     --line: #262c44; --line-soft: #1e2438; --line-strong: #3a4466; --danger: #ff8a80;
     --bg: #0b0e1a; --paper: #121732; --paper-2: #0f1430;
     --tracelet-indigo-tint: #1b2150; --tracelet-teal-tint: #0c2c3a;
-    --tracelet-teal: #38b3da;
+    --tracelet-teal: #38b3da; --tracelet-teal-deep: #8fd6ee;
     --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.4);
     --shadow-3: 0 18px 40px rgba(0, 0, 0, 0.5);
     --brand-gradient: linear-gradient(100deg, #2b35a8 0%, #0a85b6 62%, #38b3da 100%);
