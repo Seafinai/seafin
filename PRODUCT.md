@@ -36,19 +36,20 @@ Visitors evaluate Seafin before booking a call. The company is founder-led (Rob 
 - AI Concierge — $1,500–$5K/mo, month-to-month
 - Sovereign / self-hosted AI as a specialty
 
-**Products on the homepage** (user, 2026-10-04) — status differs and the page must not overstate any of it:
-- **Wardix** — self-hosted Windows infrastructure monitoring appliance. **Available now**, v1.1.35. Community free (15 checks), Standard $49/mo, Pro $99/mo (AI-assisted triage). Product site live at `tracelet.seafin.ai` (branded Wardix; currently never mentions Seafin).
-- **Authwell** — AI-powered prior-authorization management for small medical practices. Phases 1–7 built. **Currently offline**: `authwell.seafin.ai` returns HTTP 526 and the GitHub repo is archived.
-- **Remana** — aging-in-place SaaS: SMS medication reminders, family dashboard, nurse concierge (planned $99/$299/mo). **Prototype**: `v0-remana.vercel.app` returns 404; last code change Feb 2026.
-- **Wardex Operator** — agent-native monitoring and operations; planned successor to Wardix. **In early development (Phase 0), not a production product.**
+The live site also lists five add-ons (Cost Optimization Audit, Eval & Governance, Migration, Fine-Tuning, Sovereign AI build $25–150K + GPU). Not confirmed for the new homepage.
 
-**Claims that are safe for Wardix** (verified in code, `licensing.py`, `routes/license.py`, `app_update_vendor.py`): runs on the customer's own Windows server; license verified offline; no install reporting to Seafin in current code. It *does* contact Seafin's server to check for updates (can be pointed elsewhere), and optional AI triage uses the customer's own model key or a local model. Do **not** claim "never contacts the internet."
+**Products on the homepage** (user, 2026-10-04; facts verified 2026-10-04) — status differs and the page must not overstate any of it:
+- **Wardix** — self-hosted Windows infrastructure monitoring appliance. **Available now.** Published release is **1.1.9** (vendor API `/v1/releases/latest`, 2026-08-12); 1.1.35 is unreleased source on `dev`. Community is free; Standard $49/mo; Pro $99/mo. The Community check cap is **inconsistent** (live site says 15; code and hosted API say 50) — state no number. Paid checkout is **unconfirmed** (production license key mismatch; Stripe IDs labelled test mode) — the homepage offers the free download, not "Buy". The Community download requires an emailed sign-in link. Product site live at `tracelet.seafin.ai` (branded Wardix; never mentions Seafin).
+- **Authwell** — AI-powered prior-authorization management for small medical practices (case board, denial analysis and appeals, document intake, payer rules, outbound fax, analytics). Marketing site live at `authwell.vercel.app`; the app at `authwell.seafin.ai` fails at the Cloudflare edge (526); repo archived. Its own site says "HIPAA compliant" while its roadmap lists PII redaction before LLM calls as open — **do not repeat any compliance claim**.
+- **Remana** — aging-in-place SaaS: SMS medication reminders, family dashboard, nurse concierge. **Prototype**: no live deployment; last code change Feb 2026.
+- **Wardex Operator** — agent-native monitoring and operations; planned successor to Wardix. **Prototype, not customer-ready** (README: Phase 0 open; very active development since Aug 2026).
 
-**Domains:** `seafin.ai` and `www.seafin.ai` do not resolve today; `wardix.ai` is not registered. Fixing DNS is out of scope for design work.
+**Data-handling claims for Wardix** (verified in code): runs on the customer's own Windows server; the license is verified offline; monitoring data stays on that server. Every 12 hours the update check sends Seafin the install ID, version, hashed machine ID and license state (`app_update_vendor.py:493-518`). Optional AI triage uses the customer's own model key or a local model. Do **not** claim "nothing leaves your network" or "never contacts the internet."
+
+**Domains:** `seafin.ai` is registered with Cloudflare DNS (mail works) but has no web record, so it doesn't load; `www.seafin.ai` returns 522. `wardix.ai` and `authwell.ai` are unregistered even though `hello@wardix.ai` and `hello@authwell.ai` are published contact addresses. Fixing DNS is out of scope for design work.
 
 **Open decisions:**
-- How to present Authwell (offline) and Remana (prototype): "in development", "built for clients", or link-less.
-- Whether the consulting prices above still hold.
+- Whether the five add-ons stay on the homepage.
 - Whether `personal.html` / `welcome.html` (Seafin Personal) are retired.
 
 ## Brand Commitments
