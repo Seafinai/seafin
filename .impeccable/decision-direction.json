@@ -1,0 +1,87 @@
+{
+  "title": "Choose the visual world for the Seafin homepage",
+  "question": "The roll landed on the Equipment Nameplate. Keep it, take the pick, take the category standard, or re-roll. Three more dealt worlds wait in the re-roll pool.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Equipment Nameplate",
+      "kicker": "THE ROLL",
+      "lineage": "engraved rating plates on equipment a business owns",
+      "thesis": "AI as equipment you own: plated, installed where you choose, serviced by the person who built it.",
+      "palette": ["#c8cbcc", "#16181a", "#1e4a8a", "#f2b705"],
+      "materials": ["anodized aluminum", "engraved black-fill lettering", "screw heads at the corners"],
+      "viewport": "One full-width anodized plate: 'Your AI department' engraved large, the three services as plate fields, where it runs, who services it, and a stamped 'Book a discovery call' button; Wardix's real console starts just below.",
+      "risk": "Brushed-metal skeuomorphism dates fast; it has to be flat anodized color and crisp engraving, never a photo texture, and no fake serial numbers.",
+      "raised": [
+        { "from": "challenger-deep-dive", "raise": "One label column (Service, Runs on, Serviced by) runs down the whole page; every section is a row on it." },
+        { "from": "challenger-teletext", "raise": "One strict engraving grid: every line of type sits on the plate's ruled grid, nothing off-grid." },
+        { "from": "challenger-command-wall", "raise": "One field engraved at monumental scale: who owns what gets built." }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "The Industrial Supply Catalog",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "McMaster-Carr style parts catalogs",
+      "thesis": "Services and products listed like specified parts: exact, dense, line-drawn, nothing hyped.",
+      "palette": ["#ffffff", "#1a1a1a", "#2f6b3a", "#ffd400"],
+      "materials": ["line drawings", "dense spec tables", "hairline rules"],
+      "viewport": "A catalog page: the three services and Wardix as numbered entries with line drawings and spec rows, the discovery call as the order button.",
+      "risk": "Catalogs live on prices and yours are hidden; and the utilitarian-catalog look is a known favourite many design-led sites already borrow."
+    },
+    {
+      "id": "challenger-teletext",
+      "label": "Teletext Service",
+      "verdict": "declined",
+      "lineage": "broadcast teletext magazines",
+      "thesis": "The site as a broadcast index of numbered pages.",
+      "palette": ["#000000", "#ffff00", "#00ffff", "#ffffff"],
+      "materials": ["block mosaic", "bitmap type"],
+      "viewport": "Page 100 index, consulting and Wardix on their own numbered pages.",
+      "case": "Very clear structure, but US small-business owners don't know teletext; it reads as novelty.",
+      "kept": "A strict grid nothing sits off.",
+      "risk": "Retro novelty instead of trust.",
+      "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp"
+    },
+    {
+      "id": "challenger-deep-dive",
+      "label": "Mesophotic Deep Dive",
+      "verdict": "declined",
+      "lineage": "technical reef diving",
+      "thesis": "Scrolling as a descent, services as depth stops.",
+      "palette": ["#071a2e", "#0b3a5c", "#8fe3f0", "#f4f6f6"],
+      "materials": ["falling marine snow", "dive-computer digits"],
+      "viewport": "A descent from turquoise surface to dark depth.",
+      "case": "It's the literal 'Seafin = ocean' reading; regulated-business owners don't identify with technical diving, and depth hides the offer.",
+      "kept": "One vertical axis rules every line.",
+      "risk": "Mood over message.",
+      "hero": "https://impeccable.style/worlds/cards/rivers-tides-ocean-depths-mesophotic-deep-dive-hero.webp"
+    },
+    {
+      "id": "challenger-command-wall",
+      "label": "Anime Command Wall",
+      "verdict": "declined",
+      "lineage": "nineties mecha-anime crisis screens",
+      "thesis": "Monitoring as a crisis wall of readings and countdowns.",
+      "palette": ["#000000", "#ff7a00", "#9cff2e", "#ff2a2a"],
+      "materials": ["hazard chevrons", "seven-segment digits"],
+      "viewport": "An orange-on-black wall of Wardix readings.",
+      "case": "Neon on black is the AI-site cliché, and an alarm wall frightens the owner it should reassure.",
+      "kept": "One reading at monumental scale.",
+      "risk": "Alarm instead of calm.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-anime-command-center-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What small AI consultancies ship, executed well.",
+    "palette": ["#ffffff", "#0f172a", "#2563eb"],
+    "materials": ["clean grid", "founder photo"],
+    "viewport": "Outcome headline and a book-a-call button beside the founder's photo, three service cards, a process strip, FAQ.",
+    "risk": "Looks like every other AI consultancy, by design."
+  },
+  "steer": true
+}
