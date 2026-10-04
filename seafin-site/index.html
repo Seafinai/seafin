@@ -28,7 +28,7 @@
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
-    <a class="btn btn-primary" href="#book">Book a free call</a>
+    <a class="btn btn-primary" href="#book">Request a free call</a>
   </div>
 </header>
 
@@ -53,7 +53,7 @@
           <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
           <label><span>What would you hand off first? <span class="opt">Optional</span></span><textarea name="message" rows="3" maxlength="500"></textarea></label>
           <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn btn-primary" type="submit">Book a free call</button>
+          <button class="btn btn-primary" type="submit">Request a free call</button>
           <p class="status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -61,7 +61,7 @@
   </section>
 
   <section class="section" id="services" aria-labelledby="services-title">
-    <div class="wrap head-row">
+    <div class="wrap stack">
       <h2 id="services-title">Services</h2>
       <ul class="offers panel">
         <li>
@@ -93,8 +93,8 @@
             <h3>On your own servers</h3>
             <p>Open models on your hardware or private cloud. For healthcare, legal, finance and government contractors.</p>
           </div>
+          <p class="fit">The audit tells you which one fits.</p>
         </div>
-        <p class="fit">The audit tells you which one fits.</p>
       </div>
     </div>
   </section>
@@ -109,15 +109,14 @@
         <div>
           <ul class="chips">
             <li>Free to start</li>
-            <li>Runs on your Windows server</li>
-            <li>Monitoring data stays on that server</li>
+            <li>Monitoring data stays on your server</li>
           </ul>
           <a class="btn btn-secondary" href="https://tracelet.seafin.ai">Get Wardix free</a>
         </div>
       </div>
       <figure class="shot">
         <picture>
-          <source media="(max-width: 560px)" srcset="assets/wardix-dashboard-mobile.png" width="678" height="356">
+          <source media="(max-width: 560px)" srcset="assets/wardix-dashboard-mobile.png" width="336" height="372">
           <img src="assets/wardix-dashboard.png" width="1392" height="412" loading="lazy"
                alt="Wardix dashboard: system health, applications, network, outages, response times and open incidents for the last 24 hours.">
         </picture>
@@ -125,43 +124,20 @@
     </div>
   </section>
 
-  <section class="section" id="projects" aria-labelledby="projects-title">
-    <div class="wrap head-row">
-      <h2 id="projects-title">Other projects</h2>
-      <ul class="projects">
-        <li><h3>Authwell</h3><p>Prior authorization for small medical practices: case tracking, denial appeals and payer rules.</p></li>
-        <li><h3>Remana</h3><p>Medication reminders and a family dashboard for seniors living at home.</p></li>
-        <li><h3>Wardex Operator</h3><p>Agent-driven monitoring and operations.</p></li>
-      </ul>
-    </div>
-  </section>
-
   <section class="section" id="about" aria-labelledby="about-title">
-    <div class="wrap head-row">
-      <h2 id="about-title">Who you work with</h2>
+    <div class="wrap duo">
       <div>
+        <h2 id="about-title">Who you work with</h2>
         <p class="person">Rob Crider <span>Founder, Seafin LLC</span></p>
-        <p class="about-text">I audit your business, write the scope and ship the build myself. No hand-off to a junior after the sale. If a project is bigger than I can handle, I&rsquo;ll say so in the audit and point you to the right option, even if that isn&rsquo;t us.</p>
+        <p class="about-text">Rob audits your business, writes the scope and ships the build himself. No hand-off to a junior after the sale. If a project is too big for one person, he says so in the audit and points you to the right option, even if that isn&rsquo;t Seafin.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="questions" aria-labelledby="questions-title">
-    <div class="wrap head-row">
-      <h2 id="questions-title">Questions</h2>
-      <div class="qa panel">
-        <details>
-          <summary>Do we need anyone technical on staff?</summary>
-          <p>No. We set it up, train your team, and keep it running if you want us to.</p>
-        </details>
-        <details>
-          <summary>Do you only work with Claude?</summary>
-          <p>Mostly. We also work with ChatGPT, Gemini and open models when the job calls for it.</p>
-        </details>
-        <details>
-          <summary>What does it cost?</summary>
-          <p>It depends on scope. The audit and every build are fixed price, agreed before we start. You&rsquo;ll have a number after the first call.</p>
-        </details>
+      <div id="projects">
+        <h2 id="projects-title">Other projects</h2>
+        <ul class="projects">
+          <li><h3>Authwell</h3><p>Prior authorization for small medical practices: case tracking, denial appeals and payer rules.</p></li>
+          <li><h3>Remana</h3><p>Medication reminders and a family dashboard for seniors living at home.</p></li>
+          <li><h3>Wardex Operator</h3><p>Agent-driven monitoring and operations.</p></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -171,7 +147,7 @@
   <div class="wrap">
     <h2 id="close-title">Start with a free call.</h2>
     <div class="actions">
-      <a class="btn btn-primary" href="#book">Book a free call</a>
+      <a class="btn btn-primary" href="#book">Request a free call</a>
       <a class="mail" href="mailto:hello@seafin.ai">hello@seafin.ai</a>
     </div>
   </div>
