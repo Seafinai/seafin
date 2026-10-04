@@ -25,7 +25,6 @@
   --r-control: 6px;
   --r-input: 10px;
   --r-panel: 14px;
-  --r-media: 26px;
 
   --shadow-1: 0 1px 2px rgba(15, 21, 86, 0.06), 0 1px 3px rgba(15, 21, 86, 0.04);
   --shadow-2: 0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04);
@@ -149,7 +148,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   background: var(--paper-2); border: 1px solid var(--line-strong); border-radius: var(--r-input);
   padding: 11px 13px; transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
 }
-.book input:hover { border-color: var(--line-strong); }
+.book input:hover { border-color: color-mix(in srgb, var(--line-strong) 55%, var(--ink-500)); }
 .book input:focus-visible { outline: none; border-color: var(--tracelet-teal); box-shadow: 0 0 0 3px var(--tracelet-teal-tint); }
 .book .btn { min-height: 46px; font-size: 1rem; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
@@ -164,7 +163,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .section { padding-block: clamp(56px, 7vw, 96px); }
 .section + .section { border-top: 1px solid var(--line); }
 .section h2 { font: 600 clamp(1.875rem, 3vw, 2.5rem)/1.12 var(--font-serif); letter-spacing: -0.015em; }
-.head-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 24px clamp(32px, 5vw, 72px); align-items: start; }
 
 
 /* services: the index of what we sell, directly under the form */
@@ -221,7 +219,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
-  .hero-top, .head-row { grid-template-columns: 1fr; }
+  .hero-top { grid-template-columns: 1fr; }
   .offers li { grid-template-columns: 1fr; gap: 4px; }
   .offers p { margin-top: 6px; }
 }

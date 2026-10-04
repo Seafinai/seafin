@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T00:00:00Z",
+  "generatedAt": "2026-10-04T15:00:00Z",
   "title": "Design System: Seafin",
   "extensions": {
     "inheritsFrom": {
@@ -39,22 +39,6 @@
           "#e8eaf5"
         ]
       },
-      "indigo-tint": {
-        "role": "primary",
-        "displayName": "Indigo Tint",
-        "canonical": "#e8eaf5",
-        "tonalRamp": [
-          "#0a0e3a",
-          "#0f1556",
-          "#1a227e",
-          "#2b35a8",
-          "#4a54c0",
-          "#7f87d6",
-          "#b9bee9",
-          "#e8eaf5"
-        ],
-        "dark": "#1b2150"
-      },
       "teal": {
         "role": "secondary",
         "displayName": "Signal Teal",
@@ -84,7 +68,8 @@
           "#38b3da",
           "#9fd8ec",
           "#e1f4f9"
-        ]
+        ],
+        "dark": "#8fd6ee"
       },
       "teal-soft": {
         "role": "secondary",
@@ -298,21 +283,29 @@
         "name": "brand-gradient",
         "value": "linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)",
         "dark": "linear-gradient(100deg, #2b35a8 0%, #0a85b6 62%, #38b3da 100%)",
-        "purpose": "Primary action only."
+        "purpose": "\"Request a free call\" buttons and the favicon tile only. The hero grid and teal glow are the upstream hero treatment, not this gradient."
       }
     ],
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero H1 only; serif."
+        "purpose": "Hero H1 only; serif, white on the dark hero."
       },
       "headline": {
         "displayName": "Headline",
         "purpose": "Section and closing-band H2s; serif."
       },
+      "index": {
+        "displayName": "Index",
+        "purpose": "Service names in the practice index; serif."
+      },
       "title": {
         "displayName": "Title",
-        "purpose": "Panel, card and list titles; Public Sans bold."
+        "purpose": "Panel titles (route H3s); Public Sans bold. Form-bar heading uses 1.0625rem."
+      },
+      "body-large": {
+        "displayName": "Body Large",
+        "purpose": "Flow rows: input ink-500, result ink-900 at 600."
       },
       "body": {
         "displayName": "Body",
@@ -320,11 +313,15 @@
       },
       "lede": {
         "displayName": "Lede",
-        "purpose": "Hero sentence; product line uses 1.1875rem."
+        "purpose": "Hero sentence beside the H1, #b9c4de on the dark hero, max 40ch."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Geist Mono uppercase: fact-row terms and duration tags below a title only."
+        "purpose": "Geist Mono uppercase teal: duration tags beside or beneath their title, and the one diagram boundary label (0.6875rem). Never above a heading or leading a row."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Primary button label."
       },
       "field-label": {
         "displayName": "Field label",
@@ -335,13 +332,18 @@
       {
         "name": "shadow-1",
         "value": "0 1px 2px rgba(15, 21, 86, 0.06), 0 1px 3px rgba(15, 21, 86, 0.04)",
-        "purpose": "Resting panels and buttons."
+        "purpose": "Resting: the routes panel and primary buttons. Keeps its indigo tint in dark mode."
       },
       {
         "name": "shadow-2",
         "value": "0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04)",
         "dark": "0 4px 14px rgba(0, 0, 0, 0.4)",
-        "purpose": "Form panel, media frame, button hover."
+        "purpose": "Raised: button hover and the form bar sent state only."
+      },
+      {
+        "name": "hero-lift",
+        "value": "0 24px 56px rgba(3, 6, 30, 0.45)",
+        "purpose": "The form bar on the dark hero only."
       },
       {
         "name": "shadow-3",
@@ -352,7 +354,7 @@
       {
         "name": "focus-halo",
         "value": "0 0 0 3px var(--tracelet-teal-tint)",
-        "purpose": "Input focus and form-panel sent state."
+        "purpose": "Input focus and form-bar sent state."
       }
     ],
     "motion": [
@@ -369,12 +371,22 @@
       {
         "name": "panel-sent",
         "value": "400ms ease-out",
-        "purpose": "Form panel border and halo on success."
+        "purpose": "Form bar border, halo and Raised shadow on success."
       },
       {
         "name": "settle",
         "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
         "purpose": "Confirmation line fades up 4px. All motion off under prefers-reduced-motion."
+      },
+      {
+        "name": "wire-flow",
+        "value": "900ms linear infinite",
+        "purpose": "Dashed diagram wires drift 10px per cycle; the only continuous motion on the page. Off under prefers-reduced-motion."
+      },
+      {
+        "name": "wire-flow",
+        "value": "900ms linear infinite",
+        "purpose": "Dashed diagram wires drift 10px per cycle; the only continuous motion on the page. Off under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -387,14 +399,16 @@
         "value": "760px"
       },
       {
-        "name": "narrow",
-        "value": "560px"
-      },
-      {
         "name": "phone",
         "value": "480px"
       }
-    ]
+    ],
+    "heroTreatment": {
+      "source": "tracelet-vendor/pages/css/tracelet-landing.css (hero grid, 54px)",
+      "field": "#0f1556 (dark mode #070a18)",
+      "grid": "linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px); background-size 54px 54px; mask radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%)",
+      "glow": "radial-gradient(closest-side, rgba(0, 118, 163, 0.35), transparent), blur(30px), bottom right"
+    }
   },
   "components": [
     {
@@ -406,52 +420,52 @@
       "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 20px; font:700 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border:1px solid transparent; border-radius:6px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); cursor:pointer; transition:box-shadow 160ms ease-out, filter 160ms ease-out, transform 160ms ease-out; } .ds-btn-primary:hover { filter:brightness(1.08); box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-btn-primary:active { transform:translateY(1px); filter:brightness(0.96); } .ds-btn-primary:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
     },
     {
-      "name": "Secondary Button",
-      "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "Quiet outbound action beside product proof.",
-      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Get Wardix free</a>",
-      "css": ".ds-btn-secondary { display:inline-flex; align-items:center; min-height:44px; padding:0 20px; font:700 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; text-decoration:none; color:var(--ink-900, #1a1f2a); background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:6px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); transition:box-shadow 160ms ease-out, border-color 160ms ease-out; } .ds-btn-secondary:hover { border-color:var(--line-strong, #cbd2dc); box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-btn-secondary:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
-    },
-    {
       "name": "Labelled Input",
       "kind": "input",
       "refersTo": "input",
-      "description": "Label above, paper-2 field, teal border plus 3px teal-tint halo on focus.",
+      "description": "Label above, paper-2 field with a line-strong border; teal border plus 3px teal-tint halo on focus.",
       "html": "<label class=\"ds-field\">Work email<input class=\"ds-input\" type=\"email\"></label>",
-      "css": ".ds-field { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-input { min-height:46px; font:400 1rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); background:var(--paper-2, #fbfcfe); border:1px solid var(--line, #e2e6ec); border-radius:10px; padding:11px 13px; transition:border-color 140ms ease-out, box-shadow 140ms ease-out; } .ds-input:hover { border-color:var(--line-strong, #cbd2dc); } .ds-input:focus-visible { outline:none; border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9); }"
+      "css": ".ds-field { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-input { min-height:46px; font:400 1rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); background:var(--paper-2, #fbfcfe); border:1px solid var(--line-strong, #cbd2dc); border-radius:10px; padding:11px 13px; transition:border-color 140ms ease-out, box-shadow 140ms ease-out; } .ds-input:focus-visible { outline:none; border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9); }"
     },
     {
       "name": "Navigation",
       "kind": "nav",
       "refersTo": "nav",
-      "description": "Sticky translucent bar: serif wordmark, sans links, primary button right. Links hide at <=760px on the one-page build.",
-      "html": "<header class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Seafin</a><ul><li><a href=\"#\">Services</a></li><li><a href=\"#\">Where it runs</a></li><li><a href=\"#\">About</a></li></ul></header>",
+      "description": "Sticky translucent white bar over the dark hero: serif wordmark, three sans links, primary button right. Links hide at <=760px on the one-page build.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Seafin</a><ul><li><a href=\"#\">Services</a></li><li><a href=\"#\">What we build</a></li><li><a href=\"#\">Where it runs</a></li></ul></header>",
       "css": ".ds-nav { display:flex; align-items:center; gap:32px; min-height:64px; padding:0 24px; background:color-mix(in srgb, var(--paper, #fff) 94%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line, #e2e6ec); } .ds-wordmark { font:700 1.375rem/1 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.02em; color:var(--ink-900, #1a1f2a); text-decoration:none; } .ds-nav ul { display:flex; gap:28px; margin:0 0 0 auto; padding:0; list-style:none; } .ds-nav ul a { font:500 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); text-decoration:none; } .ds-nav ul a:hover { color:var(--ink-900, #1a1f2a); } .ds-nav a:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
     },
     {
-      "name": "Form Panel",
+      "name": "Hero with Form Bar",
       "kind": "custom",
-      "refersTo": "form-panel",
-      "description": "Signature: the one action in the first viewport; the sent state (shown on hover here) warms the border to teal with a teal-tint halo.",
-      "html": "<div class=\"ds-book\"><h2>Free 30-minute call</h2><p>We'll tell you whether AI is worth it for your business.</p><p class=\"ds-book-status\">Request sent. Rob will reply by email.</p></div>",
-      "css": ".ds-book { max-width:400px; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; padding:28px; box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); transition:border-color 400ms ease-out, box-shadow 400ms ease-out; } .ds-book h2 { margin:0; font:700 1.3125rem/1.25 \"Public Sans\", Helvetica, Arial, sans-serif; letter-spacing:-0.01em; color:var(--ink-900, #1a1f2a); } .ds-book p { margin:6px 0 0; color:var(--ink-500, #4a5568); } .ds-book-status { font-weight:600; } .ds-book:hover { border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9), 0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); }"
+      "refersTo": "hero",
+      "description": "Signature: the upstream Wardix dark opening (Deep Indigo, 54px grid, radial mask, teal glow) carrying the white form bar on Hero Lift. Hover shows the sent state.",
+      "html": "<section class=\"ds-hero\"><div class=\"ds-hero-grid\"></div><h1>Your AI department, without the headcount.</h1><div class=\"ds-book\"><div class=\"ds-book-head\"><h2>Free 30-minute call</h2><p>We’ll tell you whether AI is worth it for your business.</p></div><div class=\"ds-book-row\"><label>Name<span class=\"ds-book-input\"></span></label><label>Work email<span class=\"ds-book-input\"></span></label><span class=\"ds-book-btn\">Request a free call</span></div></div></section>",
+      "css": ".ds-hero { position:relative; isolation:isolate; overflow:hidden; padding:48px 28px; background:var(--tracelet-indigo-deep, #0f1556); color:#e9ecf6; } .ds-hero-grid { position:absolute; inset:0; z-index:-1; background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:54px 54px; -webkit-mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); } .ds-hero::after { content:\"\"; position:absolute; z-index:-1; right:-10%; bottom:-45%; width:70%; height:90%; background:radial-gradient(closest-side, rgba(0,118,163,.35), transparent); filter:blur(30px); } .ds-hero h1 { margin:0; color:#fff; font:600 2.75rem/1.02 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.025em; } .ds-book { margin-top:28px; padding:18px 20px 20px; background:var(--paper, #fff); border:1px solid transparent; border-radius:14px; box-shadow:0 24px 56px rgba(3,6,30,.45); transition:border-color 400ms ease-out, box-shadow 400ms ease-out; } .ds-book-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; } .ds-book h2 { margin:0; font:700 1.0625rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; letter-spacing:-0.01em; color:var(--ink-900, #1a1f2a); } .ds-book p { margin:0; font:400 1rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-book-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; gap:12px; align-items:end; margin-top:14px; } .ds-book label { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-book-input { display:block; min-height:46px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-strong, #cbd2dc); border-radius:10px; } .ds-book-btn { display:inline-flex; align-items:center; min-height:46px; padding:0 20px; font:700 1rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border-radius:6px; white-space:nowrap; } .ds-book:hover { border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9), 0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } @media (max-width:760px) { .ds-book-row { grid-template-columns:1fr; } }"
     },
     {
-      "name": "Ruled List Panel",
+      "name": "Practice Index",
+      "kind": "custom",
+      "refersTo": "index-row",
+      "description": "Signature: the services as open ruled rows under a 1px ink-900 rule; serif name, teal mono tag and description on one baseline. No panel, no shadow.",
+      "html": "<ul class=\"ds-index\"><li><h3>Strategy Audit</h3><span class=\"ds-term\">1 week</span><p>A working session, then a written report and a 90-day plan.</p></li><li><h3>Managed AI</h3><span class=\"ds-term\">Month to month</span><p>We keep it running. Cancel any time.</p></li></ul>",
+      "css": ".ds-index { margin:0; padding:0; list-style:none; border-top:1px solid var(--ink-900, #1a1f2a); } .ds-index li { display:grid; grid-template-columns:minmax(0,16rem) minmax(0,13.5rem) minmax(0,1fr); gap:6px 32px; align-items:baseline; padding-block:24px; border-bottom:1px solid var(--line, #e2e6ec); } .ds-index h3 { margin:0; font:600 clamp(1.625rem, 2.4vw, 2.125rem)/1.15 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; color:var(--ink-900, #1a1f2a); } .ds-term { display:block; font:600 0.75rem/1.5 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-index p { margin:0; max-width:60ch; color:var(--ink-500, #4a5568); } @media (max-width:960px) { .ds-index li { grid-template-columns:1fr; gap:4px; } .ds-index p { margin-top:6px; } }"
+    },
+    {
+      "name": "Flow Rows",
+      "kind": "custom",
+      "refersTo": "flow-row",
+      "description": "Full-width ruled rows: input, drawn teal arrow, result. No label leads a row; the arrow turns down when stacked.",
+      "html": "<ul class=\"ds-flows\"><li><p>Supplier invoices arrive by email</p><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><p class=\"ds-out\">Draft bills wait in QuickBooks for your approval</p></li><li><p>A client meeting ends</p><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><p class=\"ds-out\">Notes, decisions and tasks land in Docs and Sheets</p></li></ul>",
+      "css": ".ds-flows { margin:0; padding:0; list-style:none; } .ds-flows li { display:grid; grid-template-columns:minmax(0,1fr) 22px minmax(0,1.25fr); gap:6px clamp(20px,3vw,40px); align-items:center; padding-block:22px; border-top:1px solid var(--line, #e2e6ec); } .ds-flows li:last-child { border-bottom:1px solid var(--line, #e2e6ec); } .ds-flows p { margin:0; font:400 1.125rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-flows .ds-out { color:var(--ink-900, #1a1f2a); font-weight:600; } .ds-arrow { width:22px; height:22px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; } @media (max-width:760px) { .ds-flows li { grid-template-columns:1fr; } .ds-arrow { transform:rotate(90deg); } }"
+    },
+    {
+      "name": "Routes Panel",
       "kind": "card",
       "refersTo": "panel",
-      "description": "Related items as rows in one 14px panel divided by line-soft; never a card grid. Mono duration tag sits below the title.",
-      "html": "<ul class=\"ds-offers\"><li><div><h3>Strategy Audit</h3><span class=\"ds-term\">1 week</span></div><p>A working session, then a written report and a 90-day plan.</p></li><li><div><h3>Managed AI</h3><span class=\"ds-term\">Month to month</span></div><p>We keep it running.</p></li></ul>",
-      "css": ".ds-offers { margin:0; padding:0; list-style:none; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); } .ds-offers li { display:grid; grid-template-columns:minmax(0,13rem) minmax(0,1fr); gap:6px 32px; padding:26px 28px; } .ds-offers li + li { border-top:1px solid var(--line-soft, #eef0f4); } .ds-offers h3 { margin:0; font:700 1.1875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-term { display:block; margin-top:6px; font:600 0.75rem/1.5 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-offers p { margin:0; color:var(--ink-500, #4a5568); }"
-    },
-    {
-      "name": "Media Frame",
-      "kind": "custom",
-      "refersTo": "media-frame",
-      "description": "Real product screenshot in a 26px paper frame with a concentric 14px inner radius.",
-      "html": "<figure class=\"ds-shot\"><div class=\"ds-shot-img\"></div></figure>",
-      "css": ".ds-shot { margin:0; padding:14px; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:26px; box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-shot-img { height:160px; border-radius:14px; background:var(--bg, #f5f6f9); border:1px solid var(--line-soft, #eef0f4); }"
+      "description": "Two options in one 14px panel split by a line-soft divider, each with a route diagram: drawn teal icons, an animated dashed wire, and a dashed teal boundary with a mono label on the self-hosted side.",
+      "html": "<div class=\"ds-routes\"><div class=\"ds-route\"><div class=\"ds-diagram\"><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><path d=\"M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z\"/></svg>Anthropic’s cloud</span></div><h3>On Claude</h3><p>Fastest to set up. Right for most businesses.</p></div><div class=\"ds-route\"><div class=\"ds-diagram ds-diagram-local\"><span class=\"ds-fence\">Your building</span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"8\" rx=\"2\"/><rect x=\"2\" y=\"14\" width=\"20\" height=\"8\" rx=\"2\"/><path d=\"M6 6h.01M6 18h.01\"/></svg>Your server</span></div><h3>On your own servers</h3><p>For data that can’t leave the building.</p></div></div>",
+      "css": ".ds-routes { display:grid; grid-template-columns:1fr 1fr; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); } .ds-route { padding:28px; } .ds-route + .ds-route { border-left:1px solid var(--line-soft, #eef0f4); } .ds-route h3 { margin:24px 0 8px; font:700 1.1875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-route p { margin:0; color:var(--ink-500, #4a5568); } .ds-diagram { position:relative; display:flex; align-items:flex-start; padding:26px 20px 20px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-soft, #eef0f4); border-radius:10px; } .ds-diagram-local { border:1.5px dashed var(--tracelet-teal, #0076a3); } .ds-fence { position:absolute; top:-0.6rem; left:16px; padding:0 6px; background:var(--paper, #fff); font:600 0.6875rem/1.2rem \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-node { flex:none; width:7.5rem; display:grid; justify-items:center; gap:10px; text-align:center; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-node svg { width:36px; height:36px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; } .ds-wire { flex:1; height:2px; margin:17px 4px 0; background-image:linear-gradient(90deg, var(--tracelet-teal-soft, #38b3da) 55%, transparent 0); background-size:10px 2px; animation:ds-flow 900ms linear infinite; } @keyframes ds-flow { to { background-position:10px 0; } } @media (prefers-reduced-motion: reduce) { .ds-wire { animation:none; } } @media (max-width:760px) { .ds-routes { grid-template-columns:1fr; } .ds-route + .ds-route { border-left:0; border-top:1px solid var(--line-soft, #eef0f4); } }"
     },
     {
       "name": "Closing Band",
@@ -459,23 +473,28 @@
       "refersTo": "closing-band",
       "description": "Full-bleed bastion navy band; serif headline beside the primary action; identical in both modes.",
       "html": "<section class=\"ds-close\"><h2>Start with a free call.</h2><a class=\"ds-close-mail\" href=\"#\">hello@seafin.ai</a></section>",
-      "css": ".ds-close { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px 48px; padding:56px 32px; background:#071426; color:#e9ecf6; } .ds-close h2 { margin:0; color:#fff; font:600 2.25rem/1.12 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; } .ds-close-mail { color:#9fd8ec; } .ds-close-mail:hover { color:#fff; } .ds-close-mail:focus-visible { outline:2px solid #38b3da; outline-offset:3px; }"
+      "css": ".ds-close { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px 48px; padding:clamp(56px, 7vw, 96px) 32px; background:#071426; color:#e9ecf6; } .ds-close h2 { margin:0; color:#fff; font:600 2.25rem/1.12 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; } .ds-close-mail { color:#9fd8ec; } .ds-close-mail:hover { color:#fff; } .ds-close-mail:focus-visible { outline:2px solid #38b3da; outline-offset:3px; }"
     }
   ],
   "narrative": {
     "northStar": "Vigilant Infrastructure (inherited)",
-    "overview": "Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` (\"Vigilant Infrastructure\") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.\n\nThe page should look like it comes from the same company as Wardix: a light cool canvas, white panels with hairline borders and quiet indigo-tinted shadows, serif page headings, sans everything else, and one gradient button. Restraint carries the premium feel. Density is moderate: generous section spacing around compact, scannable content (ruled lists, fact rows, a single form).\n\nSeafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no scenic hero photograph: the Wardix landscape library would make Seafin read as a copy of the Wardix site, so Seafin's only imagery is the real Wardix product screenshot, shown as proof. Resting panels use the light and medium shadows only; the strong shadow is kept for overlays, as upstream `design.md` says. And the gradient is narrowed to the single primary action.",
+    "overview": "Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` (\"Vigilant Infrastructure\") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.\n\nThe page should look like it comes from the same company as Wardix: it opens on the Wardix dark hero (Deep Indigo under a fading engineering grid and a soft teal glow, the same treatment `tracelet-landing.css` uses), then runs white with hairline rules, one Canvas band, one bordered panel, serif headings, sans everything else, and one gradient button. Restraint carries the premium feel. It reads as a consulting practice's page, not a person's or a product's: type, rules, one form and two small drawn diagrams do the work. Density is moderate: a compact first viewport and generous spacing below.\n\nSeafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. Drawn teal line diagrams are the only pictures. The brand gradient is narrowed to the single primary action. And motion is limited to one moving thing.",
     "keyCharacteristics": [
-      "Light canvas, white panels, hairline borders, cool indigo-tinted shadows; dark mode from the same token pairs.",
-      "Source Serif 4 for page-level headings, Public Sans for everything readable, Geist Mono only for short functional labels.",
-      "One radius family: 6 / 10 / 14 / 26.",
+      "A Deep Indigo opening with the upstream engineering grid, then a white page with one Canvas band and a Bastion close; dark mode from the same token pairs.",
+      "Source Serif 4 for the page's headings and the service names, Public Sans for everything readable, Geist Mono only for short functional tags.",
+      "One radius family: 6 / 10 / 14.",
       "One action per page, one label for it, one gradient on it.",
-      "Real product screenshots are the only imagery; no scenic photography, no invented proof."
+      "No photography; drawn teal line diagrams only; no invented proof."
     ],
     "rules": [
       {
         "name": "The One Gradient Rule",
-        "body": "The indigo-to-teal gradient appears only on the primary action, \"Request a free call\" (nav, form submit, closing band). Not on text, cards, section backgrounds, or a second button. Upstream allows it on hero treatments and thin accents; Seafin does not use it there. The favicon tile is the only non-button use.",
+        "body": "The indigo-to-teal brand gradient appears only on \"Request a free call\" buttons (nav, form submit, closing band) and on the favicon tile. Not on text, cards, section backgrounds, or a second button. The hero's grid lines and teal glow are the upstream hero treatment, not the brand gradient, and appear nowhere else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Dark Fields Rule",
+        "body": "Deep Indigo opens the page (the hero); Bastion Navy closes it (the closing band). Neither appears anywhere else, and they never swap.",
         "section": "colors"
       },
       {
@@ -485,37 +504,37 @@
       },
       {
         "name": "The Serif-Is-For-The-Page Rule",
-        "body": "Serif is for page-level headings: the H1 and section H2s. Panel and card titles, including the form panel heading, are Public Sans bold.",
+        "body": "Serif is for page-level headings (the H1, section H2s, the closing H2) and for the service names in the practice index, which act as the headings of what Seafin sells. Panel titles, including the form-bar heading and the route H3s, are Public Sans bold.",
         "section": "typography"
       },
       {
-        "name": "The Mono-Labels-Below Rule",
-        "body": "Geist Mono uppercase labels are short and functional: definition-list terms, and duration tags placed beneath their title. A mono label never sits above a heading.",
+        "name": "The Mono-Tags-Never-Lead Rule",
+        "body": "Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), and the one label that names a drawn boundary in a diagram. A mono label never sits above a heading and never leads a row.",
         "section": "typography"
       },
       {
         "name": "The Quiet Elevation Rule",
-        "body": "Resting surfaces never use the Overlay shadow. Only the action panel and the product image use Raised at rest.",
+        "body": "On light ground nothing at rest sits above Resting; Raised appears only in response to state (hover, a sent form) and Overlay is for overlays. The one exception is the form bar's Hero Lift, which exists only because it sits on the dark hero.",
         "section": "elevation"
       }
     ],
     "dos": [
       "Do take every token from the Wardix set (upstream `design.md` + `tracelet-landing.css`) and add a Seafin-local token only when the build needs it (as with `line-strong`, `danger`).",
-      "Do reserve the brand gradient for the single primary action, and use the same label (\"Request a free call\") everywhere it appears.",
-      "Do use Source Serif 4 for page-level headings only, and Public Sans 700 for panel, card and list titles.",
-      "Do use Geist Mono uppercase (0.75rem, 0.06em) only for short functional labels: definition-list terms and duration tags under a title.",
-      "Do group related items as ruled rows inside one 14px panel rather than a grid of cards.",
-      "Do change the section shape from one section to the next (stacked, side-by-side, full-width proof, duo, band) rather than repeating one template.",
-      "Do use real Wardix product screenshots as the imagery, in the 26px media frame, with light and dark captures of the current UI.",
+      "Do reserve the brand gradient for \"Request a free call\" buttons, and use that same label everywhere the action appears.",
+      "Do open on the upstream dark hero (Deep Indigo, 54px grid, radial mask, teal glow) and close on Bastion Navy; keep everything between them light.",
+      "Do use Source Serif 4 for page-level headings and practice-index service names only, and Public Sans 700 for panel titles.",
+      "Do use Geist Mono uppercase only for short functional tags beside or beneath their title, or to name a drawn boundary.",
+      "Do list services and examples as open ruled rows, and put a two-option comparison in one 14px panel, rather than a grid of cards.",
       "Do keep every color a light/dark token pair; check link and hover colors in both modes."
     ],
     "donts": [
-      "Don't place an uppercase mono label, kicker or eyebrow above a heading (the Wardix marketing site's `.eyebrow` pattern is not carried over).",
-      "Don't use the Wardix scenic hero photographs or any other scenic photography on Seafin pages.",
-      "Don't use the Overlay shadow on resting panels.",
+      "Don't place an uppercase mono label, kicker or eyebrow above a heading or at the head of a row (the Wardix marketing site's `.eyebrow` pattern is not carried over).",
+      "Don't add photography or raster imagery to the consulting page: no scenic photos, no founder portrait, no product screenshots.",
+      "Don't put icons in tiles, circles or filled badges, or use emoji icons.",
+      "Don't add a second moving thing; the diagram wire is the page's only motion beyond state changes.",
+      "Don't use Raised, Overlay or Hero Lift on anything at rest on light ground.",
       "Don't add prose explaining the page to the visitor, section intros, decorative bold, or decorative numbers.",
       "Don't show invented proof: no hypothetical case studies, logos, testimonials or counts.",
-      "Don't stand in initials or a monogram badge for the founder photo; leave the photo out until a real one exists.",
       "Don't use pills, mixed radii, or sharp cards; one radius family per surface."
     ]
   }
