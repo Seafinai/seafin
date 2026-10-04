@@ -35,8 +35,8 @@
       src: ['Inbox', '9:41',
         '<div class="mail"><span class="from">Harbor Supply Co.</span><span class="subj">Invoice INV-2207</span></div>' +
         '<div class="doc"><span class="ln doc-h">Invoice</span><span class="ln"><mark>Harbor Supply Co.</mark></span>' +
-        '<span class="ln">Packaging, 40 cases</span><span class="ln">Total <mark>$1,240.00</mark></span>' +
-        '<span class="ln">Due <mark>Oct 18</mark></span></div>'],
+        '<span class="ln">Packaging, 40 cases</span>' +
+        '<span class="ln">Total <mark>$1,240.00</mark> &middot; Due <mark>Oct 18</mark></span></div>'],
       steps: ['Reading invoice', 'Pulling out details', 'Drafting bill'],
       dst: ['QuickBooks · Draft bill', ['Supplier', 'Amount', 'Due']],
       typed: '',

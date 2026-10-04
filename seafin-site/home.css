@@ -155,20 +155,20 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- the build, played (demo.js) ---------- */
 .demo { margin: 0; }
 .demo-stage {
-  position: relative; display: grid; grid-template-rows: auto 52px minmax(0, 1fr); height: 500px;
-  padding: 18px; border-radius: 20px;
+  position: relative; display: grid; grid-template-rows: auto 52px minmax(0, 1fr); height: 492px;
+  padding: 16px; border-radius: 26px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
   border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow: 0 40px 90px rgba(3, 6, 30, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-.app { position: relative; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(3, 6, 30, 0.35); color: var(--ink-900); }
+.app { position: relative; overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-input); box-shadow: 0 10px 30px rgba(3, 6, 30, 0.35); color: var(--ink-900); }
 .app-dst { display: flex; flex-direction: column; }
 .app-dst .app-status { margin-top: auto; }
 .app-bar { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); font: 600 0.6875rem/1.2 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-500); }
-.app-body { position: relative; height: 204px; padding: 14px; font-size: 0.875rem; line-height: 1.5; color: var(--ink-700); }
+.app-body { position: relative; height: 200px; padding: 14px; font-size: 0.875rem; line-height: 1.5; color: var(--ink-700); }
 .app-body .mail { display: grid; gap: 1px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line-soft); }
 .app-body .from { font-weight: 700; color: var(--ink-900); }
-.app-body .doc { display: grid; gap: 3px; padding: 10px 12px; border: 1px solid var(--line-soft); border-radius: 8px; background: var(--paper-2); font-size: 0.8125rem; }
+.app-body .doc { display: grid; gap: 3px; padding: 10px 12px; border: 1px solid var(--line-soft); border-radius: var(--r-control); background: var(--paper-2); font-size: 0.8125rem; }
 .app-body .doc-h { font: 600 0.6875rem/1.4 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-500); }
 .app-body .row { display: grid; grid-template-columns: 5rem 1fr; gap: 10px; padding-block: 5px; border-bottom: 1px solid var(--line-soft); }
 .app-body .row:last-child { border-bottom: 0; }
@@ -296,8 +296,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 @media (max-width: 480px) {
   .hero h1 { font-size: 2rem; line-height: 1.1; }
   .book form { grid-template-columns: 1fr; }
-  .demo-stage { height: 512px; padding: 12px; }
-  .app-body { height: 216px; padding: 12px; font-size: 0.8125rem; }
+  .demo-stage { height: 492px; padding: 12px; }
+  .app-body { height: 200px; padding: 12px; font-size: 0.8125rem; }
   .fields { gap: 8px 10px; padding-inline: 12px; }
   .fields dd { font-size: 0.8125rem; }
   .demo-tabs { gap: 8px; }
