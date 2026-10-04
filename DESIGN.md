@@ -125,16 +125,16 @@ components:
 
 Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` ("Vigilant Infrastructure") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.
 
-The page should look like it comes from the same company as Wardix: a light cool canvas, white panels with hairline borders and quiet indigo-tinted shadows, serif page headings, sans everything else, and one gradient button. Restraint carries the premium feel. Density is moderate: generous section spacing around compact, scannable content (ruled lists, fact rows, a single form).
+The page should look like it comes from the same company as Wardix: a white page with cool canvas bands, hairline borders and quiet indigo-tinted shadows, serif page headings, sans everything else, and one gradient button. Restraint carries the premium feel. Density is moderate: generous section spacing around compact, scannable content (ruled lists, a single form).
 
-Seafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no scenic hero photograph: the Wardix landscape library would make Seafin read as a copy of the Wardix site, so Seafin's only imagery is the real Wardix product screenshot, shown as proof. Resting panels use the light and medium shadows only; the strong shadow is kept for overlays, as upstream `design.md` says. And the gradient is narrowed to the single primary action.
+Seafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no scenic hero photograph: the Wardix landscape library would make Seafin read as a copy of the Wardix site. Seafin's imagery is a portrait of the founder in the hero (borrowed from IBM and KPMG, chosen 2026-10-04; the photo is still to come) and the real Wardix product screenshot, shown as proof. Resting panels use the light and medium shadows only; the strong shadow is kept for overlays, as upstream `design.md` says. And the gradient is narrowed to the single primary action.
 
 **Key Characteristics:**
-- Light canvas, white panels, hairline borders, cool indigo-tinted shadows; dark mode from the same token pairs.
+- White page, canvas bands and panel fills, hairline borders, cool indigo-tinted shadows; dark mode from the same token pairs.
 - Source Serif 4 for page-level headings, Public Sans for everything readable, Geist Mono only for short functional labels.
 - One radius family: 6 / 10 / 14 / 26.
 - One action per page, one label for it, one gradient on it.
-- Real product screenshots are the only imagery; no scenic photography, no invented proof.
+- A real person and a real product are the only imagery; no scenic photography, no invented proof.
 
 ## Colors
 
@@ -155,15 +155,15 @@ Neutral cool surfaces with one control color (indigo), one accent (teal), and a 
 
 ### Neutral
 - **Ink 900 / 700 / 500** (`ink-900`, `ink-700`, `ink-500`): headings and primary text / fact values, field labels and about text / secondary text, ledes, nav links. Dark pairs #e9ecf6 / #cdd3e6 / #9aa3c0.
-- **Canvas** (`bg`): page background. Dark pair #0b0e1a.
-- **Paper** (`paper`) and **Paper 2** (`paper-2`): panels and buttons / input fills. Dark pairs #121732 / #0f1430.
-- **Line** (`line`): panel borders, section dividers, fact-row rules. Dark #262c44.
+- **Canvas** (`bg`): the Wardix band and the form panel fill. Dark pair #0b0e1a.
+- **Paper** (`paper`) and **Paper 2** (`paper-2`): page background, panels, buttons and input fills / spare. Dark pairs #121732 / #0f1430.
+- **Line** (`line`): panel borders, section dividers, service-row rules. Dark #262c44.
 - **Line Soft** (`line-soft`): dividers inside a panel (between service rows, between compare columns). Dark #1e2438.
 - **Line Strong** (`line-strong`): hover border on inputs and secondary buttons. Seafin's addition, not in the upstream token set. Dark #3a4466.
 - **Danger** (`danger`): form error text only. Dark #ff8a80. Seafin's name for upstream's critical red.
 
 ### Named Rules
-**The One Gradient Rule.** The indigo-to-teal gradient appears only on the primary action, "Request a free call" (nav, form submit, closing band). Not on text, cards, section backgrounds, or a second button. Upstream allows it on hero treatments and thin accents; Seafin does not use it there. The favicon tile is the only non-button use.
+**The One Gradient Rule.** The indigo-to-teal gradient appears only on the primary action, "Request a free call" (nav, form submit, closing band). Not on text, cards, section backgrounds, or a second button. Upstream allows it on hero treatments and thin accents; Seafin does not use it there. The favicon tile is the only non-button use. The portrait placeholder's indigo field is not the brand gradient, and the photo covers it.
 
 **The Status-Means-State Rule.** Green, gold and red mean real system state. Seafin uses only red, and only for a failed form send.
 
@@ -178,31 +178,31 @@ All three are self-hosted WOFF2 files in `seafin-site/fonts`, using `font-displa
 **Character:** an editorial serif for the page's few big statements, over a plain, sturdy civic sans that does all the reading. Tabular numerals are on across the whole body.
 
 ### Hierarchy
-- **Display** (600, clamp(2.5rem, 4.7vw, 4rem), 1.06, -0.02em): the hero H1 only. Balanced wrap, max 20ch. Drops to 2rem / 1.1 at ≤480px.
+- **Display** (600, clamp(2.5rem, 4.2vw, 3.75rem), 1.05, -0.02em): the hero H1 only. Balanced wrap. Drops to 2rem / 1.1 at ≤480px. The founder name on the portrait uses the same face at 1.625rem / 1.2.
 - **Headline** (600, clamp(1.875rem, 3vw, 2.5rem), 1.12, -0.015em): section H2s and the closing-band H2.
-- **Title** (Public Sans 700, 1.1875rem, 1.3): H3s in service rows, the compare panel, and the founder name. The form panel heading is the same family at 1.3125rem / 1.25 with -0.01em tracking; project names use 1.0625rem / 1.4.
-- **Lede** (400, 1.25rem, 1.5, ink-500, max 44ch): the hero sentence. The product line under the Wardix heading is a smaller version (1.1875rem, max 40ch).
+- **Title** (Public Sans 700, 1.1875rem, 1.3): H3s in service rows, the compare panel, and the founder name. The form panel heading is the same size with -0.01em tracking; project names use 1.0625rem / 1.4.
+- **Lede** (400, 1.1875rem, 1.5, ink-500, max 44ch): the hero sentence. The product line under the Wardix heading is a smaller version (1.1875rem, max 40ch).
 - **Body** (400, 1.0625rem, 1.6): running text. Measure is 54 to 60ch.
-- **Label** (Geist Mono 600, 0.75rem, 0.06em, uppercase): fact-row terms ("Runs on", "Built by", "You own") and the duration tags under service titles.
-- **Field label** (Public Sans 600, 0.875rem, 1.3, ink-700): form labels; "Optional" drops to weight 400, ink-500.
+- **Label** (Geist Mono 600, 0.75rem, 0.06em, uppercase): the duration tags under service titles.
+- **Field label** (Public Sans 600, 0.875rem, 1.3, ink-700): form labels.
 
 ### Named Rules
 **The Serif-Is-For-The-Page Rule.** Serif is for page-level headings: the H1 and section H2s. Panel and card titles, including the form panel heading, are Public Sans bold.
 
-**The Mono-Labels-Below Rule.** Geist Mono uppercase labels are short and functional: definition-list terms, and duration tags placed beneath their title. A mono label never sits above a heading.
+**The Mono-Labels-Below Rule.** Geist Mono uppercase labels are short and functional: duration tags placed beneath their title. A mono label never sits above a heading.
 
 ## Layout
 
-Single column centered at 1180px max width with a gutter of clamp(16px, 4vw, 32px). Sections pad clamp(64px, 8vw, 112px) top and bottom and are separated by a 1px line. The hero pads a little less (clamp(40px, 6vw, 88px) top, clamp(56px, 7vw, 104px) bottom).
+Single column centered at 1180px max width with a gutter of clamp(16px, 4vw, 32px). Sections pad clamp(64px, 8vw, 112px) top and bottom and are separated by a 1px line. The hero pads less (clamp(32px, 4vw, 56px) top, clamp(48px, 5vw, 72px) bottom) and is closed by a 1px line.
 
-The hero is an asymmetric split, 1.35fr / 1fr (about 57/43): the heading, lede and fact list on the left; the working form panel on the right as the one action. The sections below deliberately change shape instead of repeating one template:
-1. A heading stacked over a full-width panel (Services).
-2. A heading beside its content, 1fr / 1.6fr (Where it runs).
-3. A two-column heading/facts row over a full-width product screenshot (Wardix).
+The hero is a split, 1.1fr / 1fr: the heading, lede and compact form panel on the left; the founder portrait on the right, stretched to the height of the left column. The sections below change shape instead of repeating one template:
+1. A heading beside an open ruled list, 1fr / 1.6fr (Services).
+2. A heading beside one panel, 1fr / 1.6fr (Where it runs).
+3. A two-column heading/facts row over a full-width product screenshot, on a Canvas band (Wardix).
 4. A two-column split of equal peers (Who you work with + Other projects).
 5. A full-bleed bastion band with the heading and actions on one line (closing).
 
-Breakpoints: at ≤960px every two-column grid collapses to one column. At ≤760px nav links hide, the compare panel stacks, and list rows go single-column with 20px side padding. At ≤560px the product screenshot swaps to a mobile crop and the fact dots drop. At ≤480px the hero type steps down, fact rows stack, and closing-band buttons go full width.
+Breakpoints: at ≤960px every two-column grid collapses to one column and the portrait moves above the heading at 400px tall. At ≤760px nav links hide, the compare panel stacks, and list rows go single-column. At ≤560px the product screenshot swaps to a mobile crop and the fact dots drop. At ≤480px the hero type steps down, the two form fields stack, the portrait shortens to 300px, and closing-band buttons go full width.
 
 ## Elevation & Depth
 
@@ -210,11 +210,11 @@ A hybrid: hairline borders do the separating, and quiet indigo-tinted shadows (r
 
 ### Shadow Vocabulary
 - **Resting** (`box-shadow: 0 1px 2px rgba(15, 21, 86, 0.06), 0 1px 3px rgba(15, 21, 86, 0.04)`): content panels and buttons at rest.
-- **Raised** (`box-shadow: 0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04)`): the form panel, the screenshot frame, and button hover. Dark: `0 4px 14px rgba(0, 0, 0, 0.4)`.
+- **Raised** (`box-shadow: 0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04)`): the portrait, the screenshot frame, and button hover. Dark: `0 4px 14px rgba(0, 0, 0, 0.4)`.
 - **Overlay** (`box-shadow: 0 14px 32px rgba(15, 21, 86, 0.1), 0 4px 12px rgba(15, 21, 86, 0.05)`): defined but unused on this page. Kept for menus and dialogs.
 
 ### Named Rules
-**The Quiet Elevation Rule.** Resting surfaces never use the Overlay shadow. Only the action panel and the product image use Raised at rest.
+**The Quiet Elevation Rule.** Resting surfaces never use the Overlay shadow. Only the two images, the portrait and the product screenshot, use Raised at rest. The form panel is flat: a Canvas fill and a Line border set it apart.
 
 ## Shapes
 
@@ -229,7 +229,7 @@ One radius family, matching upstream: 6px for buttons and small controls, 10px f
 - **Secondary:** paper fill, ink-900 text, Line border, Resting shadow; on hover the border goes Line Strong and the shadow Raised. Used for the outbound "Get Wardix free" link.
 
 ### Inputs / Fields
-- **Style:** Paper 2 fill, 1px Line border, 10px radius, padding 11px 13px, min height 46px (textarea 84px, resizes vertically). Labels sit above the field, 6px apart.
+- **Style:** Paper fill (white on the Canvas form panel), 1px Line border, 10px radius, padding 11px 13px, min height 46px. Labels sit above the field, 6px apart.
 - **Focus:** the border turns teal and a 3px Teal Tint halo appears; no outline. Hover sets the border to Line Strong. 140ms ease-out.
 - **Error:** one line of Danger-colored status text below the button, with a mailto fallback.
 
@@ -238,17 +238,17 @@ One radius family, matching upstream: 6px for buttons and small controls, 10px f
 - **Background:** Paper, with a 1px Line border.
 - **Shadow Strategy:** Resting (see Elevation).
 - **Internal Padding:** 28px horizontal (20px at ≤760px), 26 to 28px vertical.
-- **Ruled list, not a card grid:** related items (services) sit as rows in one panel, divided by Line Soft. They are never split into separate cards. Each row puts the title and duration tag beside the description (13rem / 1fr). A two-option comparison is one panel with a vertical Line Soft divider and a full-width footer row.
+- **Ruled list, not a card grid:** related items (services) sit as open rows ruled with Line, top and bottom, beside their heading. They are never split into separate cards. Each row puts the title and duration tag beside the description (12rem / 1fr). A two-option comparison is one panel with a vertical Line Soft divider and a full-width footer row.
 
 ### Navigation
 - Sticky, 64px tall, Paper at 94% with a 10px backdrop blur and a bottom Line border. Serif wordmark "Seafin" (700, 1.375rem, -0.02em). Links are Public Sans 500 0.9375rem in ink-500 and turn ink-900 on hover. The primary button sits at the right.
 - On this one-page build, links hide at ≤760px with no menu replacement. The primary button stays in the header.
 
 ### Form Panel (signature)
-The one action, in the first viewport. A white 14px panel with a Raised shadow, padded clamp(22px, 2.4vw, 32px). It holds a sans title, a one-line subhead, three labelled fields (one optional), a full-width primary button, and an `aria-live` status line. On a successful send, the fields disable, the button hides, the panel border warms to teal with a 3px Teal Tint halo (400ms ease-out), and the confirmation fades up 4px (420ms, cubic-bezier(0.16, 1, 0.3, 1)). Every "Request a free call" link scrolls to this panel and focuses the first field. Nothing else on the page animates beyond hover and focus. All motion turns off under prefers-reduced-motion.
+The one action, in the first viewport under the lede. A flat 14px panel with a Canvas fill and Line border, padded clamp(20px, 2vw, 26px). It holds a sans title, a one-line subhead, two labelled fields side by side (name, work email; stacked at ≤480px), a full-width primary button, and an `aria-live` status line. On a successful send, the fields disable, the button hides, the panel border warms to teal with a 3px Teal Tint halo (400ms ease-out), and the confirmation fades up 4px (420ms, cubic-bezier(0.16, 1, 0.3, 1)). Every "Request a free call" link scrolls to this panel and focuses the first field. Nothing else on the page animates beyond hover and focus. All motion turns off under prefers-reduced-motion.
 
-### Fact Rows
-A definition list ruled top and bottom with Line. Each row has a 6.5rem mono label column and an ink-700 value; rows stack at ≤480px.
+### Portrait
+The founder photo beside the hero copy: 26px radius, Raised shadow, at least 540px tall, the image set to cover. A navy scrim (transparent to rgba(7, 20, 38, 0.85)) at the foot carries the serif name and a one-line role in #c9d2ea. Until the photo lands, an indigo field and a dashed "Photo of Rob" tag hold the slot; the page does not launch with the tag showing.
 
 ### Product Facts
 Short facts set inline in Public Sans 600 and separated by 4px teal dots. These are not chips or pills. They stack and lose the dots at ≤560px.

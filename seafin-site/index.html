@@ -35,35 +35,38 @@
 <main>
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
-      <div>
+      <div class="copy">
         <h1 id="hero-title">Your AI department, without the headcount.</h1>
-        <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team.</p>
-        <dl class="facts">
-          <div><dt>Runs on</dt><dd>Anthropic&rsquo;s Claude, or your own servers when your data can&rsquo;t leave the building.</dd></div>
-          <div><dt>Built by</dt><dd>Rob Crider, founder. The person on your call is the person who builds it.</dd></div>
-          <div><dt>You own</dt><dd>Everything we build. No lock-in.</dd></div>
-        </dl>
+        <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team. You own everything we build.</p>
+
+        <div class="book" id="book">
+          <h2 id="book-title">Free 30-minute call</h2>
+          <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
+          <form id="request" aria-labelledby="book-title" novalidate>
+            <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
+            <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+            <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn-primary" type="submit">Request a free call</button>
+            <p class="status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
 
-      <div class="book" id="book">
-        <h2 id="book-title">Free 30-minute call</h2>
-        <p class="sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
-        <form id="request" aria-labelledby="book-title" novalidate>
-          <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
-          <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
-          <label><span>What would you hand off first? <span class="opt">Optional</span></span><textarea name="message" rows="3" maxlength="500"></textarea></label>
-          <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn btn-primary" type="submit">Request a free call</button>
-          <p class="status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
+      <figure class="portrait">
+        <!-- TODO before launch: replace the placeholder with <img src="assets/founder.jpg" alt="Rob Crider" width="…" height="…"> -->
+        <span class="placeholder">Photo of Rob</span>
+        <figcaption>
+          <p class="name">Rob Crider</p>
+          <p class="role">Founder. The person on your call is the person who builds it.</p>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="section" id="services" aria-labelledby="services-title">
-    <div class="wrap stack">
+    <div class="wrap head-row">
       <h2 id="services-title">Services</h2>
-      <ul class="offers panel">
+      <ul class="offers">
         <li>
           <div><h3>Strategy Audit</h3><span class="term">1 week</span></div>
           <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90-day plan. Yours to keep either way.</p>
@@ -99,7 +102,7 @@
     </div>
   </section>
 
-  <section class="section" id="wardix" aria-labelledby="wardix-title">
+  <section class="section band" id="wardix" aria-labelledby="wardix-title">
     <div class="wrap">
       <div class="product-top">
         <div>
