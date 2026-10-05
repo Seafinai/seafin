@@ -178,9 +178,11 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .contents li:last-child { border-bottom: 1px solid var(--line); }
 
 /* services: three columns under one rule, each with its price line */
-.offers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.offers > li { display: grid; align-content: start; gap: 8px; padding: 24px clamp(16px, 2.2vw, 32px) 8px 0; }
-.offers > li + li { padding-left: clamp(16px, 2.2vw, 32px); border-left: 1px solid var(--line); }
+/* four services in a two-by-two grid under one rule */
+.offers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
+.offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
+.offers > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
+.offers > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
 .offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
 .offers .price { font-weight: 600; color: var(--accent); }
 .offers p { color: var(--ink-700); }
@@ -367,7 +369,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
   .offers { grid-template-columns: 1fr; }
-  .offers > li, .offers > li + li { padding: 22px 0; border-left: 0; }
+  .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
   .offers > li + li { border-top: 1px solid var(--line); }
   .steps { grid-template-columns: 1fr 1fr; }
   .steps li { padding-bottom: 36px; }

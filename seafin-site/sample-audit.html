@@ -33,34 +33,233 @@
         <div><dt>Tools in use</dt><dd>QuickBooks Online, Microsoft 365 (Outlook, Teams), a client upload portal, Excel</dd></div>
         <div><dt>Workload</dt><dd>40 monthly bookkeeping clients; about 300 tax returns a year</dd></div>
         <div><dt>Prepared</dt><dd>One week after a 2-hour working session with a partner and two bookkeepers</dd></div>
+        <div><dt>Date</dt><dd>October 2026</dd></div>
+        <div><dt>Walkthrough</dt><dd>1 hour, after delivery</dd></div>
       </dl>
     </header>
 
-    <section class="report-sec" aria-labelledby="summary">
-      <h2 id="summary">Summary</h2>
-      <p>Three tasks take 146 staff hours a month: typing client documents into QuickBooks, chasing clients for missing paperwork, and writing up client calls. AI can take about 95 of those hours. At $45 an hour for bookkeeping time, that is roughly <strong>$4,300 a month</strong>. Start with document intake. It is the largest saving, the best-proven, and a bookkeeper still approves every entry.</p>
-    </section>
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">Contents</h2>
+      <ol>
+        <li><a href="#summary">Executive summary</a></li>
+        <li><a href="#method">How we did the audit</a></li>
+        <li><a href="#time">Where the time goes today</a></li>
+        <li><a href="#process">How the work runs today</a></li>
+        <li><a href="#matrix">Which tasks to automate</a></li>
+        <li><a href="#opps">Top three opportunities</a></li>
+        <li><a href="#not">Not recommended now</a></li>
+        <li><a href="#where">Where it should run</a></li>
+        <li><a href="#data">Data, security and compliance</a></li>
+        <li><a href="#systems">Integration check</a></li>
+        <li><a href="#cost">Cost and payback</a></li>
+        <li><a href="#plan">90-day plan</a></li>
+        <li><a href="#risks">Risks and open questions</a></li>
+        <li><a href="#appendix">Appendix</a></li>
+      </ol>
+    </nav>
 
-    <section class="report-sec" aria-labelledby="time">
-      <h2 id="time">Where the time goes today</h2>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">Task</th><th scope="col" class="num">Hours a month</th><th scope="col">AI fit</th></tr></thead>
-          <tbody>
-            <tr><td>Typing and categorising client receipts and invoices (2.5 h per client)</td><td class="num">100</td><td>Strong</td></tr>
-            <tr><td>Month-end checks and reconciliations</td><td class="num">60</td><td>Weak: bank rules already cover most of it</td></tr>
-            <tr><td>Emailing clients for missing documents and answers</td><td class="num">30</td><td>Good</td></tr>
-            <tr><td>Notes and follow-ups after client calls</td><td class="num">16</td><td>Good, check Microsoft 365 first</td></tr>
-            <tr><td>Tax organiser intake (February to April only)</td><td class="num">120 a season</td><td>Later: revisit after the first build</td></tr>
-          </tbody>
-        </table>
+    <section class="report-sec" aria-labelledby="summary">
+      <h2 id="summary"><span class="sec-n">1</span> Executive summary</h2>
+      <p>Three tasks take 146 staff hours a month: typing client documents into QuickBooks, chasing clients for missing paperwork, and writing up client calls. AI can take about 95 of those hours. At $45 an hour for bookkeeping time, that is roughly $4,300 a month. Start with document intake. It is the largest saving, the best-proven, and a bookkeeper still approves every entry.</p>
+      <dl class="figs">
+        <div><dt>Hours AI can take</dt><dd>95 of 146 a month</dd></div>
+        <div><dt>Value of those hours</dt><dd>$4,300 a month</dd></div>
+        <div><dt>Build, first task</dt><dd>$8,000</dd></div>
+        <div><dt>Running cost</dt><dd>$40 to $100 a month</dd></div>
+        <div><dt>Payback</dt><dd>Under 3 months</dd></div>
+      </dl>
+
+      <h3>What we found</h3>
+      <p>Your team spends 206 hours a month on four recurring tasks, and another 120 hours each tax season on organiser intake. The largest block is typing: 100 hours a month spent reading receipts and invoices, keying them into QuickBooks Online and picking the account. Your bookkeepers already know how to do every step of that work, and reading and sorting documents is what current AI does well. Reconciliations take 60 hours, but QuickBooks bank rules already handle most of them, so little is left to save there.</p>
+
+      <h3>What we recommend</h3>
+      <p>Build document intake first. AI reads each receipt and invoice and creates a draft entry in QuickBooks Online, and a bookkeeper approves it. That saves about 65 hours a month, worth $2,900. If the pilot works, add the month-end missing-items email (20 hours, $900). For call notes, first try the meeting recap in Microsoft 365 Copilot, Microsoft&rsquo;s AI assistant, if you already pay for it. Build only if it falls short (10 hours, $450).</p>
+      <p>Run it on Claude, Anthropic&rsquo;s AI model, through a business account whose terms exclude your data from training. Account numbers are masked (blacked out) before anything is sent. If your engagement letters or your insurer limit where client data can go, run it in your own Amazon Web Services (AWS) account instead.</p>
+
+      <h3>Cost and payback</h3>
+      <p>The build for document intake is a fixed price. The illustrative figure for this firm is $8,000. AI usage costs about $40 to $100 a month for roughly 2,400 documents. The intake saving alone repays the build in under 3 months. If the saving turns out to be half our estimate, payback takes about 6 months.</p>
+
+      <div class="ask">
+        <h3>The decision we ask for</h3>
+        <p>Approve a fixed quote for document intake and a pilot on five clients. In the first two weeks, you confirm your data rules with your insurer and your engagement letters. At day 45 we compare measured intake time per client with today&rsquo;s 2.5 hours. Under 1 hour, we roll out to all 40 clients. Over 1 hour, we adjust or stop before you spend more.</p>
       </div>
     </section>
 
-    <section class="report-sec" aria-labelledby="opps">
-      <h2 id="opps">Top three opportunities</h2>
+    <section class="report-sec" aria-labelledby="method">
+      <h2 id="method"><span class="sec-n">2</span> How we did the audit</h2>
+      <p>We held one working session, then spent the rest of the week in your systems and data. Every figure in this report comes from that work or from the assumptions in the appendix.</p>
+      <dl class="report-meta">
+        <div><dt>Session</dt><dd>2 hours with a partner and two bookkeepers. We walked through a normal month for three clients and timed each step.</dd></div>
+        <div><dt>Systems</dt><dd>QuickBooks Online, the client upload portal, the shared bookkeeping mailbox in Outlook, Teams, and the Excel trackers</dd></div>
+        <div><dt>Access</dt><dd>Read-only logins your firm created for the audit week, removed at delivery</dd></div>
+      </dl>
 
-      <article class="opp">
+      <h3>What we sampled</h3>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Data</th><th scope="col">Period</th><th scope="col">What it showed</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Data">Documents uploaded to the portal or emailed in</td><td data-label="Period">September 2026, all 40 clients</td><td data-label="What it showed">About 2,400 documents, about 2 pages each. About a third arrived by email rather than through the portal.</td></tr>
+            <tr><td data-label="Data">Sent email from the shared bookkeeping mailbox</td><td data-label="Period">August and September 2026</td><td data-label="What it showed">About 240 requests for missing documents or answers: about 120 a month, or 3 per client</td></tr>
+            <tr><td data-label="Data">QuickBooks chart of accounts and vendor lists</td><td data-label="Period">Five clients, at the audit date</td><td data-label="What it showed">Charts of 60 to 140 accounts. Most vendors go to the same account every month.</td></tr>
+            <tr><td data-label="Data">Teams call log</td><td data-label="Period">September 2026</td><td data-label="What it showed">48 client calls, none transcribed</td></tr>
+            <tr><td data-label="Data">Timed intake for one client month</td><td data-label="Period">Two bookkeepers, one client each</td><td data-label="What it showed">2 h 20 min and 2 h 40 min: an average of 2.5 hours per client</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>What we did not look at</h3>
+      <ul class="plain">
+        <li>Payroll, your tax preparation software and individual tax returns.</li>
+        <li>Network, device and password security, beyond the data the recommended work would touch (section 9).</li>
+        <li>What your engagement letters and insurance policy mean legally. We list the questions to ask; your own adviser answers them.</li>
+        <li>Individual staff performance. Timings are averages for the task.</li>
+      </ul>
+    </section>
+
+    <section class="report-sec" aria-labelledby="time">
+      <h2 id="time"><span class="sec-n">3</span> Where the time goes today</h2>
+      <p>Hours are your team&rsquo;s estimates from the session, checked against the September sample. Cost is staff time at $45 an hour.</p>
+      <div class="table-wrap">
+        <table class="stack time-table">
+          <thead><tr><th scope="col">Task</th><th scope="col">Volume a month</th><th scope="col" class="num">Hours a month</th><th scope="col" class="num">Cost a month</th><th scope="col">AI fit</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Task">Typing and categorising client receipts and invoices (2.5 h per client)</td><td data-label="Volume a month">About 2,400 documents from 40 clients</td><td class="num" data-label="Hours a month">100</td><td class="num" data-label="Cost a month">$4,500</td><td data-label="AI fit">Strong</td></tr>
+            <tr><td data-label="Task">Month-end checks and reconciliations</td><td data-label="Volume a month">40 client month-ends</td><td class="num" data-label="Hours a month">60</td><td class="num" data-label="Cost a month">$2,700</td><td data-label="AI fit">Weak: bank rules already cover most of it</td></tr>
+            <tr><td data-label="Task">Emailing clients for missing documents and answers</td><td data-label="Volume a month">About 120 emails</td><td class="num" data-label="Hours a month">30</td><td class="num" data-label="Cost a month">$1,350</td><td data-label="AI fit">Good</td></tr>
+            <tr><td data-label="Task">Notes and follow-ups after client calls</td><td data-label="Volume a month">About 48 calls</td><td class="num" data-label="Hours a month">16</td><td class="num" data-label="Cost a month">$720</td><td data-label="AI fit">Good, check Microsoft 365 first</td></tr>
+            <tr><td data-label="Task">Tax organiser intake (February to April only)</td><td data-label="Volume a month">About 300 returns a year</td><td class="num" data-label="Hours a month">120 a season</td><td class="num" data-label="Cost a month">$5,400 a season</td><td data-label="AI fit">Later: revisit after the first build</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td data-label="Task">Year-round total, without tax organiser intake</td><td data-label="Volume a month"></td><td class="num" data-label="Hours a month">206</td><td class="num" data-label="Cost a month">$9,270</td><td data-label="AI fit"></td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p>The three tasks we recommend take 146 of the 206 year-round hours, or $6,570 a month. AI can take about 95 of those hours, close to two thirds.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="process">
+      <h2 id="process"><span class="sec-n">4</span> How the work runs today</h2>
+      <p>One cycle of each recommended task, as your team described and timed it. Steps marked Stall are where work waits or gets done twice.</p>
+
+      <figure class="pmap">
+        <figcaption>Document intake <span>One client, one month: 150 minutes</span></figcaption>
+        <div class="pmap-head" aria-hidden="true"><span></span><span>Step</span><span>Who</span><span>Tool</span><span>Minutes</span></div>
+        <ol>
+          <li class="is-stall"><b class="pm-step">Client sends receipts and invoices</b><span class="pm-note"><span class="pm-flag">Stall:</span> about a third arrive by email and have to be saved to the client folder by hand.</span><span class="pm-meta"><span class="pm-who">Client</span><span class="pm-tool">Upload portal or email</span></span><span class="pm-min is-untimed">Not timed</span></li>
+          <li><b class="pm-step">Download, rename and file the documents</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">Portal, OneDrive</span></span><span class="pm-min">15<i style="--w:10%"></i></span></li>
+          <li><b class="pm-step">Type date, vendor, amount and tax for about 60 documents</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">QuickBooks Online</span></span><span class="pm-min">90<i style="--w:60%"></i></span></li>
+          <li class="is-stall"><b class="pm-step">Choose the account for each entry</b><span class="pm-note"><span class="pm-flag">Stall:</span> new or unusual vendors. The bookkeeper looks up past entries or asks a partner.</span><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">QuickBooks Online</span></span><span class="pm-min">30<i style="--w:20%"></i></span></li>
+          <li><b class="pm-step">Match entries to the bank feed</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">QuickBooks Online</span></span><span class="pm-min">15<i style="--w:10%"></i></span></li>
+        </ol>
+      </figure>
+
+      <figure class="pmap">
+        <figcaption>Missing-items emails <span>One client, one month: 45 minutes</span></figcaption>
+        <div class="pmap-head" aria-hidden="true"><span></span><span>Step</span><span>Who</span><span>Tool</span><span>Minutes</span></div>
+        <ol>
+          <li><b class="pm-step">Run the list of unmatched bank transactions</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">QuickBooks Online</span></span><span class="pm-min">10<i style="--w:22%"></i></span></li>
+          <li class="is-stall"><b class="pm-step">Check which documents and answers are still missing</b><span class="pm-note"><span class="pm-flag">Stall:</span> the tracker is updated by hand and often runs a few days behind.</span><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">Portal, Excel tracker</span></span><span class="pm-min">10<i style="--w:22%"></i></span></li>
+          <li><b class="pm-step">Write the request email</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">Outlook</span></span><span class="pm-min">10<i style="--w:22%"></i></span></li>
+          <li class="is-stall"><b class="pm-step">Send follow-ups, usually two</b><span class="pm-note"><span class="pm-flag">Stall:</span> replies usually cover part of the list, so items arrive over one to three weeks.</span><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">Outlook</span></span><span class="pm-min">10<i style="--w:22%"></i></span></li>
+          <li><b class="pm-step">Update the tracker</b><span class="pm-meta"><span class="pm-who">Bookkeeper</span><span class="pm-tool">Excel</span></span><span class="pm-min">5<i style="--w:11%"></i></span></li>
+        </ol>
+      </figure>
+
+      <figure class="pmap">
+        <figcaption>Call notes <span>One client call: 20 minutes after the call</span></figcaption>
+        <div class="pmap-head" aria-hidden="true"><span></span><span>Step</span><span>Who</span><span>Tool</span><span>Minutes</span></div>
+        <ol>
+          <li><b class="pm-step">Hold the call</b><span class="pm-meta"><span class="pm-who">Partner or bookkeeper</span><span class="pm-tool">Teams</span></span><span class="pm-min is-untimed">Not timed</span></li>
+          <li class="is-stall"><b class="pm-step">Write notes from memory and handwritten jottings</b><span class="pm-note"><span class="pm-flag">Stall:</span> notes often wait until later in the day, and details get lost.</span><span class="pm-meta"><span class="pm-who">Partner or bookkeeper</span><span class="pm-tool">Teams client channel</span></span><span class="pm-min">10<i style="--w:50%"></i></span></li>
+          <li><b class="pm-step">Turn action items into tasks for colleagues</b><span class="pm-meta"><span class="pm-who">Partner or bookkeeper</span><span class="pm-tool">Outlook</span></span><span class="pm-min">5<i style="--w:25%"></i></span></li>
+          <li class="is-stall"><b class="pm-step">Email the client a recap</b><span class="pm-note"><span class="pm-flag">Stall:</span> recaps often go out a day or more after the call.</span><span class="pm-meta"><span class="pm-who">Partner or bookkeeper</span><span class="pm-tool">Outlook</span></span><span class="pm-min">5<i style="--w:25%"></i></span></li>
+        </ol>
+      </figure>
+      <p class="note">Monthly totals: 150 minutes &times; 40 clients = 100 hours; 45 minutes &times; 40 clients = 30 hours; 20 minutes &times; 48 calls = 16 hours.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="matrix">
+      <h2 id="matrix"><span class="sec-n">5</span> Which tasks to automate</h2>
+      <p>We scored eight candidate tasks on value and on effort and risk. Five come from the table in section 3. Three more came up in the session: sending each client next year&rsquo;s engagement letter, answering clients&rsquo; routine payroll questions by email, and comparing each tax return with last year&rsquo;s to catch missing items.</p>
+
+      <figure class="chart chart-mx">
+        <svg viewBox="0 0 640 400" role="img" aria-label="Scatter chart of eight tasks. Document intake: value 5, effort and risk 3. Missing-items emails: 4 and 2. Call notes: 3 and 1. Prior-year comparison: 2 and 3. Tax organiser intake: 2 and 4. Reconciliations: 2 and 5. Engagement-letter renewals: 1 and 2. Payroll questions: 1 and 4. The top three sit in the high-value, lower-effort corner.">
+          <title>Eight candidate tasks by value and by effort and risk</title>
+          <rect class="zone" x="74" y="34" width="320" height="188" rx="6"/>
+          <g class="gr">
+            <line x1="124" y1="30" x2="124" y2="350"/><line x1="232" y1="30" x2="232" y2="350"/><line x1="340" y1="30" x2="340" y2="350"/><line x1="448" y1="30" x2="448" y2="350"/><line x1="556" y1="30" x2="556" y2="350"/>
+            <line x1="70" y1="62" x2="610" y2="62"/><line x1="70" y1="126" x2="610" y2="126"/><line x1="70" y1="190" x2="610" y2="190"/><line x1="70" y1="254" x2="610" y2="254"/><line x1="70" y1="318" x2="610" y2="318"/>
+          </g>
+          <g class="ax"><line x1="70" y1="350" x2="610" y2="350"/><line x1="70" y1="30" x2="70" y2="350"/></g>
+          <g class="tick" text-anchor="middle"><text x="124" y="369">1</text><text x="232" y="369">2</text><text x="340" y="369">3</text><text x="448" y="369">4</text><text x="556" y="369">5</text></g>
+          <g class="tick" text-anchor="end"><text x="60" y="322">1</text><text x="60" y="258">2</text><text x="60" y="194">3</text><text x="60" y="130">4</text><text x="60" y="66">5</text></g>
+          <text class="ttl" x="340" y="394" text-anchor="middle">Effort and risk (1 low, 5 high)</text>
+          <text class="ttl" x="22" y="190" text-anchor="middle" transform="rotate(-90 22 190)">Value (1 low, 5 high)</text>
+          <text class="zone-l" x="86" y="54">Top three</text>
+          <circle class="pt pt-on" cx="340" cy="62" r="6.5"/>
+          <circle class="pt pt-on" cx="232" cy="126" r="6.5"/>
+          <circle class="pt pt-on" cx="124" cy="190" r="6.5"/>
+          <circle class="pt" cx="340" cy="254" r="6"/>
+          <circle class="pt" cx="448" cy="254" r="6"/>
+          <circle class="pt" cx="556" cy="254" r="6"/>
+          <circle class="pt" cx="232" cy="318" r="6"/>
+          <circle class="pt" cx="448" cy="318" r="6"/>
+          <g class="lbl-on">
+            <text x="326" y="66.5" text-anchor="end">Document intake</text>
+            <text x="246" y="130.5">Missing-items emails</text>
+            <text x="138" y="194.5">Call notes</text>
+          </g>
+          <g class="lbl">
+            <text x="340" y="278" text-anchor="middle">Prior-year comparison</text>
+            <text x="448" y="240" text-anchor="middle">Tax organiser intake</text>
+            <text x="556" y="278" text-anchor="middle">Reconciliations</text>
+            <text x="246" y="322.5">Engagement-letter renewals</text>
+            <text x="462" y="322.5">Payroll questions</text>
+          </g>
+        </svg>
+      </figure>
+      <p class="note">Value comes from the hours AI could save a month, with seasonal hours spread over 12 months: 5 is over 40 hours, 4 is 15 to 40, 3 is 8 to 15, 2 is 3 to 8, and 1 is under 3. Effort and risk: 1 is about a week of work with a person checking every output; 5 is months of work, or a mistake could reach a client or the books before anyone sees it.</p>
+
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Task</th><th scope="col" class="num">Hours AI could save a month</th><th scope="col" class="num">Value</th><th scope="col" class="num">Effort and risk</th><th scope="col">Decision</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Task">Document intake</td><td class="num" data-label="Hours AI could save a month">65</td><td class="num" data-label="Value">5</td><td class="num" data-label="Effort and risk">3</td><td data-label="Decision">Do first</td></tr>
+            <tr><td data-label="Task">Missing-items emails</td><td class="num" data-label="Hours AI could save a month">20</td><td class="num" data-label="Value">4</td><td class="num" data-label="Effort and risk">2</td><td data-label="Decision">Add after the pilot</td></tr>
+            <tr><td data-label="Task">Call notes</td><td class="num" data-label="Hours AI could save a month">10</td><td class="num" data-label="Value">3</td><td class="num" data-label="Effort and risk">1</td><td data-label="Decision">Try Copilot first</td></tr>
+            <tr><td data-label="Task">Prior-year comparison</td><td class="num" data-label="Hours AI could save a month">About 3 (40 a season)</td><td class="num" data-label="Value">2</td><td class="num" data-label="Effort and risk">3</td><td data-label="Decision">Later, with tax work</td></tr>
+            <tr><td data-label="Task">Tax organiser intake</td><td class="num" data-label="Hours AI could save a month">About 6 (70 a season)</td><td class="num" data-label="Value">2</td><td class="num" data-label="Effort and risk">4</td><td data-label="Decision">Later</td></tr>
+            <tr><td data-label="Task">Reconciliations</td><td class="num" data-label="Hours AI could save a month">About 5</td><td class="num" data-label="Value">2</td><td class="num" data-label="Effort and risk">5</td><td data-label="Decision">Not now</td></tr>
+            <tr><td data-label="Task">Payroll questions</td><td class="num" data-label="Hours AI could save a month">About 2</td><td class="num" data-label="Value">1</td><td class="num" data-label="Effort and risk">4</td><td data-label="Decision">Not now</td></tr>
+            <tr><td data-label="Task">Engagement-letter renewals</td><td class="num" data-label="Hours AI could save a month">About 1 (12 a year)</td><td class="num" data-label="Value">1</td><td class="num" data-label="Effort and risk">2</td><td data-label="Decision">Use a mail-merge template</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Why these three</h3>
+      <p>Document intake, missing-items emails and call notes are the only tasks that score 3 or more on value and 3 or less on effort and risk. Together they hold 95 of the roughly 112 hours a month that all eight could save. In all three, a person checks every output before it reaches QuickBooks or a client, and none takes more than 4 weeks to build.</p>
+      <p>The other five wait for different reasons. Reconciliations and payroll questions carry the most risk for the least time. Tax organiser intake and prior-year comparison are worth more in season, but both depend on the tax software, which we did not look at, and should not compete with the intake rollout for staff time. Engagement-letter renewals take about 12 hours a year, and a mail-merge template in Word handles most of that without AI.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="opps">
+      <h2 id="opps"><span class="sec-n">6</span> Top three opportunities</h2>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Opportunity</th><th scope="col" class="num">Hours now</th><th scope="col" class="num">Hours after</th><th scope="col" class="num">Hours saved</th><th scope="col" class="num">Value a month</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Opportunity"><a href="#opp1">1. Client documents into QuickBooks as drafts</a></td><td class="num" data-label="Hours now">100</td><td class="num" data-label="Hours after">35</td><td class="num" data-label="Hours saved">65</td><td class="num" data-label="Value a month">$2,925</td></tr>
+            <tr><td data-label="Opportunity"><a href="#opp2">2. One missing-items email per client</a></td><td class="num" data-label="Hours now">30</td><td class="num" data-label="Hours after">10</td><td class="num" data-label="Hours saved">20</td><td class="num" data-label="Value a month">$900</td></tr>
+            <tr><td data-label="Opportunity"><a href="#opp3">3. Client calls to notes and tasks</a></td><td class="num" data-label="Hours now">16</td><td class="num" data-label="Hours after">6</td><td class="num" data-label="Hours saved">10</td><td class="num" data-label="Value a month">$450</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td data-label="Opportunity">Total</td><td class="num" data-label="Hours now">146</td><td class="num" data-label="Hours after">51</td><td class="num" data-label="Hours saved">95</td><td class="num" data-label="Value a month">$4,275</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="note">Value is hours saved at $45 an hour. Elsewhere in this report we round $2,925 to $2,900 and the total to $4,300.</p>
+
+      <article class="opp" id="opp1">
         <h3>1. Client documents into QuickBooks as drafts</h3>
         <p>Receipts and invoices that clients email or upload are read, matched to the right vendor and category, and created as draft entries in QuickBooks Online. A bookkeeper reviews and approves each one instead of typing it.</p>
         <dl class="opp-facts">
@@ -69,9 +268,71 @@
           <div><dt>Confidence</dt><dd>High. Small bookkeeping firms report intake falling from 2 to 3 hours to about 30 minutes per client per month with document-capture tools.<sup><a href="#src1">1</a></sup></dd></div>
           <div><dt>Build</dt><dd>3 to 4 weeks</dd></div>
         </dl>
+
+        <h4>Today and after</h4>
+        <table class="vs">
+          <thead><tr><td></td><th scope="col">Today</th><th scope="col">After</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who enters each document</th><td>A bookkeeper types every field</td><td>AI drafts it; a bookkeeper checks and approves it</td></tr>
+            <tr><th scope="row">Time per client a month</th><td>150 minutes</td><td>About 53 minutes</td></tr>
+            <tr><th scope="row">Hours a month, 40 clients</th><td>100</td><td>About 35</td></tr>
+            <tr><th scope="row">Emailed documents</th><td>Saved to the client folder by hand</td><td>Picked up from the mailbox automatically</td></tr>
+            <tr><th scope="row">New or unusual vendors</th><td>Bookkeeper looks up past entries or asks a partner</td><td>Draft shows the suggested account and the reason; unclear ones are flagged</td></tr>
+            <tr><th scope="row">Bank-feed matching</th><td>Done by hand, 15 minutes</td><td>Found by the check step and confirmed on approval</td></tr>
+          </tbody>
+        </table>
+
+        <h4>How it works</h4>
+        <p>Each step uses the cheapest tool that does it well. A model is the AI system that reads and writes text. A small, fast model handles routine reading. A frontier model, the most capable and most expensive kind, makes the judgement calls. Plain code, meaning ordinary software rules with no AI, does anything with a certain answer.</p>
+        <ol class="how">
+          <li><span class="tag tag-code">Plain code</span><p><b>Collect.</b> Every hour, new files from the portal and the intake mailbox are picked up and filed against the client.</p></li>
+          <li><span class="tag tag-code">Plain code</span><p><b>Mask.</b> Account numbers, routing numbers and tax IDs are found on each page and blacked out before anything leaves your systems. Mostly handwritten documents go straight to a bookkeeper.</p></li>
+          <li><span class="tag">Small &middot; Haiku 4.5</span><p><b>Read.</b> Claude Haiku 4.5 returns the date, vendor, amounts, tax and line items. About 1 in 10 documents, such as a blurry photo, gets a second read from Claude Sonnet 5.5, a mid-size model that sits between the two in cost.</p></li>
+          <li><span class="tag tag-top">Frontier &middot; Opus 5.5</span><p><b>Choose the account.</b> Claude Opus 5.5 sees the client&rsquo;s chart of accounts and how this vendor was coded before, and returns an account with a one-line reason.</p></li>
+          <li><span class="tag tag-code">Plain code</span><p><b>Check.</b> Totals add up, tax matches the rate, the date falls in an open period, the entry is not a duplicate, and the matching bank-feed transaction is found. Anything that fails is flagged for the bookkeeper.</p></li>
+          <li><span class="tag tag-code">Plain code</span><p><b>Draft.</b> The entry is created in QuickBooks Online as a draft, with the document attached.</p></li>
+          <li><span class="tag tag-person">A person</span><p><b>Approve.</b> The bookkeeper reviews the draft beside the document, edits it if needed, and approves it. Nothing reaches the books before this step.</p></li>
+        </ol>
+
+        <h4>Data it touches</h4>
+        <p>Receipts, invoices and statements your clients send; each client&rsquo;s chart of accounts and vendor list; past entries for the same vendor. It does not touch bank logins, payroll or tax returns.</p>
+
+        <h4>Approval and controls</h4>
+        <ul class="plain">
+          <li>Nothing posts to the books until a bookkeeper approves it.</li>
+          <li>Each draft shows the suggested account, the reason and the source document side by side.</li>
+          <li>Each week a partner checks 20 approved entries picked at random.</li>
+          <li>Every draft, edit and approval is logged with the name of the person who made it.</li>
+          <li>Corrections are saved as vendor rules, so the same fix is not needed twice.</li>
+          <li>A monthly spending cap stops AI usage above $150.</li>
+        </ul>
+
+        <h4>Risks and how we handle them</h4>
+        <div class="table-wrap">
+          <table class="risk-mini">
+            <thead><tr><th scope="col">Risk</th><th scope="col">How we handle it</th></tr></thead>
+            <tbody>
+              <tr><td>An amount is misread</td><td>The totals and tax check catches most. The bookkeeper sees the document beside every draft.</td></tr>
+              <tr><td>A plausible but wrong account</td><td>The reason is shown on the draft, and the partner&rsquo;s weekly sample checks approved entries.</td></tr>
+              <tr><td>Bookkeepers approve without really checking</td><td>The edit rate and the weekly sample are compared each month. If the sample finds errors that were approved unedited, review slows down until it stops happening.</td></tr>
+              <tr><td>The same receipt arrives by email and by upload</td><td>The duplicate check compares vendor, date and amount.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Savings, with the working</h4>
+        <p>Today: about 60 documents a client at 2.5 minutes each, or 150 minutes. After: approving 60 drafts at 30 seconds each (30 minutes), fixing the 1 in 5 that need an edit at 1.5 minutes each (18 minutes) and typing the 3 the system cannot read (4.5 minutes) comes to 52.5 minutes. Across 40 clients that is 35 hours instead of 100. The 65 hours saved are worth $2,925 a month at $45 an hour, which we round to $2,900.</p>
+        <p>About 53 minutes a client is more cautious than the 30 minutes Skybound Bookkeeping reported.<sup><a href="#src1">1</a></sup></p>
+
+        <dl class="opp-facts">
+          <div><dt>Build</dt><dd>3 to 4 weeks, fixed price (illustrative: $8,000), including a test on 300 of your past documents</dd></div>
+          <div><dt>Running cost</dt><dd>About $48 a month in AI usage (section 11)</dd></div>
+          <div><dt>How we measure it</dt><dd>Intake minutes per client; share of drafts approved without edits; errors found in the weekly sample</dd></div>
+          <div><dt>Target</dt><dd>Under 60 minutes in the pilot and about 53 at full rollout; 80% approved without edits; no sampled errors left in the books</dd></div>
+        </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp2">
         <h3>2. One missing-items email per client</h3>
         <p>At month end, unmatched transactions and missing documents are turned into a single, plain-English request for each client, drafted in Outlook for a bookkeeper to check and send.</p>
         <dl class="opp-facts">
@@ -80,9 +341,62 @@
           <div><dt>Confidence</dt><dd>Medium. Depends on how consistently the ledger is kept.</dd></div>
           <div><dt>Build</dt><dd>1 to 2 weeks, or added to the first build</dd></div>
         </dl>
+
+        <h4>Today and after</h4>
+        <table class="vs">
+          <thead><tr><td></td><th scope="col">Today</th><th scope="col">After</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who writes the request</th><td>A bookkeeper, from scratch, for each client</td><td>AI drafts one email per client; a bookkeeper checks and sends it</td></tr>
+            <tr><th scope="row">Time per client a month</th><td>45 minutes</td><td>About 15 minutes</td></tr>
+            <tr><th scope="row">Hours a month, 40 clients</th><td>30</td><td>About 10</td></tr>
+            <tr><th scope="row">Follow-ups</th><td>Written by hand when someone remembers</td><td>Drafted after 7 days for whatever is still missing</td></tr>
+            <tr><th scope="row">The tracker</th><td>Excel, updated by hand</td><td>Updated as documents arrive</td></tr>
+          </tbody>
+        </table>
+
+        <h4>How it works</h4>
+        <ol class="how">
+          <li><span class="tag tag-code">Plain code</span><p><b>Gather.</b> Three working days after month end, each client&rsquo;s unmatched bank transactions and missing statements are pulled from QuickBooks Online. Anything already received through the portal or the mailbox is dropped.</p></li>
+          <li><span class="tag tag-mid">Mid-size &middot; Sonnet 5.5</span><p><b>Write.</b> Claude Sonnet 5.5 writes one plain-English email per client: what is missing, the date and amount of each item, and how to send it. The wording follows 10 of your past emails that the partners pick.</p></li>
+          <li><span class="tag tag-code">Plain code</span><p><b>Draft.</b> The email lands as a draft in the bookkeeper&rsquo;s Outlook. The connection can create drafts but cannot send.</p></li>
+          <li><span class="tag tag-person">A person</span><p><b>Check and send.</b> The bookkeeper reads the draft against the list of items and sends it.</p></li>
+          <li><span class="tag tag-mid">Mid-size &middot; Sonnet 5.5</span><p><b>Follow up.</b> As documents arrive the list shrinks. After 7 days a shorter follow-up is drafted for what is left, and a person sends it.</p></li>
+        </ol>
+
+        <h4>Data it touches</h4>
+        <p>Unmatched transactions (date, amount and the payee text from the bank), the statements expected from each client each month, and the client contact&rsquo;s name and email address. Account numbers are masked as in opportunity 1.</p>
+
+        <h4>Approval and controls</h4>
+        <ul class="plain">
+          <li>Nothing is sent without a person.</li>
+          <li>The bookkeeper sees the source transaction for each line of the email.</li>
+          <li>The partners approve the wording before launch.</li>
+        </ul>
+
+        <h4>Risks and how we handle them</h4>
+        <div class="table-wrap">
+          <table class="risk-mini">
+            <thead><tr><th scope="col">Risk</th><th scope="col">How we handle it</th></tr></thead>
+            <tbody>
+              <tr><td>Asking for something the client already sent</td><td>The gather step checks the portal and the mailbox first, and the bookkeeper sees the list before sending.</td></tr>
+              <tr><td>The wrong tone for a long-standing client</td><td>The bookkeeper edits the draft, and a note on tone is kept for that client&rsquo;s next email.</td></tr>
+              <tr><td>Answers come back in the email body instead of as documents</td><td>A bookkeeper still reads every reply. Reading replies automatically can come later.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Savings, with the working</h4>
+        <p>Today: 45 minutes a client (section 4). After: checking and sending the first email takes about 6 minutes, checking and sending follow-ups 4 minutes, and handling replies that need a person 5 minutes, for 15 minutes in all. Across 40 clients that is 10 hours instead of 30. The 20 hours saved are worth $900 a month.</p>
+
+        <dl class="opp-facts">
+          <div><dt>Running cost</dt><dd>About $2 a month in AI usage</dd></div>
+          <div><dt>How we measure it</dt><dd>Hours spent chasing; working days from month end until the last missing item arrives</dd></div>
+          <div><dt>Today</dt><dd>30 hours; about 10 working days (your estimate)</dd></div>
+          <div><dt>Target</dt><dd>About 10 hours; 7 working days</dd></div>
+        </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp3">
         <h3>3. Client calls to notes and tasks</h3>
         <p>Teams calls are summarised into decisions and follow-up tasks, filed against the client.</p>
         <dl class="opp-facts">
@@ -91,52 +405,365 @@
           <div><dt>Confidence</dt><dd>Medium. If the firm already pays for Microsoft 365 Copilot, try its meeting recap first; it may cover this without a build.</dd></div>
           <div><dt>Build</dt><dd>1 week, if still needed</dd></div>
         </dl>
+
+        <h4>Today and after</h4>
+        <table class="vs">
+          <thead><tr><td></td><th scope="col">Today</th><th scope="col">After</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who writes the notes</th><td>The person on the call, from memory, often later</td><td>AI drafts them from the call transcript; the person on the call checks them</td></tr>
+            <tr><th scope="row">Time per call</th><td>20 minutes</td><td>About 7.5 minutes</td></tr>
+            <tr><th scope="row">Hours a month, 48 calls</th><td>16</td><td>About 6</td></tr>
+            <tr><th scope="row">Client recap</th><td>Often a day or more late</td><td>Drafted minutes after the call</td></tr>
+            <tr><th scope="row">Tasks for colleagues</th><td>Typed into Outlook by hand</td><td>Drafted from the notes and confirmed by the person on the call</td></tr>
+          </tbody>
+        </table>
+
+        <h4>How it works</h4>
+        <p>First, if you already pay for Microsoft 365 Copilot, use its meeting recap on real client calls for two weeks. If it is good enough, there is nothing to build. If it falls short, the build works like this:</p>
+        <ol class="how">
+          <li><span class="tag tag-code">Microsoft 365</span><p><b>Transcribe.</b> Teams records a transcript, a written record of what was said. The client is told at the start of the call.</p></li>
+          <li><span class="tag tag-mid">Mid-size &middot; Sonnet 5.5</span><p><b>Summarise.</b> Claude Sonnet 5.5 turns the transcript into decisions, open items and who owes what, filed against the client.</p></li>
+          <li><span class="tag tag-code">Plain code</span><p><b>Draft.</b> The recap goes to Outlook as a draft, and the tasks go to the colleagues they belong to, marked unconfirmed.</p></li>
+          <li><span class="tag tag-person">A person</span><p><b>Check and send.</b> The person on the call corrects the notes, confirms the tasks and sends the recap.</p></li>
+        </ol>
+
+        <h4>Data it touches</h4>
+        <p>The call transcript, which can hold anything said on the call, including personal financial details, and the client&rsquo;s name. Transcripts are deleted 30 days after the notes are approved, under a Microsoft 365 retention setting.</p>
+
+        <h4>Approval and controls</h4>
+        <ul class="plain">
+          <li>Clients are told when a call is transcribed, and any client can opt out.</li>
+          <li>Notes are filed only after the person on the call approves them.</li>
+          <li>The recap never sends itself.</li>
+        </ul>
+
+        <h4>Risks and how we handle them</h4>
+        <div class="table-wrap">
+          <table class="risk-mini">
+            <thead><tr><th scope="col">Risk</th><th scope="col">How we handle it</th></tr></thead>
+            <tbody>
+              <tr><td>The summary records something that was not agreed</td><td>The person on the call checks it against the transcript before filing.</td></tr>
+              <tr><td>A client is uncomfortable with transcription</td><td>Transcription stays off for that client, and notes are written by hand as today.</td></tr>
+              <tr><td>Copilot and the build overlap</td><td>Copilot is tried first. We build only for what it misses.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Savings, with the working</h4>
+        <p>Today: 20 minutes a call &times; 48 calls = 16 hours. After: checking and correcting the notes takes about 5 minutes, and confirming tasks and sending the recap 2.5 minutes. That is 7.5 minutes a call, or 6 hours a month. The 10 hours saved are worth $450 a month.</p>
+
+        <dl class="opp-facts">
+          <div><dt>Running cost</dt><dd>About $1 a month in AI usage. Copilot, if used instead, has its own licence cost.</dd></div>
+          <div><dt>How we measure it</dt><dd>Minutes per call write-up; share of calls with a recap sent the same day</dd></div>
+          <div><dt>Today</dt><dd>20 minutes; recaps often a day or more late</dd></div>
+          <div><dt>Target</dt><dd>Under 8 minutes; 9 in 10 recaps sent the same day</dd></div>
+        </dl>
       </article>
     </section>
 
     <section class="report-sec" aria-labelledby="not">
-      <h2 id="not">Not recommended now</h2>
+      <h2 id="not"><span class="sec-n">7</span> Not recommended now</h2>
       <ul class="plain">
         <li><b>AI answering clients&rsquo; tax questions.</b> The risk of a wrong answer outweighs the time saved. Keep a person on every reply.</li>
         <li><b>Automating reconciliations.</b> QuickBooks bank rules already handle most of it; the remaining cases need judgement.</li>
+        <li><b>Tax organiser intake and prior-year comparison, for now.</b> Together they could save about 110 hours a season, but both depend on the tax software, which we did not look at. Revisit them after the first build.</li>
       </ul>
     </section>
 
     <section class="report-sec" aria-labelledby="where">
-      <h2 id="where">Where it should run</h2>
+      <h2 id="where"><span class="sec-n">8</span> Where it should run</h2>
       <p>Client documents contain account numbers and tax IDs. Three setups work:</p>
       <ul class="plain">
         <li><b>Claude direct, through a business account whose terms exclude your data from model training,</b> with account numbers masked before anything is sent. Fastest to set up and cheapest.</li>
-        <li><b>Claude inside your own AWS account,</b> in a US region, under AWS&rsquo;s compliance terms. AWS doesn&rsquo;t share the data with Anthropic. A little more setup; the same accuracy.</li>
-        <li><b>An open-source model on a small server in your office.</b> Nothing leaves the building; the most setup and somewhat lower accuracy.</li>
+        <li><b>Claude inside your own AWS account,</b> through Amazon Bedrock (AWS&rsquo;s service for running AI models), in a US region (AWS data centres in the United States), under AWS&rsquo;s compliance terms. AWS doesn&rsquo;t share the data with Anthropic. A little more setup; the same accuracy.</li>
+        <li><b>An open-source model on a small server in your office.</b> An open-source model is one anyone can download and run on their own hardware. Nothing leaves the building; the most setup and somewhat lower accuracy.</li>
       </ul>
       <p><b>Recommendation:</b> start with Claude direct. If your engagement letters or your insurer limit where client data can go, use your own AWS account instead. Check both before the build.</p>
     </section>
 
+    <section class="report-sec" aria-labelledby="data">
+      <h2 id="data"><span class="sec-n">9</span> Data, security and compliance</h2>
+      <p>This covers only the data the three recommended tasks would touch. It is practical guidance; your adviser answers the legal questions.</p>
+
+      <h3>Where client data lives today</h3>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Place</th><th scope="col">What is in it</th><th scope="col">Who can reach it</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Place">QuickBooks Online</td><td data-label="What is in it">Client ledgers, vendor lists, bank feeds</td><td data-label="Who can reach it">All bookkeepers and partners</td></tr>
+            <tr><td data-label="Place">Client upload portal</td><td data-label="What is in it">Documents clients upload</td><td data-label="Who can reach it">All staff</td></tr>
+            <tr><td data-label="Place">Shared bookkeeping mailbox (Outlook)</td><td data-label="What is in it">Emailed documents and client correspondence</td><td data-label="Who can reach it">All bookkeepers</td></tr>
+            <tr><td data-label="Place">OneDrive client folders</td><td data-label="What is in it">Downloaded documents and the Excel trackers</td><td data-label="Who can reach it">All staff</td></tr>
+            <tr><td data-label="Place">Teams</td><td data-label="What is in it">Calls and client channels; no transcripts today</td><td data-label="Who can reach it">Staff on each call or channel</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Client documents already sit in three places: the portal, the mailbox and OneDrive. The new work adds one more, the service that runs the steps, and keeps its copies for 30 days at most.</p>
+
+      <h3>Questions for your engagement letters and insurer</h3>
+      <ol class="plain">
+        <li>Do your engagement letters allow you to use outside service providers to process client documents, and do they require you to tell clients?</li>
+        <li>Do they, or your insurer, limit where client data may be stored or processed, for example to the United States?</li>
+        <li>Does your cyber or professional liability policy require you to tell the insurer about a new service that handles client data, or require specific controls?</li>
+        <li>Does your written information security plan need to list the new service? The FTC Safeguards Rule expects tax preparers to keep one.</li>
+      </ol>
+      <p>If the answer to the second question is yes, or clients must agree before an AI service sees their documents, use the AWS route in section 8. Tax return information also has its own federal disclosure rules for preparers (Internal Revenue Code section 7216). Some of your bookkeeping clients are also tax clients, so ask your adviser how those rules apply before the pilot.</p>
+
+      <h3>Recommended setup</h3>
+      <dl class="report-meta">
+        <div><dt>AI service</dt><dd>Claude through an Anthropic business account whose terms exclude your data from training. If your letters or insurer rule that out, Claude through Amazon Bedrock in your own AWS account, in a US region.</dd></div>
+        <div><dt>Where the steps run</dt><dd>A small service in a cloud account your firm owns, so you can switch it off or move it at any time</dd></div>
+        <div><dt>Connections</dt><dd>The service has its own logins: read access to the portal&rsquo;s OneDrive folder and the intake mailbox, and the right to create drafts in QuickBooks Online and Outlook. It cannot send email. Our code never deletes entries, and every change it makes is logged.</dd></div>
+        <div><dt>Staff access</dt><dd>Bookkeepers open the review screen with their Microsoft 365 accounts and two-step sign-in (a password plus a code on their phone).</dd></div>
+        <div><dt>Keys</dt><dd>The access keys the service uses to reach Claude and QuickBooks are held in the cloud account&rsquo;s key store, never in a spreadsheet or an email.</dd></div>
+      </dl>
+
+      <h3>What gets masked</h3>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Item</th><th scope="col">What is sent</th><th scope="col">Why</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Item">Bank and card account numbers</td><td data-label="What is sent">Last 4 digits only</td><td data-label="Why">Enough to tell accounts apart</td></tr>
+            <tr><td data-label="Item">Bank routing numbers</td><td data-label="What is sent">Nothing</td><td data-label="Why">Not needed to record an entry</td></tr>
+            <tr><td data-label="Item">Social Security numbers and Employer Identification Numbers</td><td data-label="What is sent">Nothing</td><td data-label="Why">Not needed to record an entry</td></tr>
+            <tr><td data-label="Item">Names, vendors, amounts and dates</td><td data-label="What is sent">Sent as they are</td><td data-label="Why">Needed to read and code the document</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Masking runs on your side, before the reading step. Printed numbers are found by their pattern. Handwritten numbers are harder to find, so mostly handwritten documents skip AI and go to a bookkeeper.</p>
+
+      <h3>Retention</h3>
+      <ul class="plain">
+        <li>Source documents stay where they are today: in the portal, the mailbox and the QuickBooks attachments. The service deletes its working copies after 30 days.</li>
+        <li>The log of each draft, its edits and who approved it is kept as long as the client file.</li>
+        <li>The AI provider&rsquo;s retention period for business data is set in its terms. Record it in your security plan and check it again when the terms change.</li>
+        <li>Teams transcripts, if used, are deleted 30 days after the notes are approved.</li>
+      </ul>
+    </section>
+
+    <section class="report-sec" aria-labelledby="systems">
+      <h2 id="systems"><span class="sec-n">10</span> Integration check</h2>
+      <p>What each system allows, from your settings and each vendor&rsquo;s documentation, checked in the audit week. These are illustrative findings for this sample firm.</p>
+      <div class="table-wrap">
+        <table class="stack sys-table">
+          <thead><tr><th scope="col">System</th><th scope="col">What it allows</th><th scope="col">What needs a workaround</th></tr></thead>
+          <tbody>
+            <tr><td data-label="System">QuickBooks Online</td><td data-label="What it allows">Its API (the connection a system offers so other software can read from it or write to it) allows reading the chart of accounts, vendors and bank transactions, and creating draft expenses and bills with the document attached.</td><td data-label="What needs a workaround">The connection cannot be limited to drafts, so our code creates drafts only and logs every change it makes. Your bank rules stay as they are.</td></tr>
+            <tr><td data-label="System">Outlook</td><td data-label="What it allows">Apps can read a named mailbox and create drafts in a bookkeeper&rsquo;s mailbox without the right to send.</td><td data-label="What needs a workaround">None. Sending stays manual by design.</td></tr>
+            <tr><td data-label="System">Teams</td><td data-label="What it allows">An approved app can read meeting transcripts once transcription is on. Copilot&rsquo;s meeting recap needs a Copilot licence.</td><td data-label="What needs a workaround">Transcription is off today. It needs a policy change and a line in your client letters saying calls may be transcribed.</td></tr>
+            <tr><td data-label="System">Client upload portal</td><td data-label="What it allows">Your current plan has no API. It sends an email for each upload and can copy uploads to a OneDrive folder.</td><td data-label="What needs a workaround">The service watches that OneDrive folder. A plan with an API would remove the step; the pilot does not need it.</td></tr>
+            <tr><td data-label="System">Excel trackers</td><td data-label="What it allows">Readable and writable in OneDrive</td><td data-label="What needs a workaround">The missing-items tracker moves into the service; the partners keep an Excel export.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-sec" aria-labelledby="cost">
+      <h2 id="cost"><span class="sec-n">11</span> Cost and payback</h2>
+      <dl class="report-meta">
+        <div><dt>Build</dt><dd>Fixed price, quoted after the audit. Illustrative figure for this firm: $8,000.</dd></div>
+        <div><dt>Running cost</dt><dd>About $40 to $100 a month in model usage for roughly 2,400 documents a month, at current API prices.</dd></div>
+        <div><dt>Payback</dt><dd>Under 3 months, from the $2,900 monthly saving on opportunity 1 alone.</dd></div>
+      </dl>
+
+      <h3>What the build covers</h3>
+      <ul class="plain">
+        <li>Connections to the portal&rsquo;s OneDrive folder, the intake mailbox and QuickBooks Online.</li>
+        <li>The masking, reading, account and check steps described in section 6.</li>
+        <li>The review screen where bookkeepers approve drafts.</li>
+        <li>A test on 300 of your past documents before the pilot, and support through the pilot.</li>
+        <li>The monthly spending cap and the log of every draft and approval.</li>
+      </ul>
+      <p>Hosting for the plain-code steps is a small separate cost, quoted with the build.</p>
+
+      <h3>Running cost by model</h3>
+      <p>Prices are per million tokens, as published in October 2026. A token is a piece of a word; 1,000 tokens is roughly 750 words. Cached input, meaning instructions and reference data that repeat from one request to the next, is billed at about a tenth of the normal price. Batch processing, which runs work within a day instead of at once, is half price.</p>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Model</th><th scope="col">Used for</th><th scope="col" class="num">Input</th><th scope="col" class="num">Output</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Model">Claude Haiku 4.5 (small)</td><td data-label="Used for">Reading documents</td><td class="num" data-label="Input">$1</td><td class="num" data-label="Output">$5</td></tr>
+            <tr><td data-label="Model">Claude Sonnet 5.5 (mid-size)</td><td data-label="Used for">Second reads, emails, call notes</td><td class="num" data-label="Input">$2</td><td class="num" data-label="Output">$10</td></tr>
+            <tr><td data-label="Model">Claude Opus 5.5 (frontier)</td><td data-label="Used for">Choosing the account</td><td class="num" data-label="Input">$4</td><td class="num" data-label="Output">$20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrap">
+        <table class="stack run-table">
+          <thead><tr><th scope="col">Step</th><th scope="col">Model</th><th scope="col">Volume a month</th><th scope="col" class="num">Tokens per item, in / out</th><th scope="col" class="num">Cost a month</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Step">Read each document</td><td data-label="Model">Haiku 4.5</td><td data-label="Volume a month">2,400 documents</td><td class="num" data-label="Tokens per item, in / out">3,500 / 500</td><td class="num" data-label="Cost a month">$14.40</td></tr>
+            <tr><td data-label="Step">Second read of unclear documents</td><td data-label="Model">Sonnet 5.5</td><td data-label="Volume a month">240 documents</td><td class="num" data-label="Tokens per item, in / out">3,500 / 500</td><td class="num" data-label="Cost a month">$2.88</td></tr>
+            <tr><td data-label="Step">Choose the account</td><td data-label="Model">Opus 5.5</td><td data-label="Volume a month">2,400 documents</td><td class="num" data-label="Tokens per item, in / out">2,000 / 250</td><td class="num" data-label="Cost a month">$31.20</td></tr>
+            <tr><td data-label="Step">Draft missing-items emails</td><td data-label="Model">Sonnet 5.5</td><td data-label="Volume a month">120 drafts</td><td class="num" data-label="Tokens per item, in / out">5,500 / 500</td><td class="num" data-label="Cost a month">$1.92</td></tr>
+            <tr><td data-label="Step">Call notes and recap</td><td data-label="Model">Sonnet 5.5</td><td data-label="Volume a month">48 calls</td><td class="num" data-label="Tokens per item, in / out">8,000 / 1,000</td><td class="num" data-label="Cost a month">$1.25</td></tr>
+            <tr><td data-label="Step">Collect, mask, check and draft</td><td data-label="Model">Plain code</td><td data-label="Volume a month">All items</td><td class="num" data-label="Tokens per item, in / out">None</td><td class="num" data-label="Cost a month">$0</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td data-label="Step">Total</td><td data-label="Model"></td><td data-label="Volume a month"></td><td data-label="Tokens per item, in / out"></td><td class="num" data-label="Cost a month">$51.65</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p>By model, that is $14.40 for Haiku 4.5, $6.05 for Sonnet 5.5 and $31.20 for Opus 5.5. Document intake accounts for $48.48 of the $51.65.</p>
+      <p class="note">Assumptions: documents average 2 pages at about 1,500 tokens a page. Each request carries 5,000 tokens of cached instructions, billed as 500. The account step sends the 500 tokens of fields from the reading step, the cached instructions, and the client&rsquo;s chart of accounts and vendor history (10,000 tokens cached, billed as 1,000). Every document goes through the account step, even for vendors that always go to the same account. Email drafts carry 5,000 tokens of item lists and past emails; calls about 7,500 tokens of transcript. No batch discount is assumed.</p>
+      <p>Reading overnight as a batch, at half price, would bring the total to about $43. Documents twice as long would raise it to about $60, and a second read for every document to about $78. Each case stays inside the $40 to $100 range. Through Amazon Bedrock, AWS sets the price; check it before choosing that route.</p>
+
+      <h3>Payback</h3>
+      <p>The payback counts document intake alone: $2,900 a month saved, less about $50 of running cost (the $48.48 above, rounded up), leaves $2,850 a month. Opportunities 2 and 3 add $1,350 a month and are left out, so the case rests on the largest task.</p>
+      <figure class="chart chart-pay">
+        <svg viewBox="0 0 740 320" role="img" aria-label="Line chart of the cumulative net saving from document intake over 12 months, starting at minus $8,000. As estimated, it passes zero at 2.8 months and reaches $26,200 at month 12. At half the saving, it passes zero at 5.7 months and reaches $8,800 at month 12.">
+          <title>Payback on the $8,000 build</title>
+          <g class="gr">
+            <line x1="72" y1="24" x2="612" y2="24"/><line x1="72" y1="84" x2="612" y2="84"/><line x1="72" y1="144" x2="612" y2="144"/><line x1="72" y1="264" x2="612" y2="264"/>
+          </g>
+          <line class="zero" x1="72" y1="204" x2="612" y2="204"/>
+          <g class="tick" text-anchor="end"><text x="62" y="28.5">$30,000</text><text x="62" y="88.5">$20,000</text><text x="62" y="148.5">$10,000</text><text x="62" y="208.5">$0</text><text x="62" y="268.5">&minus;$10,000</text></g>
+          <g class="tick" text-anchor="middle"><text x="72" y="286">0</text><text x="207" y="286">3</text><text x="342" y="286">6</text><text x="477" y="286">9</text><text x="612" y="286">12</text></g>
+          <text class="ttl" x="342" y="312" text-anchor="middle">Months after intake is live for all 40 clients</text>
+          <line class="ln-b" x1="72" y1="252" x2="612" y2="151.2"/>
+          <line class="ln-a" x1="72" y1="252" x2="612" y2="46.8"/>
+          <line class="drop" x1="198.3" y1="204" x2="198.3" y2="242"/>
+          <line class="drop" x1="329.1" y1="204" x2="329.1" y2="242"/>
+          <circle class="be" cx="198.3" cy="204" r="4.5"/>
+          <circle class="be" cx="329.1" cy="204" r="4.5"/>
+          <text class="be-l" x="198.3" y="257" text-anchor="middle">2.8 months</text>
+          <text class="be-l" x="329.1" y="257" text-anchor="middle">5.7 months</text>
+          <text class="end-a" x="622" y="51">As estimated</text>
+          <text class="end-b" x="622" y="156">Half the saving</text>
+        </svg>
+      </figure>
+
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Case</th><th scope="col" class="num">Saving a month</th><th scope="col" class="num">Running cost</th><th scope="col" class="num">Net a month</th><th scope="col" class="num">Payback</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Case">As estimated</td><td class="num" data-label="Saving a month">$2,900</td><td class="num" data-label="Running cost">$50</td><td class="num" data-label="Net a month">$2,850</td><td class="num" data-label="Payback">2.8 months</td></tr>
+            <tr><td data-label="Case">The saving is half</td><td class="num" data-label="Saving a month">$1,450</td><td class="num" data-label="Running cost">$50</td><td class="num" data-label="Net a month">$1,400</td><td class="num" data-label="Payback">5.7 months</td></tr>
+            <tr><td data-label="Case">The build costs 25% more ($10,000)</td><td class="num" data-label="Saving a month">$2,900</td><td class="num" data-label="Running cost">$50</td><td class="num" data-label="Net a month">$2,850</td><td class="num" data-label="Payback">3.5 months</td></tr>
+            <tr><td data-label="Case">Smallest saving that pays back within a year</td><td class="num" data-label="Saving a month">$720 (16 hours)</td><td class="num" data-label="Running cost">$50</td><td class="num" data-label="Net a month">$670</td><td class="num" data-label="Payback">11.9 months</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The build pays for itself within a year as long as intake saves at least 16 hours a month, about a quarter of our estimate. At the full estimate, the three tasks are worth about $51,300 a year (95 hours &times; $45 &times; 12 months).</p>
+    </section>
+
     <section class="report-sec" aria-labelledby="plan">
-      <h2 id="plan">90-day plan</h2>
+      <h2 id="plan"><span class="sec-n">12</span> 90-day plan</h2>
+      <div class="gantt">
+        <div class="g-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div class="g-row g-head" aria-hidden="true"><span class="g-label">Days</span><span class="g-phases"><span>1 to 14</span><span>15 to 45</span><span>46 to 75</span><span>76 to 90</span></span></div>
+        <div class="g-row"><span class="g-label">Fixed quote, data checks, five pilot clients<small>Days 1 to 14</small></span><span class="g-track"><i class="g-bar" style="--s:0;--e:14"></i></span></div>
+        <div class="g-row"><span class="g-label">Build document intake<small>Days 15 to 35</small></span><span class="g-track"><i class="g-bar" style="--s:14;--e:35"></i></span></div>
+        <div class="g-row"><span class="g-label">Test on 300 past documents<small>Days 29 to 35</small></span><span class="g-track"><i class="g-bar is-check" style="--s:28;--e:35"></i></span></div>
+        <div class="g-row"><span class="g-label">Pilot on five clients, alongside today&rsquo;s process<small>Days 36 to 45</small></span><span class="g-track"><i class="g-bar" style="--s:35;--e:45"></i></span></div>
+        <div class="g-row"><span class="g-label">Decision: roll out if intake is under 1 hour per client<small>Day 45</small></span><span class="g-track"><i class="g-gate" style="--s:45"></i></span></div>
+        <div class="g-row"><span class="g-label">Roll out to all 40 clients<small>Days 46 to 75</small></span><span class="g-track"><i class="g-bar" style="--s:45;--e:75"></i></span></div>
+        <div class="g-row"><span class="g-label">Add missing-items emails<small>Days 52 to 75</small></span><span class="g-track"><i class="g-bar is-later" style="--s:51;--e:75"></i></span></div>
+        <div class="g-row"><span class="g-label">Try the Copilot meeting recap, if licensed<small>Days 60 to 75</small></span><span class="g-track"><i class="g-bar is-later" style="--s:59;--e:75"></i></span></div>
+        <div class="g-row"><span class="g-label">Review measured savings; decide on call notes<small>Days 76 to 90</small></span><span class="g-track"><i class="g-bar" style="--s:75;--e:90"></i></span></div>
+      </div>
+
       <ol class="plan">
         <li><span class="when">Days 1 to 14</span><p>Fixed quote for opportunity 1. Confirm data rules with your insurer and engagement letters. Pick five pilot clients.</p></li>
         <li><span class="when">Days 15 to 45</span><p>Build document intake. Run it on the five pilot clients alongside the current process and measure hours per client.</p></li>
         <li><span class="when">Days 46 to 75</span><p>If pilot intake is under 1 hour per client, roll out to all 40 clients and add the missing-items emails.</p></li>
         <li><span class="when">Days 76 to 90</span><p>Review the measured savings. Decide on call notes, or stop there.</p></li>
       </ol>
-      <p class="measure"><b>What to measure:</b> intake hours per client per month; the share of drafts approved without edits; days from month end to closed books.</p>
+      <h3>What to measure</h3>
+      <div class="table-wrap">
+        <table class="stack">
+          <thead><tr><th scope="col">Measure</th><th scope="col">Today</th><th scope="col">Target by day 90</th><th scope="col">How it is measured</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Measure">Intake time per client a month</td><td data-label="Today">2.5 hours</td><td data-label="Target by day 90">Under 1 hour in the pilot; about 53 minutes at full rollout</td><td data-label="How it is measured">Review time logged by the system, checked against time sheets</td></tr>
+            <tr><td data-label="Measure">Drafts approved without edits</td><td data-label="Today">None yet</td><td data-label="Target by day 90">80%</td><td data-label="How it is measured">Counted by the system</td></tr>
+            <tr><td data-label="Measure">Working days from month end to closed books</td><td data-label="Today">About 15 (your estimate)</td><td data-label="Target by day 90">10</td><td data-label="How it is measured">The partners&rsquo; month-end checklist</td></tr>
+            <tr><td data-label="Measure">Hours chasing missing items</td><td data-label="Today">30 a month</td><td data-label="Target by day 90">About 10</td><td data-label="How it is measured">Time sheets</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <section class="report-sec" aria-labelledby="cost">
-      <h2 id="cost">Cost and payback</h2>
-      <dl class="report-meta">
-        <div><dt>Build</dt><dd>Fixed price, quoted after the audit. Illustrative figure for this firm: $8,000.</dd></div>
-        <div><dt>Running cost</dt><dd>About $40 to $100 a month in model usage for roughly 2,400 documents a month, at current API prices.</dd></div>
-        <div><dt>Payback</dt><dd>Under 3 months, from the $2,900 monthly saving on opportunity 1 alone.</dd></div>
+    <section class="report-sec" aria-labelledby="risks">
+      <h2 id="risks"><span class="sec-n">13</span> Risks and open questions</h2>
+      <div class="table-wrap">
+        <table class="stack risk">
+          <thead><tr><th scope="col">Risk</th><th scope="col">Likelihood</th><th scope="col">What we do</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Risk">Clients keep emailing documents instead of using the portal</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i class="on"></i><span>High</span></span></td><td data-label="What we do">Intake reads the mailbox too, so nothing changes for clients.</td></tr>
+            <tr><td data-label="Risk">Bookkeepers approve drafts without checking them properly</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></td><td data-label="What we do">A partner checks 20 approved entries a week, and the edit rate is tracked from day one.</td></tr>
+            <tr><td data-label="Risk">Engagement letters or the insurer limit where data can go</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></td><td data-label="What we do">Checked in days 1 to 14, before any build. The AWS route is ready as the fallback.</td></tr>
+            <tr><td data-label="Risk">The pilot saving is smaller than estimated</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></td><td data-label="What we do">The day-45 decision. Payback within a year needs only 16 hours a month.</td></tr>
+            <tr><td data-label="Risk">Model prices or versions change</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></td><td data-label="What we do">A monthly spending cap. Any new model is tested on past documents before it is switched on.</td></tr>
+            <tr><td data-label="Risk">Month-end pressure leaves no time for the pilot</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i class="on"></i><i></i><span>Medium</span></span></td><td data-label="What we do">The bookkeepers choose the pilot clients, and the pilot runs alongside today&rsquo;s process, so pausing it loses nothing.</td></tr>
+            <tr><td data-label="Risk">A misread amount or wrong account reaches the books</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i></i><i></i><span>Low</span></span></td><td data-label="What we do">Totals and tax checks in code, a person approving every entry, and the weekly sample.</td></tr>
+            <tr><td data-label="Risk">The portal changes its plan or its export</td><td data-label="Likelihood"><span class="lik"><i class="on"></i><i></i><i></i><span>Low</span></span></td><td data-label="What we do">The service watches a OneDrive folder, so a portal change affects one step.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Open questions</h3>
+      <div class="table-wrap">
+        <table class="stack q-table">
+          <thead><tr><th scope="col">Question</th><th scope="col">Who answers</th><th scope="col">Needed by</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Question">Do you already pay for Microsoft 365 Copilot? This decides whether opportunity 3 needs a build.</td><td data-label="Who answers">A partner</td><td data-label="Needed by">Day 14</td></tr>
+            <tr><td data-label="Question">What do your engagement letters and your insurer allow?</td><td data-label="Who answers">A partner, with your insurer</td><td data-label="Needed by">Day 14</td></tr>
+            <tr><td data-label="Question">How do the federal rules on tax return information apply to clients who are both bookkeeping and tax clients?</td><td data-label="Who answers">Your adviser</td><td data-label="Needed by">Day 14</td></tr>
+            <tr><td data-label="Question">Which five clients join the pilot? A mix of tidy and messy books gives the truest result.</td><td data-label="Who answers">The bookkeepers</td><td data-label="Needed by">Day 14</td></tr>
+            <tr><td data-label="Question">Who approves drafts during the pilot, and how many hours a week can they give it?</td><td data-label="Who answers">A partner</td><td data-label="Needed by">Day 30</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-sec" aria-labelledby="appendix">
+      <h2 id="appendix"><span class="sec-n">14</span> Appendix</h2>
+
+      <h3>Assumptions</h3>
+      <ul class="plain">
+        <li>$45 an hour for bookkeeping time.</li>
+        <li>40 monthly clients at about 60 documents each: about 2,400 documents a month.</li>
+        <li>About 300 tax returns a year. Organiser intake takes 120 hours between February and April.</li>
+        <li>Intake today: 2.5 hours (150 minutes) per client per month, from two timed client months.</li>
+        <li>Intake after: 52.5 minutes per client. That is 60 approvals at 30 seconds, 12 edits at 1.5 minutes and 3 hand-typed documents at 1.5 minutes.</li>
+        <li>Missing-items emails: 45 minutes per client today and 15 after; about 3 emails per client a month.</li>
+        <li>Call notes: 48 calls a month, 20 minutes each today and 7.5 after.</li>
+        <li>Running cost: the token counts in section 11, at published prices for October 2026, with no batch discount.</li>
+        <li>The $8,000 build cost is illustrative. A real quote follows the audit.</li>
+        <li>Savings are counted in staff time. Whether that time goes to more clients or fewer overtime hours is your choice; we assume neither.</li>
+      </ul>
+
+      <h3>Glossary</h3>
+      <dl class="report-meta gloss">
+        <div><dt>API</dt><dd>The connection a system offers so other software can read from it or write to it, such as creating a draft entry in QuickBooks.</dd></div>
+        <div><dt>Model</dt><dd>The AI system that reads and writes text. Claude is Anthropic&rsquo;s family of models.</dd></div>
+        <div><dt>Small, fast model</dt><dd>A cheaper model for routine steps such as reading a receipt. Here, Claude Haiku 4.5.</dd></div>
+        <div><dt>Mid-size model</dt><dd>Between small and frontier in cost and ability. Here, Claude Sonnet 5.5.</dd></div>
+        <div><dt>Frontier model</dt><dd>The most capable and most expensive kind of model, used for judgement calls. Here, Claude Opus 5.5.</dd></div>
+        <div><dt>Plain code</dt><dd>Ordinary software rules with no AI, used where the answer is certain, such as checking that totals add up.</dd></div>
+        <div><dt>Token</dt><dd>The unit AI usage is priced in: a piece of a word. 1,000 tokens is roughly 750 words.</dd></div>
+        <div><dt>Cached input</dt><dd>Instructions and reference data that repeat from one request to the next, billed at about a tenth of the normal price.</dd></div>
+        <div><dt>Batch processing</dt><dd>Sending work to run within a day instead of at once, at half price.</dd></div>
+        <div><dt>Masking</dt><dd>Blacking out sensitive numbers before a document is sent anywhere.</dd></div>
+        <div><dt>Draft entry</dt><dd>An entry in QuickBooks Online that waits for a bookkeeper&rsquo;s approval before it counts in the books.</dd></div>
+        <div><dt>Bank rules</dt><dd>QuickBooks settings that categorise recurring bank transactions automatically.</dd></div>
+        <div><dt>Transcript</dt><dd>A written record of what was said on a call.</dd></div>
+        <div><dt>AWS</dt><dd>Amazon Web Services, Amazon&rsquo;s cloud computing service.</dd></div>
+        <div><dt>Amazon Bedrock</dt><dd>AWS&rsquo;s service for running AI models, including Claude, inside your own AWS account.</dd></div>
+        <div><dt>US region</dt><dd>AWS data centres in the United States, chosen so the data is processed there.</dd></div>
+        <div><dt>Open-source model</dt><dd>A model anyone can download and run on their own hardware.</dd></div>
+        <div><dt>Two-step sign-in</dt><dd>A login that needs a second check, such as a code on a phone, as well as the password.</dd></div>
+        <div><dt>Pilot</dt><dd>A trial on a few clients, run alongside the current process, to measure the real saving before rolling out.</dd></div>
+        <div><dt>Payback</dt><dd>The months it takes for the monthly saving to repay the build cost.</dd></div>
       </dl>
-    </section>
 
-    <footer class="report-foot">
-      <p id="src1"><sup>1</sup> Skybound Bookkeeping, a two-person firm, reported per-client intake falling from 2 to 3 hours to 30 minutes a month. Dext customer story, September 2023.</p>
-      <p>Assumptions: $45 an hour for bookkeeping time; 40 monthly clients at about 60 documents each.</p>
-    </footer>
+      <h3>Sources</h3>
+      <ol class="sources">
+        <li id="src1">Skybound Bookkeeping, a two-person firm, reported per-client intake falling from 2 to 3 hours to 30 minutes a month. Dext customer story, September 2023.</li>
+        <li id="src2">Claude prices per million tokens, published prices, October 2026: Haiku 4.5 $1 input and $5 output; Sonnet 5.5 $2 and $10; Opus 5.5 $4 and $20. Batch processing 50% off; cached input about 90% off.</li>
+      </ol>
+    </section>
 
     <div class="report-cta">
       <p>Want this for your business? The audit is $499, takes one week, and is refunded if it isn&rsquo;t useful.</p>
