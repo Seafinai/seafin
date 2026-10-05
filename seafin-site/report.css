@@ -239,3 +239,6 @@ td { color: var(--ink-700); }
   .stack td:first-child::before { content: none; }
   .stack td:empty { display: none; }
 }
+
+/* real-cases guide: where each result comes from */
+.opp .src { display: inline; font-size: 0.875rem; color: var(--ink-500); }
