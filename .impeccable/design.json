@@ -1,614 +1,488 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T22:00:00Z",
-  "title": "Design System: Seafin",
+  "generatedAt": "2026-10-05T12:00:00Z",
+  "title": "Design System: Seafin.ai",
   "extensions": {
-    "inheritsFrom": {
-      "system": "Wardix \"Vigilant Infrastructure\"",
-      "doctrine": "tracelet repo design.md (origin/dev)",
-      "tokens": "tracelet-vendor/pages/css/tracelet-landing.css"
-    },
+    "source": "seafin-site/home.css (:root, dark-mode block, .hero, .dark) and seafin-site/report.css. Colours from the Seafin.ai logo; type, radii and spacing carried over from the Wardix system.",
     "colorMeta": {
-      "indigo": {
-        "role": "primary",
-        "displayName": "Primary Indigo",
-        "canonical": "#1a227e",
-        "tonalRamp": [
-          "#0a0e3a",
-          "#0f1556",
-          "#1a227e",
-          "#2b35a8",
-          "#4a54c0",
-          "#7f87d6",
-          "#b9bee9",
-          "#e8eaf5"
-        ]
-      },
-      "indigo-deep": {
-        "role": "primary",
-        "displayName": "Deep Indigo",
-        "canonical": "#0f1556",
-        "tonalRamp": [
-          "#0a0e3a",
-          "#0f1556",
-          "#1a227e",
-          "#2b35a8",
-          "#4a54c0",
-          "#7f87d6",
-          "#b9bee9",
-          "#e8eaf5"
-        ]
-      },
-      "teal": {
-        "role": "secondary",
-        "displayName": "Signal Teal",
-        "canonical": "#0076a3",
-        "tonalRamp": [
-          "#002a40",
-          "#004566",
-          "#005682",
-          "#0076a3",
-          "#0a85b6",
-          "#38b3da",
-          "#9fd8ec",
-          "#e1f4f9"
-        ],
-        "dark": "#38b3da"
-      },
-      "teal-deep": {
-        "role": "secondary",
-        "displayName": "Deep Teal",
-        "canonical": "#005682",
-        "tonalRamp": [
-          "#002a40",
-          "#004566",
-          "#005682",
-          "#0076a3",
-          "#0a85b6",
-          "#38b3da",
-          "#9fd8ec",
-          "#e1f4f9"
-        ],
-        "dark": "#8fd6ee"
-      },
-      "teal-soft": {
-        "role": "secondary",
-        "displayName": "Soft Teal",
-        "canonical": "#38b3da",
-        "tonalRamp": [
-          "#002a40",
-          "#004566",
-          "#005682",
-          "#0076a3",
-          "#0a85b6",
-          "#38b3da",
-          "#9fd8ec",
-          "#e1f4f9"
-        ]
-      },
-      "teal-tint": {
-        "role": "secondary",
-        "displayName": "Teal Tint",
-        "canonical": "#e1f4f9",
-        "tonalRamp": [
-          "#002a40",
-          "#004566",
-          "#005682",
-          "#0076a3",
-          "#0a85b6",
-          "#38b3da",
-          "#9fd8ec",
-          "#e1f4f9"
-        ],
-        "dark": "#0c2c3a"
-      },
-      "bastion": {
-        "role": "tertiary",
-        "displayName": "Bastion Navy",
-        "canonical": "#071426",
-        "tonalRamp": [
-          "#030a14",
-          "#071426",
-          "#0f2240",
-          "#1b3559",
-          "#2e4d77",
-          "#5a76a0",
-          "#9bb0cc",
-          "#dce4ef"
-        ]
-      },
-      "ink-900": {
+      "charcoal": {
         "role": "neutral",
-        "displayName": "Ink 900",
-        "canonical": "#1a1f2a",
+        "displayName": "Logo Charcoal",
+        "canonical": "#292d32",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#e9ecf6"
+        "dark": "#eceef1 as ink; dark section surface #111316"
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Logo Cobalt",
+        "canonical": "#3563e9",
+        "tonalRamp": [
+          "#0f1d4a",
+          "#172c70",
+          "#2448b8",
+          "#3563e9",
+          "#5a7be0",
+          "#8ea8f3",
+          "#c3d1f9",
+          "#eaf0fd"
+        ],
+        "dark": "#7c9bf5 for links and markers; the logo keeps #3563e9"
+      },
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Cobalt Deep",
+        "canonical": "#2448b8",
+        "tonalRamp": [
+          "#0f1d4a",
+          "#172c70",
+          "#2448b8",
+          "#3563e9",
+          "#5a7be0",
+          "#8ea8f3",
+          "#c3d1f9",
+          "#eaf0fd"
+        ],
+        "dark": "#a9bef8"
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Soft Cobalt",
+        "canonical": "#8ea8f3",
+        "tonalRamp": [
+          "#0f1d4a",
+          "#172c70",
+          "#2448b8",
+          "#3563e9",
+          "#5a7be0",
+          "#8ea8f3",
+          "#c3d1f9",
+          "#eaf0fd"
+        ],
+        "dark": "#5a7be0"
+      },
+      "accent-tint": {
+        "role": "primary",
+        "displayName": "Cobalt Tint",
+        "canonical": "#eaf0fd",
+        "tonalRamp": [
+          "#0f1d4a",
+          "#172c70",
+          "#2448b8",
+          "#3563e9",
+          "#5a7be0",
+          "#8ea8f3",
+          "#c3d1f9",
+          "#eaf0fd"
+        ],
+        "dark": "#26304a"
       },
       "ink-700": {
         "role": "neutral",
         "displayName": "Ink 700",
-        "canonical": "#2d3748",
+        "canonical": "#41464e",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#cdd3e6"
+        "dark": "#cdd1d7"
       },
       "ink-500": {
         "role": "neutral",
         "displayName": "Ink 500",
-        "canonical": "#4a5568",
+        "canonical": "#5c636d",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#9aa3c0"
+        "dark": "#9da3ac"
       },
       "line": {
         "role": "neutral",
         "displayName": "Line",
-        "canonical": "#e2e6ec",
+        "canonical": "#e3e5e8",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#262c44"
+        "dark": "#33373e"
       },
       "line-soft": {
         "role": "neutral",
         "displayName": "Line Soft",
-        "canonical": "#eef0f4",
+        "canonical": "#eff0f2",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#1e2438"
+        "dark": "#2a2d33"
       },
       "line-strong": {
         "role": "neutral",
         "displayName": "Line Strong",
-        "canonical": "#cbd2dc",
+        "canonical": "#cdd0d5",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#3a4466"
+        "dark": "#474c55"
       },
       "bg": {
         "role": "neutral",
-        "displayName": "Canvas",
-        "canonical": "#f5f6f9",
+        "displayName": "Band Grey",
+        "canonical": "#f5f6f8",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#0b0e1a"
+        "dark": "#1a1c20"
       },
       "paper": {
         "role": "neutral",
         "displayName": "Paper",
         "canonical": "#ffffff",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#121732"
+        "dark": "#212429"
       },
       "paper-2": {
         "role": "neutral",
         "displayName": "Paper 2",
-        "canonical": "#fbfcfe",
+        "canonical": "#fbfbfc",
         "tonalRamp": [
-          "#1a1f2a",
-          "#2d3748",
-          "#4a5568",
-          "#a0aec0",
-          "#cbd2dc",
-          "#e2e6ec",
-          "#eef0f4",
-          "#f5f6f9"
+          "#111316",
+          "#1d2024",
+          "#292d32",
+          "#41464e",
+          "#5c636d",
+          "#9da3ac",
+          "#cdd0d5",
+          "#eff0f2"
         ],
-        "dark": "#0f1430"
+        "dark": "#1d2024"
+      },
+      "hero-stone": {
+        "role": "neutral",
+        "displayName": "Hero Stone",
+        "canonical": "#eceae6",
+        "tonalRamp": [
+          "#3a3936",
+          "#5a5854",
+          "#7d7b76",
+          "#a19e98",
+          "#c4c1bb",
+          "#dcd9d4",
+          "#eceae6",
+          "#f6f5f2"
+        ],
+        "dark": "unchanged: the hero stays light in dark mode"
       },
       "danger": {
-        "role": "status",
+        "role": "error",
         "displayName": "Danger",
         "canonical": "#b50909",
         "tonalRamp": [
-          "#4a0303",
+          "#4a0404",
           "#7a0606",
           "#b50909",
-          "#d63a3a",
-          "#e86a6a",
-          "#f3a3a3",
-          "#f8cccc",
-          "#fbe5e5"
+          "#d63a32",
+          "#ff8a80",
+          "#ffb3ab",
+          "#ffd6d1",
+          "#fff0ee"
         ],
         "dark": "#ff8a80"
       }
     },
-    "gradients": [
-      {
-        "name": "brand-gradient",
-        "value": "linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)",
-        "dark": "linear-gradient(100deg, #2b35a8 0%, #0a85b6 62%, #38b3da 100%)",
-        "purpose": "\"Request a free call\" buttons and the favicon tile only. The indigo radials behind the opening and the demo stage, their grids and the teal glow are fields, not this gradient."
-      }
-    ],
+    "darkSection": {
+      "selector": ".dark",
+      "surface": "#292d32 in light mode, #111316 in dark mode",
+      "ink": "#ffffff",
+      "ink700": "#d0d4d9",
+      "ink500": "#a9afb8",
+      "line": "rgba(255,255,255,0.14)",
+      "note": "The only dark section (How we build it)."
+    },
+    "heroException": {
+      "backing": "#eceae6",
+      "scrim": "linear-gradient(90deg, rgba(246,245,242,0.92) 0%, rgba(246,245,242,0.72) 38%, rgba(246,245,242,0) 62%)",
+      "note": "The hero keeps light tokens in dark mode; under 1024px the photo moves above the headline and the scrim is dropped."
+    },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The opening statement only; serif 500, white, closing phrase held on one line above 480px."
+        "purpose": "Hero headline only; 2.375rem under 480px."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section H2s (including the call heading) and the closing-band H2; serif."
+        "purpose": "Section headings. Report h1 clamp(2.25rem, 5vw, 3.25rem); report h2 clamp(1.5rem, 2.6vw, 1.875rem)."
       },
-      "index": {
-        "displayName": "Index",
-        "purpose": "Service names in the practice index; serif."
+      "headline-sm": {
+        "displayName": "Headline Small",
+        "purpose": "Service names (1.5rem), guide titles, news title, report key figures."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Route H3s in the routes panel; Public Sans bold."
-      },
-      "body-large": {
-        "displayName": "Body Large",
-        "purpose": "The call section sub-line, ink-500, max 34ch."
-      },
-      "body": {
-        "displayName": "Body",
-        "purpose": "Running text, tabular numerals. Case rows: input 0.9375rem, result 600 1.0625rem."
+        "purpose": "Sans bold item titles: builds, steps, promises, routes, FAQ questions."
       },
       "lede": {
         "displayName": "Lede",
-        "purpose": "The opening sentence, #b9c4de, max 38ch."
+        "purpose": "Hero and section intros."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, tabular numbers, 64-68ch."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Geist Mono uppercase teal: duration tags beside or beneath their title, and the one diagram boundary label (0.6875rem). Never above a heading, leading a row, or as interface chrome."
+        "purpose": "Dates, captions, table heads, pills; sentence case."
       },
-      "button": {
-        "displayName": "Button",
-        "purpose": "Primary button label."
-      },
-      "field-label": {
-        "displayName": "Field label",
-        "purpose": "Form labels above inputs."
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Loaded by @font-face in home.css; no current use."
       }
     },
     "shadows": [
       {
         "name": "shadow-1",
-        "value": "0 1px 2px rgba(15, 21, 86, 0.06), 0 1px 3px rgba(15, 21, 86, 0.04)",
-        "purpose": "Resting: the routes panel and primary buttons. Keeps its indigo tint in dark mode."
+        "value": "0 1px 2px rgba(41,45,50,0.06), 0 1px 3px rgba(41,45,50,0.04)",
+        "purpose": "Primary button at rest, routes panel."
       },
       {
         "name": "shadow-2",
-        "value": "0 4px 12px rgba(15, 21, 86, 0.08), 0 2px 4px rgba(15, 21, 86, 0.04)",
-        "dark": "0 4px 14px rgba(0, 0, 0, 0.4)",
-        "purpose": "Raised: the form panel at rest (the one action), button hover, and under the sent-state halo."
-      },
-      {
-        "name": "card-on-stage",
-        "value": "0 10px 30px rgba(3, 6, 30, 0.35)",
-        "purpose": "Demo app cards on the dark stage only."
-      },
-      {
-        "name": "chip",
-        "value": "0 2px 6px rgba(3, 6, 30, 0.18)",
-        "purpose": "A demo chip in transit."
+        "value": "0 4px 12px rgba(41,45,50,0.08), 0 2px 4px rgba(41,45,50,0.04)",
+        "purpose": "Button hover, booking form. Dark mode: 0 4px 14px rgba(0,0,0,0.4)."
       },
       {
         "name": "shadow-3",
-        "value": "0 14px 32px rgba(15, 21, 86, 0.1), 0 4px 12px rgba(15, 21, 86, 0.05)",
-        "dark": "0 18px 40px rgba(0, 0, 0, 0.5)",
-        "purpose": "Overlay: menus and dialogs only."
+        "value": "0 14px 32px rgba(41,45,50,0.1), 0 4px 12px rgba(41,45,50,0.05)",
+        "purpose": "Defined, not currently used."
+      },
+      {
+        "name": "report-page",
+        "value": "0 2.4cqw 6cqw rgba(41,45,50,0.2), 0 0.4cqw 1.2cqw rgba(41,45,50,0.1)",
+        "purpose": "Report preview pages, in container-query units."
+      },
+      {
+        "name": "signal-glow",
+        "value": "0 0 0 3px rgba(53,99,233,0.6), 0 0 22px 6px rgba(53,99,233,0.5)",
+        "purpose": "The moving flow token only."
       },
       {
         "name": "focus-halo",
-        "value": "0 0 0 3px var(--tracelet-teal-tint)",
-        "purpose": "Input focus and form-panel sent state."
+        "value": "0 0 0 3px var(--accent-tint)",
+        "purpose": "Input focus and the sent form."
       }
     ],
     "motion": [
       {
-        "name": "control",
+        "name": "ease-settle",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Settling: report bars (1300ms), page nudge (260ms), lit dot scale, form status (420ms)."
+      },
+      {
+        "name": "ease-travel",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "A signal travelling a line: flow token and rail fill (780ms), wire trip (3.6s loop, staggered 1.2s)."
+      },
+      {
+        "name": "ui-state",
         "value": "160ms ease-out",
-        "purpose": "Button hover and press."
+        "purpose": "Button hover and press; inputs 140ms."
       },
       {
-        "name": "field",
-        "value": "140ms ease-out",
-        "purpose": "Input hover and focus."
-      },
-      {
-        "name": "panel-sent",
-        "value": "400ms ease-out",
-        "purpose": "Form panel border, halo and Raised shadow on success."
-      },
-      {
-        "name": "settle",
-        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Confirmation line fades up 4px. All motion off under prefers-reduced-motion."
-      },
-      {
-        "name": "demo-read",
-        "value": "1300ms",
-        "purpose": "The source is read top to bottom; each mark lights (260ms ease-out) in turn. No scan line."
-      },
-      {
-        "name": "demo-swap",
-        "value": "out 200ms ease-out; in 360ms ease-out, 40ms stagger",
-        "purpose": "Scene change: the two app frames stay put; only their contents cross-fade."
-      },
-      {
-        "name": "demo-chip",
-        "value": "900ms cubic-bezier(0.45, 0, 0.2, 1), 280ms apart",
-        "purpose": "Chips travel one at a time on a shallow arc and settle exactly on the field value line."
-      },
-      {
-        "name": "demo-land",
-        "value": "900ms ease-out",
-        "purpose": "A field value fades in on a Teal Tint flash; computed fields land the same way without a chip."
-      },
-      {
-        "name": "demo-step",
-        "value": "280ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Step label fades up 4px on change; status text uses 320ms."
-      },
-      {
-        "name": "demo-hold",
-        "value": "7600ms scene (hold fills the rest, minimum 1600ms)",
-        "purpose": "Each scene runs exactly 7600ms; the finished record holds for whatever remains (at least 1600ms). Tab progress fills over the same 7600ms."
-      },
-      {
-        "name": "demo-breathe",
-        "value": "1100ms ease-in-out infinite",
-        "purpose": "Working status dot pulses to 35% opacity until the scene settles."
-      },
-      {
-        "name": "demo-sequencing",
-        "value": "timers",
-        "purpose": "Steps are sequenced with timers, never on animation completion, so a throttled browser cannot stall the loop."
-      },
-      {
-        "name": "case-color",
-        "value": "200ms ease-out",
-        "purpose": "Case row text color on hover and when it starts playing; its 2px teal line grows over the 7.6s scene."
-      },
-      {
-        "name": "object-turn",
-        "value": "continuous: spin 0.14 rad/s about its own axis; lean wobble at 0.27 and 0.19 rad/s; float at 0.55 rad/s",
-        "purpose": "The opening object turns slowly; the twist carries the highlights round the loop."
-      },
-      {
-        "name": "object-tilt",
-        "value": "pointer-follow, eased 5% per frame, up to ~0.18 / 0.28 rad",
-        "purpose": "The object leans a few degrees toward the pointer; returns to rest on pointer leave."
-      },
-      {
-        "name": "object-reveal",
-        "value": "900ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "The canvas fades in on its first rendered frame. Off screen or hidden: paused. Reduced motion: one still pose."
+        "name": "gating",
+        "value": ".js-motion",
+        "purpose": "Added by an inline script only when reduced motion is off. The finished state is the default; IntersectionObserver and visibilitychange stop motion offscreen or in hidden tabs; prefers-reduced-motion removes all transitions and animations."
       }
     ],
     "breakpoints": [
       {
-        "name": "stack",
+        "name": "routes-stack",
+        "value": "1100px"
+      },
+      {
+        "name": "hero-photo-above",
+        "value": "1024px"
+      },
+      {
+        "name": "split-stack",
         "value": "960px"
       },
       {
-        "name": "compact",
+        "name": "nav-collapse",
         "value": "760px"
       },
       {
         "name": "phone",
-        "value": "480px"
-      }
-    ],
-    "heroTreatment": {
-      "source": "tracelet-vendor/pages/css/tracelet-landing.css (hero grid, 54px); layout on the Metalab model (chosen 2026-10-04)",
-      "field": "radial-gradient(120% 90% at 75% 40%, #19207a 0%, #0f1556 45%, #080c33 100%), same in both modes",
-      "grid": "linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px); background-size 54px 54px; mask radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%)",
-      "glow": "radial-gradient(closest-side, rgba(0, 118, 163, 0.35), transparent), blur(30px), bottom right",
-      "object": {
-        "renderer": "seafin-site/hero3d.js, three.js 0.170 via jsDelivr import map, WebGL, DPR capped at 1.75, ACES tone mapping, RoomEnvironment",
-        "form": "ribbon ring, stadium section (half-width 0.62, half-thickness and edge radius 0.17, ring radius 1.55), one full twist per lap",
-        "material": "MeshPhysicalMaterial #151b6e, metalness 0.55, roughness 0.17, clearcoat 1, clearcoatRoughness 0.05, envMapIntensity 1.5",
-        "lights": "teal rim #38b3da (6), violet rim #7d86ff (4), white key (0.7)",
-        "framing": "canvas >= 900px wide: large, partly cropped, right of the statement; narrower: above it",
-        "fallback": "no WebGL or module failure: the indigo field stays"
+        "value": "560px"
       },
-      "minHeight": "clamp(560px, calc(100svh - 64px), 880px); content anchored to the bottom"
-    }
+      {
+        "name": "hero-type",
+        "value": "480px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "400px"
+      }
+    ]
   },
   "components": [
     {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The single primary action, always labelled \"Request a free call\"; the only gradient on the page.",
-      "html": "<button class=\"ds-btn-primary\">Request a free call</button>",
-      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 20px; font:700 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border:1px solid transparent; border-radius:6px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); cursor:pointer; transition:box-shadow 160ms ease-out, filter 160ms ease-out, transform 160ms ease-out; } .ds-btn-primary:hover { filter:brightness(1.08); box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-btn-primary:active { transform:translateY(1px); filter:brightness(0.96); } .ds-btn-primary:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
+      "description": "Cobalt action button.",
+      "html": "<button class=\"ds-btn-primary\">Book a free call</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;font:700 0.9375rem/1 'Public Sans',sans-serif;color:#fff;background:#3563e9;border:1px solid transparent;border-radius:6px;box-shadow:0 1px 2px rgba(41,45,50,0.06),0 1px 3px rgba(41,45,50,0.04);cursor:pointer;transition:box-shadow 160ms ease-out,background-color 160ms ease-out,transform 160ms ease-out}.ds-btn-primary:hover{background:#2448b8;box-shadow:0 4px 12px rgba(41,45,50,0.08),0 2px 4px rgba(41,45,50,0.04)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid #3563e9;outline-offset:3px}"
     },
     {
-      "name": "Labelled Input",
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined alternative.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Read the sample report</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;font:700 0.9375rem/1 'Public Sans',sans-serif;color:#292d32;background:#fff;border:1px solid #cdd0d5;border-radius:6px;text-decoration:none;transition:border-color 160ms ease-out}.ds-btn-secondary:hover{border-color:#292d32}.ds-btn-secondary:focus-visible{outline:2px solid #3563e9;outline-offset:3px}"
+    },
+    {
+      "name": "Link Button",
+      "kind": "button",
+      "description": "Bold text link beside a primary button.",
+      "html": "<a class=\"ds-btn-link\" href=\"#\">See what we build</a>",
+      "css": ".ds-btn-link{font:600 1.0625rem/1.6 'Public Sans',sans-serif;color:#292d32;text-decoration:none}.ds-btn-link:hover{color:#3563e9;text-decoration:underline;text-underline-offset:0.2em}"
+    },
+    {
+      "name": "Text Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Label above, paper-2 field with a line-strong border that darkens on hover; teal border plus 3px teal-tint halo on focus.",
-      "html": "<label class=\"ds-field\">Work email<input class=\"ds-input\" type=\"email\"></label>",
-      "css": ".ds-field { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-input { min-height:46px; font:400 1rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); background:var(--paper-2, #fbfcfe); border:1px solid var(--line-strong, #cbd2dc); border-radius:10px; padding:11px 13px; transition:border-color 140ms ease-out, box-shadow 140ms ease-out; } .ds-input:hover { border-color:color-mix(in srgb, var(--line-strong, #cbd2dc) 55%, var(--ink-500, #4a5568)); } .ds-input:focus-visible { outline:none; border-color:var(--tracelet-teal, #0076a3); box-shadow:0 0 0 3px var(--tracelet-teal-tint, #e1f4f9); }"
+      "description": "Booking form field.",
+      "html": "<label class=\"ds-label\">Email<input class=\"ds-input\" type=\"email\"></label>",
+      "css": ".ds-label{display:grid;gap:6px;font:600 0.875rem/1.3 'Public Sans',sans-serif;color:#41464e}.ds-input{min-height:46px;padding:11px 13px;font:400 1rem/1.4 'Public Sans',sans-serif;color:#292d32;background:#fbfbfc;border:1px solid #cdd0d5;border-radius:10px;transition:border-color 140ms ease-out,box-shadow 140ms ease-out}.ds-input:focus-visible{outline:none;border-color:#3563e9;box-shadow:0 0 0 3px #eaf0fd}"
     },
     {
       "name": "Navigation",
       "kind": "nav",
-      "refersTo": "nav",
-      "description": "Sticky translucent white bar over the dark opening: serif wordmark, three sans links, primary button right. Links hide at <=760px on the one-page build.",
-      "html": "<header class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\">Seafin</a><ul><li><a href=\"#\">Services</a></li><li><a href=\"#\">What we build</a></li><li><a href=\"#\">Where it runs</a></li></ul></header>",
-      "css": ".ds-nav { display:flex; align-items:center; gap:32px; min-height:64px; padding:0 24px; background:color-mix(in srgb, var(--paper, #fff) 94%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line, #e2e6ec); } .ds-wordmark { font:700 1.375rem/1 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.02em; color:var(--ink-900, #1a1f2a); text-decoration:none; } .ds-nav ul { display:flex; gap:28px; margin:0 0 0 auto; padding:0; list-style:none; } .ds-nav ul a { font:500 0.9375rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); text-decoration:none; } .ds-nav ul a:hover { color:var(--ink-900, #1a1f2a); } .ds-nav a:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; }"
+      "description": "Sticky bar: logo lockup, links, one primary button. The real logo is the inline #seafin-logo symbol; this snippet approximates it with text.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-logo\">Seafin<b>.ai</b></span><a href=\"#\">Services</a><a href=\"#\">Guides</a><a class=\"ds-nav-btn\" href=\"#\">Book a call</a></header>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:28px;min-height:64px;padding:0 24px;background:#fff;border-bottom:1px solid #e3e5e8;font:500 0.9375rem/1 'Public Sans',sans-serif}.ds-logo{margin-right:auto;font:700 1.25rem/1 'Public Sans',sans-serif;color:#292d32}.ds-logo b{color:#3563e9}.ds-nav a{color:#5c636d;text-decoration:none}.ds-nav a:hover{color:#292d32}.ds-nav .ds-nav-btn{min-height:40px;display:inline-flex;align-items:center;padding:0 16px;border-radius:6px;background:#3563e9;color:#fff;font-weight:700}.ds-nav .ds-nav-btn:hover{background:#2448b8;color:#fff}"
     },
     {
-      "name": "Opening",
+      "name": "Ruled List",
       "kind": "custom",
-      "refersTo": "hero",
-      "description": "Signature: one serif statement, one lede line and one large primary button anchored to the bottom of the deep indigo field with the 54px grid and teal glow. The WebGL ribbon ring (hero3d.js) renders behind the text on the live page and is not reproduced here.",
-      "html": "<section class=\"ds-open\"><div class=\"ds-open-grid\"></div><h1>Your AI department, <span>without the headcount.</span></h1><div class=\"ds-open-foot\"><p>Strategy audits, custom builds and managed AI for businesses with no AI team.</p><a class=\"ds-btn-lg\" href=\"#\">Request a free call</a></div></section>",
-      "css": ".ds-open { position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; min-height:420px; padding:48px 32px; background:radial-gradient(120% 90% at 75% 40%, #19207a 0%, var(--tracelet-indigo-deep, #0f1556) 45%, #080c33 100%); color:#e9ecf6; } .ds-open-grid { position:absolute; inset:0; z-index:-1; background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:54px 54px; -webkit-mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); mask-image:radial-gradient(110% 95% at 85% 0%, #000 25%, transparent 72%); } .ds-open::after { content:\"\"; position:absolute; z-index:-1; right:-10%; bottom:-45%; width:70%; height:90%; background:radial-gradient(closest-side, rgba(0,118,163,.35), transparent); filter:blur(30px); } .ds-open h1 { margin:0; max-width:11.5em; color:#fff; font:500 clamp(2.75rem, 6.6vw, 6rem)/0.98 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.03em; } .ds-open h1 span { white-space:nowrap; } .ds-open-foot { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px 48px; margin-top:32px; } .ds-open p { margin:0; max-width:38ch; font:400 1.1875rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color:#b9c4de; } .ds-btn-lg { display:inline-flex; align-items:center; min-height:54px; padding:0 28px; font:700 1.0625rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; text-decoration:none; background:var(--brand-gradient, linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%)); border-radius:6px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); transition:filter 160ms ease-out, box-shadow 160ms ease-out, transform 160ms ease-out; } .ds-btn-lg:hover { filter:brightness(1.08); box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } .ds-btn-lg:active { transform:translateY(1px); filter:brightness(0.96); } .ds-btn-lg:focus-visible { outline:2px solid var(--tracelet-teal-soft, #38b3da); outline-offset:3px; } @media (max-width:480px) { .ds-open h1 { font-size:2.625rem; line-height:1.02; } .ds-open h1 span { white-space:normal; } .ds-btn-lg { width:100%; justify-content:center; } }"
+      "description": "Signature pattern: items under a charcoal top rule with hairline dividers, no cards.",
+      "html": "<ul class=\"ds-ruled\"><li><h3>Strategy Audit</h3><p class=\"ds-price\">$499 &middot; 1 week</p></li><li><h3>Custom Builds</h3><p class=\"ds-price\">Fixed price, agreed after the audit</p></li></ul>",
+      "css": ".ds-ruled{display:grid;grid-template-columns:1fr 1fr;margin:0;padding:0;list-style:none;border-top:1px solid #292d32;font:400 1.0625rem/1.6 'Public Sans',sans-serif;color:#41464e}.ds-ruled li{display:grid;gap:8px;padding:26px 28px 28px 0}.ds-ruled li+li{padding-left:28px;border-left:1px solid #e3e5e8}.ds-ruled h3{margin:0;font:600 1.5rem/1.2 'Source Serif 4',Georgia,serif;color:#292d32}.ds-ruled p{margin:0}.ds-price{font-weight:600;color:#3563e9}"
     },
     {
-      "name": "Call Section with Form Panel",
-      "kind": "custom",
-      "refersTo": "form-panel",
-      "description": "The call in its own section: serif heading and sub-line left, light-pinned form panel on Raised right. Hover shows the sent state.",
-      "html": "<section class=\"ds-call\"><div><h2>Free 30-minute call</h2><p>We’ll tell you whether AI is worth it for your business.</p></div><div class=\"ds-book\"><label>Name<span class=\"ds-book-input\"></span></label><label>Work email<span class=\"ds-book-input\"></span></label><span class=\"ds-book-btn\">Request a free call</span></div></section>",
-      "css": ".ds-call { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); gap:24px 48px; align-items:center; padding:32px; } .ds-call h2 { margin:0; font:600 clamp(1.875rem, 3vw, 2.5rem)/1.12 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; color:var(--ink-900, #1a1f2a); } .ds-call p { margin:10px 0 0; max-width:34ch; font:400 1.125rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); } .ds-book { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:end; padding:clamp(20px, 2.2vw, 28px); background:#fff; border:1px solid #e2e6ec; border-radius:14px; box-shadow:0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); transition:border-color 400ms ease-out, box-shadow 400ms ease-out; color-scheme:light; } .ds-book label { display:grid; gap:6px; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#2d3748; } .ds-book-input { display:block; min-height:46px; background:#fbfcfe; border:1px solid #cbd2dc; border-radius:10px; } .ds-book-btn { grid-column:1 / -1; display:flex; align-items:center; justify-content:center; min-height:48px; font:700 1rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#fff; background:linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%); border-radius:6px; } .ds-book:hover { border-color:#0076a3; box-shadow:0 0 0 3px #e1f4f9, 0 4px 12px rgba(15,21,86,.08), 0 2px 4px rgba(15,21,86,.04); } @media (max-width:760px) { .ds-call { grid-template-columns:1fr; } .ds-book { grid-template-columns:1fr; } }"
+      "name": "Tier Pill",
+      "kind": "chip",
+      "refersTo": "tier-pill",
+      "description": "Which model or person does a step; flow diagram and report.",
+      "html": "<span class=\"ds-tag\">Small model</span> <span class=\"ds-tag ds-tag-top\">Top model</span> <span class=\"ds-tag ds-tag-none\">No AI</span>",
+      "css": ".ds-tag{display:inline-block;padding:3px 10px;border:1px solid #cdd0d5;border-radius:999px;font:600 0.8125rem/1.35 'Public Sans',sans-serif;color:#41464e}.ds-tag-top{background:#3563e9;border-color:#3563e9;color:#fff}.ds-tag-none{border-style:dashed;color:#5c636d}"
     },
     {
-      "name": "The Build, Played",
-      "kind": "custom",
-      "refersTo": "demo-stage",
-      "description": "Signature: the case list (the controls) beside the solid indigo demo stage, shown as the composed still frame. No mono, plain hairline relay, no scan line. Hover a case to see its playing state.",
-      "html": "<div class=\"ds-build\"><div class=\"ds-cases\"><button class=\"ds-case is-on\"><span class=\"ds-fill\"></span><span class=\"ds-in\">Supplier invoices arrive by email</span><span class=\"ds-out\">Draft bills wait in QuickBooks for your approval</span></button><button class=\"ds-case\"><span class=\"ds-fill\"></span><span class=\"ds-in\">The weekly carrier invoice arrives</span><span class=\"ds-out\">Charges above your contract rate are flagged and a dispute drafted</span></button><button class=\"ds-case\"><span class=\"ds-fill\"></span><span class=\"ds-in\">A referral comes in by fax</span><span class=\"ds-out\">The patient and the order are created, ready for staff review</span></button></div><div class=\"ds-stage\"><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>Inbox</span><span class=\"ds-meta\">Northline Packaging</span></header><div class=\"ds-app-body\"><p class=\"ds-subj\">Invoice 10482 attached</p><div class=\"ds-doc\"><span class=\"ds-doc-h\">Invoice <mark>10482</mark></span><span><mark>Northline Packaging</mark></span><span>Total <mark>$1,240.00</mark> · Due <mark>Oct 30</mark></span></div></div></article><div class=\"ds-relay\"><span class=\"ds-relay-wire\"></span><span class=\"ds-relay-state\">Drafting bill</span></div><article class=\"ds-app\"><header class=\"ds-app-bar\"><span>QuickBooks · Bill</span></header><dl class=\"ds-fields\"><div><dt>Vendor</dt><dd>Northline Packaging</dd></div><div><dt>Bill no.</dt><dd>10482</dd></div><div><dt>Due date</dt><dd>Oct 30, 2026</dd></div><div><dt>Amount</dt><dd>$1,240.00</dd></div></dl><p class=\"ds-app-status\"><span class=\"ds-dot\"></span>Waiting for your approval</p></article></div></div>",
-      "css": ".ds-build { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:32px; align-items:center; } .ds-cases { display:grid; border-top:1px solid var(--line, #e2e6ec); } .ds-case { position:relative; display:grid; gap:4px; padding:18px 0 20px; border:0; border-bottom:1px solid var(--line, #e2e6ec); background:none; text-align:left; font:400 0.9375rem/1.6 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-500, #4a5568); cursor:pointer; transition:color 200ms ease-out; } .ds-out { font:600 1.0625rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); transition:color 200ms ease-out; } .ds-fill { position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--tracelet-teal, #0076a3); transform:scaleX(0); transform-origin:left; transition:transform 7600ms linear; } .ds-case.is-on .ds-in, .ds-case:hover .ds-in { color:var(--tracelet-teal, #0076a3); } .ds-case.is-on .ds-out, .ds-case:hover .ds-out { color:var(--ink-900, #1a1f2a); } .ds-case:hover .ds-fill { transform:scaleX(1); } .ds-case.is-on .ds-fill { transform:scaleX(0.6); } .ds-case:focus-visible { outline:2px solid var(--tracelet-teal, #0076a3); outline-offset:3px; } .ds-stage { display:grid; grid-template-rows:auto 44px auto; padding:16px; border-radius:26px; overflow:hidden; background:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 40px 40px, radial-gradient(120% 100% at 80% 0%, #1d2590 0%, var(--tracelet-indigo-deep, #0f1556) 60%, #0a0f40 100%); box-shadow:0 14px 32px rgba(15,21,86,.1), 0 4px 12px rgba(15,21,86,.05); } .ds-app { overflow:hidden; background:#fff; border:1px solid #e2e6ec; border-radius:10px; box-shadow:0 10px 30px rgba(3,6,30,.35); color:#1a1f2a; font:400 0.875rem/1.5 \"Public Sans\", Helvetica, Arial, sans-serif; color-scheme:light; } .ds-app-bar { display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:10px 14px; border-bottom:1px solid #eef0f4; font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-meta { font-weight:400; color:#4a5568; } .ds-app-body { height:188px; padding:14px; color:#2d3748; } .ds-subj { margin:0 0 10px; font-weight:700; color:#1a1f2a; } .ds-doc { display:grid; gap:3px; padding:10px 12px; border:1px solid #eef0f4; border-radius:6px; background:#fbfcfe; font-size:0.8125rem; } .ds-doc-h { font:700 0.8125rem/1.4 \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-doc mark { background:#e1f4f9; color:#005682; border-radius:4px; padding:0 3px; margin:0 -3px; } .ds-relay { display:flex; align-items:center; gap:12px; padding-left:26px; } .ds-relay-wire { align-self:stretch; width:1px; background:rgba(255,255,255,.28); } .ds-relay-state { font:500 0.8125rem/1 \"Public Sans\", Helvetica, Arial, sans-serif; color:#b9c4de; } .ds-fields { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px 16px; margin:0; padding:12px 14px 4px; } .ds-fields > div { min-width:0; } .ds-fields dt { font-size:0.75rem; line-height:1.4; color:#4a5568; } .ds-fields dd { height:1.5rem; margin:1px -4px 0; padding:0 4px; border-radius:4px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font:600 0.875rem/1.5rem \"Public Sans\", Helvetica, Arial, sans-serif; color:#1a1f2a; } .ds-app-status { display:flex; align-items:center; gap:8px; margin:0; padding:10px 14px; border-top:1px solid #eef0f4; font:600 0.8125rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:#2d3748; } .ds-dot { width:8px; height:8px; border-radius:50%; background:#0076a3; box-shadow:0 0 0 3px #e1f4f9; } @media (max-width:960px) { .ds-build { grid-template-columns:1fr; } } @media (prefers-reduced-motion: reduce) { .ds-case, .ds-out, .ds-fill { transition:none; } }"
-    },
-    {
-      "name": "Practice Index",
-      "kind": "custom",
-      "refersTo": "index-row",
-      "description": "Signature: the services as open ruled rows under a 1px ink-900 rule; serif name, teal mono tag and description on one baseline. No panel, no shadow.",
-      "html": "<ul class=\"ds-index\"><li><h3>Strategy Audit</h3><span class=\"ds-term\">1 week</span><p>A working session, then a written report and a 90-day plan.</p></li><li><h3>Managed AI</h3><span class=\"ds-term\">Month to month</span><p>We keep it running. Cancel any time.</p></li></ul>",
-      "css": ".ds-index { margin:0; padding:0; list-style:none; border-top:1px solid var(--ink-900, #1a1f2a); } .ds-index li { display:grid; grid-template-columns:minmax(0,16rem) minmax(0,13.5rem) minmax(0,1fr); gap:6px 32px; align-items:baseline; padding-block:24px; border-bottom:1px solid var(--line, #e2e6ec); } .ds-index h3 { margin:0; font:600 clamp(1.625rem, 2.4vw, 2.125rem)/1.15 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; color:var(--ink-900, #1a1f2a); } .ds-term { display:block; font:600 0.75rem/1.5 \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-index p { margin:0; max-width:60ch; color:var(--ink-500, #4a5568); } @media (max-width:960px) { .ds-index li { grid-template-columns:1fr; gap:4px; } .ds-index p { margin-top:6px; } }"
-    },
-    {
-      "name": "Routes Panel",
+      "name": "Sample Label",
       "kind": "card",
-      "refersTo": "panel",
-      "description": "Two options in one 14px panel split by a line-soft divider, each with a route diagram: teal line icons, a static dashed wire, and a dashed teal boundary with a mono label on the self-hosted side.",
-      "html": "<div class=\"ds-routes\"><div class=\"ds-route\"><div class=\"ds-diagram\"><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><path d=\"M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z\"/></svg>Anthropic’s cloud</span></div><h3>On Claude</h3><p>Fastest to set up. Right for most businesses.</p></div><div class=\"ds-route\"><div class=\"ds-diagram ds-diagram-local\"><span class=\"ds-fence\">Your building</span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>Your tools</span><span class=\"ds-wire\"></span><span class=\"ds-node\"><svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"8\" rx=\"2\"/><rect x=\"2\" y=\"14\" width=\"20\" height=\"8\" rx=\"2\"/><path d=\"M6 6h.01M6 18h.01\"/></svg>Your server</span></div><h3>On your own servers</h3><p>For data that can’t leave the building.</p></div></div>",
-      "css": ".ds-routes { display:grid; grid-template-columns:1fr 1fr; background:var(--paper, #fff); border:1px solid var(--line, #e2e6ec); border-radius:14px; box-shadow:0 1px 2px rgba(15,21,86,.06), 0 1px 3px rgba(15,21,86,.04); } .ds-route { padding:28px; } .ds-route + .ds-route { border-left:1px solid var(--line-soft, #eef0f4); } .ds-route h3 { margin:24px 0 8px; font:700 1.1875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-900, #1a1f2a); } .ds-route p { margin:0; color:var(--ink-500, #4a5568); } .ds-diagram { position:relative; display:flex; align-items:flex-start; padding:26px 20px 20px; background:var(--paper-2, #fbfcfe); border:1px solid var(--line-soft, #eef0f4); border-radius:10px; } .ds-diagram-local { border:1.5px dashed var(--tracelet-teal, #0076a3); } .ds-fence { position:absolute; top:-0.6rem; left:16px; padding:0 6px; background:var(--paper, #fff); font:600 0.6875rem/1.2rem \"Geist Mono\", ui-monospace, monospace; letter-spacing:0.06em; text-transform:uppercase; color:var(--tracelet-teal, #0076a3); } .ds-node { flex:none; width:7.5rem; display:grid; justify-items:center; gap:10px; text-align:center; font:600 0.875rem/1.3 \"Public Sans\", Helvetica, Arial, sans-serif; color:var(--ink-700, #2d3748); } .ds-node svg { width:36px; height:36px; fill:none; stroke:var(--tracelet-teal, #0076a3); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; } .ds-wire { flex:1; height:2px; margin:17px 4px 0; background-image:linear-gradient(90deg, var(--tracelet-teal-soft, #38b3da) 55%, transparent 0); background-size:10px 2px; } @media (max-width:760px) { .ds-routes { grid-template-columns:1fr; } .ds-route + .ds-route { border-left:0; border-top:1px solid var(--line-soft, #eef0f4); } }"
-    },
-    {
-      "name": "Closing Band",
-      "kind": "custom",
-      "refersTo": "closing-band",
-      "description": "Full-bleed bastion navy band; serif headline beside the primary action; identical in both modes.",
-      "html": "<section class=\"ds-close\"><h2>Start with a free call.</h2><a class=\"ds-close-mail\" href=\"#\">hello@seafin.ai</a></section>",
-      "css": ".ds-close { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px 48px; padding:clamp(56px, 7vw, 96px) 32px; background:#071426; color:#e9ecf6; } .ds-close h2 { margin:0; color:#fff; font:600 2.25rem/1.12 \"Source Serif 4\", Georgia, serif; letter-spacing:-0.015em; } .ds-close-mail { color:#9fd8ec; } .ds-close-mail:hover { color:#fff; } .ds-close-mail:focus-visible { outline:2px solid #38b3da; outline-offset:3px; }"
+      "description": "Dashed cobalt-tint flag at the top of the sample report.",
+      "html": "<p class=\"ds-flag\">Sample report. The firm is fictional and the numbers are illustrative.</p>",
+      "css": ".ds-flag{margin:0;padding:12px 16px;border:1px dashed #3563e9;border-radius:10px;background:#eaf0fd;color:#292d32;font:400 0.9375rem/1.6 'Public Sans',sans-serif}"
     }
   ],
   "narrative": {
-    "northStar": "Vigilant Infrastructure (inherited)",
-    "overview": "Seafin does not have its own visual world. By the user's standing pin (PRODUCT.md, Brand Commitments), Seafin's site uses the Wardix design system: `tracelet` repo `design.md` on `origin/dev` (\"Vigilant Infrastructure\") for doctrine, and `tracelet-vendor/pages/css/tracelet-landing.css` for token values. This file records how that system landed on Seafin, and where Seafin departs from the Wardix marketing site. When this file is silent, the upstream `design.md` governs; when they disagree, this file records what Seafin shipped.\n\nThe page is built on the Metalab model (chosen 2026-10-04 after a study of leading design studios): the opening is one big serif statement and one crafted object on the Wardix dark field (deep indigo under the fading engineering grid and a soft teal glow), with nothing else on the first screen. Below it the page runs white with hairline rules, one Canvas band and a Bastion close: the form in its own section, the practice index, a played demo of real-world builds, and where the work runs. Serif headings, sans everything else, one gradient button. Restraint carries the premium feel; the two crafted pieces (the opening object and the build demo) carry the craft. It reads as a consulting practice's page, not a person's or a product's.\n\nSeafin departs from the Wardix marketing site in four places, each on purpose. There are no mono labels above headings, because Impeccable's craft floor bans them. There is no photography or raster imagery: no scenic hero (it would make Seafin read as a copy of the Wardix site), no founder portrait, no product screenshot. The pictures are made, not shot: one rendered 3D object in the opening, the demo's mock app cards (four scenes modelled on published small-business cases), and drawn teal route diagrams. The brand gradient is narrowed to the single primary action. And only two things move on their own, each in its own section.",
+    "northStar": "The Working Report",
+    "overview": "The site reads like a well-made consulting report: white paper, charcoal ink, hairline rules, serif headings, and cobalt only where something matters. Colour comes from the Seafin.ai logo; type, radii and spacing carry over from the Wardix system. One idea per section; lists are ruled rows, not cards.\n\nWhite sections alternate with grey bands, with one charcoal section. The homepage opens on a light still-life photograph; the sample report, guides and policy pages are plain document pages on the same tokens.",
     "keyCharacteristics": [
-      "A deep indigo opening holding one serif statement and one glossy 3D object, then a white page with one Canvas band and a Bastion close; dark mode from the same token pairs, with light surfaces pinned light.",
-      "Source Serif 4 for the statement, the section headings and the service names; Public Sans for everything readable; Geist Mono only for short functional tags.",
-      "One radius family: 6 / 10 / 14 / 26, plus 4px for inline highlights.",
-      "One action per page, one label for it, one gradient on it.",
-      "Two self-moving pieces (the opening object, the build demo), everything else still; no photography; no invented proof."
+      "Charcoal and cobalt from the logo; neutrals tinted toward charcoal.",
+      "Serif headings over a sans body; tabular numbers everywhere.",
+      "Ruled lists (a dark top rule, light dividers) instead of cards.",
+      "One motion idea: a signal travels a line and lights what it reaches.",
+      "Every diagram is complete without JavaScript."
     ],
     "rules": [
       {
-        "name": "The One Gradient Rule",
-        "body": "The indigo-to-teal brand gradient appears only on \"Request a free call\" buttons (nav, opening, form submit, closing band) and on the favicon tile. Not on text, cards, section backgrounds, or a second button. The tonal indigo radials behind the opening and the demo stage, their grid lines and the teal glow are fields, not the brand gradient, and appear nowhere else.",
+        "name": "The Logo Palette Rule",
+        "body": "Every colour comes from the logo's charcoal and cobalt or a neutral tinted toward them. No second accent.",
         "section": "colors"
       },
       {
-        "name": "The Dark Grounds Rule",
-        "body": "Deep Indigo is for the opening field and the demo stage; Bastion Navy is for the closing band. They never swap, and no other surface goes dark.",
+        "name": "The One Dark Section Rule",
+        "body": "Only \"How we build it\" is dark: charcoal `#292d32` in light mode, `#111316` in dark mode (darker than the page, never lighter), with white ink and translucent white lines.",
         "section": "colors"
       },
       {
-        "name": "The Status-Means-State Rule",
-        "body": "Green, gold and red mean real system state. Seafin uses only red, and only for a failed form send. The demo's status dot is teal, never green.",
+        "name": "The Light Hero Rule",
+        "body": "The opening photo is light in both schemes, so the hero keeps light tokens in dark mode.",
         "section": "colors"
-      },
-      {
-        "name": "The Serif-Is-For-The-Page Rule",
-        "body": "Serif is for the opening statement, section H2s, the closing H2 and the service names in the practice index, which act as the headings of what Seafin sells. Panel titles and everything inside the demo are Public Sans.",
-        "section": "typography"
-      },
-      {
-        "name": "The Mono-Tags-Never-Lead Rule",
-        "body": "Geist Mono uppercase labels are short and functional: duration tags set beside their title (desktop) or beneath it (≤960px), and the one label that names a drawn boundary in a diagram. A mono label never sits above a heading, never leads a row, and never stands in for interface chrome.",
-        "section": "typography"
-      },
-      {
-        "name": "The Quiet Elevation Rule",
-        "body": "Nothing at rest sits above Resting except the form panel (the one action) and the demo stage (the one showcase), which rest on Raised. Overlay is for overlays. The deep Card on Stage shadow exists only on a dark ground, where a light shadow would vanish.",
-        "section": "elevation"
       }
     ],
     "dos": [
-      "Do take every token from the Wardix set (upstream `design.md` + `tracelet-landing.css`) and add a Seafin-local token only when the build needs it (as with `line-strong`, `danger`).",
-      "Do reserve the brand gradient for \"Request a free call\" buttons, and use that same label everywhere the action appears.",
-      "Do open with one serif statement, one lede line, one button and one crafted object on the deep indigo field with the 54px grid; nothing else on the first screen.",
-      "Do use Source Serif 4 for the statement, section headings and practice-index service names only, and Public Sans for panel titles and everything inside a mock interface.",
-      "Do use Geist Mono uppercase only for short functional tags beside or beneath their title, or to name a drawn boundary.",
-      "Do give every looping animation a shared rhythm, keep its frames fixed so nothing shifts as content lands, pause it off screen and in hidden tabs, and make its markup a composed still frame for reduced motion and no-JS.",
-      "Do pin light surfaces (the form panel, demo cards) to the light tokens when they sit on a dark ground or in dark mode.",
-      "Do list services and cases as open ruled rows, and put a two-option comparison in one 14px panel, rather than a grid of cards."
+      "Do draw lists as ruled rows: charcoal top rule, hairline dividers.",
+      "Do keep cobalt for actions, prices, dates, markers and lit states.",
+      "Do make every diagram read correctly with no script and no motion.",
+      "Do use editorial still-life photos per `.impeccable/art/prompts.md`: soft daylight, warm neutrals, one or two charcoal or cobalt props, no people, logos, readable text or sci-fi glow."
     ],
     "donts": [
-      "Don't place an uppercase mono label, kicker or eyebrow above a heading or at the head of a row, or use mono as interface chrome (the Wardix marketing site's `.eyebrow` pattern is not carried over).",
-      "Don't add photography or raster imagery to the consulting page: no scenic photos, no founder portrait, no product screenshots.",
-      "Don't add a second 3D object or a third self-moving piece; anything else stays still until the visitor acts.",
-      "Don't put icons in tiles, circles or filled badges, or use emoji icons.",
-      "Don't use Card on Stage off a dark ground, or Overlay on anything at rest.",
-      "Don't add prose explaining the page to the visitor, section intros, decorative bold, or decorative numbers.",
-      "Don't show invented proof: no hypothetical case studies, logos, testimonials or counts. Demo scenes may be modelled on published cases, but their data stays illustrative and the source businesses are never named or framed as clients or results.",
-      "Don't use pills, radii outside 4 / 6 / 10 / 14 / 26, or sharp cards."
+      "Don't add a second accent colour or recolour the logo's cobalt.",
+      "Don't add a second dark section, or darken the hero in dark mode.",
+      "Don't put each list item in its own shadowed card; lists are ruled rows, inside one shared panel at most."
+    ],
+    "contentRules": [
+      "Plain language for small-business owners; no vendor jargon on the homepage.",
+      "No invented client results on the homepage.",
+      "The sample report is always labelled as a sample with a fictional firm and illustrative numbers."
     ]
   }
 }

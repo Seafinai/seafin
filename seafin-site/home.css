@@ -56,7 +56,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { background: var(--paper); scrollbar-color: #a0aec0 var(--paper); }
+html { background: var(--paper); scrollbar-color: var(--line-strong) var(--paper); }
 body {
   margin: 0; background: var(--paper); color: var(--ink-900);
   font: 400 1.0625rem/1.6 var(--font-sans);
@@ -67,7 +67,7 @@ body {
 ::selection { background: var(--cobalt); color: #fff; }
 ::-webkit-scrollbar { width: 12px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
-::-webkit-scrollbar-thumb { background: #a0aec0; border: 3px solid var(--paper); border-radius: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border: 3px solid var(--paper); border-radius: 8px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 a { color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { color: var(--accent-deep); text-decoration-thickness: 2px; }
@@ -177,7 +177,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .contents li { padding: 10px 0; border-top: 1px solid var(--line); }
 .contents li:last-child { border-bottom: 1px solid var(--line); }
 
-/* services: three columns under one rule, each with its price line */
 /* four services in a two-by-two grid under one rule */
 .offers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
 .offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
@@ -192,7 +191,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .includes li { position: relative; padding-left: 18px; }
 .includes li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 
-/* what we build: six common first builds, ruled grid */
 /* what we build: eight builds, four across; on phones each becomes a row with a small picture */
 .builds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
 .builds li { display: grid; align-content: start; gap: 8px; }
@@ -210,6 +208,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .dark {
   --ink-900: #ffffff; --ink-700: #d0d4d9; --ink-500: #a9afb8; --line: rgba(255, 255, 255, 0.14);
   --surface: #292d32;
+  --dark-link: #a9bef8;
   background: var(--surface); color: #ffffff;
 }
 #how-we-build h2 { max-width: 30ch; }
@@ -262,7 +261,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .news-list .news-when { font: 600 0.8125rem/1.3 var(--font-sans); color: var(--ink-500); }
 .news-list b { font: 700 1.0625rem/1.3 var(--font-sans); color: var(--ink-900); }
 .news-list li > span:last-child { color: var(--ink-700); }
-.news-more { display: inline-block; margin-top: 24px; font-weight: 600; color: #a9bef8; }
+.news-more { display: inline-block; margin-top: 24px; font-weight: 600; color: var(--dark-link); }
 .news-more:hover { color: #ffffff; }
 /* on the charcoal dark theme the section goes darker than the page, not lighter */
 @media (prefers-color-scheme: dark) { .dark { --surface: #111316; } }
@@ -288,7 +287,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; cursor: pointer; list-style: none; font: 600 1.0625rem/1.4 var(--font-sans); color: var(--ink-900); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; flex: none; font-weight: 400; font-size: 1.375rem; line-height: 1; color: var(--accent); transition: transform 200ms ease-out; }
+/* a drawn plus that turns into a cross when open */
+.faq summary::after { content: ""; flex: none; width: 12px; height: 12px; margin-top: 6px; background: linear-gradient(var(--accent), var(--accent)) center / 12px 1.5px no-repeat, linear-gradient(var(--accent), var(--accent)) center / 1.5px 12px no-repeat; transition: transform 200ms ease-out; }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 18px; max-width: 64ch; color: var(--ink-700); }
 
@@ -303,7 +303,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .steps .get { align-self: start; margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink-700); }
 .steps .get b { display: block; margin-bottom: 4px; font-size: 0.875rem; color: var(--ink-900); }
 
-/* where it runs: one panel, two routes, each with a small diagram */
+/* where it runs: one panel, three routes, each with a small diagram */
 #where-it-runs .section-sub { margin-bottom: clamp(24px, 3vw, 36px); }
 .routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-1); }
 /* each route spans three shared rows, so the headings line up across routes */
