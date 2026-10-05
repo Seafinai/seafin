@@ -44,6 +44,16 @@ td { color: var(--ink-700); }
 .report-cta { margin-top: clamp(32px, 4vw, 48px); padding: clamp(20px, 3vw, 32px); border-radius: var(--r-panel); background: var(--bg); border: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
 .report-cta p { font: 600 1.125rem/1.4 var(--font-sans); color: var(--ink-900); }
 
+/* guides: the same document page, with a date line and an opening paragraph */
+.guide .report-head { margin-top: 0; }
+.guide-meta { margin-bottom: 14px; font-size: 0.875rem; color: var(--ink-500); }
+.guide-meta a { color: var(--ink-500); }
+.guide-lede { margin-top: 18px; max-width: 60ch; font-size: 1.1875rem; line-height: 1.55; color: var(--ink-700); }
+.report-sec ol.plain { padding-left: 1.4rem; }
+.sources { margin: 0; padding-left: 1.4rem; display: grid; gap: 4px; }
+.sources a { color: var(--ink-500); overflow-wrap: anywhere; }
+.note { margin-top: 18px; font-size: 0.9375rem; color: var(--ink-500); }
+
 @media (max-width: 560px) {
   .report-meta > div { grid-template-columns: 1fr; gap: 2px; }
   .opp-facts { grid-template-columns: 1fr; }
