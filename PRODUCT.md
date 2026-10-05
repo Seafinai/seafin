@@ -32,7 +32,9 @@ Visitors evaluate Seafin before booking a call. The page sells the company and t
 
 ## Capabilities and Constraints
 
-**Lead offer — AI consulting** (from the live site, May 2026; confirm prices before publishing):
+**Homepage pricing (user, 2026-10-05):** show the audit price only, **$499**, one week. Builds read "fixed price, agreed after the audit"; Managed AI reads "month to month". The homepage targets small and mid-sized businesses without an AI team and promises a reply within one business day.
+
+**Lead offer — AI consulting** (ranges from the live site, May 2026):
 - AI Strategy Audit — $499–$1,500, 1 week
 - AI-Native Builds — $5K–$25K fixed fee, 2–6 weeks
 - AI Concierge — $1,500–$5K/mo, month-to-month

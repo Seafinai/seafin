@@ -113,9 +113,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .btn-link:hover { color: var(--tracelet-teal); text-decoration: underline; }
 .reply { margin-top: 14px; font-size: 0.9375rem; color: var(--ink-500); }
 
-/* a draft blank: where the owner's answer goes before launch */
-.blank { padding: 0 6px; border: 1px dashed var(--tracelet-teal); border-radius: 4px; background: var(--tracelet-teal-tint); color: var(--ink-900); white-space: nowrap; }
-
 /* ---------- sections ---------- */
 .section { padding-block: clamp(56px, 7vw, 96px); }
 .section + .section { border-top: 1px solid var(--line); }
@@ -218,7 +215,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .hero h1 { font-size: 2.375rem; line-height: 1.06; }
   .hero h1 .nb { white-space: normal; }
   .hero-cta .btn { width: 100%; }
-  .blank { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
