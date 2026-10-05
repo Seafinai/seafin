@@ -50,7 +50,31 @@
 
   <section class="section band" id="sample" aria-labelledby="sample-title">
     <div class="wrap sample-row">
-      <a class="sample-shot" href="sample-audit.html" tabindex="-1" aria-hidden="true"><img src="assets/art/sample-report.webp" alt="" width="1200" height="715" loading="lazy"></a>
+      <a class="report-stack" href="sample-audit.html" tabindex="-1" aria-hidden="true">
+        <span class="page page-inside">
+          <span class="pg-h">Top three opportunities</span>
+          <span class="pg-sub">Staff hours a month, now and after</span>
+          <span class="pg-bars">
+            <span class="pg-bar"><span class="pg-label">Client documents into QuickBooks</span><span class="pg-track" style="--now: 100%; --after: 35%"></span></span>
+            <span class="pg-bar"><span class="pg-label">Missing-items emails</span><span class="pg-track" style="--now: 30%; --after: 10%"></span></span>
+            <span class="pg-bar"><span class="pg-label">Client call notes</span><span class="pg-track" style="--now: 16%; --after: 6%"></span></span>
+          </span>
+          <span class="pg-h2">1. Client documents into QuickBooks as drafts</span>
+          <span class="pg-text">Receipts and invoices that clients email or upload are read, matched to the right vendor and category, and created as draft entries in QuickBooks Online. A bookkeeper reviews and approves each one instead of typing it.</span>
+          <span class="pg-h2">2. One missing-items email per client</span>
+          <span class="pg-text">At month end, unmatched transactions and missing documents are turned into a single, plain-English request for each client, drafted in Outlook for a bookkeeper to check and send.</span>
+          <span class="pg-foot"><span>Strategy Audit</span><span>3</span></span>
+        </span>
+        <span class="page page-cover">
+          <svg class="cover-logo" aria-hidden="true" focusable="false"><use href="#seafin-logo"/></svg>
+          <span class="cover-main">
+            <span class="cover-rule"></span>
+            <span class="cover-title">Strategy Audit</span>
+            <span class="cover-for">A 12-person accounting and bookkeeping firm</span>
+          </span>
+          <span class="cover-foot">October 2026 &middot; Sample report</span>
+        </span>
+      </a>
       <div>
         <h2 id="sample-title">See the report before you buy one</h2>
         <p class="section-sub">A sample Strategy Audit for a fictional 12-person accounting firm. Yours follows the same outline, with your numbers.</p>
@@ -61,7 +85,7 @@
           <li>Where each one should run</li>
           <li>A 90-day plan, and what it costs to build and run</li>
         </ul>
-        <a class="btn-link" href="sample-audit.html">Read the sample report</a>
+        <a class="btn btn-secondary" href="sample-audit.html">Read the sample report</a>
       </div>
     </div>
   </section>
@@ -79,12 +103,13 @@
             <li>A look at the tools you use today</li>
             <li>Estimated savings for each opportunity</li>
             <li>Which AI each workflow should use, and where it should run</li>
+            <li>Refunded within 30 days if it isn&rsquo;t useful</li>
           </ul>
           <p><a href="sample-audit.html">See a sample report</a></p>
         </li>
         <li>
           <h3>Custom Builds</h3>
-          <p class="price">Fixed price, agreed after the audit &middot; 2 to 6 weeks</p>
+          <p class="price"><span class="nowrap">Fixed price, agreed after the audit</span> &middot; <span class="nowrap">2 to 6 weeks</span></p>
           <p>The workflow, agent or integration the audit points to, connected to QuickBooks, HubSpot, Microsoft 365 or Google Workspace.</p>
           <ul class="includes">
             <li>Scope, timeline and price fixed before work starts</li>
@@ -180,7 +205,7 @@
   </section>
 
   <section class="section" id="industries" aria-labelledby="industries-title">
-    <div class="wrap">
+    <div class="wrap split-row">
       <h2 id="industries-title">Where AI pays off first</h2>
       <ul class="industries">
         <li><h3>Accounting and bookkeeping</h3><ul><li>Client documents into QuickBooks as drafts</li><li>Month-end requests for missing items</li></ul></li>
@@ -193,32 +218,33 @@
     </div>
   </section>
 
-  <section class="section band" id="before-we-start" aria-labelledby="glance-title">
+  <section class="section dark" id="how-we-build" aria-labelledby="edge-title">
     <div class="wrap">
-      <h2 id="glance-title">What you know before we start</h2>
-      <dl class="glance">
-        <div><dt>&#36;499</dt><dd>The audit, refunded within 30 days if it isn&rsquo;t useful</dd></div>
-        <div><dt>1 week</dt><dd>From the working session to your written report</dd></div>
-        <div><dt>2 to 6 weeks</dt><dd>A typical build, at a fixed price agreed first</dd></div>
-        <div><dt>100% yours</dt><dd>The code, the prompts and the workflows. No lock-in.</dd></div>
-      </dl>
+      <h2 id="edge-title">The newest models where they matter, cheaper ones everywhere else</h2>
+      <p class="section-sub">Most steps in a workflow don&rsquo;t need the most expensive AI. We give each step the model it needs: the latest Claude and GPT models for the hard parts, smaller and cheaper ones for the routine parts.</p>
+      <div class="edge-row">
+        <figure class="flow">
+          <figcaption>Example: one supplier invoice</figcaption>
+          <ol>
+            <li><span class="tier">Small, fast model</span><b>Read the PDF</b></li>
+            <li><span class="tier tier-top">Frontier model</span><b>Decide the account code</b></li>
+            <li><span class="tier tier-none">No AI, plain code</span><b>Check the totals add up</b></li>
+            <li><span class="tier tier-person">A person</span><b>Approve the draft in QuickBooks</b></li>
+          </ol>
+        </figure>
+        <ul class="edge-points">
+          <li><h3>The latest from Anthropic and OpenAI</h3><p>We build on the newest Claude and GPT models, and switch when a newer one does the job better or for less.</p></li>
+          <li><h3>Savings built in</h3><p>Prompt caching and batch processing cut the cost of repeated and overnight work, and every workflow runs under a monthly cost limit.</p></li>
+          <li><h3>Tested before every change</h3><p>Each workflow is tested on your real documents before launch, and again before it moves to a newer model.</p></li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="working-with-us" aria-labelledby="working-title">
-    <div class="wrap">
-      <h2 id="working-title">Small team, straight answers</h2>
-      <ul class="promises">
-        <li><h3>A straight answer on the first call</h3><p>If AI won&rsquo;t pay off for your business, we say so. No pitch and no follow-up sequence.</p></li>
-        <li><h3>You talk to the people who build it</h3><p>No sales team and no account managers in between.</p></li>
-        <li><h3>Built around how you work</h3><p>Your tools, your approval steps and your rules about data shape the build, not our favourite stack.</p></li>
-      </ul>
-      <p class="cred">Led by a senior engineer with 20 years in IT and security operations across federal government, healthcare, manufacturing and retail. CompTIA Security+. Experience under HIPAA, PCI-DSS, SOC 2 and federal security requirements.</p>
-    </div>
-  </section>
   <section class="section band" id="where-it-runs" aria-labelledby="runs-title">
     <div class="wrap">
       <h2 id="runs-title">Where it runs</h2>
+      <p class="section-sub">The audit says where each workflow should run.</p>
       <div class="routes">
         <div class="route">
           <div class="diagram" aria-hidden="true">
@@ -249,10 +275,22 @@
           <p>Open-source models such as OpenAI&rsquo;s gpt-oss, Google&rsquo;s Gemma, Qwen or Mistral, on your own hardware. For data that can&rsquo;t leave the building.</p>
         </div>
       </div>
-      <p class="fit">The audit says where each workflow should run.</p>
     </div>
   </section>
-  <section class="section" id="guides" aria-labelledby="guides-title">
+
+  <section class="section" id="working-with-us" aria-labelledby="working-title">
+    <div class="wrap">
+      <h2 id="working-title">Small team, straight answers</h2>
+      <ul class="promises">
+        <li><h3>A straight answer on the first call</h3><p>If AI won&rsquo;t pay off for your business, we say so. No pitch and no follow-up sequence.</p></li>
+        <li><h3>You talk to the people who build it</h3><p>No sales team and no account managers in between.</p></li>
+        <li><h3>Built around how you work</h3><p>Your tools, your approval steps and your rules about data shape the build, not our favourite stack.</p></li>
+      </ul>
+      <p class="cred">Led by a senior engineer with 20 years in IT and security operations across federal government, healthcare, manufacturing and retail. CompTIA Security+. Experience under HIPAA, PCI-DSS, SOC 2 and federal security requirements.</p>
+    </div>
+  </section>
+
+  <section class="section band" id="guides" aria-labelledby="guides-title">
     <div class="wrap">
       <h2 id="guides-title">Answers before you spend anything</h2>
       <ul class="guides">
@@ -265,10 +303,13 @@
 
   <section class="section" id="questions" aria-labelledby="questions-title">
     <div class="wrap faq-row">
-      <h2 id="questions-title">Questions</h2>
+      <div class="faq-head">
+        <h2 id="questions-title">Questions</h2>
+        <p class="aside">Something else? Email <a href="mailto:hello@seafin.ai">hello@seafin.ai</a> or ask on the call.</p>
+      </div>
       <div class="faq">
         <details><summary>How is this different from using ChatGPT?</summary><p>ChatGPT helps one person with one task at a time. We connect AI to the systems your business runs on, so the work happens inside your process, with a person approving where it matters.</p></details>
-        <details><summary>Which AI do you use?</summary><p>Whichever fits the job: Anthropic&rsquo;s Claude, OpenAI&rsquo;s models, or open-source models on your own servers. You&rsquo;re never locked to one company.</p></details>
+        <details><summary>Which AI do you use?</summary><p>Whichever fits each step: the latest Claude and GPT models for the hard parts, smaller and cheaper models for routine ones, or open-source models on your own servers. You&rsquo;re never locked to one company.</p></details>
         <details><summary>Is our data used to train AI models?</summary><p>Not by default. Anthropic and OpenAI don&rsquo;t train on business accounts&rsquo; data unless you opt in. Through AWS or Azure, your data isn&rsquo;t shared with the model makers at all. Open-source models on your own servers don&rsquo;t send it anywhere.</p></details>
         <details><summary>Can it run without the cloud?</summary><p>Yes. Open-source models can run on your own hardware, with nothing sent outside your building.</p></details>
         <details><summary>What does it cost to run once it&rsquo;s built?</summary><p>Mostly model usage, which for a small business is usually tens to a few hundred dollars a month. The audit estimates it from your own volumes before you commit.</p></details>
