@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Strategy Audit | Seafin</title>
+<meta name="description" content="A sample Seafin Strategy Audit for a fictional 12-person accounting firm: where the time goes, the top three AI opportunities with estimated savings, where it should run, and a 90-day plan.">
+<meta name="theme-color" content="#1a227e">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a227e'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='18' font-weight='700' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Seafin</a>
+    <a class="btn btn-primary" href="index.html#book">Request a free call</a>
+  </div>
+</header>
+
+<main class="report">
+  <div class="wrap">
+    <p class="sample-flag">Sample report. The firm is fictional and the numbers are illustrative, worked out from the assumptions stated below. A real audit uses your numbers.</p>
+
+    <header class="report-head">
+      <h1>Strategy Audit</h1>
+      <dl class="report-meta">
+        <div><dt>Client</dt><dd>A 12-person accounting and bookkeeping firm</dd></div>
+        <div><dt>Tools in use</dt><dd>QuickBooks Online, Microsoft 365 (Outlook, Teams), a client upload portal, Excel</dd></div>
+        <div><dt>Workload</dt><dd>40 monthly bookkeeping clients; about 300 tax returns a year</dd></div>
+        <div><dt>Prepared</dt><dd>One week after a 90-minute working session with a partner and two bookkeepers</dd></div>
+      </dl>
+    </header>
+
+    <section class="report-sec" aria-labelledby="summary">
+      <h2 id="summary">Summary</h2>
+      <p>Three tasks take 146 staff hours a month: typing client documents into QuickBooks, chasing clients for missing paperwork, and writing up client calls. AI can take about 95 of those hours. At $45 an hour for bookkeeping time, that is roughly <strong>$4,300 a month</strong>. Start with document intake. It is the largest saving, the best-proven, and a bookkeeper still approves every entry.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="time">
+      <h2 id="time">Where the time goes today</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Task</th><th scope="col" class="num">Hours a month</th><th scope="col">AI fit</th></tr></thead>
+          <tbody>
+            <tr><td>Typing and categorising client receipts and invoices (2.5 h per client)</td><td class="num">100</td><td>Strong</td></tr>
+            <tr><td>Month-end checks and reconciliations</td><td class="num">60</td><td>Weak: bank rules already cover most of it</td></tr>
+            <tr><td>Emailing clients for missing documents and answers</td><td class="num">30</td><td>Good</td></tr>
+            <tr><td>Notes and follow-ups after client calls</td><td class="num">16</td><td>Good, check Microsoft 365 first</td></tr>
+            <tr><td>Tax organiser intake (February to April only)</td><td class="num">120 a season</td><td>Later: revisit after the first build</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-sec" aria-labelledby="opps">
+      <h2 id="opps">Top three opportunities</h2>
+
+      <article class="opp">
+        <h3>1. Client documents into QuickBooks as drafts</h3>
+        <p>Receipts and invoices that clients email or upload are read, matched to the right vendor and category, and created as draft entries in QuickBooks Online. A bookkeeper reviews and approves each one instead of typing it.</p>
+        <dl class="opp-facts">
+          <div><dt>Hours a month</dt><dd>100 now, about 35 after</dd></div>
+          <div><dt>Estimated saving</dt><dd>65 hours, about $2,900 a month</dd></div>
+          <div><dt>Confidence</dt><dd>High. Small bookkeeping firms report intake falling from 2 to 3 hours to about 30 minutes per client per month with document-capture tools.<sup><a href="#src1">1</a></sup></dd></div>
+          <div><dt>Build</dt><dd>3 to 4 weeks</dd></div>
+        </dl>
+      </article>
+
+      <article class="opp">
+        <h3>2. One missing-items email per client</h3>
+        <p>At month end, unmatched transactions and missing documents are turned into a single, plain-English request for each client, drafted in Outlook for a bookkeeper to check and send.</p>
+        <dl class="opp-facts">
+          <div><dt>Hours a month</dt><dd>30 now, about 10 after</dd></div>
+          <div><dt>Estimated saving</dt><dd>20 hours, about $900 a month</dd></div>
+          <div><dt>Confidence</dt><dd>Medium. Depends on how consistently the ledger is kept.</dd></div>
+          <div><dt>Build</dt><dd>1 to 2 weeks, or added to the first build</dd></div>
+        </dl>
+      </article>
+
+      <article class="opp">
+        <h3>3. Client calls to notes and tasks</h3>
+        <p>Teams calls are summarised into decisions and follow-up tasks, filed against the client.</p>
+        <dl class="opp-facts">
+          <div><dt>Hours a month</dt><dd>16 now, about 6 after</dd></div>
+          <div><dt>Estimated saving</dt><dd>10 hours, about $450 a month</dd></div>
+          <div><dt>Confidence</dt><dd>Medium. If the firm already pays for Microsoft 365 Copilot, try its meeting recap first; it may cover this without a build.</dd></div>
+          <div><dt>Build</dt><dd>1 week, if still needed</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <section class="report-sec" aria-labelledby="not">
+      <h2 id="not">Not recommended now</h2>
+      <ul class="plain">
+        <li><b>AI answering clients&rsquo; tax questions.</b> The risk of a wrong answer outweighs the time saved. Keep a person on every reply.</li>
+        <li><b>Automating reconciliations.</b> QuickBooks bank rules already handle most of it; the remaining cases need judgement.</li>
+      </ul>
+    </section>
+
+    <section class="report-sec" aria-labelledby="where">
+      <h2 id="where">Where it should run</h2>
+      <p>Client documents contain account numbers and tax IDs. Two setups work:</p>
+      <ul class="plain">
+        <li><b>Claude, through a business account whose terms exclude your data from model training,</b> with account numbers masked before anything is sent. Faster to set up, cheaper, and more accurate.</li>
+        <li><b>An open-source model on a small server in your office or a private cloud.</b> Nothing leaves your control; more setup and somewhat lower accuracy.</li>
+      </ul>
+      <p><b>Recommendation:</b> start with Claude, unless your engagement letters or your insurer forbid sending client data to a third party. Check both before the build.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="plan">
+      <h2 id="plan">90-day plan</h2>
+      <ol class="plan">
+        <li><span class="when">Days 1 to 14</span><p>Fixed quote for opportunity 1. Confirm data rules with your insurer and engagement letters. Pick five pilot clients.</p></li>
+        <li><span class="when">Days 15 to 45</span><p>Build document intake. Run it on the five pilot clients alongside the current process and measure hours per client.</p></li>
+        <li><span class="when">Days 46 to 75</span><p>If pilot intake is under 1 hour per client, roll out to all 40 clients and add the missing-items emails.</p></li>
+        <li><span class="when">Days 76 to 90</span><p>Review the measured savings. Decide on call notes, or stop there.</p></li>
+      </ol>
+      <p class="measure"><b>What to measure:</b> intake hours per client per month; the share of drafts approved without edits; days from month end to closed books.</p>
+    </section>
+
+    <section class="report-sec" aria-labelledby="cost">
+      <h2 id="cost">Cost and payback</h2>
+      <dl class="report-meta">
+        <div><dt>Build</dt><dd>Fixed price, quoted after the audit. Illustrative figure for this firm: $8,000.</dd></div>
+        <div><dt>Running cost</dt><dd>About $40 to $100 a month in model usage for roughly 2,400 documents a month, at current API prices.</dd></div>
+        <div><dt>Payback</dt><dd>Under 3 months, from the $2,900 monthly saving on opportunity 1 alone.</dd></div>
+      </dl>
+    </section>
+
+    <footer class="report-foot">
+      <p id="src1"><sup>1</sup> Skybound Bookkeeping, a two-person firm, reported per-client intake falling from 2 to 3 hours to 30 minutes a month. Dext customer story, September 2023.</p>
+      <p>Assumptions: $45 an hour for bookkeeping time; 40 monthly clients at about 60 documents each.</p>
+    </footer>
+
+    <div class="report-cta">
+      <p>Want this for your business? The audit is $499 and takes one week.</p>
+      <a class="btn btn-primary btn-lg" href="index.html#book">Request a free call</a>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="maker">Seafin LLC</span>
+    <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>
