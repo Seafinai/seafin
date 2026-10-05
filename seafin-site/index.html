@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seafin | AI consulting for businesses without an AI team</title>
-<meta name="description" content="Strategy audits, custom builds and managed AI for small businesses with no AI team, on Claude or on your own servers. Book a free call.">
+<meta name="description" content="Strategy audits, custom builds and managed AI for small businesses with no AI team, on Claude, OpenAI or your own servers. Book a free call.">
 <meta property="og:title" content="Seafin | AI consulting for businesses without an AI team">
-<meta property="og:description" content="Strategy audits, custom builds and managed AI, on Claude or on your own servers. You own everything we build.">
+<meta property="og:description" content="Strategy audits, custom builds and managed AI, on Claude, OpenAI or your own servers. You own everything we build.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#292d32">
 <meta name="color-scheme" content="light dark">
@@ -60,7 +60,8 @@
             <li>A working session with you and the people who do the work</li>
             <li>A look at the tools you use today</li>
             <li>Estimated savings for each opportunity</li>
-            <li>Where it should run: on Claude or on your own servers</li>
+            <li>Which AI each workflow should use, and where it should run</li>
+            <li>Your money back within 30 days if it isn&rsquo;t useful</li>
           </ul>
           <p><a href="sample-audit.html">See a sample report</a></p>
         </li>
@@ -182,10 +183,19 @@
           <div class="diagram" aria-hidden="true">
             <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Your tools</span>
             <span class="wire"></span>
-            <span class="node node-cloud"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Anthropic&rsquo;s cloud</span>
+            <span class="node"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Anthropic or OpenAI</span>
           </div>
-          <h3>On Claude</h3>
-          <p>Anthropic&rsquo;s models, in Anthropic&rsquo;s cloud. Fastest to set up and the most capable. Right for most businesses.</p>
+          <h3>Direct from the AI company</h3>
+          <p>Anthropic&rsquo;s Claude or OpenAI&rsquo;s models, through their own business accounts. Fastest to set up and lowest cost. Neither trains its models on business data by default. Right for work without sensitive data.</p>
+        </div>
+        <div class="route">
+          <div class="diagram" aria-hidden="true">
+            <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Your tools</span>
+            <span class="wire"></span>
+            <span class="node"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><rect x="9.5" y="12.5" width="6" height="4.5" rx="1"/><path d="M10.75 12.5v-1.25a1.75 1.75 0 0 1 3.5 0v1.25"/></svg>Your cloud account</span>
+          </div>
+          <h3>Inside your own cloud account</h3>
+          <p>Claude and OpenAI models through AWS, Microsoft Azure or Google Cloud, in the region you choose, under that provider&rsquo;s compliance terms, including its HIPAA agreement where the service is covered. Government-grade options exist. The usual choice for healthcare, finance and government contractors.</p>
         </div>
         <div class="route">
           <div class="diagram diagram-local" aria-hidden="true">
@@ -195,10 +205,10 @@
             <span class="node"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>Your server</span>
           </div>
           <h3>On your own servers</h3>
-          <p>Open-source models on your hardware or private cloud, for data that can&rsquo;t leave the building. Common in healthcare, legal, finance and government contracting.</p>
+          <p>Open-source models such as OpenAI&rsquo;s gpt-oss, Google&rsquo;s Gemma, Qwen or Mistral, on your own hardware. For data that can&rsquo;t leave the building.</p>
         </div>
       </div>
-      <p class="fit">The audit tells you which one fits.</p>
+      <p class="fit">The audit says where each workflow should run.</p>
     </div>
   </section>
   <section class="section" id="questions" aria-labelledby="questions-title">
@@ -206,11 +216,13 @@
       <h2 id="questions-title">Questions</h2>
       <div class="faq">
         <details><summary>How is this different from using ChatGPT?</summary><p>ChatGPT helps one person with one task at a time. We connect AI to the systems your business runs on, so the work happens inside your process, with a person approving where it matters.</p></details>
-        <details><summary>Is our data used to train AI models?</summary><p>Not in the setups we build. Anthropic&rsquo;s commercial terms say it doesn&rsquo;t train its models on business customers&rsquo; data. For data that can&rsquo;t leave your building, we run open-source models on your own servers.</p></details>
+        <details><summary>Which AI do you use?</summary><p>Whichever fits the job: Anthropic&rsquo;s Claude, OpenAI&rsquo;s models, or open-source models on your own servers. You&rsquo;re never locked to one company.</p></details>
+        <details><summary>Is our data used to train AI models?</summary><p>Not by default. Anthropic and OpenAI don&rsquo;t train on business accounts&rsquo; data unless you opt in. Through AWS or Azure, your data isn&rsquo;t shared with the model makers at all. Open-source models on your own servers don&rsquo;t send it anywhere.</p></details>
+        <details><summary>Can it run without the cloud?</summary><p>Yes. Open-source models can run on your own hardware, with nothing sent outside your building.</p></details>
         <details><summary>What does it cost to run once it&rsquo;s built?</summary><p>Mostly model usage, which for a small business is usually tens to a few hundred dollars a month. The audit estimates it from your own volumes before you commit.</p></details>
         <details><summary>Do we need to buy new software?</summary><p>Usually not. We build on what you already use, such as QuickBooks, HubSpot, Microsoft 365 and Google Workspace.</p></details>
         <details><summary>Who owns what you build?</summary><p>You do: the code, the prompts and the workflows. No lock-in.</p></details>
-        <details><summary>What if the audit finds nothing worth building?</summary><p>Then the report says so, and it&rsquo;s yours to keep. You don&rsquo;t have to buy anything else.</p></details>
+        <details><summary>What if the audit finds nothing worth building?</summary><p>Then the report says so, and you don&rsquo;t have to buy anything else. If the audit isn&rsquo;t useful to you, tell us within 30 days and we refund the &#36;499.</p></details>
         <details><summary>How long until something is working?</summary><p>The audit takes a week. Most builds take 2 to 6 weeks once the scope is agreed.</p></details>
       </div>
     </div>
@@ -220,8 +232,9 @@
     <div class="wrap call-row">
       <div>
         <h2 id="book-title">Start with a free 30-minute call</h2>
-        <p class="call-sub">We&rsquo;ll tell you whether AI is worth it for your business. The audit is &#36;499. Builds get a fixed price after it.</p>
+        <p class="call-sub">We&rsquo;ll tell you whether AI is worth it for your business. The audit is &#36;499, refunded within 30 days if it isn&rsquo;t useful. Builds get a fixed price after it.</p>
         <p class="reply">You&rsquo;ll hear from us within one business day.</p>
+        <p class="cred">Led by a senior engineer with 20 years in IT and security operations across federal government, healthcare, manufacturing and retail. CompTIA Security+. Experience under HIPAA, PCI-DSS, SOC 2 and federal security requirements.</p>
       </div>
       <div class="book" id="book">
         <form id="request" aria-labelledby="book-title" novalidate>

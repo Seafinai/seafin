@@ -104,12 +104,13 @@
 
     <section class="report-sec" aria-labelledby="where">
       <h2 id="where">Where it should run</h2>
-      <p>Client documents contain account numbers and tax IDs. Two setups work:</p>
+      <p>Client documents contain account numbers and tax IDs. Three setups work:</p>
       <ul class="plain">
-        <li><b>Claude, through a business account whose terms exclude your data from model training,</b> with account numbers masked before anything is sent. Faster to set up, cheaper, and more accurate.</li>
-        <li><b>An open-source model on a small server in your office or a private cloud.</b> Nothing leaves your control; more setup and somewhat lower accuracy.</li>
+        <li><b>Claude direct, through a business account whose terms exclude your data from model training,</b> with account numbers masked before anything is sent. Fastest to set up and cheapest.</li>
+        <li><b>Claude inside your own AWS account,</b> in a US region, under AWS&rsquo;s compliance terms. AWS doesn&rsquo;t share the data with Anthropic. A little more setup; the same accuracy.</li>
+        <li><b>An open-source model on a small server in your office.</b> Nothing leaves the building; the most setup and somewhat lower accuracy.</li>
       </ul>
-      <p><b>Recommendation:</b> start with Claude, unless your engagement letters or your insurer forbid sending client data to a third party. Check both before the build.</p>
+      <p><b>Recommendation:</b> start with Claude direct. If your engagement letters or your insurer limit where client data can go, use your own AWS account instead. Check both before the build.</p>
     </section>
 
     <section class="report-sec" aria-labelledby="plan">
@@ -138,7 +139,7 @@
     </footer>
 
     <div class="report-cta">
-      <p>Want this for your business? The audit is $499 and takes one week.</p>
+      <p>Want this for your business? The audit is $499, takes one week, and is refunded if it isn&rsquo;t useful.</p>
       <a class="btn btn-primary btn-lg" href="index.html#book">Request a free call</a>
     </div>
   </div>

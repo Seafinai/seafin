@@ -187,15 +187,16 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* where it runs: one panel, two routes, each with a small diagram */
 #where-it-runs h2 { margin-bottom: clamp(24px, 3vw, 36px); }
-.routes { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-1); }
-.route { padding: 28px; }
+.routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-1); }
+/* each route spans three shared rows, so the headings line up across routes */
+.route { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; padding: 28px; }
 .route + .route { border-left: 1px solid var(--line-soft); }
 .route h3 { font: 700 1.1875rem/1.3 var(--font-sans); margin: 24px 0 8px; }
 .route p { color: var(--ink-500); max-width: 52ch; }
 .diagram { position: relative; display: flex; align-items: flex-start; padding: 26px 20px 20px; background: var(--paper-2); border: 1px solid var(--line-soft); border-radius: var(--r-input); }
 .diagram-local { border: 1.5px dashed var(--accent); }
 .fence { position: absolute; top: -0.6rem; left: 16px; padding: 0 6px; background: var(--paper); font: 600 0.75rem/1.2rem var(--font-sans); color: var(--accent); }
-.node { flex: none; width: 7.5rem; display: grid; justify-items: center; gap: 10px; text-align: center; font: 600 0.875rem/1.3 var(--font-sans); color: var(--ink-700); }
+.node { flex: none; width: 6.5rem; display: grid; justify-items: center; gap: 10px; text-align: center; font: 600 0.875rem/1.3 var(--font-sans); color: var(--ink-700); }
 .node svg { width: 36px; height: 36px; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .wire { flex: 1; height: 2px; margin: 17px 4px 0; background-image: linear-gradient(90deg, var(--accent-soft) 55%, transparent 0); background-size: 10px 2px; }
 .band .fit { margin-top: 20px; color: var(--ink-700); }
@@ -203,6 +204,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- the request: price floor, reply promise and the form ---------- */
 .call-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 28px clamp(32px, 5vw, 72px); align-items: start; }
 .call-sub { margin-top: 12px; max-width: 40ch; font-size: 1.125rem; line-height: 1.6; color: var(--ink-500); }
+.cred { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); max-width: 46ch; font-size: 0.9375rem; color: var(--ink-700); }
 .book { padding: clamp(20px, 2.2vw, 28px); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-2); transition: border-color 400ms ease-out, box-shadow 400ms ease-out; }
 .book form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: end; }
 .book form .wide, .book form .btn, .book form .status { grid-column: 1 / -1; }
@@ -246,6 +248,12 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .faq-row { grid-template-columns: 1fr; }
   .call-row { grid-template-columns: 1fr; }
 }
+@media (max-width: 1100px) {
+  /* three diagrams side by side get too narrow for their wire; stack the routes */
+  .routes { grid-template-columns: 1fr; }
+  .route + .route { border-left: 0; border-top: 1px solid var(--line-soft); }
+  .diagram { max-width: 440px; }
+}
 @media (max-width: 760px) {
   /* on phones the photo sits above the headline instead of behind it */
   .hero { display: block; min-height: 0; padding-top: 0; }
@@ -254,10 +262,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .hero h1, .hero .lede, .hero .hero-cta, .hero .reply { max-width: none; }
   .nav ul { display: none; }
   .nav .btn { margin-left: auto; }
-  .routes { grid-template-columns: 1fr; }
   .route { padding: 22px 20px; }
-  .route + .route { border-left: 0; border-top: 1px solid var(--line-soft); }
-  .node { width: 6.5rem; }
 }
 @media (max-width: 560px) {
   .builds, .industries { grid-template-columns: 1fr; }
