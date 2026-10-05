@@ -103,8 +103,24 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .nav .btn { min-height: 40px; padding: 0 16px; }
 
 /* ---------- hero: plain promise, one button, a reply promise ---------- */
-.hero { padding-block: clamp(56px, 8vw, 112px) clamp(48px, 6vw, 88px); border-bottom: 1px solid var(--line); }
-.hero h1 { max-width: 14em; font: 600 clamp(2.5rem, 5.6vw, 4.5rem)/1.04 var(--font-serif); letter-spacing: -0.025em; text-wrap: balance; }
+/* The opening photograph is light in both colour schemes, so the hero keeps
+   light tokens in dark mode; the headline sits in the photo's empty left side. */
+.hero {
+  --ink-900: #1a1f2a; --ink-700: #2d3748; --ink-500: #4a5568; --line: #e2e6ec;
+  --tracelet-teal: #0076a3; --tracelet-teal-deep: #005682;
+  --brand-gradient: linear-gradient(100deg, #1a227e 0%, #0076a3 62%, #38b3da 100%);
+  color-scheme: light;
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; align-items: center; min-height: clamp(520px, 72vh, 720px);
+  padding-block: clamp(56px, 8vw, 112px) clamp(48px, 6vw, 88px);
+  background: #eceae6; color: var(--ink-900); border-bottom: 1px solid var(--line);
+}
+.hero > .wrap { width: 100%; }
+.hero-art { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(246, 245, 242, 0.92) 0%, rgba(246, 245, 242, 0.72) 38%, rgba(246, 245, 242, 0) 62%); }
+.hero h1, .hero .lede, .hero .hero-cta, .hero .reply { max-width: min(560px, 52%); }
+.hero .lede { max-width: min(520px, 52%); }
+.hero h1 { font: 600 clamp(2.5rem, 4.6vw, 4rem)/1.05 var(--font-serif); letter-spacing: -0.025em; text-wrap: balance; }
 .hero h1 .nb { white-space: nowrap; }
 .lede { margin-top: 22px; max-width: 46ch; font-size: 1.25rem; line-height: 1.55; color: var(--ink-500); }
 .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 32px; }
@@ -122,8 +138,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* services: three columns under one rule, each with its price line */
 .offers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.offers li { display: grid; align-content: start; gap: 8px; padding: 24px clamp(16px, 2.2vw, 32px) 8px 0; }
-.offers li + li { padding-left: clamp(16px, 2.2vw, 32px); border-left: 1px solid var(--line); }
+.offers > li { display: grid; align-content: start; gap: 8px; padding: 24px clamp(16px, 2.2vw, 32px) 8px 0; }
+.offers > li + li { padding-left: clamp(16px, 2.2vw, 32px); border-left: 1px solid var(--line); }
 .offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
 .offers .price { font-weight: 600; color: var(--tracelet-teal); }
 .offers p { color: var(--ink-500); }
@@ -135,7 +151,9 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* what we build: six common first builds, ruled grid */
 .builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
-.builds li { display: grid; align-content: start; gap: 8px; padding: 22px 0 26px; border-top: 1px solid var(--line); }
+.builds { row-gap: clamp(28px, 3vw, 40px); }
+.builds li { display: grid; align-content: start; gap: 8px; }
+.build-art { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-input); margin-bottom: 8px; background: var(--line-soft); }
 .builds h3 { font: 700 1.125rem/1.3 var(--font-sans); }
 .builds p { color: var(--ink-500); }
 
@@ -219,8 +237,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
   .offers { grid-template-columns: 1fr; }
-  .offers li, .offers li + li { padding: 22px 0; border-left: 0; }
-  .offers li + li { border-top: 1px solid var(--line); }
+  .offers > li, .offers > li + li { padding: 22px 0; border-left: 0; }
+  .offers > li + li { border-top: 1px solid var(--line); }
   .steps { grid-template-columns: 1fr 1fr; }
   .steps li { padding-bottom: 36px; }
   .builds, .industries { grid-template-columns: 1fr 1fr; }
@@ -228,6 +246,11 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .call-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
+  /* on phones the photo sits above the headline instead of behind it */
+  .hero { display: block; min-height: 0; padding-top: 0; }
+  .hero::before { display: none; }
+  .hero-art { position: static; display: block; height: auto; aspect-ratio: 3 / 2; margin-bottom: 28px; }
+  .hero h1, .hero .lede, .hero .hero-cta, .hero .reply { max-width: none; }
   .nav ul { display: none; }
   .nav .btn { margin-left: auto; }
   .routes { grid-template-columns: 1fr; }
