@@ -23,7 +23,7 @@
     <nav aria-label="Main">
       <ul>
         <li><a href="#services">Services</a></li>
-        <li><a href="#what-we-build">What we build</a></li>
+        <li><a href="#how-we-work">How we work</a></li>
         <li><a href="#where-it-runs">Where it runs</a></li>
       </ul>
     </nav>
@@ -33,95 +33,73 @@
 
 <main>
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="wrap hero-inner">
-      <h1 id="hero-title">Your AI department, <span class="nb">without the headcount.</span></h1>
-      <div class="hero-foot">
-        <p class="lede">Strategy audits, custom builds and managed AI for businesses with no AI team. You own everything we build.</p>
-        <a class="btn btn-primary btn-lg" href="#book">Request a free call</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section call" aria-labelledby="book-title">
-    <div class="wrap call-row">
-      <div>
-        <h2 id="book-title">Free 30-minute call</h2>
-        <p class="call-sub">We&rsquo;ll tell you whether AI is worth it for your business.</p>
-      </div>
-      <div class="book" id="book">
-        <form id="request" aria-labelledby="book-title" novalidate>
-          <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
-          <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
-          <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="btn btn-primary" type="submit">Request a free call</button>
-          <p class="status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <section class="section index" id="services" aria-labelledby="services-title">
     <div class="wrap">
-      <h2 id="services-title" class="sr-only">Services</h2>
+      <h1 id="hero-title">Your AI department, <span class="nb">without the headcount.</span></h1>
+      <p class="lede">Seafin finds where AI pays off in your business, builds it into the tools you already use, and keeps it running. For <span class="blank" title="Your answer goes here: who the page sells to">businesses with no AI team</span>. You own everything we build.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#book">Request a free call</a>
+        <a class="btn-link" href="#how-we-work">How we work</a>
+      </div>
+      <p class="reply">You&rsquo;ll hear from us within <span class="blank" title="Your answer goes here: reply time you can promise">one business day</span>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title">Services</h2>
       <ul class="offers">
         <li>
-          <h3>Strategy Audit</h3><span class="term">1 week</span>
+          <h3>Strategy Audit</h3>
+          <p class="price">From <span class="blank" title="Your answer goes here: audit starting price">&#36; audit price</span> &middot; 1 week</p>
           <p>A 90-minute working session on how your business runs, then a written report: your top three AI opportunities, what each would save, and a 90&#8209;day plan.</p>
         </li>
         <li>
-          <h3>Custom Builds</h3><span class="term">Fixed fee &middot; 2 to 6 weeks</span>
-          <p>The workflow, agent or integration the audit points to, connected to QuickBooks, HubSpot, Microsoft 365 or Google Workspace. Thirty days of support after launch.</p>
+          <h3>Custom Builds</h3>
+          <p class="price">From <span class="blank" title="Your answer goes here: build starting price">&#36; build price</span> &middot; fixed fee &middot; 2 to 6 weeks</p>
+          <p>The workflow, agent or integration the audit points to, connected to QuickBooks, HubSpot, Microsoft 365 or Google Workspace.</p>
         </li>
         <li>
-          <h3>Managed AI</h3><span class="term">Month to month</span>
-          <p>We keep it running: support over Slack, cost limits, and one new workflow each month. Cancel any time.</p>
+          <h3>Managed AI</h3>
+          <p class="price">Month to month</p>
+          <p>Support over Slack, cost limits, and one new workflow each month. Cancel any time.</p>
         </li>
       </ul>
     </div>
   </section>
 
-  <section class="section" id="what-we-build" aria-labelledby="build-title">
+  <section class="section band" id="how-we-work" aria-labelledby="how-title">
     <div class="wrap">
-      <h2 id="build-title">What a build looks like</h2>
-      <!-- The build, played (demo.js): the four cases are the controls; the stage markup is the still frame for no-JS and reduced motion. -->
-      <div class="build" id="demo">
-        <div class="cases demo-tabs" role="group" aria-label="Example builds">
-          <button type="button" class="tab" aria-pressed="true"><span class="fill"></span><span class="case-in">Supplier invoices arrive by email</span><span class="case-out">Draft bills wait in QuickBooks for your approval</span></button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">The weekly carrier invoice arrives</span><span class="case-out">Charges above your contract rate are flagged and a dispute drafted</span></button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">A referral comes in by fax</span><span class="case-out">The patient and the order are created, ready for staff review</span></button>
-          <button type="button" class="tab" aria-pressed="false"><span class="fill"></span><span class="case-in">A new client&rsquo;s intake call is recorded</span><span class="case-out">Possible claims, strengths and weaknesses are summarized for the attorney</span></button>
-        </div>
-        <figure class="demo">
-        <div class="demo-stage" role="img" aria-label="Example build: an emailed supplier invoice becomes a QuickBooks bill, waiting for your approval.">
-          <article class="app app-src" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">Inbox</span><span class="app-meta">Northline Packaging</span></header>
-            <div class="app-body">
-              <p class="subj">Invoice 10482 attached</p>
-              <div class="doc">
-                <span class="ln doc-h">Invoice <mark class="hit">10482</mark></span>
-                <span class="ln"><mark class="hit">Northline Packaging</mark></span>
-                <span class="ln">Corrugated boxes, 40 cases</span>
-                <span class="ln">Total <mark class="hit">$1,240.00</mark> &middot; Due <mark class="hit">Oct 30</mark></span>
-              </div>
-            </div>
-          </article>
-          <div class="relay" aria-hidden="true"><span class="relay-wire"></span><span class="relay-state">Drafting bill</span></div>
-          <article class="app app-dst" aria-hidden="true">
-            <header class="app-bar"><span class="app-name">QuickBooks &middot; Bill</span></header>
-            <dl class="fields">
-              <div><dt>Vendor</dt><dd>Northline Packaging</dd></div>
-              <div><dt>Bill no.</dt><dd>10482</dd></div>
-              <div><dt>Due date</dt><dd>Oct 30, 2026</dd></div>
-              <div><dt>Amount</dt><dd>$1,240.00</dd></div>
-            </dl>
-            <p class="app-status is-done"><span class="dot"></span><span class="status-text">Waiting for your approval</span></p>
-          </article>
-        </div>
-        </figure>
-      </div>
+      <h2 id="how-title">How we work</h2>
+      <p class="section-sub">A fixed price before anything is built.</p>
+      <ol class="steps">
+        <li>
+          <p class="when">Week 1</p>
+          <h3>Understand the business</h3>
+          <p>A 90-minute working session on how work actually happens today, then the written audit.</p>
+          <p class="get"><b>You get</b> Your top three AI opportunities, what each would save, and a 90&#8209;day plan. Yours to keep either way.</p>
+        </li>
+        <li>
+          <p class="when">Before the build</p>
+          <h3>Agree the scope and price</h3>
+          <p>We turn the opportunity you pick into a plan: what gets built, how it connects to your tools, and when.</p>
+          <p class="get"><b>You get</b> A fixed scope, timeline and price before any build starts.</p>
+        </li>
+        <li>
+          <p class="when">2 to 6 weeks</p>
+          <h3>Build it into your tools</h3>
+          <p>The workflow, agent or integration, connected to the software you already use.</p>
+          <p class="get"><b>You get</b> Working software that you own, with thirty days of support after launch.</p>
+        </li>
+        <li>
+          <p class="when">Month to month</p>
+          <h3>Keep it running</h3>
+          <p>Support over Slack, cost limits, and one new workflow each month.</p>
+          <p class="get"><b>You get</b> AI that keeps working and keeps improving. Cancel any time.</p>
+        </li>
+      </ol>
     </div>
   </section>
+
   <section class="section band" id="where-it-runs" aria-labelledby="runs-title">
     <div class="wrap">
       <h2 id="runs-title">Where it runs</h2>
@@ -149,17 +127,27 @@
       <p class="fit">The audit tells you which one fits.</p>
     </div>
   </section>
-</main>
 
-<section class="close" aria-labelledby="close-title">
-  <div class="wrap">
-    <h2 id="close-title">Start with a free call.</h2>
-    <div class="actions">
-      <a class="btn btn-primary" href="#book">Request a free call</a>
-      <a class="mail" href="mailto:hello@seafin.ai">hello@seafin.ai</a>
+  <section class="section call" aria-labelledby="book-title">
+    <div class="wrap call-row">
+      <div>
+        <h2 id="book-title">Start with a free 30-minute call</h2>
+        <p class="call-sub">We&rsquo;ll tell you whether AI is worth it for your business. Audits from <span class="blank" title="Your answer goes here: audit starting price">&#36; audit price</span>, builds from <span class="blank" title="Your answer goes here: build starting price">&#36; build price</span>.</p>
+        <p class="reply">You&rsquo;ll hear from us within <span class="blank" title="Your answer goes here: reply time you can promise">one business day</span>.</p>
+      </div>
+      <div class="book" id="book">
+        <form id="request" aria-labelledby="book-title" novalidate>
+          <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
+          <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+          <label class="wide"><span>What would you hand off first? <span class="opt">Optional</span></span><textarea name="message" rows="3" maxlength="500"></textarea></label>
+          <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Request a free call</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer class="foot">
   <div class="wrap">
@@ -171,5 +159,5 @@
 </footer>
 
 <script src="home.js" defer></script>
-<script src="demo.js" defer></script></body>
+</body>
 </html>
