@@ -289,6 +289,15 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .guides p { color: var(--ink-700); }
 .guides .read { font-size: 0.875rem; color: var(--ink-500); }
 
+/* what Claude and ChatGPT can do: six capabilities, each with a real use */
+.caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 36px) clamp(20px, 3vw, 40px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
+.caps li { display: grid; align-content: start; gap: 8px; padding-top: 18px; border-top: 1px solid var(--ink-900); }
+.caps h3 { font: 600 1.25rem/1.25 var(--font-serif); }
+.caps p { color: var(--ink-700); }
+.caps .cap-use { color: var(--ink-900); }
+.caps .cap-src { font-size: 0.8125rem; color: var(--ink-500); }
+.caps-more { margin-top: clamp(24px, 3vw, 36px); font-weight: 600; }
+
 /* is this a fit: two ruled lists side by side */
 .fit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(32px, 5vw, 72px); margin-top: clamp(24px, 3vw, 36px); }
 .fit-row h3 { padding-bottom: 12px; border-bottom: 1px solid var(--ink-900); font: 700 1.0625rem/1.3 var(--font-sans); }
@@ -394,7 +403,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .faq-head { position: static; }
   .call-row { grid-template-columns: 1fr; }
   .sample-row, .edge-row { grid-template-columns: 1fr; }
-  .news-list { grid-template-columns: 1fr 1fr; row-gap: 20px; }
+  .news-list, .caps { grid-template-columns: 1fr 1fr; row-gap: 20px; }
   .guides { grid-template-columns: 1fr 1fr; row-gap: 12px; }
   .report-stack { max-width: 520px; }
 }
@@ -417,7 +426,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .nav ul { display: none; }
   .nav .btn { margin-left: auto; }
   .route { padding: 22px 20px; }
-  .promises, .guides, .news-list, .fit-row { grid-template-columns: 1fr; }
+  .promises, .guides, .news-list, .fit-row, .caps { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .builds { grid-template-columns: 1fr; row-gap: 20px; }
