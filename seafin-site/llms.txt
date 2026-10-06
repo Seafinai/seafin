@@ -16,11 +16,14 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 
 ## Pages
 - [Home](https://seafin.ai/)
+- [What Seafin costs](https://seafin.ai/pricing): prices for each service and what you pay others directly
 - [Sample Strategy Audit](https://seafin.ai/sample-audit): a full sample report for a fictional 12-person bookkeeping firm
 - [What small businesses are automating in 2026](https://seafin.ai/guide-automating-2026)
 - [What an AI audit should tell you](https://seafin.ai/guide-ai-audit)
 - [Is your data used to train AI?](https://seafin.ai/guide-ai-data)
 - [HIPAA and AI: which setups are covered](https://seafin.ai/guide-hipaa-ai)
+- [AI consultant, new hire, or do it yourself?](https://seafin.ai/guide-consultant-vs-hire-vs-diy)
+- [Off-the-shelf AI tools or a custom build?](https://seafin.ai/guide-off-the-shelf-vs-custom)
 - [What AI can do now that it couldn't a year ago](https://seafin.ai/whats-new)
 
 ## Contact
