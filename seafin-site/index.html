@@ -424,6 +424,18 @@
           <label>Name<input id="f-name" name="name" autocomplete="name" maxlength="120" required></label>
           <label>Work email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
           <label class="wide"><span>What would you hand off first? <span class="opt">Optional</span></span><textarea name="message" rows="3" maxlength="500"></textarea></label>
+          <label class="wide"><span>How did you hear about us? <span class="opt">Optional</span></span>
+            <select name="source">
+              <option value="">Choose one</option>
+              <option>ChatGPT</option>
+              <option>Claude</option>
+              <option>Another AI assistant (Perplexity, Copilot, Gemini)</option>
+              <option>Google or Bing search</option>
+              <option>LinkedIn</option>
+              <option>A friend or colleague</option>
+              <option>Other</option>
+            </select>
+          </label>
           <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button class="btn btn-primary" type="submit">Request a free call</button>
           <p class="status" role="status" aria-live="polite"></p>

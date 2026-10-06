@@ -21,6 +21,7 @@ export default {
     const name = oneLine(data.name, 120);
     const email = oneLine(data.email, 200);
     const message = String(data.message ?? '').trim().slice(0, 500);
+    const source = oneLine(data.source, 80);
     if (!name || !EMAIL.test(email)) return json({ error: 'invalid' }, 422);
     if (!env.CONTACT_TO) return json({ error: 'not_configured' }, 500);
 
@@ -37,6 +38,7 @@ export default {
       '',
       `Name: ${name}`,
       `Email: ${email}`,
+      `Heard about us: ${source || '(not given)'}`,
       '',
       'What they would hand off first:',
       message || '(left blank)',

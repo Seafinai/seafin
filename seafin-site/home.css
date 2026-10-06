@@ -365,15 +365,15 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .book form .wide, .book form .btn, .book form .status { grid-column: 1 / -1; }
 .book label { display: grid; gap: 6px; font: 600 0.875rem/1.3 var(--font-sans); color: var(--ink-700); }
 .book label .opt { font-weight: 400; color: var(--ink-500); }
-.book input, .book textarea {
+.book input, .book textarea, .book select {
   width: 100%; font: 400 1rem/1.4 var(--font-sans); color: var(--ink-900);
   background: var(--paper-2); border: 1px solid var(--line-strong); border-radius: var(--r-input);
   padding: 11px 13px; transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
 }
-.book input { min-height: 46px; }
+.book input, .book select { min-height: 46px; }
 .book textarea { min-height: 84px; resize: vertical; }
-.book input:hover, .book textarea:hover { border-color: color-mix(in srgb, var(--line-strong) 55%, var(--ink-500)); }
-.book input:focus-visible, .book textarea:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+.book input:hover, .book textarea:hover, .book select:hover { border-color: color-mix(in srgb, var(--line-strong) 55%, var(--ink-500)); }
+.book input:focus-visible, .book textarea:focus-visible, .book select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
 .book .btn { min-height: 48px; font-size: 1rem; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .status { font-size: 0.9375rem; color: var(--ink-700); }
