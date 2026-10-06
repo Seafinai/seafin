@@ -85,6 +85,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   border-radius: var(--r-control); border: 1px solid transparent; cursor: pointer;
   transition: box-shadow 160ms ease-out, filter 160ms ease-out, background-color 160ms ease-out, transform 160ms ease-out;
 }
+.btn[hidden] { display: none; }
 .btn-primary { color: #fff; background: var(--cobalt); box-shadow: var(--shadow-1); }
 .btn-primary:hover { color: #fff; background: var(--cobalt-deep); box-shadow: var(--shadow-2); }
 .btn-primary:active { transform: translateY(1px); filter: brightness(0.96); }
