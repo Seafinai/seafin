@@ -131,6 +131,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .btn-secondary:hover { color: var(--ink-900); border-color: var(--ink-900); }
 .nowrap { white-space: nowrap; }
 .reply { margin-top: 14px; font-size: 0.9375rem; color: var(--ink-500); }
+.lead-by { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); max-width: min(400px, 52%); font-size: 0.875rem; font-weight: 600; color: var(--ink-700); }
+.mid-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: clamp(32px, 4vw, 48px); color: var(--ink-700); }
 
 /* ---------- sections ---------- */
 .section { padding-block: clamp(56px, 7vw, 96px); }
@@ -393,7 +395,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .hero { display: block; min-height: 0; padding-top: 0; }
   .hero::before { display: none; }
   .hero-art { position: static; display: block; height: auto; aspect-ratio: 16 / 9; margin-bottom: 28px; }
-  .hero h1, .hero .lede, .hero .hero-cta, .hero .reply { max-width: none; }
+  .hero h1, .hero .lede, .hero .hero-cta, .hero .reply, .lead-by { max-width: none; }
   .hero .lede { max-width: 46ch; }
 }
 @media (max-width: 760px) {
