@@ -242,3 +242,6 @@ td { color: var(--ink-700); }
 
 /* real-cases guide: where each result comes from */
 .opp .src { display: inline; font-size: 0.875rem; color: var(--ink-500); }
+
+/* sample-audit: space between a Today/After table and the paragraph under it */
+.opp .vs + p { margin-top: 16px; }
