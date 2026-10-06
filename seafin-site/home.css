@@ -319,8 +319,9 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .steps .get b { display: block; margin-bottom: 4px; font-size: 0.875rem; color: var(--ink-900); }
 
 /* where it runs: one panel, three routes, each with a small diagram */
+.routes-note { margin-top: 18px; max-width: 70ch; color: var(--ink-700); }
 #where-it-runs .section-sub { margin-bottom: clamp(24px, 3vw, 36px); }
-.routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-1); }
+.routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: var(--shadow-1); }
 /* each route spans three shared rows, so the headings line up across routes */
 .route { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; padding: 28px; }
 .route + .route { border-left: 1px solid var(--line-soft); }
