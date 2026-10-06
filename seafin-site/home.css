@@ -224,7 +224,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .flow figcaption { margin-bottom: 8px; font: 600 0.875rem/1.3 var(--font-sans); color: var(--ink-500); }
 .flow-steps { position: relative; }
 .flow ol { position: relative; z-index: 1; margin: 0; padding: 0; list-style: none; counter-reset: step; }
-.flow li { display: grid; grid-template-columns: 20px 10.5rem minmax(0, 1fr); grid-template-areas: "dot tier text"; align-items: center; gap: 0 16px; padding: 16px 0; border-top: 1px solid var(--line); transition: opacity 360ms ease-out; }
+.flow li { display: grid; grid-template-columns: 20px minmax(0, 1fr); grid-template-areas: "dot text"; align-items: center; gap: 0 16px; padding: 16px 0; border-top: 1px solid var(--line); transition: opacity 360ms ease-out; }
 .flow li:first-child { border-top: 0; }
 .flow .tier { grid-area: tier; }
 .flow b { grid-area: text; }
@@ -415,7 +415,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .flow-result { grid-template-columns: 1fr; gap: 12px; }
   .builds li { grid-template-columns: 104px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 16px; row-gap: 4px; }
   .builds .build-art { grid-row: 1 / span 2; margin: 0; aspect-ratio: 1; }
-  .flow li { grid-template-columns: 20px minmax(0, 1fr); grid-template-areas: "dot tier" ". text"; gap: 8px 14px; }
+  .flow li { gap: 8px 14px; }
   /* on phones the timeline runs down the left edge */
   .steps { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid var(--line-strong); margin-left: 5px; }
   .steps li { padding: 0 0 32px 24px; }

@@ -20,8 +20,10 @@
   const routes = document.querySelector('.routes');
   watch(routes, 0.2, () => routes.classList.add('is-visible'), () => routes.classList.remove('is-visible'));
 
-  // The invoice flow: one job moves down the steps; each step lights as it is reached.
-  const flow = document.querySelector('.flow');
+  // The invoice flow stays still: the moving version read as confusing (owner, 2026-10-06).
+  // Set ANIMATE_FLOW to true to bring the step-by-step animation back.
+  const ANIMATE_FLOW = false;
+  const flow = ANIMATE_FLOW ? document.querySelector('.flow') : null;
   if (!flow) return;
   const steps = flow.querySelector('.flow-steps');
   const items = [...flow.querySelectorAll('li')];
