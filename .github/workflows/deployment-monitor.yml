@@ -1,36 +1,27 @@
 name: Monitor Deployments
 
 on:
-  # Runs every hour to check Vercel deployment status
+  # Runs every hour to check that seafin.ai is up
   schedule:
     - cron: '0 * * * *'  # Every hour
 
   # Manual trigger
   workflow_dispatch:
 
-  # On push to main (after deployment should happen)
-  push:
-    branches:
-      - main
-
 jobs:
   check-deployment:
-    name: Check Vercel Deployment Status
+    name: Check seafin.ai Is Up
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Wait for Vercel deployment
-        if: github.event_name == 'push'
-        run: sleep 120  # Wait 2 minutes for Vercel to deploy
-
       - name: Check if website is accessible
         id: check
         run: |
           # Check if the production site is up
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.vercel.app/ || echo "000")
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.ai/ || echo "000")
 
           echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
 
@@ -42,19 +33,19 @@ jobs:
             echo "status=failure" >> $GITHUB_OUTPUT
           fi
 
-      - name: Check API endpoints
+      - name: Check contact form endpoint
         id: check_api
         run: |
-          # Test critical API endpoints
-          TEST_ENDPOINT=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.vercel.app/api/test || echo "000")
+          # The form endpoint only accepts POST, so a GET should get 405 from the Worker
+          FORM_ENDPOINT=$(curl -s -o /dev/null -w "%{http_code}" https://seafin.ai/api/request || echo "000")
 
-          echo "test_endpoint=$TEST_ENDPOINT" >> $GITHUB_OUTPUT
+          echo "form_endpoint=$FORM_ENDPOINT" >> $GITHUB_OUTPUT
 
-          if [ "$TEST_ENDPOINT" = "200" ]; then
-            echo "✅ API test endpoint working (HTTP $TEST_ENDPOINT)"
+          if [ "$FORM_ENDPOINT" = "405" ]; then
+            echo "✅ Form endpoint answering (HTTP $FORM_ENDPOINT)"
             echo "api_status=success" >> $GITHUB_OUTPUT
           else
-            echo "⚠️ API test endpoint failed (HTTP $TEST_ENDPOINT)"
+            echo "⚠️ Form endpoint unexpected response (HTTP $FORM_ENDPOINT)"
             echo "api_status=warning" >> $GITHUB_OUTPUT
           fi
 
@@ -70,15 +61,15 @@ jobs:
 
             **Status:** ❌ Not accessible
             **HTTP Code:** ${httpCode}
-            **URL:** https://seafin.vercel.app/
+            **URL:** https://seafin.ai/
             **Detected:** ${new Date().toISOString()}
 
             ### 🔍 Immediate Actions
 
-            1. **Check Vercel Dashboard:** https://vercel.com/seafinai/seafin
-            2. **View deployment logs** for errors
+            1. **Check Cloudflare dashboard:** Workers & Pages → seafin-site
+            2. **Check Worker logs** with `npx wrangler tail`
             3. **Check recent commits** for breaking changes
-            4. **Rollback if necessary** using Vercel dashboard
+            4. **Roll back if necessary** with `npx wrangler rollback`
 
             ### 🔧 Quick Checks
 
@@ -89,8 +80,8 @@ jobs:
             # View latest commit
             git log -1
 
-            # Check Vercel deployment status
-            # Go to: https://vercel.com/seafinai/seafin/deployments
+            # Check Worker deployments
+            npx wrangler deployments list
             \`\`\`
 
             ### 📊 Error Details

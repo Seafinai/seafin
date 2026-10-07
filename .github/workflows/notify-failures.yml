@@ -69,7 +69,7 @@ jobs:
 
             - **Security vulnerabilities found** - Review and update dependencies
             - **Test failures** - Check syntax errors or breaking changes
-            - **Deployment issues** - Check Vercel dashboard and logs
+            - **Deployment issues** - Check Cloudflare Worker logs (`npx wrangler tail`)
             - **Dependency conflicts** - Review package-lock.json changes
 
             ---
