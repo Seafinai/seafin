@@ -130,13 +130,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test-dependencies, test-worker]
     if: always()
+    permissions:
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Comment PR with results
         uses: actions/github-script@v7
         with:
           script: |
-            const context = require('@actions/github').context;
 
             const testDepsStatus = '${{ needs.test-dependencies.result }}';
             const workerStatus = '${{ needs.test-worker.result }}';
