@@ -164,7 +164,7 @@ jobs:
             1. Review the changes
             2. Test locally if needed
             3. Merge if tests pass
-            4. Vercel will auto-deploy to production
+            4. Deploy with `npx wrangler deploy` (merging does not deploy)
 
             ---
 
