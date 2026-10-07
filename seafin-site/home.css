@@ -153,6 +153,12 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .hero h1 { max-width: 20ch; }
 .hero .lede { max-width: 58ch; }
 .hero .reply { max-width: 52ch; }
+/* Without a photo, wide screens centre the opening so the space either side is even. */
+@media (min-width: 1025px) {
+  .hero:not(.has-photo) { text-align: center; }
+  .hero:not(.has-photo) :is(h1, .lede, .reply) { margin-inline: auto; }
+  .hero:not(.has-photo) .hero-cta { justify-content: center; }
+}
 .has-photo h1 { max-width: min(760px, 60%); }
 .has-photo .hero-cta, .has-photo .reply { max-width: min(560px, 52%); }
 .has-photo .lede { max-width: min(520px, 52%); }
@@ -229,7 +235,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .includes li { position: relative; padding-left: 18px; }
 .includes li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 
-/* what we build: eight builds, four across; on phones each becomes a row with a small picture */
+/* what we build: six builds, three across; on phones they stack, title above text */
 .builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
 .builds li { display: grid; align-content: start; gap: 8px; padding-top: 20px; border-top: 2px solid var(--ink-900); }
 .build-art { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-input); margin-bottom: 8px; background: var(--line-soft); }
