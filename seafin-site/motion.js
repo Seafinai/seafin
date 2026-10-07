@@ -12,6 +12,19 @@
     }, { threshold }).observe(el);
   };
 
+  // Opening photo: on wide screens it moves a little slower than the page as you scroll, for depth.
+  const heroArt = document.querySelector('.hero-art');
+  const wide = matchMedia('(min-width: 1025px)');
+  if (heroArt) {
+    let ticking = false;
+    const shift = () => {
+      ticking = false;
+      const y = Math.min(scrollY, innerHeight);
+      heroArt.style.translate = wide.matches ? `0 ${(y * 0.18).toFixed(1)}px` : '';
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(shift); } }, { passive: true });
+  }
+
   // The sample report: each cobalt bar shrinks from today's hours to the hours after, once.
   const stack = document.querySelector('.report-stack');
   watch(stack, 0.45, () => stack.classList.add('is-in'));
