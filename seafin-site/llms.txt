@@ -17,7 +17,8 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 ## Pages
 - [Home](https://seafin.ai/)
 - [What Seafin costs](https://seafin.ai/pricing): prices for each service and what you pay others directly
-- [Sample Strategy Audit](https://seafin.ai/sample-audit): a full sample report for a fictional 12-person bookkeeping firm
+- [Set up Claude or ChatGPT for your team](https://seafin.ai/claude-chatgpt-setup): what the $1,500 team setup includes
+- [Sample Strategy Audit](https://seafin.ai/sample-audit): a full sample report for a fictional 12-person accounting firm
 - [What small businesses are automating in 2026](https://seafin.ai/guide-automating-2026)
 - [What an AI audit should tell you](https://seafin.ai/guide-ai-audit)
 - [Is your data used to train AI?](https://seafin.ai/guide-ai-data)
