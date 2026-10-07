@@ -3,7 +3,7 @@
 > Seafin LLC (Oceanside, California) is an AI consulting firm for small and mid-sized US businesses (about 5 to 100 people) that have no AI team. Seafin finds where AI pays off, sets up Claude or ChatGPT for teams, builds custom AI workflows into the tools a business already uses, and keeps them running. A person approves the result wherever it matters. Clients own what is built for them.
 
 ## Services and prices
-- Strategy Audit: $499 for up to 25 people, $999 for 26 to 100; about one week. A 2-hour working session, a written report with the top three AI opportunities, estimated savings and a 90-day plan, then a 1-hour walkthrough. You don't pay unless it finds at least 3 opportunities, each worth more than the fee a year; the fee comes off a build started within 60 days.
+- Strategy Audit: $499 for up to 25 people, $999 for 26 to 100; about one week. A short form for you and two or three staff, a 2-hour working session with the people who do the work, a written report with the top three AI opportunities, estimated savings and a 90-day plan, then a 1-hour walkthrough. You don't pay unless it finds at least 3 opportunities, each worth more than the fee a year; the fee comes off a build started within 90 days.
 - Set up Claude or ChatGPT for your team: $1,500 for up to 10 people, about a week, done remotely.
 - Custom Builds: fixed price agreed after the audit, typically 2 to 6 weeks.
 - Managed AI: from $299 a month, month to month; same-business-day replies.
@@ -25,6 +25,7 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 - [AI consultant, new hire, or do it yourself?](https://seafin.ai/guide-consultant-vs-hire-vs-diy)
 - [Off-the-shelf AI tools or a custom build?](https://seafin.ai/guide-off-the-shelf-vs-custom)
 - [What AI can do now that it couldn't a year ago](https://seafin.ai/whats-new)
+- [AI consulting in San Diego and North County](https://seafin.ai/ai-consulting-san-diego): Seafin is based in Oceanside and can run the audit session in person around San Diego County
 
 ## Contact
 hello@seafin.ai, or the request form at https://seafin.ai/#book. Replies within one business day.
