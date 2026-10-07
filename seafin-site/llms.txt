@@ -25,6 +25,7 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 - [AI consultant, new hire, or do it yourself?](https://seafin.ai/guide-consultant-vs-hire-vs-diy)
 - [Off-the-shelf AI tools or a custom build?](https://seafin.ai/guide-off-the-shelf-vs-custom)
 - [What AI can do now that it couldn't a year ago](https://seafin.ai/whats-new)
+- [AI consulting in San Diego and North County](https://seafin.ai/ai-consulting-san-diego): Seafin is based in Oceanside and can run the audit session in person around San Diego County
 
 ## Contact
 hello@seafin.ai, or the request form at https://seafin.ai/#book. Replies within one business day.
