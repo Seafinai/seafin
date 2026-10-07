@@ -23,7 +23,7 @@ GitHub org: **seafinai** — separate repos per project. See `COMPANY_STRUCTURE.
 seafin/
 ├── CLAUDE.md
 ├── README.md
-├── api/                    — Serverless functions (Vercel)
+├── api/                    — Legacy Vercel functions (not used by the live site)
 │   ├── test.js             — Environment variable sanity check
 │   ├── create-checkout.js  — Stripe checkout for Seafin Personal
 │   ├── webhook-stripe.js   — Stripe webhook handler
@@ -77,85 +77,37 @@ Production site at `seafin-site/index.html` (plus sovereign/personal/welcome/pri
 
 ## Deployment & Hosting
 
-### Vercel
+### Cloudflare Workers
 
-The website is hosted on **Vercel** with automatic deployment from GitHub.
+seafin.ai is the Cloudflare Worker **`seafin-site`**, configured in `wrangler.toml`:
+- **Custom domains:** `seafin.ai` and `www.seafin.ai`
+- **Static assets:** `./seafin-site` (binding `ASSETS`). Files listed in `seafin-site/.assetsignore` stay in the repo but are not served (old pages like `personal.html`, `sovereign.html`, `welcome.html`).
+- **Worker code:** `worker/index.js` serves the assets and handles `POST /api/request`, the homepage "Book a free call" form. It emails the request through Cloudflare Email Routing (`send_email` binding `SEND_EMAIL`, from `website@seafin.ai`) to the address in the `CONTACT_TO` secret. Only `/api/*` runs the Worker first.
 
-**Configuration:**
-- **Repository:** `Seafinai/seafin` (GitHub)
-- **Branch:** `main` (auto-deploy enabled)
-- **Root Directory:** `./`
-- **Output Directory:** `seafin-site` (set in `vercel.json`)
-- **Framework:** Other (static HTML + serverless functions)
+### Deploying
 
-**Config file:** `vercel.json` (in repo root)
-
-### Deployment Workflow
-
-**Automated deployment:**
-1. Make changes to `seafin-site/*.html`, `seafin-site/brand.css`, `seafin-site/brand.js`, or `api/*.js`
-2. Commit changes to git
-3. Push to `origin/main`
-4. Vercel automatically detects the push
-5. Builds and deploys in ~30-60 seconds
-6. Live at: https://seafin.vercel.app (or custom domain)
-
-**No manual deployment needed** — Vercel watches the GitHub repo and auto-deploys on push.
-
-### Deployment Commands
-
-Standard git workflow:
+Pushing to GitHub does **not** deploy. Deploy from this folder:
 ```bash
-git add .
-git commit -m "Description of changes
-
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
-git push origin main
+npx wrangler deploy
 ```
 
-After push, Vercel auto-deploys in 30-60 seconds.
-
-### Environment Variables
-
-Set in Vercel dashboard (Settings → Environment Variables):
-- `OPENROUTER_API_KEY` - OpenRouter API key for AI features
-- `MAX_DAILY_COST` - Cost limit (e.g., "5")
-- `NODE_ENV` - "production"
-
-**No .env files needed** — Vercel injects them automatically.
-
-### Serverless Functions
-
-Functions are in `api/` (project root) using Next.js format:
-
-```javascript
-// api/function-name.js
-export default async function handler(req, res) {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  return res.status(200).json({ success: true });
-}
+One-time setup of the form destination (must be a verified Email Routing destination address):
+```bash
+npx wrangler secret put CONTACT_TO
 ```
 
-Functions available at:
-- `/api/test` - Environment variable test
-- `/api/chat` - AI chatbot
-- `/api/analyze-form` - Smart form analyzer
-- `/api/rag-query` - RAG demo
-- `/api/roi-calculator` - ROI calculator
+Never commit secrets: `.dev.vars`, `.env` and `.wrangler/` are in `.gitignore`.
 
-### Cost
+### Legacy `api/` functions
 
-**Free tier** (Hobby plan):
-- 100GB bandwidth/month
-- Unlimited serverless function invocations
-- Sufficient for most small-medium businesses
+`api/` holds the old Vercel serverless functions (Stripe checkout, waitlist, provisioning, email triage). The live Worker does not run them; only the unserved `personal.html` and `welcome.html` reference them.
 
 ## Key Context
 
 - Git repo initialized and connected to GitHub (`Seafinai/seafin`)
-- Deployed to Vercel with auto-deploy from `main` branch
-- Static HTML site + serverless functions (Next.js format)
-- Environment variables managed in Vercel dashboard (no .env files in repo)
+- Deployed as a Cloudflare Worker with `npx wrangler deploy` (no auto-deploy from GitHub)
+- Static HTML site + one Worker route (`/api/request`)
+- Secrets set with `wrangler secret put` (no .env files in repo)
 - The `elements/` component library has been removed — this is a docs/planning repo + production website
 - Revenue model: Seafin services (agents $5-25k, consulting $2-5k/mo), Solvity SaaS ($59-299/mo), Custodian managed backup ($9-199/mo)
 
