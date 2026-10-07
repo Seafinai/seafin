@@ -86,6 +86,18 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   transition: box-shadow 160ms ease-out, filter 160ms ease-out, background-color 160ms ease-out, transform 160ms ease-out;
 }
 .btn[hidden] { display: none; }
+/* Primary buttons: a chevron that becomes an arrow on hover or focus. */
+.btn-arrow { flex: none; margin-left: 2px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.btn-arrow-line { opacity: 0; transition: opacity 160ms ease-out; }
+.btn-arrow-tip { transition: transform 160ms cubic-bezier(0.215, 0.61, 0.355, 1); }
+.btn:hover .btn-arrow-line, .btn:focus-visible .btn-arrow-line { opacity: 1; }
+.btn:hover .btn-arrow-tip, .btn:focus-visible .btn-arrow-tip { transform: translateX(3px); }
+/* The opening button catches the light once, after the headline settles. */
+.hero .btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.hero .btn-primary::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%); transform: translateX(-120%); pointer-events: none; }
+.js-motion .hero .btn-primary::after { animation: btn-sheen 1100ms cubic-bezier(0.37, 0, 0.63, 1) 1500ms both; }
+@keyframes btn-sheen { to { transform: translateX(120%); } }
+@media (max-width: 400px) { .nav .btn-arrow { display: none; } }
 .btn-primary { color: #fff; background: var(--cobalt); box-shadow: var(--shadow-1); }
 .btn-primary:hover { color: #fff; background: var(--cobalt-deep); box-shadow: var(--shadow-2); }
 .btn-primary:active { transform: translateY(1px); filter: brightness(0.96); }
