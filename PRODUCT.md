@@ -1,0 +1,82 @@
+# Product
+
+<!-- impeccable:product-schema 1 -->
+
+## Platform
+
+web
+
+## Stack
+
+Existing static HTML/CSS/JS site in `seafin-site/` (plus Vercel serverless functions in `api/` for the old Seafin Personal checkout). **Hosting must move to Cloudflare** (user, 2026-10-04); it currently deploys to Vercel at `seafin.vercel.app`.
+
+## Users
+
+Primary: owners and operators of small-to-mid businesses (solo up to ~500 people) who have no in-house AI staff and want AI doing real work in their business. Regulated or data-sensitive shops (healthcare, legal, finance, gov contractors, manufacturing) are a key segment because they cannot send data to cloud AI.
+
+Products (Wardix and others) have their own sites and audiences; they are not this page's visitors.
+
+## Product Purpose
+
+Seafin LLC is an AI consulting company. The homepage is the consulting page and sells only the consulting (user, 2026-10-04: "we aren't selling Wardix as well, this is the consulting page"). Seafin's products are not sold or shown on it.
+
+## Positioning
+
+Seafin builds AI that small businesses can own: consulting built on Anthropic Claude, with a self-hosted option on open-source models for businesses that can't put their data in someone else's cloud.
+
+**Claude never runs locally.** Anthropic offers Claude only as a cloud service (its own API, AWS Bedrock, Google Vertex AI); there is no on-premises or downloadable Claude. The "on your own servers" option means open-source models. Never imply Claude runs on the customer's hardware.
+
+## Operating Context
+
+Visitors evaluate Seafin before booking a call. The page sells the company and the offer, not the founder (user, 2026-10-04: "I don't want to focus on the founder, I'm not selling me"): no founder photo, bio, or name in the page copy. Sales motion: free discovery call → paid Strategy Audit → fixed-fee build or retainer.
+
+## Capabilities and Constraints
+
+**Homepage pricing (user, 2026-10-05):** show the audit price only, **$499**, one week. Builds read "fixed price, agreed after the audit"; Managed AI reads "month to month". The homepage targets small and mid-sized businesses without an AI team and promises a reply within one business day.
+
+**Lead offer — AI consulting** (ranges from the live site, May 2026):
+- AI Strategy Audit — $499–$1,500, 1 week
+- AI-Native Builds — $5K–$25K fixed fee, 2–6 weeks
+- AI Concierge — $1,500–$5K/mo, month-to-month
+- Sovereign / self-hosted AI as a specialty
+
+The live site also lists five add-ons (Cost Optimization Audit, Eval & Governance, Migration, Fine-Tuning, Sovereign AI build $25–150K + GPU). Not confirmed for the new homepage.
+
+**Products — not on the homepage** (removed by the user, 2026-10-04; facts verified 2026-10-04, kept for reference if they get their own pages):
+- **Wardix** — self-hosted Windows infrastructure monitoring appliance. **Available now.** Published release is **1.1.9** (vendor API `/v1/releases/latest`, 2026-08-12); 1.1.35 is unreleased source on `dev`. Community is free; Standard $49/mo; Pro $99/mo. The Community check cap is **inconsistent** (live site says 15; code and hosted API say 50) — state no number. Paid checkout is **unconfirmed** (production license key mismatch; Stripe IDs labelled test mode) — the homepage offers the free download, not "Buy". The Community download requires an emailed sign-in link. Product site live at `tracelet.seafin.ai` (branded Wardix; never mentions Seafin).
+- **Authwell** — AI-powered prior-authorization management for small medical practices (case board, denial analysis and appeals, document intake, payer rules, outbound fax, analytics). Marketing site live at `authwell.vercel.app`; the app at `authwell.seafin.ai` fails at the Cloudflare edge (526); repo archived. Its own site says "HIPAA compliant" while its roadmap lists PII redaction before LLM calls as open — **do not repeat any compliance claim**.
+- **Remana** — aging-in-place SaaS: SMS medication reminders, family dashboard, nurse concierge. **Prototype**: no live deployment; last code change Feb 2026.
+- **Wardex Operator** — agent-native monitoring and operations; planned successor to Wardix. **Prototype, not customer-ready** (README: Phase 0 open; very active development since Aug 2026).
+
+**Data-handling claims for Wardix** (verified in code): runs on the customer's own Windows server; the license is verified offline; monitoring data stays on that server. Every 12 hours the update check sends Seafin the install ID, version, hashed machine ID and license state (`app_update_vendor.py:493-518`). Optional AI triage uses the customer's own model key or a local model. Do **not** claim "nothing leaves your network" or "never contacts the internet."
+
+**Domains:** `seafin.ai` is registered with Cloudflare DNS (mail works) but has no web record, so it doesn't load; `www.seafin.ai` returns 522. `wardix.ai` and `authwell.ai` are unregistered even though `hello@wardix.ai` and `hello@authwell.ai` are published contact addresses. Fixing DNS is out of scope for design work.
+
+**Open decisions:**
+- Whether the five add-ons stay on the homepage.
+- Whether `personal.html` / `welcome.html` (Seafin Personal) are retired.
+
+## Brand Commitments
+
+- **Seafin's site uses the Wardix design system** ("Vigilant Infrastructure", `tracelet` repo `design.md`: indigo `#1A227E` + signal teal `#0076A3`, light canvas `#F5F6F9`, white surfaces, Public Sans / Source Serif 4 / Geist Mono, radii 6/10/14/26). Standing preference from the user, 2026-10-04: "keep the same design scheme as most of the apps." Themed concept worlds (nameplate, storefront, work order) were rejected.
+- Company name **Seafin** (LLC). The brand is the company, not the founder.
+- Prior tagline candidates: "Your AI department — without the headcount." (current site) and "Custom AI for small business. Results in weeks, not months." (brand doc). Not locked.
+- Existing brand doc (`brand/SEAFIN_BRAND_IDENTITY.md`) specifies Deep Ocean Blue `#1a2f5a`, Cyan `#00d4ff`, Inter, and a fin logo mark. The user's standing UI rules (`ui-slop.md`) flag Inter as a generated-look tell; treat the old palette/type as replaceable in the redesign unless the user says otherwise.
+- Voice: plain, direct, honest about where AI does and doesn't pay off. No hype. The user's slop rules apply to all page copy: no explanatory prose about the page itself, no decorative bold, no repeated sentences, no invented labels.
+
+## Evidence on Hand
+
+- **No real case studies, client logos, testimonials, or customer counts.** The current site's case studies ("8-person marketing agency", "professional services firm") are hypothetical and must be removed, not reworded. Do not invent proof.
+- Real, showable evidence: the service terms (durations, fixed fees, month-to-month) and, once confirmed, the published pricing. Wardix and the founder exist but are deliberately not used on this page.
+- **The hero demo and "What a build looks like" are modelled on published small-business cases** (user, 2026-10-04: "base it off real world cases"). None are Seafin clients: never name them, quote their results, or imply Seafin did the work. Names, amounts and dates in the demo are illustrative. Researched 2026-10-04:
+  - Invoices → QuickBooks bill, owner approves: Skybound Bookkeeping, 2 staff (Dext, 2023-09-14) https://dext.com/us/blog/single/how-skybound-bookkeeping-unlocked-a-market-for-bookkeeping-data. Bill field labels from Intuit: https://quickbooks.intuit.com/learn-support/en-us/help-article/pay-bills/enter-bills-record-bill-payments-quickbooks-online/L1e9Ce5J7_US_en_US
+  - Carrier invoices checked against contract rates, overcharges disputed: Rebel Cheese, Claude-built agent (Fortune, 2026-05-01, independent) https://fortune.com/2026/05/01/rebel-cheese-mark-cuban-ai-shipping/
+  - Faxed referrals → patient and order: NEB Medical and FloMed (Tennr, undated) https://www.tennr.com/customer-stories/neb-medical-services
+  - Recorded intake call → claims, strengths, weaknesses for the attorney: Frontier Law Center (Eve, 2026-03-12) https://www.eve.legal/case-studies/frontier-law-center-case-study
+
+## Product Principles
+
+1. The homepage is consulting only.
+2. Never claim more than is true — service terms, where things run, and proof are stated exactly.
+3. Ownership over lock-in: the client owns what Seafin builds and can keep data on their own infrastructure.
+4. Sell the company and the offer, not the person.

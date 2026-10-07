@@ -1,0 +1,17 @@
+name = "seafin-site"
+main = "worker/index.js"
+compatibility_date = "2026-09-01"
+routes = [
+  { pattern = "seafin.ai", custom_domain = true },
+  { pattern = "www.seafin.ai", custom_domain = true },
+]
+
+[assets]
+directory = "./seafin-site"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+# Sends the homepage form to a verified Email Routing destination.
+# Set the destination once with: wrangler secret put CONTACT_TO
+[[send_email]]
+name = "SEND_EMAIL"

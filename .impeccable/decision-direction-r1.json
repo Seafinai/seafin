@@ -1,0 +1,100 @@
+{
+  "title": "Seafin homepage: four directions, rendered",
+  "question": "Each card is a real first screen built from the same content. Keep the Nameplate, take a new one, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Storefront Window",
+      "kicker": "THE ROLL",
+      "lineage": "gold-leaf sign painting on Main Street shop windows",
+      "thesis": "Seafin as a founder-run shop on Main Street, its offer painted in gold leaf on the window.",
+      "palette": ["#0e1512", "#c9a24a", "#f3d58a", "#5a3a22"],
+      "materials": ["gold leaf on black glass", "walnut window frame", "hanging inquiry card"],
+      "viewport": "Gold-leaf headline on black glass, the offer and founder below, and the request form on an 'Inquire within' card hanging in the window.",
+      "risk": "Gold leaf can tip into saloon or barbershop nostalgia; the lettering has to stay crisp and the script used once.",
+      "raised": [
+        { "from": "challenger-crane", "raise": "One window, one pane: every section below continues on the same glass and frame, never a second sign." },
+        { "from": "challenger-collider", "raise": "One law for the layout: everything aligns to the window's gold pinstripe border." }
+      ],
+      "comp": ".impeccable/mocks/decision/storefront.png"
+    },
+    {
+      "id": "model-pick",
+      "label": "The Work Order",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "carbonless contractor service work orders",
+      "thesis": "The page is the work order a contractor fills in: scope, technician, terms, and the customer box you fill.",
+      "palette": ["#f7e37c", "#c4122f", "#1f3a93", "#f4c9d4"],
+      "materials": ["canary carbonless paper", "red printed rules", "blue ballpoint"],
+      "viewport": "Headline handwritten in the Description of work box, technician and terms below, and the Customer box as the request form with a rubber-stamp button.",
+      "risk": "Handwriting reads as cute if overdone, and the canary sheet is loud by design.",
+      "comp": ".impeccable/mocks/decision/workorder.png"
+    },
+    {
+      "id": "challenger-hypercard",
+      "label": "HyperCard Stack",
+      "verdict": "competitive",
+      "lineage": "1987 Macintosh HyperCard stacks",
+      "thesis": "Seafin as a stack of one-bit cards you click through.",
+      "palette": ["#000000", "#ffffff", "#808080"],
+      "materials": ["one-bit dither", "pixel window chrome", "rounded buttons"],
+      "viewport": "A card window carrying the offer, and a request card with real fields and a 'Book a free call' button.",
+      "case": "Clear and memorable, and nostalgic for owners who grew up on early Macs; younger buyers may read it as a gimmick.",
+      "risk": "Retro novelty if the type gets small.",
+      "comp": ".impeccable/mocks/decision/hypercard.png",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-hypercard-stack-shoebox-hero.webp"
+    },
+    {
+      "id": "nameplate-built",
+      "label": "The Equipment Nameplate",
+      "kicker": "CURRENT BUILD",
+      "lineage": "engraved equipment nameplates",
+      "thesis": "AI as equipment you own: plated, installed where you choose, serviced by the person who built it.",
+      "palette": ["#1e4a8a", "#d5d8da", "#16181a", "#f2b705"],
+      "materials": ["anodized aluminum", "engraved lettering", "screw heads"],
+      "viewport": "Cobalt plate with the headline, a field table, 'Property of: your business', and the request form in the plate's service band.",
+      "risk": "The review asked for 8 fixes: a bigger 'your business', one amber button, flatter screws, one grid.",
+      "comp": ".impeccable/mocks/decision/nameplate.png"
+    },
+    {
+      "id": "challenger-crane",
+      "label": "Orizuru Crane",
+      "verdict": "declined",
+      "lineage": "origami fold sequences",
+      "thesis": "One red sheet folded step by step into a crane.",
+      "palette": ["#d23c2a", "#f6efe6", "#c9a227", "#1a1a1a"],
+      "materials": ["vermilion washi", "crease lines"],
+      "viewport": "A single red sheet showing its folds.",
+      "case": "Beautiful, but owners of clinics and law firms don't see themselves in origami, and the folds hide the offer.",
+      "kept": "One continuous sheet: nothing becomes a second object.",
+      "risk": "Art piece, not a business page.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-orizuru-crane-sequence-hero.webp"
+    },
+    {
+      "id": "challenger-collider",
+      "label": "Collider Event Display",
+      "verdict": "declined",
+      "lineage": "particle-detector event displays",
+      "thesis": "One frozen collision with tracks curving through detector rings.",
+      "palette": ["#05070c", "#4d6a8a", "#ffd23f", "#ff3b30"],
+      "materials": ["vacuum black", "signal-yellow tracks"],
+      "viewport": "A dark ring diagram with glowing tracks.",
+      "case": "Near-black with neon is the AI-site cliché, and physics imagery says nothing to a small-business owner.",
+      "kept": "One compositional law the whole page obeys.",
+      "risk": "Cold and generic-tech.",
+      "hero": "https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What small AI consultancies ship, executed well.",
+    "palette": ["#ffffff", "#0f172a", "#2563eb"],
+    "materials": ["clean grid", "founder photo"],
+    "viewport": "Outcome headline and a book-a-call button beside the founder's photo, three service cards, a process strip, FAQ.",
+    "risk": "Looks like every other AI consultancy, by design."
+  },
+  "steer": true
+}
