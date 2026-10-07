@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seafin — A Claude deployment partner for businesses without an AI team</title>
-<meta name="description" content="Strategy audits, fixed-fee builds, and managed AI on retainer for businesses that don't have anyone in-house owning AI.">
+<title>Seafin | Give your team its week back</title>
+<meta name="description" content="A one-week AI audit for small businesses. We find the admin work eating your team's week and show you what to change, what it costs and how fast it pays back. $499, money back if we can't find 5 hours a week.">
 <meta name="theme-color" content="#03060f">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
 <style>
   /* ====================================================================
@@ -163,9 +160,7 @@
     font-weight: 500;
   }
   .section-label::before {
-    content: '— ';
-    color: var(--aqua-300);
-    margin-right: 4px;
+    content: none;
   }
 
   .h1 {
@@ -191,7 +186,7 @@
     line-height: 1.25;
     letter-spacing: -0.02em;
   }
-  .serif-italic { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  .serif-italic { font-style: normal; color: var(--aqua-200); }
   .text-aqua-gradient {
     background: linear-gradient(135deg, var(--aqua-100) 0%, var(--aqua-300) 60%, var(--aqua-500) 100%);
     -webkit-background-clip: text;
@@ -337,17 +332,6 @@
     justify-content: center;
     overflow: hidden;
   }
-  .hero-canvas-wrap {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .hero-canvas-wrap canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
   /* fade-out gradient overlay so canvas blends into rest of page */
   .hero-fade-bottom {
     position: absolute;
@@ -373,7 +357,8 @@
   .hero-content {
     position: relative;
     z-index: 2;
-    padding: 60px 0 100px;
+    padding-top: 60px;
+    padding-bottom: 100px;
   }
   .hero-eyebrow-row {
     display: flex;
@@ -418,12 +403,8 @@
     text-wrap: balance;
   }
   .hero h1 em {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--aqua-100);
-    letter-spacing: -0.01em;
-    margin-right: 0.18em;
+    font-style: normal;
+    color: var(--aqua-200);
   }
   .hero-sub {
     font-size: clamp(1.05rem, 1.3vw, 1.2rem);
@@ -509,7 +490,7 @@
     max-width: 760px;
   }
   .section-head .h2 { margin-bottom: 20px; }
-  .section-head .h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--aqua-100); }
+  .section-head .h2 em { font-style: normal; color: var(--aqua-200); }
   .section-head .lede { color: var(--text-2); font-size: 1.05rem; max-width: 60ch; }
 
   /* ====================================================================
@@ -640,7 +621,7 @@
   }
   .process-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     position: relative;
   }
@@ -994,10 +975,8 @@
     text-wrap: balance;
   }
   .about-quote em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--aqua-100);
-    font-weight: 400;
+    font-style: normal;
+    color: var(--aqua-200);
   }
   .about-body p {
     color: var(--text-2);
@@ -1105,7 +1084,7 @@
     margin-bottom: 20px;
     text-wrap: balance;
   }
-  .cta-card h2 em { font-family: var(--serif); font-style: italic; color: var(--aqua-100); font-weight: 400; }
+  .cta-card h2 em { font-style: normal; color: var(--aqua-200); }
   .cta-card p { color: var(--text-2); font-size: 17px; max-width: 56ch; margin: 0 auto 36px; }
   .cta-ctas { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
@@ -1512,34 +1491,6 @@
     50% { transform: scale(1.08); opacity: 0; }
   }
 
-  /* CTA card — orbiting particle effect */
-  .cta-card {
-    isolation: isolate;
-  }
-  .cta-card .cta-orbit {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    pointer-events: none;
-    z-index: -1;
-  }
-  .cta-card .cta-orbit::before,
-  .cta-card .cta-orbit::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(127, 223, 255, 0.08);
-  }
-  .cta-card .cta-orbit::before {
-    inset: 10%;
-  }
-  .cta-card .cta-orbit::after {
-    inset: 25%;
-  }
-
   /* Form inputs — slight glow on focus */
   .form-input, .form-textarea {
     transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
@@ -1592,7 +1543,7 @@
     .nav-links { display: none; }
     .nav { padding: 8px 8px 8px 16px; }
     .hero { padding: 120px 0 0; min-height: auto; }
-    .hero-content { padding: 40px 0 60px; }
+    .hero-content { padding-top: 40px; padding-bottom: 60px; }
     .hero-meta { grid-template-columns: 1fr; gap: 20px; }
     .hero-meta-item { border-right: none; border-bottom: 1px solid var(--hairline-soft); padding: 0 0 20px !important; }
     .hero-meta-item:last-child { border-bottom: none; padding-bottom: 0 !important; }
@@ -1656,14 +1607,13 @@
     <span>seafin</span>
   </a>
   <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#patterns">Patterns</a>
-    <a href="sovereign.html">Sovereign</a>
-    <a href="personal.html">Personal</a>
+    <a href="#process">How it works</a>
+    <a href="#services">What you get</a>
+    <a href="#patterns">What we build</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="#contact" class="nav-cta">Book a call</a>
+  <a href="#contact" class="nav-cta">Book the audit</a>
 </nav>
 
 <main>
@@ -1672,47 +1622,41 @@
      HERO
      ==================================================================== -->
 <section class="hero" id="hero">
-  <div class="hero-canvas-wrap" aria-hidden="true">
-    <canvas id="hero-canvas"></canvas>
-  </div>
   <div class="hero-fade-top"></div>
   <div class="hero-fade-bottom"></div>
 
   <div class="container hero-content">
     <div class="hero-eyebrow-row">
-      <span class="hero-pill">
-        <span class="hero-pill-badge">Live</span>
-        Anthropic Claude deployment partner
-      </span>
+      <span class="hero-pill">AI consulting for small businesses</span>
     </div>
 
     <h1>
-      An AI department,<br>
-      <em>without</em> the headcount.
+      Give your team<br>
+      its week <em>back.</em>
     </h1>
 
     <p class="hero-sub">
-      Strategy audits, fixed-fee builds, and managed AI on retainer — for businesses that don't have anyone in-house owning AI. Solo operator through 500-person team.
+      Your people are already working hard. The week goes to admin: retyping documents, answering the same emails, writing follow-ups and quotes, building the weekly report. In one week we find which of those jobs AI can take over, and show you what each change costs and how fast it pays back.
     </p>
 
     <div class="hero-ctas">
-      <a href="#contact" class="btn btn-primary">Book a discovery call <span class="btn-arrow">→</span></a>
-      <a href="#services" class="btn btn-ghost">See how we work</a>
-      <span class="meta">30 minutes · no commitment</span>
+      <a href="#contact" class="btn btn-primary">Book the $499 audit <span class="btn-arrow">→</span></a>
+      <a href="#process" class="btn btn-ghost">See how the week works</a>
+      <span class="meta">Money back if we can't find 5 hours a week</span>
     </div>
 
     <div class="hero-meta">
       <div class="hero-meta-item">
         <div class="hero-meta-value">1<span class="unit">wk</span></div>
-        <div class="hero-meta-label">Audit to written roadmap</div>
+        <div class="hero-meta-label">From first form to written plan</div>
       </div>
       <div class="hero-meta-item">
-        <div class="hero-meta-value">2–6<span class="unit">wks</span></div>
-        <div class="hero-meta-label">Fixed-fee build to deployed</div>
+        <div class="hero-meta-value">2½<span class="unit">hrs</span></div>
+        <div class="hero-meta-label">Of your time, start to finish</div>
       </div>
       <div class="hero-meta-item">
-        <div class="hero-meta-value">$0<span class="unit">lock-in</span></div>
-        <div class="hero-meta-label">You own every line we ship</div>
+        <div class="hero-meta-value">5<span class="unit">hrs/wk</span></div>
+        <div class="hero-meta-label">Found, or your money back</div>
       </div>
     </div>
   </div>
@@ -1721,71 +1665,160 @@
 <!-- ====================================================================
      PARTNER BAND
      ==================================================================== -->
-<section class="partner-band" aria-label="Stack">
+<section class="partner-band" aria-label="Tools we work with">
   <div class="container partner-band-inner">
-    <span class="partner-label">Built on</span>
-    <span class="partner-logo">Anthropic Claude</span>
-    <span class="partner-logo dim">Claude for Small Business</span>
-    <span class="partner-logo dim">MCP</span>
-    <span class="partner-logo dim">QuickBooks</span>
-    <span class="partner-logo dim">HubSpot</span>
-    <span class="partner-logo dim">Microsoft 365</span>
+    <span class="partner-label">Works with what you already run</span>
+    <span class="partner-logo">Microsoft 365</span>
+    <span class="partner-logo">Google Workspace</span>
+    <span class="partner-logo">QuickBooks</span>
+    <span class="partner-logo">HubSpot</span>
     <span class="partner-logo dim">Slack</span>
   </div>
 </section>
 
 <!-- ====================================================================
-     SERVICES
+     THE PROBLEM — figures from the sales deck, with sources
+     ==================================================================== -->
+<section id="problem">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">The problem</div>
+      <h2 class="h2">Most firms bought AI tools. <em>Few changed the work.</em></h2>
+      <p class="lede">A chat assistant helps a little. The real hours come back when one job is changed from start to finish, and more effort won't fix a job built on copying and retyping.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card">
+        <h3 style="font-size: 2.6rem; color: var(--aqua-200); margin-bottom: 8px;">7%</h3>
+        <p>of small firms using AI have built it into how the work gets done.</p>
+        <div class="svc-card-num">Federal Reserve, 2026</div>
+      </div>
+      <div class="svc-card">
+        <h3 style="font-size: 2.6rem; color: var(--aqua-200); margin-bottom: 8px;">2 hrs</h3>
+        <p>a week saved on email by a chat assistant on its own.</p>
+        <div class="svc-card-num">Field trial, 66 firms, 7,137 staff, 2025</div>
+      </div>
+      <div class="svc-card">
+        <h3 style="font-size: 2.6rem; color: var(--aqua-200); margin-bottom: 8px;">$37.64</h3>
+        <p>what one staff hour really costs a firm under 50 people.</p>
+        <div class="svc-card-num">US Bureau of Labor Statistics, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     PROCESS — the approach, then the audit week
+     ==================================================================== -->
+<section id="process">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">How we work</div>
+      <h2 class="h2">Don't add tools. <em>Change the workflow.</em></h2>
+      <p class="lede">We start from the job, not the tool. The tool comes last, and it's whatever fits your budget.</p>
+    </div>
+
+    <div class="process-rail">
+      <div class="process-grid">
+        <div class="proc-step active">
+          <div class="proc-node">1</div>
+          <div class="proc-time">Audit</div>
+          <h4>Pick the job</h4>
+          <p>The one that repeats every week and costs the most.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">2</div>
+          <div class="proc-time">Audit</div>
+          <h4>Time it</h4>
+          <p>How often it happens, how long it takes, who does it.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">3</div>
+          <div class="proc-time">Audit</div>
+          <h4>Redesign it</h4>
+          <p>Which steps AI takes over, and which stay with your team.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">4</div>
+          <div class="proc-time">Build</div>
+          <h4>Keep a person on it</h4>
+          <p>Who checks the work, and how mistakes get caught.</p>
+        </div>
+        <div class="proc-step">
+          <div class="proc-node">5</div>
+          <div class="proc-time">30 · 60 · 90 days</div>
+          <h4>Measure it</h4>
+          <p>Hours back, checked at 30, 60 and 90 days after launch.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="the-week">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">The audit</div>
+      <h2 class="h2">One week. <em>About 2½ hours of yours.</em></h2>
+      <p class="lede">Most of the work is ours. The working session with the person who does the job is where the steps nobody wrote down come out.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-card-num">Day 1 · 20 min</div>
+        <h3>A short form</h3>
+        <p>Ten questions for you, three for two or three of your staff. We learn your goals, your tools and the jobs that repeat.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-num">Day 3 · 90 min</div>
+        <h3>Working session</h3>
+        <p>The person who does the job shows us the last time they did it. We get the real steps, timed and scored.</p>
+      </div>
+      <div class="svc-card featured">
+        <div class="svc-card-num">Day 5 · 30 min</div>
+        <h3>Your plan</h3>
+        <p>We walk you through it and answer questions. You get the top three changes, a 90-day plan and a fixed price for the first one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     WHAT YOU GET
      ==================================================================== -->
 <section id="services">
   <div class="container">
     <div class="section-head">
-      <div class="section-label">Services</div>
-      <h2 class="h2">Three ways to work with us. <em class="serif-italic">Start anywhere</em>, stack them however you need.</h2>
-      <p class="lede">Begin with an audit to map the opportunity. Scope a fixed-fee build when you're ready. Keep us on retainer to run it. Each tier stands alone — or pick the ladder.</p>
+      <div class="section-label">What you get</div>
+      <h2 class="h2">A plan, priced out. <em>Yours whether or not you build.</em></h2>
+      <p class="lede">Every task we find lands in one of four boxes: quick wins, bigger projects, things you can do yourself, and things to skip. You start with the quick wins. We also tell you what isn't worth doing, and that list saves as much money as the top three.</p>
     </div>
 
     <div class="services-grid">
-
       <div class="svc-card">
-        <div class="svc-card-num">01 · Strategy Audit</div>
-        <h3>Find out what AI can actually do for your business.</h3>
-        <p>90-minute deep-dive plus a written report. Top 3 opportunities, ROI estimates, the right Claude tier, and a 90-day roadmap. Yours to keep, whether or not you hire us.</p>
-        <div class="svc-card-meta">
-          <div class="svc-card-price"><span class="from">from</span>$499</div>
-          <div class="svc-card-time">1 week</div>
-        </div>
+        <div class="svc-card-num">01</div>
+        <h3>The top three changes</h3>
+        <p>Each one shows the hours it saves a week, what that's worth in a year, what it costs once, and how fast it pays for itself.</p>
       </div>
-
-      <div class="svc-card featured">
-        <div class="svc-card-num">02 · AI-Native Builds</div>
-        <h3>Custom workflows beyond Claude's defaults.</h3>
-        <p>Voice agents, internal copilots, knowledge agents, MCP integrations to the stack you already run. Fixed-fee, scope locked, 30 days post-launch support included.</p>
-        <div class="svc-card-meta">
-          <div class="svc-card-price"><span class="from">from</span>$5,000</div>
-          <div class="svc-card-time">2–6 weeks</div>
-        </div>
-      </div>
-
       <div class="svc-card">
-        <div class="svc-card-num">03 · AI Concierge</div>
-        <h3>Your AI department, on retainer.</h3>
-        <p>We run the stack. Unlimited Slack support, cost guardrails, one new workflow per month, eval &amp; drift monitoring, quarterly review, monthly KPI report.</p>
-        <div class="svc-card-meta">
-          <div class="svc-card-price"><span class="from">from</span>$1,500<span class="unit" style="color: var(--text-3); font-weight: 400; font-size: 13px;">/mo</span></div>
-          <div class="svc-card-time">Month-to-month</div>
-        </div>
+        <div class="svc-card-num">02</div>
+        <h3>A 90-day plan</h3>
+        <p>Quick wins go live in the first 30 days. Bigger projects are scoped and priced, so you decide with real numbers.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-num">03</div>
+        <h3>No fine print</h3>
+        <p>Each change names the tool, its monthly cost, where your data goes, and who on your team checks the work.</p>
       </div>
     </div>
 
     <div class="stack-strip">
-      <span class="stack-strip-label">Primary platform</span>
+      <span class="stack-strip-label">Not tied to any AI company</span>
       <div class="stack-strip-items">
-        <span>Anthropic Claude</span>
-        <span>Claude for Small Business</span>
-        <span>MCP integrations</span>
-        <span>Multi-platform when it fits</span>
-        <span>Sovereign / on-prem option</span>
+        <span>We recommend what fits</span>
+        <span>Claude, ChatGPT or Gemini</span>
+        <span>Tools you already pay for</span>
+        <span>Self-hosted when data can't leave the building</span>
       </div>
     </div>
   </div>
@@ -1798,8 +1831,8 @@
   <div class="container">
     <div class="section-head">
       <div class="section-label">What we build</div>
-      <h2 class="h2">Patterns we ship <em class="serif-italic">most often</em>.</h2>
-      <p class="lede">Most Build engagements fall into one of these. Mix and match across your stack — many customers run two or three together via Concierge.</p>
+      <h2 class="h2">What the changes usually look like.</h2>
+      <p class="lede">Once the audit picks the job, most builds fall into one of these. Plenty of teams end up running two or three.</p>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px;">
@@ -1823,7 +1856,7 @@
       <article style="padding: 32px 28px; background: var(--glass); border: 1px solid var(--hairline); border-radius: var(--radius-lg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--aqua-200); margin-bottom: 14px;">03 · COPILOT</div>
         <h3 style="font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px;">Internal Copilot</h3>
-        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Claude embedded inside Slack, Teams, Outlook, or email. Drafts replies, summarizes threads, runs commands. Adopted faster than any new app — no training required.</p>
+        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Claude embedded inside Slack, Teams, Outlook, or email. Drafts replies, summarizes threads, runs commands. People use it because it lives where they already work.</p>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.3px;">Knowledge workers · Distributed teams · Agencies</div>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--aqua-200); letter-spacing: 0.3px; margin-top: 6px;">Typical build: $3–10K</div>
       </article>
@@ -1839,7 +1872,7 @@
       <article style="padding: 32px 28px; background: var(--glass); border: 1px solid var(--hairline); border-radius: var(--radius-lg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--aqua-200); margin-bottom: 14px;">05 · BROWSER</div>
         <h3 style="font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px;">Browser Agent</h3>
-        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Computer Use for legacy software with no API. Claude clicks through desktop QuickBooks, old practice-management systems, insurance broker portals. Premium tier — we'll tell you honestly when it's reliable.</p>
+        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Computer Use for legacy software with no API. Claude clicks through desktop QuickBooks, old practice-management systems, insurance broker portals. It's a premium build, and we'll tell you honestly when it's reliable.</p>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.3px;">Stack-bound businesses · No-API legacy tools</div>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--aqua-200); letter-spacing: 0.3px; margin-top: 6px;">Typical build: $10–25K (premium tier)</div>
       </article>
@@ -1847,7 +1880,7 @@
       <article style="padding: 32px 28px; background: var(--glass); border: 1px solid var(--hairline); border-radius: var(--radius-lg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--aqua-200); margin-bottom: 14px;">06 · CUSTOM BUILD</div>
         <h3 style="font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px;">Apps, Sites &amp; Internal Tools</h3>
-        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">AI-native apps, customer portals with intelligent search, internal dashboards with copilots, AI-augmented marketing sites. When a workflow isn't enough and you need a full application — built on Claude, owned by you.</p>
+        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">AI-native apps, customer portals with intelligent search, internal dashboards with copilots, AI-augmented marketing sites. When a workflow isn't enough and you need a full application, built for you and owned by you.</p>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.3px;">Custom SaaS · Customer portals · AI-infused websites</div>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--aqua-200); letter-spacing: 0.3px; margin-top: 6px;">Typical build: $10–50K · 4–10 weeks</div>
       </article>
@@ -1855,7 +1888,7 @@
       <article style="padding: 32px 28px; background: var(--glass); border: 1px solid var(--hairline); border-radius: var(--radius-lg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--aqua-200); margin-bottom: 14px;">07 · TRAINING</div>
         <h3 style="font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px;">Team Enablement &amp; AI Champion</h3>
-        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Workshops, lunch-and-learns, and a 2-day AI Champion program that trains your internal person to own the stack. We teach them so we eventually work ourselves out of a job — and into your referrals.</p>
+        <p style="font-size: 14.5px; color: var(--text-2); line-height: 1.65; margin-bottom: 16px;">Workshops, lunch-and-learns, and a 2-day AI Champion program that trains your internal person to own the stack. We teach them so we eventually work ourselves out of a job.</p>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.3px;">Growing teams · Post-deployment adoption · DIY-curious owners</div>
         <div style="font-family: var(--mono); font-size: 11px; color: var(--aqua-200); letter-spacing: 0.3px; margin-top: 6px;">Workshop: $1.5K · Champion program: $3–8K</div>
       </article>
@@ -1882,7 +1915,7 @@
         </div>
         <div>
           <strong style="color: var(--text); font-weight: 500;">Eval &amp; Governance</strong><br>
-          <span style="color: var(--text-3); font-size: 12.5px;">Standalone retainer for regulated buyers — eval suites, drift monitoring, prompt-injection testing.</span><br>
+          <span style="color: var(--text-3); font-size: 12.5px;">Standalone retainer for regulated buyers: eval suites, drift monitoring, prompt-injection testing.</span><br>
           <span style="font-family: var(--mono); font-size: 11px; color: var(--aqua-200);">$3–5K/mo (premium tier)</span>
         </div>
         <div>
@@ -1899,126 +1932,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 36px; font-size: 14px; color: var(--text-3); max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-      Not sure which pattern fits? That's what the <a href="#services" style="color: var(--aqua-200); text-decoration: none; border-bottom: 1px solid var(--aqua-200); padding-bottom: 1px;">Strategy Audit</a> is for — we'll map your top 3 opportunities to the right patterns and stack.
-    </div>
-  </div>
-</section>
-
-<!-- ====================================================================
-     PROCESS
-     ==================================================================== -->
-<section id="process">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">How we work</div>
-      <h2 class="h2">From first call to deployed solution. <em class="serif-italic">No surprises</em>.</h2>
-      <p class="lede">Transparent process, weekly demos, clear milestones. You see the work as it ships.</p>
-    </div>
-
-    <div class="process-rail">
-      <div class="process-grid">
-        <div class="proc-step active">
-          <div class="proc-node">1</div>
-          <div class="proc-time">Free</div>
-          <h4>Discovery</h4>
-          <p>45-minute strategy call. We identify automation opportunities and tell you if we're the right fit.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-node">2</div>
-          <div class="proc-time">1–2 wks</div>
-          <h4>Scoping</h4>
-          <p>Requirements session, custom roadmap, ROI analysis, transparent fixed-fee proposal.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-node">3</div>
-          <div class="proc-time">2–6 wks</div>
-          <h4>Build</h4>
-          <p>Weekly demos. Working workflow shipped to production. 30 days of post-launch support included.</p>
-        </div>
-        <div class="proc-step">
-          <div class="proc-node">4</div>
-          <div class="proc-time">Ongoing</div>
-          <h4>Scale</h4>
-          <p>Concierge takes over. New workflows monthly, cost monitoring, drift checks, quarterly review.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====================================================================
-     CASE STUDIES
-     ==================================================================== -->
-<section id="case-studies">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-label">What's possible</div>
-      <h2 class="h2">What a real deployment looks like.</h2>
-      <p class="lede">One scenario we'd scope on Claude today, plus a documented industry example showing the order of magnitude. Real customer case studies replace these as we win them.</p>
-    </div>
-
-    <div class="case-grid">
-      <div class="case-card">
-        <span class="case-tag">Our approach · Claude</span>
-        <h3>8-person marketing agency</h3>
-        <div class="case-meta">Generic scenario · Multiple retainer clients</div>
-
-        <div class="case-block">
-          <div class="case-block-label">Challenge</div>
-          <p>Client reporting takes ~4 hours per account per week. Five accounts = 20 hrs/wk locked up. Inbound leads sit unanswered for 24–48 hours.</p>
-        </div>
-
-        <div class="case-block">
-          <div class="case-block-label">What we'd build</div>
-          <p>Claude reporting agent pulling from HubSpot, GA, and Asana via MCP. Lead-triage agent that scores inbound, drafts a tailored reply, and routes to Slack within minutes. Both wrapped in Claude for Small Business.</p>
-        </div>
-
-        <div class="case-outcome">
-          <div class="case-outcome-label">Target outcome</div>
-          <div class="case-outcome-stats">
-            <div>
-              <div class="case-stat-num">~15 hrs</div>
-              <div class="case-stat-label">reclaimed per week</div>
-            </div>
-            <div>
-              <div class="case-stat-num">&lt;30 min</div>
-              <div class="case-stat-label">lead response time</div>
-            </div>
-          </div>
-          <div class="case-fineprint">Estimate: $10–14K build · 3–4 weeks · Concierge $1,500/mo</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <span class="case-tag industry">Industry example</span>
-        <h3>Professional services firm</h3>
-        <div class="case-meta">Legal &amp; consulting · SMB</div>
-
-        <div class="case-block">
-          <div class="case-block-label">Challenge</div>
-          <p>Administrative tasks consumed 8–10 hours per week per team member, reducing billable hour capacity and client service quality.</p>
-        </div>
-
-        <div class="case-block">
-          <div class="case-block-label">Solution</div>
-          <p>AI automation for document processing, scheduling, client intake, and routine correspondence — wrapped in a familiar chat interface for non-technical staff.</p>
-        </div>
-
-        <div class="case-outcome">
-          <div class="case-outcome-label">Documented results</div>
-          <div class="case-outcome-stats">
-            <div>
-              <div class="case-stat-num">8–10 hrs</div>
-              <div class="case-stat-label">saved per week</div>
-            </div>
-            <div>
-              <div class="case-stat-num">+20%</div>
-              <div class="case-stat-label">billable hours</div>
-            </div>
-          </div>
-          <div class="case-fineprint">Source: Done For You — industry case study</div>
-        </div>
-      </div>
+      Not sure which one fits? That's what the <a href="#the-week" style="color: var(--aqua-200); text-decoration: none; border-bottom: 1px solid var(--aqua-200); padding-bottom: 1px;">one-week audit</a> is for.
     </div>
   </div>
 </section>
@@ -2031,7 +1945,7 @@
     <div class="section-head">
       <div class="section-label">Why Seafin</div>
       <h2 class="h2">Honest math on your other options.</h2>
-      <p class="lede">Three other paths exist for getting AI into your business. Here's how they compare — including when one of them is the right answer instead of us.</p>
+      <p class="lede">There are three other ways to get AI into your business. Here's how they compare, including when one of them is the right answer instead of us. Ranges are our own estimates.</p>
     </div>
 
     <div class="compare-wrap">
@@ -2069,10 +1983,10 @@
           </tr>
           <tr>
             <td>Risk of failure</td>
-            <td class="us"><strong>Low — we own delivery</strong></td>
-            <td>High — most efforts stall by month 3</td>
-            <td>Medium — scope bloat, change orders</td>
-            <td class="dim">High — competitors compound</td>
+            <td class="us"><strong>Low. We own delivery</strong></td>
+            <td>High. Easy to stall once the day job takes over</td>
+            <td>Medium. Scope bloat, change orders</td>
+            <td class="dim">High. Competitors keep moving</td>
           </tr>
           <tr>
             <td>Ongoing support</td>
@@ -2083,7 +1997,7 @@
           </tr>
           <tr>
             <td>Lock-in</td>
-            <td class="us"><strong>None — you own everything</strong></td>
+            <td class="us"><strong>None. You own everything</strong></td>
             <td>None, but maintenance is on you</td>
             <td>Often proprietary platforms</td>
             <td class="dim">N/A</td>
@@ -2105,40 +2019,40 @@
   <div class="container">
     <div class="section-head">
       <div class="section-label">Investment</div>
-      <h2 class="h2">Transparent pricing. <em class="serif-italic">Published upfront</em>.</h2>
-      <p class="lede">You deserve to know costs before scheduling a call. Three tiers, no surprises. Project work is fixed-fee; concierge is month-to-month, cancel anytime.</p>
+      <h2 class="h2">Start with one week and <em>$499.</em></h2>
+      <p class="lede">The audit stands on its own. Build and Concierge are there if you want us to make the changes and keep them running. Builds are fixed-fee; Concierge is month-to-month.</p>
     </div>
 
     <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-num">01 · Strategy Audit</div>
+      <div class="price-card featured">
+        <span class="price-badge">Start here</span>
+        <div class="price-num">01 · AI Audit</div>
         <div class="price-name">Audit</div>
         <div class="price-when">One-time · 1 week</div>
-        <div class="price-amount">$499<span class="range">–$1,500</span></div>
+        <div class="price-amount">$499</div>
         <div class="price-cadence">flat fee</div>
         <ul class="price-features">
-          <li>90-minute deep-dive call</li>
-          <li>Top 3 opportunities + ROI estimate</li>
-          <li>Right-sized Claude tier recommendation</li>
-          <li>90-day implementation roadmap</li>
-          <li>Yours to keep — no commitment</li>
+          <li>Short form plus a 90-minute working session</li>
+          <li>Top three changes, priced out</li>
+          <li>90-day plan and a fixed price for the first change</li>
+          <li>Money back if we can't find 5 hours a week</li>
+          <li>$499 comes off the first change if you book within 30 days</li>
         </ul>
-        <a href="#contact" class="price-cta">Book audit</a>
+        <a href="#contact" class="price-cta">Book the audit</a>
       </div>
 
-      <div class="price-card featured">
-        <span class="price-badge">Most popular</span>
+      <div class="price-card">
         <div class="price-num">02 · AI-Native Builds</div>
         <div class="price-name">Build</div>
         <div class="price-when">2–6 weeks · fixed fee</div>
         <div class="price-amount">$5K<span class="range">–$25K</span></div>
         <div class="price-cadence">scope locked, no change-order surprises</div>
         <ul class="price-features">
-          <li>Custom workflows beyond Claude defaults</li>
-          <li>Voice agents, copilots, knowledge agents</li>
-          <li>MCP integrations to your existing tools</li>
-          <li>Weekly demos during build</li>
-          <li>30 days post-launch support</li>
+          <li>The changes from your plan, built and tested</li>
+          <li>Connected to the tools you already run</li>
+          <li>A person on your team checks the work</li>
+          <li>Weekly demos during the build</li>
+          <li>30 days of support after launch</li>
         </ul>
         <a href="#contact" class="price-cta">Scope a build</a>
       </div>
@@ -2148,7 +2062,7 @@
         <div class="price-name">Concierge</div>
         <div class="price-when">Month-to-month · cancel anytime</div>
         <div class="price-amount">$1,500<span class="range">–$5K/mo</span></div>
-        <div class="price-cadence">your AI department on retainer</div>
+        <div class="price-cadence">we keep it running</div>
         <ul class="price-features">
           <li>Unlimited Slack support, business hours</li>
           <li>Cost guardrails + spend alerting</li>
@@ -2185,13 +2099,13 @@
     <div class="about-grid">
       <div class="about-body">
         <p class="about-quote">
-          Anthropic ships the platform. <em>We make it actually work</em> in your business.
+          We start from the job your team repeats every week, <em>not from the tool.</em>
         </p>
         <p>
-          Seafin is a Claude deployment partner — we set up <strong style="color: var(--text); font-weight: 500;">Claude for Small Business</strong>, build the workflows it doesn't ship, integrate with the tools you already use (QuickBooks, HubSpot, Microsoft 365, Google Workspace), and stay on retainer to keep it running.
+          Seafin is AI consulting for teams of 10 to 200 where nobody on staff has time to work out AI. We find the admin jobs that eat the week, change how they're done, and connect AI to the tools you already use: Microsoft 365, Google Workspace, QuickBooks and HubSpot.
         </p>
         <p>
-          You own everything we deploy. No vendor lock-in, no proprietary platforms, no surprise fees. We're Claude-native by choice — and multi-platform competent (ChatGPT, Gemini, Codex, self-hosted Llama/Qwen) when the job calls for it.
+          You own everything we build, and we're not tied to any AI company. We use Claude most often, and recommend ChatGPT, Gemini or a self-hosted model when it fits the job or the budget better.
         </p>
       </div>
 
@@ -2200,7 +2114,7 @@
         <div class="founder-name">Rob Crider</div>
         <div class="founder-role">Founder, Seafin LLC</div>
         <p>
-          I'm the one who audits your stack, writes the scope, and ships the build. No bait-and-switch to a junior after the sale. If a project is bigger than I can handle solo, I'll tell you in the audit and recommend the right path — even if that path isn't us.
+          I'm the one who sits with your team, writes the plan, and builds the changes. No hand-off to a junior after the sale. If a project is bigger than I can take on, I'll say so in the audit and point you to the right path, even if that path isn't us.
         </p>
         <a href="#contact" class="founder-link">Book a call with Rob →</a>
       </div>
@@ -2226,57 +2140,67 @@
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          Businesses without dedicated AI staff — solo operators through ~500-person teams. If nobody in-house owns AI, you've heard about Claude but aren't sure where to start, or you've signed up and gotten stuck, we're the team that makes it actually work. Any industry; we don't require deep vertical expertise from you.
+          Teams of 10 to 200 where the same admin jobs repeat every week and nobody on staff has time to work out AI. Most run on Microsoft 365, Google Workspace, QuickBooks or HubSpot. With fewer than 5 people, <a href="personal.html" style="color: var(--aqua-200);">Seafin Personal</a> is a better fit. If you already have an in-house AI team, you probably don't need us, and we'll say so on the first call.
         </div>
       </details>
       <details class="faq">
         <summary>
           <span class="faq-num">02</span>
-          <span class="faq-q">How long does a project take?</span>
+          <span class="faq-q">What if you can't find 5 hours a week?</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          <strong>Audit:</strong> 1 week from kickoff to written report. <strong>Builds:</strong> 2–6 weeks from contract to deployed, depending on scope. Most workflows ship in 2–3 weeks; multi-system integrations run 4–6. <strong>Concierge:</strong> live within 1 week of signing. You see weekly demos during every build — no surprises at the end.
+          You get your $499 back. The guarantee is tied to what the audit finds: if we can't show you at least five hours a week your team can get back, you don't pay.
         </div>
       </details>
       <details class="faq">
         <summary>
           <span class="faq-num">03</span>
-          <span class="faq-q">Is my data secure?</span>
+          <span class="faq-q">How long does a project take?</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          Yes. Enterprise-grade encryption at rest and in transit, role-based access, audit logging. Cloud APIs are governed by provider security terms (Anthropic, OpenAI, Google). For complete sovereignty or air-gapped environments, we deploy local models on your infrastructure.
+          <strong>Audit:</strong> 1 week from kickoff to written report. <strong>Builds:</strong> 2–6 weeks from contract to deployed, depending on scope. Most workflows ship in 2–3 weeks; multi-system integrations run 4–6. <strong>Concierge:</strong> live within 1 week of signing. You see a demo every week of a build, so nothing is a surprise at the end.
         </div>
       </details>
       <details class="faq">
         <summary>
           <span class="faq-num">04</span>
-          <span class="faq-q">Will it work with our existing tools?</span>
+          <span class="faq-q">Where does our data go?</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          Almost certainly. We integrate Claude with QuickBooks, HubSpot, Microsoft 365, Google Workspace, Slack, Salesforce, Shopify, and many more — via Claude for Small Business connectors or custom MCP servers. During discovery we map your full stack.
+          Every change in your plan says where your data goes and whose terms cover it. We use business accounts in your name, so you hold the keys and see the bills, and access stays with the people who need it. If your data can't leave the building, we can run models on your own hardware.
         </div>
       </details>
       <details class="faq">
         <summary>
           <span class="faq-num">05</span>
-          <span class="faq-q">Why Claude specifically?</span>
+          <span class="faq-q">Will it work with our existing tools?</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          Anthropic shipped the strongest packaged SMB workflow product on the market with Claude for Small Business, and their partner economics are accessible to small consultancies. We deploy Claude as the anchor and reach for ChatGPT, Gemini, or Codex when the job calls for it. We sell results, not platform loyalty.
+          Almost certainly. We connect AI to QuickBooks, HubSpot, Microsoft 365, Google Workspace, Slack, Salesforce, Shopify and more, using built-in connectors where they exist and custom ones where they don't. The audit maps every tool the job touches.
         </div>
       </details>
       <details class="faq">
         <summary>
           <span class="faq-num">06</span>
+          <span class="faq-q">Which AI do you use?</span>
+          <span class="faq-toggle">+</span>
+        </summary>
+        <div class="faq-a">
+          Whatever fits the job and your budget. We're not tied to any AI company. Claude is what we use most, because it's strong at the writing and document work that admin is made of. When ChatGPT, Gemini or a tool you already pay for fits better, that's what we recommend.
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="faq-num">07</span>
           <span class="faq-q">What if we can't use cloud AI? (Sovereign / air-gapped)</span>
           <span class="faq-toggle">+</span>
         </summary>
         <div class="faq-a">
-          We build local LLM workflows for customers with data sovereignty, compliance, or air-gap requirements. Models: Llama 3.3, Qwen 2.5, Mistral, DeepSeek. Inference via vLLM, Ollama, or llama.cpp with quantization. Runs on your on-prem GPU server, private cloud, or hybrid. Open-weight models are Haiku-class today — we'll tell you when local works and when cloud is the right call. Custom-scoped, typically $25K–$150K + GPU infra at cost.
+          We build local LLM workflows for customers with data sovereignty, compliance, or air-gap requirements. Models: Llama 3.3, Qwen 2.5, Mistral, DeepSeek. Inference via vLLM, Ollama, or llama.cpp with quantization. Runs on your on-prem GPU server, private cloud, or hybrid. Open models still trail the best cloud models, so we'll tell you honestly when local works and when cloud is the right call. Custom-scoped, typically $25K–$150K + GPU infra at cost.
         </div>
       </details>
     </div>
@@ -2289,12 +2213,11 @@
 <section id="contact">
   <div class="container container-narrow">
     <div class="cta-card">
-      <div class="cta-orbit" aria-hidden="true"></div>
-      <h2>Find out what AI can do for <em>your</em> business.</h2>
-      <p>Free 30-minute intro call. We'll cover what you're trying to solve and recommend a starting point. No commitment, no pressure.</p>
+      <h2>Let's find your <em>five hours.</em></h2>
+      <p>Tell us the job that eats your team's week. We'll reply with the form and invoice for the audit, or set up a free 30-minute intro call if you'd rather talk first.</p>
       <div class="cta-ctas">
-        <a href="#" class="btn btn-primary" id="cta-book">Book discovery call <span class="btn-arrow">→</span></a>
-        <a href="#pricing" class="btn btn-ghost">Or start with the $499 audit</a>
+        <a href="mailto:hello@seafin.ai?subject=Book%20the%20%24499%20audit" class="btn btn-primary" id="cta-book">Book the $499 audit <span class="btn-arrow">→</span></a>
+        <a href="mailto:hello@seafin.ai?subject=Intro%20call" class="btn btn-ghost">Or book a free intro call</a>
       </div>
     </div>
 
@@ -2313,10 +2236,10 @@
           <input class="form-input" type="text" name="company" placeholder="Your company">
         </div>
         <div class="form-group full">
-          <label class="form-label">What are you trying to solve?</label>
-          <textarea class="form-textarea" name="challenge" placeholder="The most time-consuming task you'd love to automate, or a vague AI idea you've been thinking about..."></textarea>
+          <label class="form-label">Which job eats your team's week?</label>
+          <textarea class="form-textarea" name="challenge" placeholder="What the job is, who does it, how often, and roughly how long it takes"></textarea>
         </div>
-        <button type="submit" class="form-submit form-group full">Send →</button>
+        <button type="submit" class="form-submit form-group full">Send</button>
       </div>
     </form>
   </div>
@@ -2338,48 +2261,36 @@
           </span>
           <span>seafin</span>
         </div>
-        <p class="footer-tag">An AI department for businesses that don't have one — yet. Strategy audits, fixed-fee builds, and managed AI on retainer. Solo operator through 500-person team.</p>
+        <p class="footer-tag">AI consulting for small businesses. We find the admin work eating your team's week, and give it back.</p>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Services</div>
-        <a href="#services">Audit · Build · Concierge</a>
+        <a href="#the-week">The audit</a>
         <a href="sovereign.html">Sovereign AI</a>
         <a href="personal.html">Seafin Personal</a>
         <a href="#pricing">Pricing</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Company</div>
-        <a href="#process">Process</a>
+        <a href="#process">How it works</a>
         <a href="#about">About</a>
         <a href="#faq">FAQ</a>
-        <a href="#case-studies">Case studies</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Connect</div>
         <a href="mailto:hello@seafin.ai">hello@seafin.ai</a>
-        <a href="#contact">Book a call</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Twitter</a>
-        <a href="#">GitHub</a>
+        <a href="#contact">Book the audit</a>
       </div>
     </div>
 
     <div class="footer-built">
       <div>© 2026 Seafin LLC · <a href="privacy.html" style="color: var(--text-2);">Privacy</a> · <a href="terms.html" style="color: var(--text-2);">Terms</a></div>
-      <div class="footer-built-on">
-        <span>Built with</span>
-        <span style="color: var(--text-2);">Anthropic Claude</span>
-        <span class="sep">·</span>
-        <span style="color: var(--text-2);">MCP</span>
-        <span class="sep">·</span>
-        <span>Built with intention.</span>
-      </div>
     </div>
   </div>
 </footer>
 
 <!-- ====================================================================
-     POLISH JS — scroll reveal, nav scroll state, word wrap
+     POLISH JS — scroll reveal, nav scroll state
      ==================================================================== -->
 <script>
 (() => {
@@ -2423,315 +2334,10 @@
     revealTargets.forEach(el => el.classList.add('in'));
   }
 
-  // 3. Word-wrap headline for stagger reveal
-  function wrapWords(el) {
-    if (!el || el.dataset.wrapped) return;
-    el.dataset.wrapped = '1';
-    // Walk children: split text nodes into word spans, preserve <em>, <br>
-    const walk = (node, baseIdx) => {
-      let idx = baseIdx;
-      const children = [...node.childNodes];
-      const frag = document.createDocumentFragment();
-      for (const child of children) {
-        if (child.nodeType === 3) {
-          // text node
-          const words = child.textContent.split(/(\s+)/);
-          for (const word of words) {
-            if (!word.trim()) {
-              frag.appendChild(document.createTextNode(word));
-              continue;
-            }
-            const span = document.createElement('span');
-            span.className = 'word';
-            span.style.setProperty('--w', idx++);
-            span.textContent = word;
-            frag.appendChild(span);
-          }
-        } else if (child.nodeName === 'BR') {
-          frag.appendChild(child.cloneNode());
-        } else if (child.nodeName === 'EM') {
-          // wrap inner words but keep <em>
-          const em = document.createElement('em');
-          const innerWords = child.textContent.split(/(\s+)/);
-          for (const word of innerWords) {
-            if (!word.trim()) {
-              em.appendChild(document.createTextNode(word));
-              continue;
-            }
-            const span = document.createElement('span');
-            span.className = 'word';
-            span.style.setProperty('--w', idx++);
-            span.textContent = word;
-            em.appendChild(span);
-          }
-          frag.appendChild(em);
-        } else {
-          frag.appendChild(child.cloneNode(true));
-        }
-      }
-      node.innerHTML = '';
-      node.appendChild(frag);
-      return idx;
-    };
-    walk(el, 0);
-  }
-  const h1 = document.querySelector('.hero h1');
-  if (h1) wrapWords(h1);
-
-  // Re-wrap when headline copy changes (via tweaks)
-  if (h1) {
-    const obs = new MutationObserver(() => {
-      // If the h1 no longer contains .word spans, re-wrap
-      if (!h1.querySelector('.word')) {
-        delete h1.dataset.wrapped;
-        wrapWords(h1);
-      }
-    });
-    obs.observe(h1, { childList: true });
-  }
 })();
 </script>
 
-<!-- ====================================================================
-     HERO CANVAS ANIMATION
-     ==================================================================== -->
-<script>
-(() => {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
-  let mode = (new URLSearchParams(location.search).get('hero')) || window.__seafinHero || 'currents';
 
-  // Sizing
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    W = rect.width;
-    H = rect.height;
-    canvas.width = W * DPR;
-    canvas.height = H * DPR;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    initParticles();
-  }
-  window.addEventListener('resize', resize);
-
-  // Particles for "currents"
-  let lines = [];
-  let particles = [];
-  function initParticles() {
-    lines = [];
-    // 14 horizontal flowing lines at varying depth/y
-    const N = 16;
-    for (let i = 0; i < N; i++) {
-      const depth = i / (N - 1); // 0 = near, 1 = far
-      lines.push({
-        y: H * (0.15 + depth * 0.75),
-        amp: 12 + (1 - depth) * 30 + Math.random() * 30,
-        freq: 0.0012 + Math.random() * 0.0012,
-        speed: 0.00012 + (1 - depth) * 0.00025 + Math.random() * 0.0001,
-        phase: Math.random() * Math.PI * 2,
-        depth,
-        thickness: 0.5 + (1 - depth) * 1.2,
-        hue: depth, // deeper = more aqua
-      });
-    }
-    // floating dust particles
-    particles = [];
-    const PN = Math.floor((W * H) / 22000);
-    for (let i = 0; i < PN; i++) {
-      particles.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vy: -0.05 - Math.random() * 0.15,
-        vx: (Math.random() - 0.5) * 0.04,
-        r: Math.random() * 1.2 + 0.3,
-        a: Math.random() * 0.5 + 0.1,
-      });
-    }
-  }
-
-  // Sonar pulse mode
-  let pulses = [];
-  let nodes = [];
-  function initSonar() {
-    pulses = [];
-    nodes = [];
-    const NN = Math.floor((W * H) / 16000);
-    for (let i = 0; i < NN; i++) {
-      nodes.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        twinkle: Math.random() * Math.PI * 2,
-        r: Math.random() * 1.4 + 0.4,
-      });
-    }
-  }
-  function spawnPulse(now) {
-    pulses.push({ t0: now, x: W * 0.5, y: H * 0.55 });
-  }
-  let lastPulseSpawn = 0;
-
-  // Particles for 'aurora'
-  let blobs = [];
-  function initAurora() {
-    blobs = [];
-    const N = 5;
-    for (let i = 0; i < N; i++) {
-      blobs.push({
-        x: Math.random() * W,
-        y: H * (0.3 + Math.random() * 0.5),
-        r: 200 + Math.random() * 220,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.05,
-        hue: Math.random(),
-      });
-    }
-  }
-
-  function reset() {
-    if (mode === 'currents') initParticles();
-    else if (mode === 'sonar') initSonar();
-    else if (mode === 'aurora') initAurora();
-  }
-
-  const start = performance.now();
-  function tick(now) {
-    const t = now - start;
-    ctx.clearRect(0, 0, W, H);
-
-    if (mode === 'currents') {
-      // Currents: flowing horizontal sine layers
-      for (const line of lines) {
-        const opacity = 0.12 + (1 - line.depth) * 0.7;
-        const colorStop = line.depth;
-        // gradient: aqua-bright on near, deeper teal on far
-        const r = Math.round(127 - colorStop * 75);
-        const g = Math.round(223 - colorStop * 130);
-        const b = Math.round(255 - colorStop * 100);
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-        ctx.lineWidth = line.thickness;
-        const yBase = line.y;
-        for (let x = 0; x <= W; x += 6) {
-          const y = yBase
-            + Math.sin(x * line.freq + t * line.speed + line.phase) * line.amp
-            + Math.sin(x * line.freq * 2.3 + t * line.speed * 0.7) * (line.amp * 0.3);
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      }
-
-      // particles drift upward (bubbles)
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(127, 223, 255, ${p.a * 0.6})`;
-        ctx.fill();
-      }
-
-      // soft horizon glow at center
-      const g = ctx.createRadialGradient(W * 0.5, H * 0.55, 0, W * 0.5, H * 0.55, W * 0.6);
-      g.addColorStop(0, 'rgba(127, 223, 255, 0.12)');
-      g.addColorStop(0.5, 'rgba(127, 223, 255, 0.04)');
-      g.addColorStop(1, 'rgba(127, 223, 255, 0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, W, H);
-
-    } else if (mode === 'sonar') {
-      // Constellation nodes
-      for (const n of nodes) {
-        n.twinkle += 0.02;
-        const a = 0.2 + Math.sin(n.twinkle) * 0.18 + 0.18;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(127, 223, 255, ${a})`;
-        ctx.fill();
-      }
-      // connect close pairs
-      ctx.lineWidth = 0.5;
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d = Math.sqrt(dx*dx + dy*dy);
-          if (d < 140) {
-            ctx.strokeStyle = `rgba(127, 223, 255, ${(1 - d/140) * 0.15})`;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      // pulse rings every 2.4s
-      if (now - lastPulseSpawn > 2400) { spawnPulse(now); lastPulseSpawn = now; }
-      pulses = pulses.filter(p => now - p.t0 < 8000);
-      for (const p of pulses) {
-        const age = (now - p.t0) / 1000;
-        const r = age * 110;
-        const a = Math.max(0, 0.5 - age * 0.07);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(127, 223, 255, ${a})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-      // center glow
-      const cg = ctx.createRadialGradient(W * 0.5, H * 0.55, 0, W * 0.5, H * 0.55, 200);
-      cg.addColorStop(0, 'rgba(127, 223, 255, 0.25)');
-      cg.addColorStop(1, 'rgba(127, 223, 255, 0)');
-      ctx.fillStyle = cg;
-      ctx.fillRect(0, 0, W, H);
-
-    } else if (mode === 'aurora') {
-      // Soft drifting blobs
-      ctx.globalCompositeOperation = 'screen';
-      for (const b of blobs) {
-        b.x += b.vx;
-        b.y += b.vy;
-        if (b.x < -b.r) b.x = W + b.r;
-        if (b.x > W + b.r) b.x = -b.r;
-        const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        const hue = b.hue;
-        const r = Math.round(40 + hue * 80);
-        const g = Math.round(150 + hue * 80);
-        const bl = Math.round(220 - hue * 40);
-        grad.addColorStop(0, `rgba(${r}, ${g}, ${bl}, 0.25)`);
-        grad.addColorStop(1, `rgba(${r}, ${g}, ${bl}, 0)`);
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalCompositeOperation = 'source-over';
-    }
-
-    requestAnimationFrame(tick);
-  }
-
-  resize();
-  requestAnimationFrame(tick);
-
-  // expose mode switcher
-  window.__seafinSetHeroMode = (m) => {
-    mode = m;
-    reset();
-  };
-})();
-</script>
-
-<!-- ====================================================================
-     TWEAKS PANEL
-     ==================================================================== -->
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script src="seafin-tweaks.js"></script>
 
 </body>
 </html>
