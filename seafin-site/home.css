@@ -41,6 +41,20 @@
   color-scheme: light;
 }
 
+/* Dark mode runs on the logo's charcoal. Links and markers use a lighter cobalt
+   (5.8:1 on --paper); the logo's own cobalt stays as drawn. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink-900: #eceef1; --ink-700: #cdd1d7; --ink-500: #9da3ac;
+    --line: #33373e; --line-soft: #2a2d33; --line-strong: #474c55; --danger: #ff8a80;
+    --bg: #1a1c20; --paper: #212429; --paper-2: #1d2024;
+    --accent: #7c9bf5; --accent-deep: #a9bef8; --accent-soft: #5a7be0; --accent-tint: #26304a;
+    --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-3: 0 18px 40px rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+  }
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--paper); scrollbar-color: var(--line-strong) var(--paper); }
 body {
@@ -263,6 +277,9 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .news-list li > span:last-child { color: var(--ink-700); }
 .news-more { display: inline-block; margin-top: 24px; font-weight: 600; color: var(--dark-link); }
 .news-more:hover { color: #ffffff; }
+
+/* on the charcoal dark theme the section goes darker than the page, not lighter */
+@media (prefers-color-scheme: dark) { .dark { --surface: #111316; } }
 
 /* working with us: three promises, then who leads the work */
 .promises { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
