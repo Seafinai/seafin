@@ -33,6 +33,25 @@
   const routes = document.querySelector('.routes');
   watch(routes, 0.2, () => routes.classList.add('is-visible'), () => routes.classList.remove('is-visible'));
 
+  // Section titles, intro lines and cards rise in once as they reach the screen; cards in a grid follow one after another.
+  const fadeIn = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); fadeIn.unobserve(e.target); }
+  }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.section h2, .section .section-sub').forEach((el) => { el.classList.add('fade'); fadeIn.observe(el); });
+  ['.builds > li', '.offers > li', '#questions details'].forEach((sel) => {
+    let row = 0;
+    let top = null;
+    document.querySelectorAll(sel).forEach((el) => {
+      // Stagger within a visual row, so on phones (one card per row) each card starts on its own.
+      const y = el.offsetTop;
+      row = y === top ? row + 1 : 0;
+      top = y;
+      el.style.setProperty('--i', String(row));
+      el.classList.add('fade');
+      fadeIn.observe(el);
+    });
+  });
+
   // The invoice flow stays still: the moving version read as confusing (owner, 2026-10-06).
   // Set ANIMATE_FLOW to true to bring the step-by-step animation back.
   const ANIMATE_FLOW = false;
