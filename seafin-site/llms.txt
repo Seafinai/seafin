@@ -4,9 +4,9 @@
 
 ## Services and prices
 - Strategy Audit: $499 for up to 25 people, $999 for 26 to 100; about one week. A short form for you and two or three staff, a 2-hour working session with the people who do the work, a written report with the top three AI opportunities, estimated savings and a 90-day plan, then a 1-hour walkthrough. You don't pay unless it finds at least 3 opportunities, each worth more than the fee a year; the fee comes off a build started within 90 days.
-- Set up Claude or ChatGPT for your team: $1,500 for up to 10 people, about a week, done remotely.
-- Custom Builds: fixed price agreed after the audit, typically 2 to 6 weeks.
-- Managed AI: from $299 a month, month to month; same-business-day replies.
+- Set up Claude or ChatGPT for your team: $1,500 for up to 10 people, $2,500 for 11 to 25, about a week, done remotely.
+- Custom Builds: most cost $3,000 to $15,000; fixed price agreed after the audit, typically 2 to 6 weeks.
+- Managed AI: from $500 a month, month to month; same-business-day replies.
 
 ## What Seafin builds
 Phone agents that book jobs; invoice and contract audits that find overcharges; AI that uses websites and portals with no other way in; turning photos and paper into data; overnight work with a spending cap; replacing outgrown software; websites with AI built in; documents into accounting systems and CRMs.
@@ -17,7 +17,7 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 ## Pages
 - [Home](https://seafin.ai/)
 - [What Seafin costs](https://seafin.ai/pricing): prices for each service and what you pay others directly
-- [Set up Claude or ChatGPT for your team](https://seafin.ai/claude-chatgpt-setup): what the $1,500 team setup includes
+- [Set up Claude or ChatGPT for your team](https://seafin.ai/claude-chatgpt-setup): what the team setup includes ($1,500 up to 10 people, $2,500 for 11 to 25)
 - [Sample Strategy Audit](https://seafin.ai/sample-audit): a full sample report for a fictional 12-person accounting firm
 - [What small businesses are automating in 2026](https://seafin.ai/guide-automating-2026)
 - [What an AI audit should tell you](https://seafin.ai/guide-ai-audit)
