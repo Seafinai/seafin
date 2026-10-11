@@ -216,9 +216,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
 .offers > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
 .offers > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
-.offers > li.offer-wide { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; }
-.offer-wide > div { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
-.offer-wide > .includes { margin: 0; align-content: start; padding: 26px 0 28px clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
 .offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
 .offers .price { font-weight: 600; color: var(--accent); }
 .offers p { color: var(--ink-700); }
@@ -437,10 +434,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .offers { grid-template-columns: 1fr; }
   .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
   .offers > li + li { border-top: 1px solid var(--line); }
-  .offers > li.offer-wide { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
-  .offer-wide > div { display: contents; }
-  .offer-wide .offer-link { order: 1; }
-  .offer-wide > .includes { padding: 0; border-left: 0; margin: 6px 0 4px; }
   .builds { grid-template-columns: 1fr 1fr; }
   .faq-row { grid-template-columns: 1fr; }
   .faq-head { position: static; }
