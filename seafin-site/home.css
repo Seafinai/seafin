@@ -216,6 +216,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
 .offers > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
 .offers > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
+.offers > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.offers > li:last-child:nth-child(odd) > * { max-width: 720px; }
 .offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
 .offers .price { font-weight: 600; color: var(--accent); }
 .offers p { color: var(--ink-700); }
