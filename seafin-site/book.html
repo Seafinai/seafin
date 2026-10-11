@@ -29,6 +29,10 @@
 .book-alt { color: var(--ink-500); font-size: 0.9375rem; }
 #gcal-button { display: none; }
 body > div > iframe[src*="calendar.google.com"] { background: #fff; border-radius: 8px; }
+@media (max-width: 600px) {
+  body > div:has(> iframe[src*="calendar.google.com"]) { padding: 64px 12px 12px !important; }
+  body > div > iframe[src*="calendar.google.com"] { width: 100% !important; height: calc(100vh - 76px) !important; }
+}
 </style>
 </head>
 <body>
