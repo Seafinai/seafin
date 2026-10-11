@@ -31,7 +31,12 @@ form.addEventListener('submit', async (e) => {
     form.querySelectorAll('input, textarea').forEach((el) => { el.disabled = true; });
     button.hidden = true;
     panel.classList.add('is-sent');
-    status.textContent = 'Request sent. We’ll reply by email.';
+    status.textContent = 'Request sent. We’ll reply by email, or you can pick a time now.';
+    const book = document.createElement('a');
+    book.className = 'btn btn-primary';
+    book.href = 'book.html';
+    book.textContent = 'Pick a time';
+    status.after(book);
   } catch {
     status.innerHTML = 'That didn’t send. Email <a href="mailto:hello@seafin.ai">hello@seafin.ai</a> instead.';
     status.classList.add('is-error');
