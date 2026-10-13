@@ -40,9 +40,9 @@ export default {
       `Name: ${name}`,
       `Email: ${email}`,
       `Heard about us: ${source || '(not given)'}`,
-      `Software they use most: ${tools || '(not given)'}`,
+      `Software the business runs on: ${tools || '(not given)'}`,
       '',
-      'Task that takes the most time each week:',
+      'What eats up the most time:',
       message || '(left blank)',
     ].join('\r\n');
 
