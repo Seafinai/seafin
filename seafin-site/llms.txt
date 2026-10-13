@@ -22,7 +22,7 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 - [IT and cloud automation](https://seafin.ai/it-automation): setup, cleanup and monitoring for Microsoft 365, Azure and Google Workspace
 - [Sample Strategy Audit](https://seafin.ai/sample-audit): a full sample report for a fictional 12-person accounting firm
 - [What small businesses are automating in 2026](https://seafin.ai/guide-automating-2026)
-- [Free checklist: where AI could save your team time](https://seafin.ai/checklist)
+- [Free checklist: where your team loses hours every week](https://seafin.ai/checklist)
 - [What an AI audit should tell you](https://seafin.ai/guide-ai-audit)
 - [Is your data used to train AI?](https://seafin.ai/guide-ai-data)
 - [HIPAA and AI: which setups are covered](https://seafin.ai/guide-hipaa-ai)
