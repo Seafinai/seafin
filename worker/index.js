@@ -22,6 +22,7 @@ export default {
     const email = oneLine(data.email, 200);
     const message = String(data.message ?? '').trim().slice(0, 500);
     const source = oneLine(data.source, 80);
+    const tools = oneLine(data.tools, 200);
     if (!name || !EMAIL.test(email)) return json({ error: 'invalid' }, 422);
     if (!env.CONTACT_TO) return json({ error: 'not_configured' }, 500);
 
@@ -39,8 +40,9 @@ export default {
       `Name: ${name}`,
       `Email: ${email}`,
       `Heard about us: ${source || '(not given)'}`,
+      `Software they use most: ${tools || '(not given)'}`,
       '',
-      'What they would hand off first:',
+      'Task that takes the most time each week:',
       message || '(left blank)',
     ].join('\r\n');
 
