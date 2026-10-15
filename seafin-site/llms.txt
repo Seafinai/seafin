@@ -17,6 +17,9 @@ Directly through Anthropic (Claude) or OpenAI business accounts, or inside the c
 
 ## Pages
 - [Home](https://seafin.ai/)
+- [About Seafin](https://seafin.ai/about)
+- [How we work](https://seafin.ai/how-we-work): the audit, build and hand-over steps
+- [Book a free call](https://seafin.ai/book): a 15 to 30 minute call
 - [What Seafin costs](https://seafin.ai/pricing): prices for each service and what you pay others directly
 - [Set up Claude or ChatGPT for your team](https://seafin.ai/claude-chatgpt-setup): what the team setup includes ($1,500 up to 10 people, $2,500 for 11 to 25)
 - [Microsoft 365 and Azure automation](https://seafin.ai/it-automation): workflow automation on Microsoft 365, Entra ID and Azure
