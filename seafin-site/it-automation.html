@@ -55,18 +55,17 @@
         <li><strong>Approvals.</strong> Purchases, time off, contracts and expense claims go to the right approver in Teams or Outlook, with reminders and a record of who approved what. We build these in Power&nbsp;Automate.</li>
         <li><strong>Documents and email.</strong> Claude or ChatGPT reads invoices, forms and email arriving in a shared inbox, pulls out the details that matter, files the document in SharePoint and enters the data where it belongs. Anything unclear goes to a person.</li>
         <li><strong>Laptops that set themselves up.</strong> A new Windows laptop can ship straight to the employee and install your apps and settings at first sign-in, using Microsoft Intune and Autopilot.</li>
-        <li><strong>Files before Claude or ChatGPT connects.</strong> Once connected, Claude or ChatGPT can read whatever the signed-in person can open, so we fix who can see what first. We can add this to a <a href="claude-chatgpt-setup.html">Claude or ChatGPT setup</a>.</li>
       </ul>
       <p>A person approves the steps that matter before they run, and every run is logged.</p>
     </section>
 
     <section class="report-sec" aria-labelledby="azure">
       <h2 id="azure">Azure</h2>
-      <p>Azure is where automations that run on a schedule, connect to other software or handle sensitive files can live inside your own account. The Azure work we do:</p>
+      <p>Automations that run on a schedule or connect to software outside Microsoft&nbsp;365 run in Azure, inside your own account. The Azure work we do:</p>
       <ul>
         <li><strong>Connecting your other software.</strong> Logic Apps and Azure Functions move data between Microsoft&nbsp;365 and the accounting, CRM or industry software you already run, so nobody copies it across by hand.</li>
-        <li><strong>Claude and ChatGPT in your Azure account.</strong> Claude through Microsoft Foundry, or OpenAI models through Azure OpenAI, so the AI steps in a workflow run and bill through your own Azure account.</li>
-        <li><strong>Scheduled jobs.</strong> Azure Automation runs PowerShell runbooks on a schedule, for jobs like account cleanup, license reassignment and certificate renewals.</li>
+        <li><strong>AI steps billed through Azure.</strong> When a workflow needs Claude or ChatGPT to read something, it runs through your own Azure account and shows on your Azure bill, using Claude in Microsoft Foundry or OpenAI models in Azure OpenAI.</li>
+        <li><strong>Admin jobs that run on their own.</strong> Account cleanup, license reassignment and certificate renewals run on a schedule as PowerShell scripts in Azure Automation.</li>
         <li><strong>Azure Virtual Desktop.</strong> Staff sign in to the same Windows desktop from any computer, at the office or at home. We set it up, size it to how many people use it and shut it down outside working hours.</li>
         <li><strong>Moving off an old server.</strong> Files go to SharePoint, and apps that need a server move to Azure, so the old server can be switched off.</li>
         <li><strong>Azure cost audit, &#36;750.</strong> We find machines left running or bigger than they need to be, disks nobody uses, and machines that would cost less on yearly pricing. You get a written list of savings in dollars, and we set budgets and alerts so the bill stays down.</li>
