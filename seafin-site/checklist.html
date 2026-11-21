@@ -12,8 +12,10 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
-<link rel="stylesheet" href="home.css?v=2026-11-21f">
-<link rel="stylesheet" href="report.css?v=2026-11-21g">
+<link rel="preload" href="fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="home.css?v=2026-11-21h">
+<link rel="stylesheet" href="report.css?v=2026-11-21h">
 <!-- seo -->
 <link rel="canonical" href="https://seafin.ai/checklist">
 <meta property="og:url" content="https://seafin.ai/checklist">
@@ -23,12 +25,25 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Free checklist: where your team loses hours every week","description":"A free 20-minute checklist for small and mid-sized businesses: list the jobs that repeat every week, see which suit AI, and work out what they cost you.","url":"https://seafin.ai/checklist","image":"https://seafin.ai/assets/brand/og.jpg","datePublished":"2026-10-13","inLanguage":"en-US","author":{"@id":"https://seafin.ai/#org"},"publisher":{"@type":"Organization","@id":"https://seafin.ai/#org","name":"Seafin","url":"https://seafin.ai/"}}</script>
 <!-- /seo -->
 <style>
-.check-table td:empty::after { content: "\00a0"; }
-.check-table td { height: 2.4em; }
 .check-table { min-width: 600px; }
-@media (max-width: 600px) { .check-table { min-width: 0; table-layout: fixed; } .check-table th { padding-right: 6px; font-size: 0.625rem; letter-spacing: 0.02em; } }
+.check-table td { height: 2.75rem; padding-block: 0; }
+.check-table input { display: block; width: 100%; height: 2.75rem; padding: 0 8px 0 0; border: 0; border-radius: 0; background: none; font: inherit; font-size: 1rem; color: var(--ink-900); }
+.check-table input:focus-visible { outline: 0; box-shadow: inset 0 -2px 0 var(--accent); }
+/* On a phone each job is its own card with five labelled lines, so nothing is squeezed or swiped. */
+@media (max-width: 600px) {
+  .check-table { display: block; min-width: 0; }
+  .check-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .check-table tbody { display: grid; gap: 14px; counter-reset: job; }
+  .check-table tr { display: block; padding: 0 16px 4px; border: 1px solid var(--line-strong); border-radius: 12px; counter-increment: job; }
+  .check-table tr::before { content: counter(job, decimal-leading-zero); display: block; padding: 14px 0 6px; font: 500 0.8125rem/1 var(--font-mono); color: var(--accent); }
+  .check-table td { display: grid; grid-template-columns: 9.25rem minmax(0, 1fr); align-items: center; gap: 12px; height: auto; min-height: 48px; padding: 0; border-bottom: 1px solid var(--line); }
+  .check-table tr td:last-child { border-bottom: 0; }
+  .check-table td::before { content: attr(data-label); font-size: 0.875rem; font-weight: 600; line-height: 1.3; color: var(--ink-700); }
+  .check-table input { height: 48px; padding: 0; }
+}
 @media print {
   .nav, .foot, .report-cta, .print-btn { display: none !important; }
+  .check-table input { color: #000; }
   body { background: #fff; color: #000; }
 }
 </style>
@@ -60,11 +75,11 @@
         <table class="check-table">
           <thead><tr><th scope="col">Job</th><th scope="col">Who does it</th><th scope="col">Minutes last time</th><th scope="col">Times last week</th><th scope="col">Same steps or judgment?</th></tr></thead>
           <tbody>
-            <tr><td data-label="Job"></td><td data-label="Who does it"></td><td data-label="Minutes last time"></td><td data-label="Times last week"></td><td data-label="Same steps or judgment?"></td></tr>
-            <tr><td data-label="Job"></td><td data-label="Who does it"></td><td data-label="Minutes last time"></td><td data-label="Times last week"></td><td data-label="Same steps or judgment?"></td></tr>
-            <tr><td data-label="Job"></td><td data-label="Who does it"></td><td data-label="Minutes last time"></td><td data-label="Times last week"></td><td data-label="Same steps or judgment?"></td></tr>
-            <tr><td data-label="Job"></td><td data-label="Who does it"></td><td data-label="Minutes last time"></td><td data-label="Times last week"></td><td data-label="Same steps or judgment?"></td></tr>
-            <tr><td data-label="Job"></td><td data-label="Who does it"></td><td data-label="Minutes last time"></td><td data-label="Times last week"></td><td data-label="Same steps or judgment?"></td></tr>
+            <tr><td data-label="Job"><input type="text" aria-label="Job" autocomplete="off"></td><td data-label="Who does it"><input type="text" aria-label="Who does it" autocomplete="off"></td><td data-label="Minutes last time"><input type="text" aria-label="Minutes last time" inputmode="numeric" autocomplete="off"></td><td data-label="Times last week"><input type="text" aria-label="Times last week" inputmode="numeric" autocomplete="off"></td><td data-label="Same steps or judgment?"><input type="text" aria-label="Same steps or judgment?" autocomplete="off"></td></tr>
+            <tr><td data-label="Job"><input type="text" aria-label="Job" autocomplete="off"></td><td data-label="Who does it"><input type="text" aria-label="Who does it" autocomplete="off"></td><td data-label="Minutes last time"><input type="text" aria-label="Minutes last time" inputmode="numeric" autocomplete="off"></td><td data-label="Times last week"><input type="text" aria-label="Times last week" inputmode="numeric" autocomplete="off"></td><td data-label="Same steps or judgment?"><input type="text" aria-label="Same steps or judgment?" autocomplete="off"></td></tr>
+            <tr><td data-label="Job"><input type="text" aria-label="Job" autocomplete="off"></td><td data-label="Who does it"><input type="text" aria-label="Who does it" autocomplete="off"></td><td data-label="Minutes last time"><input type="text" aria-label="Minutes last time" inputmode="numeric" autocomplete="off"></td><td data-label="Times last week"><input type="text" aria-label="Times last week" inputmode="numeric" autocomplete="off"></td><td data-label="Same steps or judgment?"><input type="text" aria-label="Same steps or judgment?" autocomplete="off"></td></tr>
+            <tr><td data-label="Job"><input type="text" aria-label="Job" autocomplete="off"></td><td data-label="Who does it"><input type="text" aria-label="Who does it" autocomplete="off"></td><td data-label="Minutes last time"><input type="text" aria-label="Minutes last time" inputmode="numeric" autocomplete="off"></td><td data-label="Times last week"><input type="text" aria-label="Times last week" inputmode="numeric" autocomplete="off"></td><td data-label="Same steps or judgment?"><input type="text" aria-label="Same steps or judgment?" autocomplete="off"></td></tr>
+            <tr><td data-label="Job"><input type="text" aria-label="Job" autocomplete="off"></td><td data-label="Who does it"><input type="text" aria-label="Who does it" autocomplete="off"></td><td data-label="Minutes last time"><input type="text" aria-label="Minutes last time" inputmode="numeric" autocomplete="off"></td><td data-label="Times last week"><input type="text" aria-label="Times last week" inputmode="numeric" autocomplete="off"></td><td data-label="Same steps or judgment?"><input type="text" aria-label="Same steps or judgment?" autocomplete="off"></td></tr>
           </tbody>
         </table>
       </div>

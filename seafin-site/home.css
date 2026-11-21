@@ -1,8 +1,8 @@
 /* Seafin site. Three colours carry everything: paper white, the logo's charcoal and its one cobalt.
    Big serif type, ruled rows, and drawn pictures of the work in place of photographs. */
-@font-face { font-family: "Public Sans"; src: url(fonts/public-sans.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Public Sans"; src: url(fonts/public-sans.woff2) format("woff2"); font-weight: 400 700; font-display: swap; }
 @font-face { font-family: "Source Serif 4"; src: url(fonts/source-serif-4.woff2) format("woff2"); font-weight: 400 700; font-display: swap; }
-@font-face { font-family: "Geist Mono"; src: url(fonts/geist-mono.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url(fonts/geist-mono.woff2) format("woff2"); font-weight: 400 600; font-display: swap; }
 
 :root {
   --charcoal: #292d32;
@@ -181,10 +181,10 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* A drawing is sized in container units, so it scales as one object at any card width. */
 .v { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; container-type: inline-size; border-radius: var(--r-panel); background: radial-gradient(circle at center, var(--line-strong) 0.6px, transparent 0.9px) 0 0 / 14px 14px, var(--bg); border: 1px solid var(--line-soft); transition: border-color 300ms ease-out; }
-.builds li:hover .v { border-color: var(--line-strong); }
+@media (hover: hover) { .builds li:hover .v { border-color: var(--line-strong); } }
 .v span { display: block; }
 .v-stage { position: relative; width: 100cqw; height: 75cqw; transition: transform 600ms var(--ease); }
-.builds li:hover .v-stage { transform: scale(1.03); }
+@media (hover: hover) { .builds li:hover .v-stage { transform: scale(1.03); } }
 .v-card { position: absolute; padding: 3.4cqw; border-radius: 2.4cqw; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 4cqw 9cqw -2cqw rgba(29, 32, 36, 0.16), 0 0.6cqw 1.6cqw rgba(29, 32, 36, 0.05); }
 .v-t { font: 700 3.5cqw/1.2 var(--font-sans); color: var(--ink-900); }
 .v-s { margin-top: 0.8cqw; font: 500 2.9cqw/1.25 var(--font-sans); color: var(--ink-500); }
@@ -556,4 +556,32 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ---- Phones: every tap target is at least 44px tall, no text under 13px,
+   and the six drawings get numbered buttons so none of them is only behind a swipe. ---- */
+.pager { display: none; }
+@media (max-width: 760px) {
+  .nav .btn { min-height: 44px; }
+  .nav .logo, .foot .logo { align-items: center; min-height: 44px; }
+  .btn-link, .area-link a, .principles-more a { display: inline-flex; align-items: center; min-height: 44px; }
+  .form-note { font-size: 0.875rem; }
+  .form-note a { position: relative; }
+  .form-note a::after { content: ""; position: absolute; inset: -13px -6px; }
+
+  .pager { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 2px; border-top: 1px solid var(--line-strong); }
+  .pager button { position: relative; min-height: 48px; padding: 0; border: 0; border-radius: 0; background: none; font: 500 0.875rem/1 var(--font-mono); color: var(--ink-500); cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: color 200ms ease-out; }
+  .pager button::before { content: ""; position: absolute; inset: -1px 0 auto; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform 320ms var(--ease); }
+  .pager button[aria-current="true"] { color: var(--ink-900); }
+  .pager button[aria-current="true"]::before { transform: scaleX(1); }
+  .pager button:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+  .pager + .swipe { margin-top: 6px; }
+  .pager + .swipe::after { display: none; }
+
+  .foot-cols h2 { margin-bottom: 4px; font-size: 0.8125rem; }
+  .foot-cols ul { gap: 0; }
+  .foot-contact ul { gap: 0 24px; }
+  .foot-cols a, .foot-base a { display: flex; align-items: center; min-height: 44px; }
+  .foot-base a { justify-content: center; min-width: 44px; }
+  .foot-base { align-items: center; row-gap: 0; padding-top: 12px; }
 }

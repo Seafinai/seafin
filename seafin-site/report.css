@@ -319,3 +319,21 @@ td { color: var(--ink-700); }
 
 /* guides: who wrote it */
 .byline { margin-top: clamp(24px, 3vw, 36px); padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.9375rem; color: var(--ink-500); max-width: 68ch; }
+
+/* ---- Phones: 44px tap targets, no text under 13px, contents as one tappable column. ---- */
+@media (max-width: 760px) {
+  .guide-meta { font-size: 0.875rem; }
+  /* links inside running text keep their size; an invisible pad makes them easier to hit */
+  .guide-meta a, .report sup a, .report-sec li strong > a { position: relative; }
+  .guide-meta a::after, .report sup a::after, .report-sec li strong > a::after { content: ""; position: absolute; inset: -13px -6px; }
+  .sources { gap: 0; }
+  .sources a { display: block; padding-block: 11px; }
+  .toc ol { columns: 1; }
+  .toc li { align-items: center; padding: 0; }
+  .toc a { flex: 1; display: flex; align-items: center; min-height: 44px; }
+  th { font-size: 0.8125rem; letter-spacing: 0.04em; }
+  .g-label small, .stack td::before { font-size: 0.875rem; }
+}
+
+/* footnote numbers no longer push their line apart */
+.report sup { line-height: 0; }
