@@ -11,7 +11,7 @@
   color: #fff;
 }
 .report-head::before { content: ""; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 332 343'%3E%3Cpath fill='%23fff' fill-opacity='.055' d='M3 331C54.8 187.4 189.6 59.2 329 3C263 84 197.8 175.3 179 281C111.9 273.7 60 302 3 331Z'/%3E%3C/svg%3E") right 3vw top 40% / auto 128% no-repeat, var(--deep); }
-.report-head h1 { font: 600 clamp(2.5rem, 6.2vw, 4.75rem)/1 var(--font-serif); letter-spacing: -0.03em; text-wrap: balance; }
+.report-head h1 { font: 600 clamp(2.25rem, 4.6vw, 4rem)/1 var(--font-serif); letter-spacing: -0.03em; text-wrap: balance; }
 .js-motion .report-head > * { animation: rise 900ms var(--ease) both; }
 .js-motion .report-head > :nth-child(2) { animation-delay: 120ms; }
 .js-motion .report-head > :nth-child(3) { animation-delay: 240ms; }
