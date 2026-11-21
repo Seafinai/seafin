@@ -127,14 +127,14 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .nav .btn { min-height: 40px; padding: 0 18px; }
 
 /* ---------- opening: the promise, set large, with the logo's fin rising behind it ---------- */
-.hero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: min(86vh, 860px); padding-block: clamp(72px, 9vw, 128px) clamp(72px, 9vw, 120px); }
+.hero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: min(86vh, 860px); padding-block: clamp(64px, 7vw, 104px) clamp(64px, 7vw, 104px); }
 .hero > .wrap { width: 100%; }
 /* waterline: fine rules across the lower part of the opening, fading out to the left */
 .hero::before { content: ""; position: absolute; inset: 58% 0 0 0; z-index: -2; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 22px); -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 80%); mask-image: linear-gradient(100deg, transparent 20%, #000 80%); }
 .fin { position: absolute; z-index: -1; right: max(-4vw, -60px); bottom: -9%; height: 112%; width: auto; aspect-ratio: 332 / 343; overflow: visible; pointer-events: none; }
 .fin-sail { fill: var(--deep-2); }
 .fin-keel { fill: var(--cobalt); }
-.hero h1 { font: 600 clamp(2.75rem, 7.3vw, 6.75rem)/0.98 var(--font-serif); letter-spacing: -0.035em; text-wrap: balance; }
+.hero h1 { font: 600 clamp(2.5rem, 5.6vw, 5.25rem)/1 var(--font-serif); letter-spacing: -0.03em; text-wrap: balance; }
 .hero h1 .nb { white-space: nowrap; }
 .lede { margin-top: clamp(24px, 2.6vw, 36px); max-width: 44ch; font-size: clamp(1.125rem, 1.5vw, 1.3125rem); line-height: 1.55; color: var(--ink-700); }
 .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: clamp(28px, 3.4vw, 40px); }
