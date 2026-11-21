@@ -17,6 +17,7 @@ const variants = {
     wrap.prepend(head);
     wrap.classList.add('v-split');
   },
+  'lean-text': () => document.body.classList.add('lean'),
   'how-we-work-charcoal': () => document.querySelector('#how-we-work').classList.add('dark'),
 };
 

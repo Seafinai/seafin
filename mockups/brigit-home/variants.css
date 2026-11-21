@@ -37,3 +37,28 @@
 /* "How we work" on the site's one charcoal band */
 #how-we-work.dark .principles-more a { color: var(--dark-link); }
 #how-we-work.dark { border-top: 0; }
+
+/* "Lean" text option: fewer words on screen and larger type. The build cards keep picture and title,
+   the four-steps section goes (the five jobs cover it), and each job shows its name and price, with
+   the description one tap away. */
+.lean .section h2 { font-size: clamp(2.125rem, 4.2vw, 3.25rem); line-height: 1.06; }
+.lean .section-sub { margin-top: 14px; font-size: 1.25rem; }
+.lean .builds p { display: none; }
+.lean .builds h3 { font: 600 1.25rem/1.25 var(--font-serif); }
+.lean #steps { display: none; }
+.lean .areas > li:not(.areas-cta) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 20px; gap: 6px clamp(24px, 4vw, 56px); align-items: center; padding-block: 24px; cursor: pointer; }
+.lean .areas > li:not(.areas-cta) h3 { font-size: clamp(1.5rem, 2.4vw, 1.875rem); }
+.lean .areas > li:not(.areas-cta) .area-price { grid-column: 2; grid-row: 1; }
+.lean .areas > li:not(.areas-cta)::after { content: ""; grid-column: 3; grid-row: 1; width: 14px; height: 14px; justify-self: end; background: linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat, linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat; transition: transform 200ms ease-out; }
+.lean .areas > li.open::after { transform: rotate(45deg); }
+.lean .areas > li:not(.areas-cta) .area-body, .lean .areas > li:not(.areas-cta) .area-link { display: none; }
+.lean .areas > li.open .area-body { display: block; grid-column: 1 / 3; grid-row: 2; max-width: 62ch; margin-top: 6px; }
+.lean .areas > li.open .area-link { display: block; }
+.lean .areas > li:not(.areas-cta):hover h3 { color: var(--accent); }
+.lean .principles h3 { font-size: 1.375rem; }
+@media (max-width: 960px) {
+  .lean .areas > li:not(.areas-cta) { grid-template-columns: minmax(0, 1fr) 20px; }
+  .lean .areas > li:not(.areas-cta) .area-price { grid-column: 1; grid-row: 2; }
+  .lean .areas > li:not(.areas-cta)::after { grid-column: 2; }
+  .lean .areas > li.open .area-body { grid-column: 1 / -1; grid-row: 3; }
+}

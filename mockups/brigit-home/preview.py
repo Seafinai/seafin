@@ -54,6 +54,10 @@ bar = """
     <button type="button" id="pv-b" data-layout="b" aria-pressed="false">B</button>
     <button type="button" id="pv-c" data-layout="c" aria-pressed="false">C</button>
   </span>
+  <span>Text
+    <button type="button" id="pv-full" data-text="full" aria-pressed="true">Full</button>
+    <button type="button" id="pv-lean" data-text="lean" aria-pressed="false">Lean</button>
+  </span>
   <span>How we work
     <button type="button" id="pv-white" data-strip="white" aria-pressed="true">White</button>
     <button type="button" id="pv-charcoal" data-strip="charcoal" aria-pressed="false">Charcoal</button>
@@ -70,13 +74,14 @@ bar = """
   h2.removeAttribute('id');
   head.append(h2, wrap.querySelector('.section-sub').cloneNode(true), ...[...wrap.querySelector('.area-action').children].map((n) => n.cloneNode(true)));
   wrap.prepend(head);
-  const state = { layout: 'a', strip: 'white' };
+  const state = { layout: 'a', strip: 'white', text: 'full' };
   try { Object.assign(state, JSON.parse(localStorage.getItem('pv') || '{}')); } catch {}
   const apply = () => {
     areas.classList.toggle('v-grid', state.layout === 'b');
     wrap.classList.toggle('v-split', state.layout === 'c');
     strip.classList.toggle('dark', state.strip === 'charcoal');
-    document.querySelectorAll('.pv-bar button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.layout === state.layout || b.dataset.strip === state.strip)));
+    document.body.classList.toggle('lean', state.text === 'lean');
+    document.querySelectorAll('.pv-bar button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.layout === state.layout || b.dataset.strip === state.strip || b.dataset.text === state.text)));
     try { localStorage.setItem('pv', JSON.stringify(state)); } catch {}
   };
   document.querySelector('.pv-bar').addEventListener('click', (e) => {
@@ -84,7 +89,14 @@ bar = """
     if (!b) return;
     if (b.dataset.layout) state.layout = b.dataset.layout;
     if (b.dataset.strip) state.strip = b.dataset.strip;
+    if (b.dataset.text) state.text = b.dataset.text;
     apply();
+  });
+  // lean text: a job's description opens when its row is tapped
+  areas.addEventListener('click', (e) => {
+    const li = e.target.closest('li');
+    if (!li || li.classList.contains('areas-cta') || e.target.closest('a') || !document.body.classList.contains('lean')) return;
+    li.classList.toggle('open');
   });
   apply();
 })();
