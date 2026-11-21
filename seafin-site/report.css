@@ -21,6 +21,35 @@
 .report:not(.guide) > .wrap > .report-head { order: 0; }
 .report:not(.guide) > .wrap > .sample-flag { order: 1; margin-top: clamp(20px, 3vw, 32px); }
 @media (max-width: 760px) { .report-head::before { background-position: right -34vw top 40%, 0 0; } }
+/* some pages carry one of the home page's drawings in the title band; it keeps its own dark surface */
+.head-art {
+  --ink-900: #f1f2f4; --ink-700: #cdd1d7; --ink-500: #9da3ac; --line: #353a41; --line-soft: #2a2e34; --line-strong: #454a52;
+  --bg: #17191c; --paper: #24282d; --paper-2: #1d2024; --accent: #7c9bf5; --accent-deep: #a9bef8; --accent-soft: #5a7be0; --accent-tint: #26304a;
+  width: min(100%, 420px); margin-top: 32px; color: var(--ink-900); text-align: left;
+}
+.head-art .v-card { box-shadow: 0 4cqw 9cqw -2cqw rgba(0, 0, 0, 0.5), 0 0.6cqw 1.6cqw rgba(0, 0, 0, 0.3); }
+
+/* wide screens: the page sits on the home page's grid. The words keep their column on the left and a
+   rail on the right holds the drawing, then the call panel or the contents, which stay in view. */
+@media (min-width: 1120px) {
+  .report .wrap, .report:not(.guide) > .wrap { max-width: var(--maxw); display: grid; grid-template-columns: minmax(0, 780px) 340px; justify-content: space-between; align-content: start; }
+  .report .wrap > * { grid-column: 1; min-width: 0; }
+  .report .wrap > .report-head { grid-column: 1 / -1; grid-row: 1; }
+  .report-head > * { max-width: 780px; }
+  .report-head.has-art { display: flex; flex-direction: column; justify-content: center; min-height: 25rem; }
+  .report-head > .head-art { position: absolute; right: 0; top: 50%; width: 340px; margin: 0; translate: 0 -50%; }
+  .report .wrap > .report-cta, .report .wrap > .toc { grid-column: 2; grid-row: 2 / span 60; align-self: start; position: sticky; top: 100px; margin-top: clamp(40px, 5vw, 64px); }
+  .report .wrap > .report-cta { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 22px; padding: 30px 28px 28px; }
+  .report .wrap > .report-cta p { flex: none; font-size: 1.5rem; }
+  .report .wrap > .report-cta .btn { width: 100%; }
+  .report .wrap > .toc ol { columns: 1; }
+  .report .wrap > .toc { max-height: calc(100vh - 124px); overflow-y: auto; }
+  /* the sample report keeps its contents in the rail and its call panel at the end */
+  .report:not(.guide) .wrap > .report-cta { grid-column: 1; grid-row: auto; position: static; flex-direction: row; flex-wrap: wrap; align-items: center; padding: clamp(24px, 4vw, 44px); }
+  .report:not(.guide) .wrap > .report-cta p { flex: 1 1 18rem; font-size: 1.75rem; }
+  .report:not(.guide) .wrap > .report-cta .btn { width: auto; }
+}
+
 @media print {
   .report-head { color: #000; --ink-900: #000; --ink-700: #333; --ink-500: #555; --line: #ccc; padding-block: 0 24px; border-bottom: 1px solid #000; }
   .report-head::before { display: none; }
@@ -52,6 +81,11 @@ td { color: var(--ink-700); }
 .opp-facts sup a { text-decoration: none; }
 
 .plain { margin: 0; padding-left: 1.1rem; display: grid; gap: 10px; color: var(--ink-700); max-width: 68ch; }
+/* bulleted lists read as quiet rows: a hairline between items and a short cobalt dash in front */
+.report-sec ul:not([class]), .report-sec ul.plain { display: block; margin: 16px 0 0; padding: 0; list-style: none; max-width: none; border-top: 1px solid var(--line); color: var(--ink-700); }
+.report-sec ul:not([class]) > li, .report-sec ul.plain > li { position: relative; padding: 11px 0 12px 30px; border-bottom: 1px solid var(--line); }
+.report-sec ul:not([class]) > li::before, .report-sec ul.plain > li::before { content: ""; position: absolute; left: 2px; top: calc(11px + 0.8em - 1px); width: 14px; height: 2px; border-radius: 1px; background: var(--accent); }
+.report-sec ul:not([class]) + p, .report-sec ul.plain + p { margin-top: 16px; }
 
 /* lists whose items open with a bold lead read as rows: the lead on the left, the detail beside it */
 .rows, .steps { margin: 20px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink-900); }
