@@ -169,8 +169,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- sections ---------- */
 .section { padding-block: clamp(56px, 7vw, 96px); }
 .section + .section { border-top: 1px solid var(--line); }
-.section h2 { font: 600 clamp(1.875rem, 3vw, 2.5rem)/1.12 var(--font-serif); letter-spacing: -0.015em; text-wrap: balance; }
-.section-sub { margin-top: 10px; max-width: 62ch; font-size: 1.125rem; color: var(--ink-700); }
+.section h2 { font: 600 clamp(2.125rem, 4.2vw, 3.25rem)/1.06 var(--font-serif); letter-spacing: -0.02em; text-wrap: balance; }
+.section-sub { margin-top: 14px; max-width: 62ch; font-size: 1.25rem; color: var(--ink-700); }
 .band { background: var(--bg); }
 
 /* the sample report: its cover and an inside page, beside what every audit covers.
@@ -211,14 +211,47 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .contents li { padding: 10px 0; border-top: 1px solid var(--line); }
 .contents li:last-child { border-bottom: 1px solid var(--line); }
 
-/* four services in a two-by-two grid under one rule */
-.offers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
-.offers > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
-.offers > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
-.offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
-.offers .price { font-weight: 600; color: var(--accent); }
-.offers p { color: var(--ink-700); }
+/* what we take off your plate: the five services as ruled rows. Each row shows the job we own and
+   the service and price that cover it; the one-sentence description opens on a tap. */
+.areas { margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
+.areas > li + li { border-top: 1px solid var(--line); }
+.areas summary { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 20px; gap: 6px clamp(24px, 4vw, 56px); align-items: center; padding-block: 24px; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent; }
+.areas summary::-webkit-details-marker { display: none; }
+.areas summary::after { content: ""; justify-self: end; width: 14px; height: 14px; background: linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat, linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat; transition: transform 200ms ease-out; }
+.areas details[open] summary::after { transform: rotate(45deg); }
+.areas summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.areas h3 { font: 600 clamp(1.5rem, 2.4vw, 1.875rem)/1.2 var(--font-serif); text-wrap: balance; }
+.areas summary h3 { transition: color 160ms ease-out; }
+.areas summary:hover h3 { color: var(--accent); }
+.area-price { display: grid; align-content: start; gap: 4px; }
+.area-offer { font: 700 0.9375rem/1.4 var(--font-sans); color: var(--ink-900); }
+.areas .price { font-weight: 600; color: var(--accent); }
+.areas .price span { white-space: nowrap; }
+.area-more { display: grid; gap: 8px; max-width: 62ch; padding-bottom: 26px; color: var(--ink-700); }
+.area-link { font-size: 0.9375rem; }
+.areas > .areas-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px clamp(28px, 4vw, 56px); align-items: center; padding-block: 28px; border-top-color: var(--ink-900); border-bottom: 1px solid var(--ink-900); }
+.areas-cta h3 { font-size: 1.5rem; }
+.area-body { color: var(--ink-700); }
+.area-action { display: grid; justify-items: start; gap: 12px; }
+
+/* an honest capacity line beside the call buttons; home.js fills it and hides it when the month is over */
+.capacity { display: flex; align-items: center; gap: 10px; font: 600 0.9375rem/1.4 var(--font-sans); color: var(--ink-900); }
+.capacity[hidden] { display: none; }
+.capacity::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); margin-left: 4px; }
+.hero .reply.capacity { margin-top: 20px; color: var(--ink-900); }
+.hero .reply.capacity + .reply { margin-top: 8px; }
+.call .capacity { margin-top: 20px; }
+.call .capacity + .reply { margin-top: 8px; }
+
+/* how we work: four rules on the page's one charcoal band (.dark, below) */
+.principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
+.principles li { display: grid; align-content: start; gap: 8px; padding-top: 18px; border-top: 1px solid var(--ink-900); }
+.principles h3 { font: 600 1.375rem/1.25 var(--font-serif); }
+.principles p { color: var(--ink-700); }
+.principles-more { margin-top: clamp(24px, 3vw, 36px); font-weight: 600; }
+#how-we-work.dark { border-top: 0; }
+.dark .principles-more a { color: var(--dark-link); }
+.dark .principles-more a:hover { color: #ffffff; }
 
 /* what each service includes */
 .includes { display: grid; gap: 6px; margin: 6px 0 4px; padding: 0; list-style: none; font-size: 0.9375rem; color: var(--ink-700); }
@@ -229,20 +262,12 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
 .builds li { display: grid; align-content: start; gap: 8px; }
 .build-art { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-input); margin-bottom: 8px; background: var(--line-soft); }
-.builds h3 { font: 700 1.0625rem/1.3 var(--font-sans); }
-.builds p { color: var(--ink-700); }
-
-/* four steps: a blue rule over each column, like the offer deck */
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
-.steps > li { display: grid; align-content: start; gap: 8px; padding-top: 18px; border-top: 2px solid var(--accent); }
-.step-num { font: 500 0.875rem/1 var(--font-mono); letter-spacing: 0.08em; color: var(--accent); }
-.steps h3 { font: 600 1.5rem/1.2 var(--font-serif); }
+.builds h3 { font: 600 1.25rem/1.25 var(--font-serif); }
 
 /* questions: heading on the left, its list on the right */
 .faq-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px clamp(32px, 5vw, 72px); align-items: start; }
 .faq-head { position: sticky; top: 104px; }
 .faq-head .aside { margin-top: 14px; max-width: 30ch; color: var(--ink-700); }
-
 
 /* how we build it: the one dark section. Each step of a workflow gets the model it needs. */
 .dark {
@@ -354,7 +379,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 18px; max-width: 64ch; color: var(--ink-700); }
 
-
 /* where it runs: one panel, three routes, each with a small diagram */
 .routes-note { margin-top: 18px; max-width: 70ch; color: var(--ink-700); }
 #where-it-runs .section-sub { margin-bottom: clamp(24px, 3vw, 36px); }
@@ -438,11 +462,12 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
-  .offers { grid-template-columns: 1fr; }
-  .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
-  .offers > li + li { border-top: 1px solid var(--line); }
+  .areas summary { grid-template-columns: minmax(0, 1fr) 20px; }
+  .areas summary .area-price { grid-column: 1; grid-row: 2; }
+  .areas summary::after { grid-column: 2; grid-row: 1; }
+  .areas > .areas-cta { grid-template-columns: 1fr; padding-block: 24px; }
+  .principles { grid-template-columns: 1fr 1fr; }
   .builds { grid-template-columns: 1fr 1fr; }
-  .steps { grid-template-columns: 1fr 1fr; }
   .faq-row { grid-template-columns: 1fr; }
   .faq-head { position: static; }
   .call-row { grid-template-columns: 1fr; }
@@ -473,8 +498,10 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .promises, .guides, .news-list, .fit-row, .caps { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
+  .principles { grid-template-columns: 1fr; gap: 22px; }
+  .area-action .btn { width: 100%; }
+  .area-action { justify-items: stretch; }
   .builds { grid-template-columns: 1fr; row-gap: 20px; }
-  .steps { grid-template-columns: 1fr; gap: 24px; }
   .builds li { grid-template-columns: 104px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 16px; row-gap: 4px; }
   .builds .build-art { grid-row: 1 / span 2; margin: 0; aspect-ratio: 1; }
   .flow-result { grid-template-columns: 1fr; gap: 12px; }
