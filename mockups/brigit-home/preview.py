@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Builds a click-through preview of the home page mockup for a private Claude artifact.
 
-  python3 mockups/brigit-home/preview.py <out-dir>
+  python3 mockups/brigit-home/preview.py <out-dir> [<shots-dir>]
 
 Copies the served site files, turns index.html into an artifact page (no doctype or head wrapper),
-and adds a small "Preview" bar that switches between layout options A, B and C and the white or
-charcoal "How we work" strip. Nothing here is loaded by seafin.ai.
+and adds a "Preview only" layout switch (options A, B and C) directly above the section it changes.
+<shots-dir> is the folder shots.cjs wrote: its layout-a/b/c.png pictures are shown to phone viewers,
+because on a phone all three options stack in one column. Nothing here is loaded by seafin.ai.
 """
 import pathlib, re, shutil, sys
 
@@ -31,12 +32,24 @@ css += "\n" + (here / "variants.css").read_text(encoding="utf-8") + """
 /* preview-only: option C keeps a second copy of the heading in the left column */
 .wrap:not(.v-split) > .split-head { display: none; }
 .wrap.v-split > h2, .wrap.v-split > .section-sub { display: none; }
-.pv-bar { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 14px; max-width: calc(100vw - 24px); padding: 8px 14px; font: 600 0.8125rem/1.2 var(--font-sans); color: #fff; background: #292d32; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 22px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28); }
-.pv-bar span { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-.pv-bar button { min-width: 32px; min-height: 32px; padding: 0 10px; font: inherit; color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; cursor: pointer; }
-.pv-bar button[aria-pressed="true"] { color: #292d32; background: #fff; border-color: #fff; }
-.pv-bar button:focus-visible { outline: 2px solid #8ea8f3; outline-offset: 2px; }
-.foot { padding-bottom: 96px; }
+.pv-top { padding: 10px 20px; font: 600 0.875rem/1.4 var(--font-sans); text-align: center; color: #fff; background: #292d32; }
+.pv-top a { color: #a9bef8; white-space: nowrap; }
+.pv-switch { scroll-margin-top: 88px; padding: 20px 0 22px; color: #fff; background: #292d32; }
+.pv-switch .wrap { display: grid; gap: 12px; }
+.pv-label { font: 600 0.8125rem/1.3 var(--font-sans); color: #a9afb8; }
+.pv-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.pv-buttons button { min-height: 44px; padding: 0 18px; font: 600 1rem/1.2 var(--font-sans); color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 999px; cursor: pointer; }
+.pv-buttons button[aria-pressed="true"] { color: #292d32; background: #fff; border-color: #fff; }
+.pv-buttons button:focus-visible { outline: 2px solid #a9bef8; outline-offset: 2px; }
+.pv-caption { max-width: 70ch; font: 400 1rem/1.5 var(--font-sans); color: #d0d4d9; }
+.pv-picture { display: none; margin: 0; }
+.pv-picture figcaption { margin-bottom: 8px; font: 600 0.875rem/1.4 var(--font-sans); color: #fff; }
+.pv-picture img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.pv-below { display: none; font: 600 0.875rem/1.4 var(--font-sans); color: #fff; }
+@media (max-width: 960px) {
+  .pv-picture.has-picture, .pv-picture.has-picture + .pv-below { display: block; }
+  .pv-buttons button { flex: 1 1 auto; padding: 0 12px; }
+}
 """
 (out / "home.css").write_text(css, encoding="utf-8")
 
@@ -47,62 +60,80 @@ for f in out.glob("*.html"):
 html = (out / "index.html").read_text(encoding="utf-8")
 body = html[html.index("<body>") + 6 : html.index("</body>")]
 body = re.sub(r'(home\.(?:css|js))\?v=[\w-]+', r"\1", body).replace('href="/"', 'href="index.html"')
-bar = """
-<div class="pv-bar" role="group" aria-label="Preview options">
-  <span>Layout
-    <button type="button" id="pv-a" data-layout="a" aria-pressed="true">A</button>
-    <button type="button" id="pv-b" data-layout="b" aria-pressed="false">B</button>
-    <button type="button" id="pv-c" data-layout="c" aria-pressed="false">C</button>
-  </span>
-  <span>Text
-    <button type="button" id="pv-full" data-text="full" aria-pressed="true">Full</button>
-    <button type="button" id="pv-lean" data-text="lean" aria-pressed="false">Lean</button>
-  </span>
-  <span>How we work
-    <button type="button" id="pv-white" data-strip="white" aria-pressed="true">White</button>
-    <button type="button" id="pv-charcoal" data-strip="charcoal" aria-pressed="false">Charcoal</button>
-  </span>
+switch = """
+<div class="pv-switch" id="pv-switch" role="group" aria-label="Preview only: layout options">
+  <div class="wrap">
+    <p class="pv-label">Preview only. Pick a layout for the section below.</p>
+    <div class="pv-buttons">
+      <button type="button" id="pv-a" data-layout="a" aria-pressed="true">A &middot; Rows</button>
+      <button type="button" id="pv-b" data-layout="b" aria-pressed="false">B &middot; Grid</button>
+      <button type="button" id="pv-c" data-layout="c" aria-pressed="false">C &middot; Side heading</button>
+    </div>
+    <p class="pv-caption" id="pv-caption" aria-live="polite"></p>
+    <figure class="pv-picture__HAS__">
+      <figcaption>On a computer it looks like this:</figcaption>
+      <img id="pv-img" src="pv/layout-a.png" alt="">
+    </figure>
+    <p class="pv-below">On this phone it looks like this:</p>
+  </div>
 </div>
+"""
+script = """
 <script>
 (() => {
   const wrap = document.querySelector('#services .wrap');
   const areas = wrap.querySelector('.areas');
-  const strip = document.querySelector('#how-we-work');
   const head = document.createElement('div');
   head.className = 'split-head';
   const h2 = wrap.querySelector('h2').cloneNode(true);
   h2.removeAttribute('id');
   head.append(h2, wrap.querySelector('.section-sub').cloneNode(true), ...[...wrap.querySelector('.area-action').children].map((n) => n.cloneNode(true)));
   wrap.prepend(head);
-  const state = { layout: 'a', strip: 'white', text: 'full' };
-  try { Object.assign(state, JSON.parse(localStorage.getItem('pv') || '{}')); } catch {}
-  const apply = () => {
-    areas.classList.toggle('v-grid', state.layout === 'b');
-    wrap.classList.toggle('v-split', state.layout === 'c');
-    strip.classList.toggle('dark', state.strip === 'charcoal');
-    document.body.classList.toggle('lean', state.text === 'lean');
-    document.querySelectorAll('.pv-bar button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.layout === state.layout || b.dataset.strip === state.strip || b.dataset.text === state.text)));
-    try { localStorage.setItem('pv', JSON.stringify(state)); } catch {}
+  const captions = {
+    a: 'Rows. Each job is one full-width row, with the call button under the list.',
+    b: 'Grid. On a computer the jobs sit two across and the call button fills the sixth box. On a phone they stack, and the call button gets a shaded box.',
+    c: 'Side heading. On a computer the heading and call button stay on the left while the jobs scroll past. On a phone the call button moves above the list.',
   };
-  document.querySelector('.pv-bar').addEventListener('click', (e) => {
+  const alts = { a: 'Layout A on a computer: five full-width rows', b: 'Layout B on a computer: a two-column grid', c: 'Layout C on a computer: heading on the left, jobs on the right' };
+  let layout = 'a';
+  try { const saved = localStorage.getItem('pv-layout'); if (captions[saved]) layout = saved; } catch {}
+  const img = document.querySelector('#pv-img');
+  const apply = () => {
+    areas.classList.toggle('v-grid', layout === 'b');
+    wrap.classList.toggle('v-split', layout === 'c');
+    document.querySelectorAll('.pv-buttons button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.layout === layout)));
+    document.querySelector('#pv-caption').textContent = captions[layout];
+    img.src = 'pv/layout-' + layout + '.png';
+    img.alt = alts[layout];
+    try { localStorage.setItem('pv-layout', layout); } catch {}
+  };
+  document.querySelector('.pv-buttons').addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
-    if (b.dataset.layout) state.layout = b.dataset.layout;
-    if (b.dataset.strip) state.strip = b.dataset.strip;
-    if (b.dataset.text) state.text = b.dataset.text;
+    layout = b.dataset.layout;
     apply();
   });
-  // lean text: a job's description opens when its row is tapped
-  areas.addEventListener('click', (e) => {
-    const li = e.target.closest('li');
-    if (!li || li.classList.contains('areas-cta') || e.target.closest('a') || !document.body.classList.contains('lean')) return;
-    li.classList.toggle('open');
+  document.querySelector('.pv-top a').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('#pv-switch').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
   apply();
 })();
 </script>
 """
+top = '<p class="pv-top">Private preview of the home page mockup. Nothing here is live. <a href="#pv-switch">Go to the layout switch</a></p>\n'
+
+shots = pathlib.Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else None
+pictures = shots is not None and all((shots / f"layout-{k}.png").is_file() for k in "abc")
+if pictures:
+    (out / "pv").mkdir(exist_ok=True)
+    for k in "abc":
+        shutil.copy2(shots / f"layout-{k}.png", out / "pv" / f"layout-{k}.png")
+switch = switch.replace("__HAS__", " has-picture" if pictures else "")
+
+s = body.index('<section class="section" id="services"')
+body = top + body[:s] + switch + body[s:]
 i = body.rindex('<script src="motion.js"')
-page = '<title>Seafin Home Mockup</title>\n<link rel="stylesheet" href="home.css">\n' + body[:i] + bar + body[i:]
+page = '<title>Seafin Home Mockup</title>\n<link rel="stylesheet" href="home.css">\n' + body[:i] + script + body[i:]
 (out / "index.html").write_text(page, encoding="utf-8")
-print(sum(1 for f in out.rglob("*") if f.is_file()), "files in", out)
+print(sum(1 for f in out.rglob("*") if f.is_file()), "files in", out, "| phone pictures:", pictures)

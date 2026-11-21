@@ -169,8 +169,8 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 /* ---------- sections ---------- */
 .section { padding-block: clamp(56px, 7vw, 96px); }
 .section + .section { border-top: 1px solid var(--line); }
-.section h2 { font: 600 clamp(1.875rem, 3vw, 2.5rem)/1.12 var(--font-serif); letter-spacing: -0.015em; text-wrap: balance; }
-.section-sub { margin-top: 10px; max-width: 62ch; font-size: 1.125rem; color: var(--ink-700); }
+.section h2 { font: 600 clamp(2.125rem, 4.2vw, 3.25rem)/1.06 var(--font-serif); letter-spacing: -0.02em; text-wrap: balance; }
+.section-sub { margin-top: 14px; max-width: 62ch; font-size: 1.25rem; color: var(--ink-700); }
 .band { background: var(--bg); }
 
 /* the sample report: its cover and an inside page, beside what every audit covers.
@@ -220,18 +220,27 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .offers .price { font-weight: 600; color: var(--accent); }
 .offers p { color: var(--ink-700); }
 
-/* what we take off your plate: the five services as ruled rows. Each row names the job we own,
-   says what it is in one sentence, and gives the service and price that cover it. */
+/* what we take off your plate: the five services as ruled rows. Each row shows the job we own and
+   the service and price that cover it; the one-sentence description opens on a tap. */
 .areas { margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.areas > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px clamp(28px, 4vw, 56px); align-items: start; padding-block: 28px; }
 .areas > li + li { border-top: 1px solid var(--line); }
-.areas h3 { font: 600 1.5rem/1.2 var(--font-serif); text-wrap: balance; }
-.area-body { color: var(--ink-700); }
+.areas summary { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 20px; gap: 6px clamp(24px, 4vw, 56px); align-items: center; padding-block: 24px; cursor: pointer; list-style: none; -webkit-tap-highlight-color: transparent; }
+.areas summary::-webkit-details-marker { display: none; }
+.areas summary::after { content: ""; justify-self: end; width: 14px; height: 14px; background: linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat, linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat; transition: transform 200ms ease-out; }
+.areas details[open] summary::after { transform: rotate(45deg); }
+.areas summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.areas h3 { font: 600 clamp(1.5rem, 2.4vw, 1.875rem)/1.2 var(--font-serif); text-wrap: balance; }
+.areas summary h3 { transition: color 160ms ease-out; }
+.areas summary:hover h3 { color: var(--accent); }
 .area-price { display: grid; align-content: start; gap: 4px; }
 .area-offer { font: 700 0.9375rem/1.4 var(--font-sans); color: var(--ink-900); }
 .areas .price { font-weight: 600; color: var(--accent); }
-.area-link { margin-top: 4px; font-size: 0.9375rem; }
-.areas > .areas-cta { align-items: center; border-top-color: var(--ink-900); border-bottom: 1px solid var(--ink-900); }
+.areas .price span { white-space: nowrap; }
+.area-more { display: grid; gap: 8px; max-width: 62ch; padding-bottom: 26px; color: var(--ink-700); }
+.area-link { font-size: 0.9375rem; }
+.areas > .areas-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px clamp(28px, 4vw, 56px); align-items: center; padding-block: 28px; border-top-color: var(--ink-900); border-bottom: 1px solid var(--ink-900); }
+.areas-cta h3 { font-size: 1.5rem; }
+.area-body { color: var(--ink-700); }
 .area-action { display: grid; justify-items: start; gap: 12px; }
 
 /* an honest capacity line beside the call buttons; home.js fills it and hides it when the month is over */
@@ -243,12 +252,15 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .call .capacity { margin-top: 20px; }
 .call .capacity + .reply { margin-top: 8px; }
 
-/* how we work: four rules in a strip */
+/* how we work: four rules on the page's one charcoal band (.dark, below) */
 .principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
 .principles li { display: grid; align-content: start; gap: 8px; padding-top: 18px; border-top: 1px solid var(--ink-900); }
-.principles h3 { font: 600 1.25rem/1.25 var(--font-serif); }
+.principles h3 { font: 600 1.375rem/1.25 var(--font-serif); }
 .principles p { color: var(--ink-700); }
 .principles-more { margin-top: clamp(24px, 3vw, 36px); font-weight: 600; }
+#how-we-work.dark { border-top: 0; }
+.dark .principles-more a { color: var(--dark-link); }
+.dark .principles-more a:hover { color: #ffffff; }
 
 /* what each service includes */
 .includes { display: grid; gap: 6px; margin: 6px 0 4px; padding: 0; list-style: none; font-size: 0.9375rem; color: var(--ink-700); }
@@ -259,8 +271,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
 .builds li { display: grid; align-content: start; gap: 8px; }
 .build-art { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-input); margin-bottom: 8px; background: var(--line-soft); }
-.builds h3 { font: 700 1.0625rem/1.3 var(--font-sans); }
-.builds p { color: var(--ink-700); }
+.builds h3 { font: 600 1.25rem/1.25 var(--font-serif); }
 
 /* four steps: a blue rule over each column, like the offer deck */
 .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
@@ -468,7 +479,10 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
-  .areas > li { grid-template-columns: 1fr; gap: 12px; padding-block: 24px; }
+  .areas summary { grid-template-columns: minmax(0, 1fr) 20px; }
+  .areas summary .area-price { grid-column: 1; grid-row: 2; }
+  .areas summary::after { grid-column: 2; grid-row: 1; }
+  .areas > .areas-cta { grid-template-columns: 1fr; padding-block: 24px; }
   .principles { grid-template-columns: 1fr 1fr; }
   .offers { grid-template-columns: 1fr; }
   .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
