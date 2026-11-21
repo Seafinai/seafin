@@ -26,7 +26,7 @@
 .check-table td:empty::after { content: "\00a0"; }
 .check-table td { height: 2.4em; }
 .check-table { min-width: 600px; }
-@media (max-width: 600px) { .check-note { display: block !important; } }
+@media (max-width: 600px) { .check-table { min-width: 0; table-layout: fixed; } .check-table th { padding-right: 6px; font-size: 0.625rem; letter-spacing: 0.02em; } }
 @media print {
   .nav, .foot, .report-cta, .print-btn { display: none !important; }
   body { background: #fff; color: #000; }

@@ -53,6 +53,22 @@ td { color: var(--ink-700); }
 
 .plain { margin: 0; padding-left: 1.1rem; display: grid; gap: 10px; color: var(--ink-700); max-width: 68ch; }
 
+/* lists whose items open with a bold lead read as rows: the lead on the left, the detail beside it */
+.rows, .steps { margin: 20px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink-900); }
+.rows li, .steps li { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); column-gap: 32px; padding: 18px 0 20px; border-bottom: 1px solid var(--line); }
+.rows li > strong, .steps li > strong { font: 600 1.1875rem/1.3 var(--font-serif); letter-spacing: -0.01em; color: var(--ink-900); text-wrap: balance; }
+.rows li > span, .steps li > span { color: var(--ink-700); }
+.report-sec .rows + p, .report-sec .steps + p { margin-top: 18px; }
+/* numbered steps carry a small numeral in front of the lead */
+.steps { counter-reset: step; }
+.steps li { grid-template-columns: 2.5rem minmax(0, 13rem) minmax(0, 1fr); column-gap: 24px; counter-increment: step; }
+.steps li::before { content: counter(step, decimal-leading-zero); font: 500 0.8125rem/1.9 var(--font-mono); color: var(--accent); }
+@media (max-width: 700px) {
+  .rows li { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+  .steps li { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 12px; row-gap: 6px; }
+  .steps li > span { grid-column: 2; }
+}
+
 .plan { margin: 0; padding: 0; list-style: none; border-left: 1px solid var(--line-strong); margin-left: 5px; }
 .plan li { position: relative; padding: 0 0 20px 24px; }
 .plan li::before { content: ""; position: absolute; top: 6px; left: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--paper); }
