@@ -481,9 +481,9 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .book.is-sent .status { font: 600 1.0625rem/1.4 var(--font-sans); color: var(--ink-900); animation: rise 420ms var(--ease) both; }
 .book.is-sent .status + .btn { justify-self: start; }
 
-/* ---------- footer: charcoal, closing on the name set very large ---------- */
+/* ---------- footer: charcoal ---------- */
 .foot { position: relative; overflow: hidden; font-size: 0.9375rem; color: var(--ink-500); }
-.foot .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 40px 48px; padding-block: clamp(56px, 7vw, 88px) 32px; }
+.foot .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 40px 48px; padding-block: clamp(56px, 7vw, 88px) 40px; }
 .foot .logo { color: #fff; }
 .foot .logo svg { height: 28px; width: calc(28px * 1198 / 343); }
 .foot-brand { display: grid; align-content: start; justify-items: start; gap: 16px; }
@@ -495,8 +495,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .foot-base span { margin-right: auto; }
 .foot a:not(.btn):not(.logo) { color: var(--ink-700); text-decoration: none; }
 .foot a:not(.btn):not(.logo):hover { color: #fff; text-decoration: underline; }
-.foot::after { content: ""; display: block; width: min(100% - 2 * var(--gutter), var(--maxw) - 2 * var(--gutter)); margin: clamp(8px, 2vw, 24px) auto clamp(24px, 4vw, 48px); aspect-ratio: 1198 / 343; background: url(assets/brand/seafin-wordmark-foot.svg) center / contain no-repeat; }
-@media (prefers-color-scheme: dark) { .foot::after { opacity: 0.7; } }
 
 /* the "swipe" hint under the drawings shows only where they scroll sideways */
 .swipe { display: none; align-items: center; gap: 10px; margin-top: 4px; font: 500 0.8125rem/1 var(--font-mono); color: var(--ink-500); }
