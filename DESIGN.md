@@ -26,10 +26,10 @@ typography:
     letterSpacing: "-0.025em"
   headline:
     fontFamily: "Source Serif 4, Georgia, serif"
-    fontSize: "clamp(1.875rem, 3vw, 2.5rem)"
+    fontSize: "clamp(2.125rem, 4.2vw, 3.25rem)"
     fontWeight: 600
-    lineHeight: 1.12
-    letterSpacing: "-0.015em"
+    lineHeight: 1.06
+    letterSpacing: "-0.02em"
   headline-sm:
     fontFamily: "Source Serif 4, Georgia, serif"
     fontSize: "1.375rem"
@@ -137,7 +137,7 @@ A two-colour brand (charcoal ink, cobalt mark) on cool white and grey paper.
 ### Named Rules
 **The Logo Palette Rule.** Every colour comes from the logo's charcoal and cobalt or a neutral tinted toward them. No second accent.
 
-**The One Dark Section Rule.** Only "How we build it" is dark: charcoal `#292d32` in light mode, `#111316` in dark mode (darker than the page, never lighter), with white ink and translucent white lines.
+**The One Dark Section Rule.** Only one section is dark, "How we work" on the home page: charcoal `#292d32` in light mode, `#111316` in dark mode (darker than the page, never lighter), with white ink and translucent white lines.
 
 **The Light Hero Rule.** The opening photo is light in both schemes, so the hero keeps light tokens in dark mode.
 
@@ -162,7 +162,7 @@ A two-colour brand (charcoal ink, cobalt mark) on cool white and grey paper.
 
 One centred column, 1180px max with a fluid gutter; report pages narrow to 860px. Sections have fluid vertical padding and a hairline between neighbours; `band` sections sit on the grey background.
 
-Recurring ruled-list patterns: **services** in a 2×2 grid under a charcoal top rule with a vertical divider; **builds** four across with a 4:3 photo each; **guides** four across, each under a charcoal rule; **promises** three across; **news** four across; **steps** four dated columns on subgrid so every "You get" line aligns. Two-column splits (FAQ, sample, flow, booking) put the heading or object on the left; the FAQ heading stays sticky.
+Recurring ruled-list patterns: **services** as full-width ruled rows under a charcoal top rule, each opening on a tap; **builds** four across with a 4:3 photo each; **guides** four across, each under a charcoal rule; **promises** three across; **news** four across; **steps** four dated columns on subgrid so every "You get" line aligns. Two-column splits (FAQ, sample, flow, booking) put the heading or object on the left; the FAQ heading stays sticky.
 
 Breakpoints: 1100px routes stack; 1024px hero photo moves above the headline; 960px splits stack, grids halve; 760px nav links hide, ruled rows go single; 560px builds become thumbnail rows, steps a left-edge timeline; 480px smaller hero type, full-width buttons; 400px tighter nav for 320px phones.
 

@@ -211,15 +211,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .contents li { padding: 10px 0; border-top: 1px solid var(--line); }
 .contents li:last-child { border-bottom: 1px solid var(--line); }
 
-/* four services in a two-by-two grid under one rule */
-.offers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.offers > li { display: grid; align-content: start; gap: 8px; padding: 26px clamp(20px, 3vw, 40px) 28px 0; }
-.offers > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
-.offers > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
-.offers h3 { font: 600 1.5rem/1.2 var(--font-serif); }
-.offers .price { font-weight: 600; color: var(--accent); }
-.offers p { color: var(--ink-700); }
-
 /* what we take off your plate: the five services as ruled rows. Each row shows the job we own and
    the service and price that cover it; the one-sentence description opens on a tap. */
 .areas { margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
@@ -273,17 +264,10 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .build-art { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-input); margin-bottom: 8px; background: var(--line-soft); }
 .builds h3 { font: 600 1.25rem/1.25 var(--font-serif); }
 
-/* four steps: a blue rule over each column, like the offer deck */
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px clamp(20px, 2.4vw, 32px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
-.steps > li { display: grid; align-content: start; gap: 8px; padding-top: 18px; border-top: 2px solid var(--accent); }
-.step-num { font: 500 0.875rem/1 var(--font-mono); letter-spacing: 0.08em; color: var(--accent); }
-.steps h3 { font: 600 1.5rem/1.2 var(--font-serif); }
-
 /* questions: heading on the left, its list on the right */
 .faq-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px clamp(32px, 5vw, 72px); align-items: start; }
 .faq-head { position: sticky; top: 104px; }
 .faq-head .aside { margin-top: 14px; max-width: 30ch; color: var(--ink-700); }
-
 
 /* how we build it: the one dark section. Each step of a workflow gets the model it needs. */
 .dark {
@@ -395,7 +379,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 18px; max-width: 64ch; color: var(--ink-700); }
 
-
 /* where it runs: one panel, three routes, each with a small diagram */
 .routes-note { margin-top: 18px; max-width: 70ch; color: var(--ink-700); }
 #where-it-runs .section-sub { margin-bottom: clamp(24px, 3vw, 36px); }
@@ -484,11 +467,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .areas summary::after { grid-column: 2; grid-row: 1; }
   .areas > .areas-cta { grid-template-columns: 1fr; padding-block: 24px; }
   .principles { grid-template-columns: 1fr 1fr; }
-  .offers { grid-template-columns: 1fr; }
-  .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
-  .offers > li + li { border-top: 1px solid var(--line); }
   .builds { grid-template-columns: 1fr 1fr; }
-  .steps { grid-template-columns: 1fr 1fr; }
   .faq-row { grid-template-columns: 1fr; }
   .faq-head { position: static; }
   .call-row { grid-template-columns: 1fr; }
@@ -523,7 +502,6 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
   .area-action .btn { width: 100%; }
   .area-action { justify-items: stretch; }
   .builds { grid-template-columns: 1fr; row-gap: 20px; }
-  .steps { grid-template-columns: 1fr; gap: 24px; }
   .builds li { grid-template-columns: 104px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 16px; row-gap: 4px; }
   .builds .build-art { grid-row: 1 / span 2; margin: 0; aspect-ratio: 1; }
   .flow-result { grid-template-columns: 1fr; gap: 12px; }
