@@ -22,6 +22,12 @@
     addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(shift); } }, { passive: true });
   }
 
+  // The six drawings play their scene only while they are on screen.
+  const live = new IntersectionObserver((entries) => {
+    for (const e of entries) e.target.classList.toggle('is-live', e.isIntersecting);
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.v').forEach((el) => live.observe(el));
+
   // The sample report: each cobalt bar shrinks from today's hours to the hours after, once.
   const stack = document.querySelector('.report-stack');
   if (stack) new IntersectionObserver((entries, io) => {
