@@ -3,12 +3,11 @@
    which is what seafin-site/index.html ships on this branch. */
 
 /* Option B: the live two-column Services grid, with the call button filling the sixth cell */
-.areas.v-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.areas.v-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--ink-900); }
 .areas.v-grid > li { display: grid; grid-template-columns: 1fr; align-content: start; gap: 12px; padding: 28px clamp(20px, 3vw, 40px) 30px 0; border-top: 0; }
 .areas.v-grid > li:nth-child(even) { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
 .areas.v-grid > li:nth-child(n + 3) { border-top: 1px solid var(--line); }
 .areas.v-grid > .areas-cta { align-content: center; border-bottom: 0; background: var(--bg); padding-right: clamp(20px, 3vw, 40px); }
-.areas.v-grid { border-bottom: 1px solid var(--ink-900); }
 @media (max-width: 960px) {
   .areas.v-grid { grid-template-columns: 1fr; }
   .areas.v-grid > li, .areas.v-grid > li:nth-child(even) { padding: 24px 0; border-left: 0; }
@@ -16,24 +15,22 @@
   .areas.v-grid > .areas-cta { padding: 24px 20px; }
 }
 
-/* Option C: heading, promise and call button stay on the left while the five jobs scroll on the right */
+/* Option C: heading and call button stay on the left while the five jobs scroll on the right */
 .wrap.v-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: 24px clamp(32px, 5vw, 72px); align-items: start; }
 .v-split .split-head { position: sticky; top: 104px; display: grid; justify-items: start; gap: 0; }
 .v-split .split-head .section-sub { font-size: 1.0625rem; }
 .v-split .split-head .btn { margin-top: 24px; }
 .v-split .split-head .capacity { margin-top: 14px; }
-.v-split .areas { margin-top: 6px; }
-.v-split .areas > li { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 12px clamp(24px, 3vw, 40px); }
-.v-split .areas > li .area-head { grid-row: 1 / span 2; }
-.v-split .areas > li .includes { grid-column: 2; }
+.v-split .areas { margin-top: 6px; border-bottom: 1px solid var(--ink-900); }
+.v-split .areas > li { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 10px clamp(24px, 3vw, 40px); }
+.v-split .areas > li .area-body { grid-column: 2; grid-row: 1 / span 2; }
+.v-split .areas > li .area-price { grid-column: 1; }
 .v-split .areas > .areas-cta { display: none; }
-.v-split .areas { border-bottom: 1px solid var(--ink-900); }
 @media (max-width: 960px) {
   .wrap.v-split { grid-template-columns: 1fr; }
   .v-split .split-head { position: static; }
   .v-split .areas > li { grid-template-columns: 1fr; }
-  .v-split .areas > li .area-head { grid-row: auto; }
-  .v-split .areas > li .includes { grid-column: auto; }
+  .v-split .areas > li .area-body, .v-split .areas > li .area-price { grid-column: auto; grid-row: auto; }
   .v-split .split-head .btn { width: 100%; }
 }
 

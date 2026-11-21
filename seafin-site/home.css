@@ -221,16 +221,16 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 .offers p { color: var(--ink-700); }
 
 /* what we take off your plate: the five services as ruled rows. Each row names the job we own,
-   the service and price that cover it, what it is, and what is included. */
+   says what it is in one sentence, and gives the service and price that cover it. */
 .areas { margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink-900); }
-.areas > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px clamp(28px, 4vw, 56px); align-items: start; padding-block: 30px; }
+.areas > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px clamp(28px, 4vw, 56px); align-items: start; padding-block: 28px; }
 .areas > li + li { border-top: 1px solid var(--line); }
-.area-head, .area-body { display: grid; align-content: start; gap: 8px; }
 .areas h3 { font: 600 1.5rem/1.2 var(--font-serif); text-wrap: balance; }
-.area-offer { margin-top: 4px; font: 700 0.9375rem/1.4 var(--font-sans); color: var(--ink-900); }
+.area-body { color: var(--ink-700); }
+.area-price { display: grid; align-content: start; gap: 4px; }
+.area-offer { font: 700 0.9375rem/1.4 var(--font-sans); color: var(--ink-900); }
 .areas .price { font-weight: 600; color: var(--accent); }
-.area-body p { color: var(--ink-700); }
-.areas .includes { margin: 4px 0 0; }
+.area-link { margin-top: 4px; font-size: 0.9375rem; }
 .areas > .areas-cta { align-items: center; border-top-color: var(--ink-900); border-bottom: 1px solid var(--ink-900); }
 .area-action { display: grid; justify-items: start; gap: 12px; }
 
@@ -468,7 +468,7 @@ h1, h2, h3 { margin: 0; color: var(--ink-900); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
-  .areas > li { grid-template-columns: 1fr; gap: 14px; padding-block: 26px; }
+  .areas > li { grid-template-columns: 1fr; gap: 12px; padding-block: 24px; }
   .principles { grid-template-columns: 1fr 1fr; }
   .offers { grid-template-columns: 1fr; }
   .offers > li, .offers > li:nth-child(even) { padding: 22px 0; border-left: 0; }
