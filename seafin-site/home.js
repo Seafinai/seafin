@@ -1,7 +1,7 @@
 // Capacity line ("Taking on 3 new clients in December."). Change it here and nowhere else.
 // It shows only until the end of that month, then hides itself, so the page never carries a stale number.
-// clients: 0 keeps the line off. Rob sets the real number; the page must not show one he has not confirmed.
-const CAPACITY = { clients: 0, month: '2026-12' };
+// Rob confirmed 3 for December on 2026-11-21. clients: 0 turns the line off.
+const CAPACITY = { clients: 3, month: '2026-12' };
 (() => {
   const [y, m] = CAPACITY.month.split('-').map(Number);
   if (!CAPACITY.clients || Date.now() >= Date.UTC(y, m, 1, 8)) return; // 8:00 UTC = midnight Pacific
