@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Runfold: agentic and deterministic automation for Azure</title>
+<meta name="description" content="AI writes the runbook, tests it and fixes it. Runfold runs it the same way on every VM. Free and open source, on your Azure Automation account.">
+<meta property="og:title" content="Runfold: agentic and deterministic automation for Azure">
+<meta property="og:description" content="AI writes the runbook, tests it and fixes it. Runfold runs it the same way on every VM. Free and open source.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seafin.ai/runfold/">
+<link rel="canonical" href="https://seafin.ai/runfold/">
+<!-- Not listed in search or the sitemap until the public repo behind the GitHub buttons exists. Remove this line then. -->
+<meta name="robots" content="noindex">
+<base href="/runfold/">
+<meta name="theme-color" content="#08080b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080b'/%3E%3Cpath fill='%23a8acff' d='M34 7H46L36.5 22.5H24.5Z M22.5 26.5H50L43 37H15.5Z M29 37H41L30 57H18Z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* One black page in the app's own tokens. The VM marks are the picture; colour only ever means a state. */
+:root{--bg:#08080b;--text:#f4f4f6;--text-2:#b3b3bd;--text-3:#9a9aa6;--bad:#ff6b72;--ok:#3ddc97;--warn:#fbbf24;--accent-hi:#a8acff;--line:rgba(255,255,255,.1);--g:clamp(20px,5.6vw,112px);--nav:68px;--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);--gl:max(var(--g),env(safe-area-inset-left,0px));--gr:max(var(--g),env(safe-area-inset-right,0px));--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color-scheme:dark;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:"Mona Sans",system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:rgba(168,172,255,.32)}
+h1,h2{font-weight:600;letter-spacing:-.03em;line-height:1.02;text-wrap:balance}
+h1,.big{font-size:clamp(40px,5.5vw,96px)}
+h2{font-size:clamp(31px,4.2vw,72px);line-height:1.05;letter-spacing:-.028em}
+h2.big{line-height:1.02;letter-spacing:-.03em}
+.bad{color:var(--bad)}.ok{color:var(--ok)}
+:focus-visible{outline:2px solid var(--accent-hi);outline-offset:4px;border-radius:4px}
+
+.nav{position:fixed;inset:0 0 auto;height:calc(var(--nav) + var(--st));z-index:20;display:flex;align-items:center;justify-content:space-between;padding:var(--st) var(--gr) 0 var(--gl);background:rgba(8,8,11,.72);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.sc{border-color:var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:650;font-size:clamp(21px,1.3vw,25px);letter-spacing:-.02em}
+.brand svg{height:1.35em;fill:var(--accent-hi)}
+.nav nav{font-size:clamp(16px,1.05vw,19px);font-weight:500;color:var(--text-2)}
+.nav nav a{padding:10px 0;transition:color .15s}.nav nav a:hover{color:var(--text)}
+
+.btn{display:inline-flex;align-items:center;height:clamp(52px,3.5vw,64px);padding:0 clamp(24px,1.7vw,32px);border-radius:clamp(12px,.8vw,15px);background:var(--text);color:#08080b;font-weight:600;font-size:clamp(17px,1.15vw,21px);letter-spacing:-.01em;white-space:nowrap;transition:background .15s,transform .15s}
+.btn:hover{background:#fff;transform:translateY(-1px)}
+
+/* the two pinned stages */
+.story{position:relative}
+#s1{height:300vh}#s2{height:200vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+svg.map{position:absolute;inset:0;width:100%;height:100%}
+.lab{font-weight:500;fill:var(--text)}.lab .n{fill:var(--text-3);font-weight:400}
+.stat{font-weight:600}.stat.wait{fill:var(--text-3);font-weight:500}.stat.run{fill:var(--accent-hi)}.stat.done{fill:var(--ok)}
+.beat{position:absolute;left:var(--gl);right:var(--gr);top:calc(var(--nav) + var(--st) + clamp(18px,4.5vh,52px));opacity:0;pointer-events:none;will-change:opacity,transform}
+.beat.on{pointer-events:auto}
+.beat.mid{top:calc(var(--nav) + var(--st));bottom:var(--sb);display:flex;align-items:center}
+.beat.mid>div{max-width:min(46vw,780px)}
+.sub{font-size:clamp(18px,1.5vw,28px);color:var(--text-2);max-width:23em;margin-top:clamp(18px,3vh,32px);line-height:1.4}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:clamp(22px,4vh,42px)}
+.cta span{white-space:nowrap}
+.cta span,.src{color:var(--text-3);font-size:clamp(16px,1.08vw,20px)}
+.src{margin-top:clamp(18px,3vh,32px)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+#bHero h1,#bHero .sub,#bHero .cta{animation:up .9s var(--ease) both}
+#bHero .sub{animation-delay:.12s}#bHero .cta{animation-delay:.22s}
+
+.words{position:relative;display:flex;flex-wrap:wrap;gap:8px clamp(22px,2.6vw,48px);font-size:clamp(17px,1.5vw,28px);font-weight:500}
+.words button{font:inherit;color:var(--text-2);background:none;border:0;padding:0 0 9px;cursor:pointer;text-align:left;transition:color .15s}
+.words button::after{content:attr(data-l);display:block;height:0;overflow:hidden;visibility:hidden;font-weight:650}
+.words button:hover{color:var(--text)}
+.words button[aria-pressed=true],.words button[aria-selected=true]{color:var(--text);font-weight:650}
+.words i{position:absolute;left:0;top:-2px;height:2px;width:0;background:var(--text);transition:transform .32s var(--ease),width .32s var(--ease)}
+.lens{margin-top:clamp(16px,2.6vh,30px)}
+.key{display:flex;flex-wrap:wrap;gap:6px clamp(22px,1.8vw,34px);margin-top:clamp(14px,1.1vw,20px);font-size:clamp(15px,1.02vw,19px);color:var(--text-2);min-height:23px;align-content:flex-start}
+.key span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.key b{color:var(--text);font-weight:600}
+.key svg{width:1em;height:1em;overflow:visible;flex:none}
+#tip{position:fixed;z-index:30;pointer-events:none;background:#1c1c22;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;line-height:1.35;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.5);opacity:0;transition:opacity .12s}
+#sa{position:fixed;left:0;bottom:0;width:env(safe-area-inset-right,0px);height:var(--sb);visibility:hidden;pointer-events:none}
+#tip b{display:block;font-weight:600}#tip .mute{color:var(--text-3)}#tip .warn{color:var(--warn)}
+
+/* plain sections */
+.sec{padding:clamp(84px,14vh,180px) var(--gr) clamp(84px,14vh,180px) var(--gl)}
+.sec h2{max-width:17em}
+.shot{border:1px solid var(--line);border-radius:clamp(8px,1vw,14px);overflow:hidden;background:#17171c;box-shadow:0 50px 140px rgba(0,0,0,.6)}
+.shot img{width:100%;height:auto}
+#ask .chips{margin-top:clamp(34px,6vh,68px)}
+#ask .win{margin-top:clamp(14px,1.6vw,22px)}
+.rise{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rise.in{opacity:1;transform:none}
+.tabs{margin:clamp(24px,4vh,42px) 0 clamp(20px,3vh,32px)}
+.frames{position:relative;aspect-ratio:2720/1700}
+.frames picture{position:absolute;inset:0;opacity:0;transition:opacity .35s}
+.frames picture.on{opacity:1}
+.frames img{width:100%;height:100%;object-fit:cover;object-position:0 0}
+
+/* end card */
+#end{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:calc(var(--nav) + var(--st) + 30px) var(--gr) 60px var(--gl)}
+#end .card{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+#end .card>*{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .6s var(--ease)}
+#logo{height:clamp(96px,15vh,170px);overflow:visible;fill:var(--accent-hi);transform:none!important}
+#logo path{opacity:0;transition:opacity .25s}
+#end .word{font-size:clamp(64px,10vw,140px);font-weight:650;letter-spacing:-.035em;line-height:1;margin-top:clamp(18px,3vh,36px)}
+#end .tag{font-size:clamp(20px,2.6vw,44px);color:var(--text-2);font-weight:500;letter-spacing:-.015em;line-height:1.2;margin-top:clamp(14px,2.4vh,30px);text-wrap:balance}
+#end .ed{font-size:clamp(16px,1.6vw,26px);color:var(--text-3);margin-top:clamp(24px,5vh,54px);line-height:1.5;text-wrap:balance}
+#end .btn{margin-top:clamp(24px,4.5vh,46px)}
+#end.on .card>*{opacity:1;transform:none}
+#end.on #logo path{opacity:1}
+#end.on #logo path:nth-child(1){transition-delay:.62s}#end.on #logo path:nth-child(2){transition-delay:.67s}#end.on #logo path:nth-child(3){transition-delay:.72s}
+#end.on .word{transition-delay:.8s}#end.on .tag{transition-delay:.95s}#end.on .ed{transition-delay:1.1s}#end.on .btn{transition-delay:1.22s}
+footer{display:flex;flex-wrap:wrap;gap:8px 32px;justify-content:space-between;padding:26px var(--gr) 34px var(--gl);border-top:1px solid var(--line);font-size:clamp(15px,1vw,18px);color:var(--text-3)}
+footer a{transition:color .15s}footer a:hover{color:var(--text)}
+footer div{display:flex;gap:28px}
+
+/* narrow or upright screens: words on top, the picture under them */
+.tall .beat.mid{align-items:flex-start;padding-top:clamp(18px,4vh,40px)}
+.tall .beat.mid>div{max-width:none}
+.tall h1,.tall .big{font-size:clamp(40px,8vw,84px)}
+.tall h2{font-size:clamp(30px,5.6vw,60px)}
+.tall .sub{max-width:26em;font-size:clamp(18px,2.4vw,24px)}
+.tall .key{gap:4px 16px;margin-top:12px}
+.tall .lens{margin-top:14px}
+@media (max-width:759px){
+  .cta{gap:14px}.btn{height:50px;padding:0 20px}
+  #ask .chips,.tabs .w{display:none}
+  .key{font-size:14px}
+  .tabs{gap:8px 18px;font-size:16px}
+  #ask .win{margin-top:34px}
+  .frames{aspect-ratio:4/5}
+  /* type follows the screen's height too, so a short phone still holds words and picture */
+  .tall h1,.tall .big{font-size:clamp(31px,min(10.25vw,6.3svh),44px)}
+  .tall h2{font-size:clamp(25px,min(7.7vw,4.7svh),34px)}
+  .tall .sub{font-size:clamp(16px,2.6svh,18px)}
+  .cta span,.src{font-size:15px}
+  .lens{gap:8px 20px}
+}
+@media (max-width:359px){.tabs{gap:8px 12px;font-size:15px}}
+@media (max-width:340px){.lens{gap:8px 14px}}
+/* a phone held sideways: little height, so everything in the pinned scenes is smaller */
+@media (max-height:560px) and (min-aspect-ratio:1/1){
+  :root{--nav:54px}
+  h1,.big{font-size:clamp(26px,min(9.4svh,4.6vw),56px)}
+  .beat.mid>div{max-width:min(50vw,780px)}.cta{gap:8px 16px}
+  h2{font-size:clamp(22px,7.2svh,44px)}
+  .sub{font-size:16px;margin-top:10px}.cta{margin-top:14px}.btn{height:44px}.src{margin-top:10px}
+  .beat{top:calc(var(--nav) + var(--st) + 12px)}
+  .words{font-size:16px}.lens{margin-top:8px}.key{margin-top:6px;font-size:14px}
+  .sec{padding-top:56px;padding-bottom:56px}
+  #end{padding-top:calc(var(--nav) + var(--st) + 10px);padding-bottom:18px}
+  #logo{height:54px}#end .word{font-size:clamp(44px,14svh,60px);margin-top:10px}#end .tag{margin-top:8px;font-size:20px}#end .ed{margin-top:12px;font-size:15px}#end .btn{margin-top:14px}
+}
+@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}#end .card>*,#logo path,.words i{transition:none}#bHero h1,#bHero .sub,#bHero .cta{animation:none}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="brand" href="/runfold/" aria-label="Runfold"><svg viewBox="12 4 42 56" aria-hidden="true"><path d="M34 7H46L36.5 22.5H24.5Z M22.5 26.5H50L43 37H15.5Z M29 37H41L30 57H18Z"/></svg>Runfold</a>
+  <nav><a data-gh href="#">GitHub</a></nav>
+</header>
+
+<main id="top">
+<section class="story" id="s1">
+  <div class="stage">
+    <svg class="map" id="mapA" role="img" aria-label="100 Azure VMs as marks, grouped by Development, Test, Staging and Production, coloured by what each one needs"></svg>
+    <div class="beat mid on" id="bHero"><div>
+      <h1>Agentic and deterministic automation for&nbsp;Azure.</h1>
+      <p class="sub">AI writes the runbook, tests it and fixes it. Runfold runs it the same way on every VM.</p>
+      <div class="cta"><a class="btn" data-gh href="#">Get it on GitHub</a><span>Free and open source</span></div>
+    </div></div>
+    <div class="beat mid" id="bCve"><div>
+      <h2 class="big"><span id="num">100,000</span> new CVEs this&nbsp;year. <span class="bad">Double</span> last&nbsp;year.</h2>
+      <p class="src">CVE count: VulnCheck, November 2026</p>
+    </div></div>
+    <div class="beat" id="bSee">
+      <h2>See every VM, and what it needs.</h2>
+      <div class="lens words" id="lens"></div>
+      <div class="key" id="key"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ask">
+  <h2 class="rise">Ask for what you need. AI writes the runbook, tests it and fixes it.</h2>
+  <div class="shot chips rise"><img src="img/chips.webp" width="2720" height="318" loading="lazy" alt="PowerShell Studio asks: What do you want to do today? Install, Upgrade, Uninstall, Remediate, Repair, Evidence, Trigger or Other."></div>
+  <div class="shot win rise"><picture><source media="(max-width:759px)" srcset="img/studio-n.webp" width="1870" height="1280"><img src="img/studio.webp" width="2880" height="1800" loading="lazy" alt="PowerShell Studio: a request to remediate 7-Zip on 16 Windows VMs, the script it wrote, the dry run result and a report marked Ready for review."></picture></div>
+</section>
+
+<section class="story" id="s2">
+  <div class="stage">
+    <svg class="map" id="mapB" role="img" aria-label="A runbook rolling out to Development, Test, Staging and then Production, each VM turning green as it is fixed"></svg>
+    <div class="beat on" id="bRun"><h2>Then it runs the same way every time. Dry run first, then stage by stage.</h2><div class="key" id="keyB"></div></div>
+    <div class="beat" id="bFacts"><h2>Windows and Linux. No agent to install. Runs on your Azure Automation account.</h2></div>
+  </div>
+</section>
+
+<section class="sec" id="tool">
+  <h2 class="rise">Patching, software, schedules and triggers. One tool.</h2>
+  <div class="tabs words rise" id="tabs" role="tablist"></div>
+  <div class="shot rise"><div class="frames" id="frames"></div></div>
+</section>
+
+<section id="end">
+  <svg class="map" id="mapE" aria-hidden="true"></svg>
+  <div class="card">
+    <svg id="logo" viewBox="12 4 42 56" aria-hidden="true"><path d="M34 7H46L36.5 22.5H24.5Z"/><path d="M22.5 26.5H50L43 37H15.5Z"/><path d="M29 37H41L30 57H18Z"/></svg>
+    <div class="word">Runfold</div>
+    <p class="tag">Agentic and deterministic automation for Azure.</p>
+    <p class="ed">Free and open source. Bring your own AI model.<br>Agent edition coming soon.</p>
+    <a class="btn" data-gh href="#">Get it on GitHub</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>Runfold is made by <a href="https://seafin.ai/">Seafin</a>.</span>
+  <div><a data-gh href="#">GitHub</a><span>Apache 2.0</span></div>
+</footer>
+
+<div id="tip" role="tooltip"></div><i id="sa"></i>
+<script src="marks.js"></script>
+<script>
+(()=>{
+const GH='https://github.com/Seafinai/runfold';
+document.querySelectorAll('[data-gh]').forEach(a=>a.href=GH);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id),root=document.documentElement;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),seg=(t,a,b)=>clamp((t-a)/(b-a)),lerp=(a,b,u)=>a+(b-a)*u;
+const outC=x=>1-Math.pow(1-x,3),outQ=x=>1-Math.pow(1-x,4),inOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const NS='http://www.w3.org/2000/svg',el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+const ORDER=['dev','tst','stg','prd'],NAME={dev:'Development',tst:'Test',stg:'Staging',prd:'Production'};
+const HALO=Object.fromEntries(MAP.halos.map(h=>[h.g,h])),R=g=>HALO[g].r,COUNT=g=>MAP.marks.filter(m=>m.g===g).length;
+const mix=(a,b,u)=>'#'+[0,1,2].map(i=>Math.round(lerp(parseInt(a.substr(1+i*2,2),16),parseInt(b.substr(1+i*2,2),16),u)).toString(16).padStart(2,'0')).join('');
+
+// ---- one frame loop for everything that moves
+const maps=[];let raf=0,extra=()=>false;
+function frame(now){raf=0;let busy=extra(now);for(const m of maps)if(m.dirty||m.busy){m.busy=m.tick(now);busy=busy||m.busy;}if(busy)kick();}
+function kick(){if(!raf)raf=requestAnimationFrame(frame);}
+
+// ---- the VM map: every VM a mark, in its group, coloured by one state at a time
+let uid=0;
+function makeMap(svg){
+  const id='m'+(++uid);
+  svg.innerHTML=`<defs>
+<radialGradient id="${id}-crit" cx=".34" cy=".28" r=".8"><stop offset="0" stop-color="#ff8c91"/><stop offset=".55" stop-color="#ff6b72"/><stop offset="1" stop-color="#d65a60"/></radialGradient>
+<radialGradient id="${id}-ok" cx=".34" cy=".28" r=".8"><stop offset="0" stop-color="#68e4ae"/><stop offset=".55" stop-color="#3ddc97"/><stop offset="1" stop-color="#33b97f"/></radialGradient>
+<radialGradient id="${id}-halo" cx=".5" cy=".42" r=".62"><stop offset="0" stop-color="#f4f4f6" stop-opacity=".085"/><stop offset="1" stop-color="#f4f4f6" stop-opacity=".025"/></radialGradient>
+<pattern id="${id}-hatch" width="3.6" height="3.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3.6" height="3.6" fill="#fbbf24" opacity=".3"/><rect width="1.5" height="3.6" fill="#fbbf24"/></pattern></defs>`;
+  const ring={fill:'transparent','fill-opacity':1,'stroke-dasharray':'none'};
+  const ST={
+    crit:{fill:`url(#${id}-crit)`,'fill-opacity':1,stroke:'#ff6b72','stroke-opacity':.55,'stroke-width':.75,'stroke-dasharray':'none'},
+    sec:{fill:`url(#${id}-hatch)`,'fill-opacity':1,stroke:'#fbbf24','stroke-opacity':1,'stroke-width':1.25,'stroke-dasharray':'none'},
+    ok:{fill:`url(#${id}-ok)`,'fill-opacity':.78,stroke:'#3ddc97','stroke-opacity':.55,'stroke-width':.75,'stroke-dasharray':'none'},
+    chk:{...ring,stroke:'#ff6b72','stroke-opacity':1,'stroke-width':1.6},
+    low:{...ring,stroke:'#fbbf24','stroke-opacity':1,'stroke-width':1.6},
+    off:{...ring,stroke:'#9a9aa6','stroke-opacity':.8,'stroke-width':1.5,'stroke-dasharray':'0.1 3.4'}};
+  const cam=el('g',{},svg),gH=el('g',{},cam),gM=el('g',{},cam),gL=el('g',{},cam);
+  const halo={},lab={},stat={};
+  for(const g of ORDER){
+    halo[g]=el('circle',{fill:`url(#${id}-halo)`,stroke:'#f4f4f6','stroke-opacity':.07,'stroke-width':1.5,'vector-effect':'non-scaling-stroke'},gH);
+    halo[g].style.transition='stroke .3s,stroke-opacity .3s';
+    lab[g]=el('text',{class:'lab','text-anchor':'middle'},gL);lab[g].innerHTML=`${NAME[g]} <tspan class="n">${COUNT(g)}</tspan>`;
+    stat[g]=el('text',{class:'stat','text-anchor':'middle'},gL);}
+  const M=MAP.marks.map(m=>{const h=HALO[m.g],o={g:m.g,t:m.t,id:m.id,dx:m.p[0]-h.p[0],dy:m.p[1]-h.p[1],fix:m.t.cve==='crit',tone:'',want:'',pop0:Infinity,sp:1,flip:null,x:0,y:0,k:0};
+    o.d=Math.hypot(o.dx,o.dy)/h.r;o.j=Math.random();o.gr=el('g',{},gM);o.e=el('circle',{r:14,'stroke-linecap':'round'},o.gr);return o;});
+  M.forEach((o,i)=>o.e.dataset.i=i);
+  const paint=(o,tone)=>{if(o.tone===tone)return;const st=ST[tone];for(const k in st)o.e.setAttribute(k,st[k]);o.tone=tone;};
+  const api={M,halo,lab,stat,cam,gH,gL,ST,id,s:1,c:{},w:0,h:0,dirty:true,busy:false,fold:null,
+    // how far the outermost mark of a group reaches, as a share of its halo
+    reach:g=>Math.max(...M.filter(o=>o.g===g).map(o=>o.d))+14/R(g),
+    // a row of four on wide screens; Production over the other three on upright ones
+    layout(w,h,top,bottom,tall,g=12,rows=2){
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);const c={},base={};let s;
+      const fs=tall?clamp(w/27,14,19):clamp(w/76,h<560?12.5:15,25),lh=fs*1.5;
+      for(const k of ORDER)lab[k].style.fontSize=stat[k].style.fontSize=fs+'px';
+      if(!tall){const gx=Math.max(20,Math.min(112,w*.056)),sum=ORDER.reduce((a,g)=>a+2*R(g),0),room=bottom-top-lh*2.4;
+        s=Math.min((w-2*gx-3*18)/sum,room/(2*R('prd')),1.75);
+        // a group is never narrower than its own label, so labels cannot run into each other
+        const slot=Object.fromEntries(ORDER.map(k=>[k,Math.max(2*R(k)*s,lab[k].getComputedTextLength()+14)])),tot=ORDER.reduce((a,k)=>a+slot[k],0);
+        const gap=Math.max(4,Math.min((w-2*gx-tot)/3,110*s)),yc=top+room/2;let x=(w-tot-3*gap)/2;
+        for(const k of ORDER){c[k]=[x+slot[k]/2,yc];x+=slot[k]+gap;base[k]=yc+R('prd')*s+lh*1.15;}
+      }else{const three=['dev','tst','stg'],sum=three.reduce((a,g)=>a+2*R(g),0),st=rows>1?lh:0,room=bottom-top-lh*3-st*1.6-10;
+        // the circles keep to the same side margin as the words
+        const side=Math.max(g,(w-360)*.08);s=Math.min((w-2*side-2*8)/sum,room/(2*R('prd')+2*R('dev')),1.3);
+        const y1=top+R('prd')*s+Math.max(0,(room-s*(2*R('prd')+2*R('dev')))*.4);c.prd=[w/2,y1];base.prd=y1+R('prd')*s+lh*1.1;
+        const y2=base.prd+st*.8+lh*.5+10+R('dev')*s,gap=Math.min((w-2*side-sum*s)/2,40*s+20);let x=(w-sum*s-2*gap)/2;
+        for(const g of three){c[g]=[x+R(g)*s,y2];x+=2*R(g)*s+gap;base[g]=y2+R('dev')*s+lh*1.1;}}
+      Object.assign(api,{w,h,s,c,base,lh,tall});
+      for(const g of ORDER){const e=halo[g];e.setAttribute('cx',c[g][0]);e.setAttribute('cy',c[g][1]);e.setAttribute('r',R(g)*s);
+        const half=lab[g].getComputedTextLength()/2+10,lx=clamp(c[g][0],half,Math.max(half,w-half));
+        for(const [t,dy] of [[lab[g],0],[stat[g],lh]]){t.setAttribute('x',lx);t.setAttribute('y',base[g]+dy);}}
+      for(const o of M){o.x=c[o.g][0]+o.dx*s;o.y=c[o.g][1]+o.dy*s;o.k=o.x+(o.y-h/2)*.613;}
+      api.dirty=true;kick();},
+    // set what each mark shows; a change folds over, swept along the slope of the logo's strips
+    tones(fn,{by='all',instant=false}={}){const now=performance.now();
+      for(const set of by==='group'?ORDER.map(g=>M.filter(o=>o.g===g)):[M]){
+        const ks=set.map(o=>o.k),lo=Math.min(...ks),hi=Math.max(...ks),span=by==='group'?(set[0].g==='prd'?420:260):340;
+        for(const o of set){const t=fn(o);if(t===o.want)continue;o.want=t;
+          if(instant||RM||!o.tone){paint(o,t);o.flip=null;}else o.flip={t0:now+span*Math.pow((o.k-lo)/(hi-lo||1),.85),to:t};}}
+      api.dirty=true;kick();},
+    pop(groups,dur=900){const now=performance.now();for(const o of M)if(groups.includes(o.g)&&o.pop0===Infinity)o.pop0=RM?-1e9:now+dur*clamp(o.d*.78+o.j*.22);api.dirty=true;kick();},
+    status(g,word,cls){const e=stat[g];if(e.textContent!==word)e.textContent=word;e.setAttribute('class','stat '+cls);},
+    tick(now){let busy=false;const F=api.fold;
+      for(const o of M){let pop=o.pop0===Infinity?0:outQ(clamp((now-o.pop0)/420));if(o.pop0!==Infinity&&pop<1)busy=true;pop*=o.sp;
+        let sx=1;if(o.flip){const f=clamp((now-o.flip.t0)/240);if(f>=.5)paint(o,o.flip.to);if(f>=1)o.flip=null;else{busy=true;sx=f<=0?1:Math.max(.04,Math.abs(Math.cos(Math.PI*inOut(f))));}}
+        let x=o.x,y=o.y,s=api.s*pop;
+        if(F&&o.fix){const u=inOut(clamp((now-F.t0-o.go)/560));x=lerp(o.x,o.tx,u);y=lerp(o.y,o.ty,u);s=pop*lerp(api.s,F.ts,u);
+          if(u>0){const c=mix('#3ddc97','#a8acff',u);o.e.setAttribute('fill',c);o.e.setAttribute('stroke',c);o.e.setAttribute('fill-opacity',lerp(.78,1,u));o.tone='fold';}
+          o.e.setAttribute('opacity',1-seg(now,F.t0+700,F.t0+900));}
+        o.gr.setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${(s*sx).toFixed(4)} ${s.toFixed(4)})`);}
+      if(F&&now<F.t0+1000)busy=true;
+      api.dirty=false;return busy;}};
+  maps.push(api);return api;
+}
+const lensTone=k=>o=>{const t=o.t[k];return t==='unk'?'off':t;};
+const swatch=(m,t)=>`<svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6" ${Object.entries(m.ST[t]).map(([a,v])=>`${a}="${a==='stroke-width'?v*.6:v}"`).join(' ')}/></svg>`;
+// the line under the chosen word slides to it
+function slide(c){const b=c.querySelector('[aria-pressed=true],[aria-selected=true]'),i=c.querySelector('i');if(!b||!i)return;i.style.width=b.offsetWidth+'px';i.style.transform=`translate(${b.offsetLeft}px,${b.offsetTop+b.offsetHeight}px)`;}
+const show=(e,a,y=0)=>{e.style.opacity=a;e.style.transform=y?`translateY(${y.toFixed(1)}px)`:'none';e.classList.toggle('on',a>.5);};
+
+// ---- story 1: hero, the CVE count, then pull back to every VM
+const s1=$('s1'),A=makeMap($('mapA')),bHero=$('bHero'),bCve=$('bCve'),bSee=$('bSee'),num=$('num'),lensEl=$('lens'),keyEl=$('key');
+const LENS=[['cve','CVEs'],['disk','Disk'],['rst','Restart'],['upd','Updates']];
+const KEYS={cve:[['crit','Known exploited']],disk:[['crit','90% or more full'],['sec','80 to 89%'],['ok','Under 80%']],rst:[['sec','Restart pending'],['ok','No restart']],
+  upd:[['crit','Critical missing'],['chk','Check failed'],['sec','Security missing'],['low','Other updates missing'],['ok','Up to date']]};
+lensEl.innerHTML=LENS.map(([k,w])=>`<button type="button" data-k="${k}" data-l="${w}" aria-pressed="false">${w}</button>`).join('')+'<i></i>';
+const keyHTML=k=>KEYS[k].map(([t,w])=>{const n=A.M.filter(o=>lensTone(k)(o)===t).length;return n?`<span>${swatch(A,t)}<b>${n}</b>${w}</span>`:'';}).join('');
+let curLens='',picked='',cycle=0,tipT=0;const tip=$('tip');
+function setLens(k,instant){if(k===curLens)return;curLens=k;A.tones(lensTone(k),{instant});
+  lensEl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));slide(lensEl);keyEl.innerHTML=keyHTML(k);}
+// the views take turns on their own until someone picks one
+function turns(on){on=on&&!picked&&!RM;if(on&&!cycle)cycle=setInterval(()=>tip.style.opacity==1||setLens(LENS[(LENS.findIndex(l=>l[0]===curLens)+1)%LENS.length][0]),2400);
+  else if(!on&&cycle){clearInterval(cycle);cycle=0;}}
+lensEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;picked=b.dataset.k;turns(false);setLens(picked);});
+// a VM's name and state, on hover
+const WORD={cve:{crit:['Known exploited','bad'],unk:['Programs not read','mute']},disk:{crit:['90% or more full','bad'],sec:['80 to 89%','warn'],ok:['Under 80%','ok']},rst:{sec:['Restart pending','warn'],ok:['No restart','ok']},
+  upd:{crit:['Critical missing','bad'],chk:['Check failed','bad'],sec:['Security missing','warn'],low:['Other updates missing','warn'],ok:['Up to date','ok']}};
+$('mapA').addEventListener('pointermove',e=>{const i=e.target.dataset&&e.target.dataset.i;if(i===undefined||e.pointerType==='touch'){tip.style.opacity=0;return;}
+  const o=A.M[i],t=o.t[curLens],[w,c]=WORD[curLens][t]||(t==='off'?['Not running','mute']:['Not checked','mute']);
+  tip.innerHTML=`<b>${o.id}</b><span class="${c}">${w}</span>`;tip.style.opacity=1;
+  tip.style.left=Math.min(e.clientX+16,innerWidth-tip.offsetWidth-12)+'px';tip.style.top=(e.clientY+18)+'px';});
+$('mapA').addEventListener('pointerleave',()=>tip.style.opacity=0);
+// on a touch screen a tap names the VM for a moment
+$('mapA').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.i;if(i===undefined||matchMedia('(hover:hover)').matches)return;
+  const o=A.M[i],t=o.t[curLens],[w,c]=WORD[curLens][t]||(t==='off'?['Not running','mute']:['Not checked','mute']);
+  tip.innerHTML=`<b>${o.id}</b><span class="${c}">${w}</span>`;tip.style.opacity=1;
+  tip.style.left=Math.max(12,Math.min(e.clientX-tip.offsetWidth/2,innerWidth-tip.offsetWidth-12))+'px';tip.style.top=(e.clientY-tip.offsetHeight-14)+'px';
+  clearTimeout(tipT);tipT=setTimeout(()=>tip.style.opacity=0,1800);});addEventListener('scroll',()=>tip.style.opacity=0,{passive:true});
+const fmt=n=>(Math.round(n/100)*100).toLocaleString('en-US');
+let macro=null,count=null;
+function storyA(p){
+  const o=seg(p,.05,.15);show(bHero,1-o,-40*o);
+  const i=outC(seg(p,.15,.24)),z=seg(p,.4,.47);show(bCve,i*(1-z),(1-i)*30-z*40);
+  // the count runs once when its line arrives
+  if(p>=.15&&!count){count={t0:performance.now()};if(RM)num.textContent='100,000';}else if(p<.08&&count){count=null;}
+  // the camera: close on Production, then back to the whole picture
+  const u=inOut(seg(p,.43,.68)),P=A.c.prd,k=Math.exp(lerp(Math.log(macro.k),0,u)),cx=lerp(macro.x,P[0],u),cy=lerp(macro.y,P[1],u);
+  A.cam.setAttribute('transform',`translate(${(cx-k*P[0]).toFixed(2)} ${(cy-k*P[1]).toFixed(2)}) scale(${k.toFixed(4)})`);
+  A.gL.setAttribute('opacity',seg(u,.82,1));
+  // the other groups arrive once the camera is wide enough to hold them
+  const T=A.tall;for(const g of ['dev','tst','stg'])A.halo[g].setAttribute('opacity',T?seg(u,.86,1):seg(u,.66,.9));
+  for(const m of A.M)if(m.g!=='prd'){const a=T?.86+.06*m.d:.66+.16*m.d;m.sp=outQ(seg(u,a,a+(T?.08:.18)));}
+  A.dirty=true;
+  const s=outC(seg(p,.57,.67));show(bSee,s,(1-s)*26);
+  if(p<.6)setLens('cve');else if(picked)setLens(picked);
+  turns(p>=.66&&s1.getBoundingClientRect().bottom>innerHeight*.4);
+}
+
+// ---- story 2: the rollout plays once it is in view, one stage at a time, red to green
+const s2=$('s2'),B=makeMap($('mapB')),bRun=$('bRun'),bFacts=$('bFacts'),keyB=$('keyB');
+const LEAD=300,STEP=700;let roll=null,sig='';
+function rollout(now){
+  const e=roll?now-roll.t0:-1,done=k=>!!roll&&(RM||e>=LEAD+STEP*(k+1)),run=k=>!!roll&&!done(k)&&(k?done(k-1):e>=100);
+  const sg=ORDER.map((g,k)=>done(k)?'d':run(k)?'r':'w').join('');
+  if(sg!==sig){sig=sg;const st=g=>sg[ORDER.indexOf(g)];
+    B.tones(o=>o.fix&&st(o.g)==='d'?'ok':lensTone('cve')(o),{by:'group'});
+    for(const g of ORDER){const v=st(g);B.status(g,{d:'Done',r:'Running',w:'Waiting'}[v],{d:'done',r:'run',w:'wait'}[v]);
+      B.halo[g].setAttribute('stroke',v==='r'?'#a8acff':'#f4f4f6');B.halo[g].setAttribute('stroke-opacity',v==='r'?.6:.07);}
+    const good=B.M.filter(o=>o.fix&&st(o.g)==='d').length,bad=B.M.filter(o=>o.fix).length-good;
+    keyB.innerHTML=(bad?`<span>${swatch(B,'crit')}<b>${bad}</b>Known exploited</span>`:'')+(good?`<span>${swatch(B,'ok')}<b>${good}</b>None found</span>`:'');}
+  return !!roll&&!RM&&e<LEAD+STEP*4+40;
+}
+function storyB(p){const o=seg(p,.5,.6),f=outC(seg(p,.6,.74));show(bRun,1-o,-26*o);show(bFacts,f,(1-f)*26);}
+
+// ---- end card: the fixed VMs fold into the Runfold mark
+const end=$('end'),E=makeMap($('mapE')),logo=$('logo');
+const strips=[[[34,7],[46,7],[36.5,22.5],[24.5,22.5]],[[22.5,26.5],[50,26.5],[43,37],[15.5,37]],[[29,37],[41,37],[30,57],[18,57]]];
+const inside=(p,q)=>{let c=false;for(let i=0,j=q.length-1;i<q.length;j=i++){const a=q[i],b=q[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;};
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const fixes=E.M.filter(o=>o.fix),pts=[];
+for(let dmin=3.4;pts.length<fixes.length;dmin*=.94){pts.length=0;seed=7;for(let n=0;n<6000&&pts.length<fixes.length;n++){const p=[12+rnd()*42,4+rnd()*56];if(strips.some(s=>inside(p,s))&&pts.every(q=>Math.hypot(q[0]-p[0],q[1]-p[1])>dmin))pts.push(p);}}
+pts.sort((a,b)=>a[1]-b[1]||a[0]-b[0]);
+function foldIn(){if(end.classList.contains('on'))return;end.classList.add('on');
+  if(RM){$('mapE').style.opacity=0;return;}
+  const sr=$('mapE').getBoundingClientRect(),lb=logo.getBoundingClientRect(),k=lb.height/56;
+  [...fixes].sort((a,b)=>a.y-b.y||a.x-b.x).forEach((o,i)=>{o.tx=lb.left-sr.left+(pts[i][0]-12)*k;o.ty=lb.top-sr.top+(pts[i][1]-4)*k;o.go=140*(i/fixes.length)+o.j*40;});
+  E.fold={t0:performance.now(),ts:5.2/14*(lb.height/170)};E.gH.style.transition=E.gL.style.transition='opacity .3s';E.gH.style.opacity=E.gL.style.opacity=0;
+  for(const o of E.M)if(!o.fix){o.e.style.transition='opacity .3s';o.e.style.opacity=0;}
+  E.dirty=true;kick();}
+function foldOut(){if(!end.classList.contains('on'))return;end.classList.remove('on');E.fold=null;E.gH.style.opacity=E.gL.style.opacity=1;$('mapE').style.opacity=1;
+  for(const o of E.M){o.e.style.opacity=1;o.e.setAttribute('opacity',1);o.tone='';o.want='';}
+  E.tones(o=>o.fix?'ok':'off',{instant:true});}
+
+// ---- layout and scroll
+let tA=0,pA=-1,tB=0,pB=-1;
+const textW=e=>{const r=document.createRange();r.selectNodeContents(e);return r.getBoundingClientRect().width;};
+function measure(){
+  const w=root.clientWidth,h=$('mapA').clientHeight||innerHeight,tall=w/h<.8||(w<760&&w/h<1.15),NAV=$('nav').offsetHeight,sa=$('sa'),bot=h-(tall?22:18)-sa.offsetHeight;
+  root.classList.toggle('tall',tall);
+  const g=parseFloat(getComputedStyle(bSee).left)||20;
+  keyEl.style.minHeight='';{const was=keyEl.innerHTML;keyEl.innerHTML=keyHTML('upd');const kh=keyEl.offsetHeight;keyEl.innerHTML=was;keyEl.style.minHeight=kh+'px';}
+  keyB.style.minHeight='';if(tall){const was=keyB.innerHTML;keyB.innerHTML=`<span>${swatch(B,'crit')}<b>46</b>Known exploited</span><span>${swatch(B,'ok')}<b>28</b>None found</span>`;const kh=keyB.offsetHeight;keyB.innerHTML=was;keyB.style.minHeight=kh+'px';}
+  const under=(...b)=>Math.max(...b.map(e=>e.offsetTop+e.offsetHeight))+(tall?14:24);
+  A.layout(w,h,under(bSee),bot,tall,g,1);B.layout(w,h,under(bRun,bFacts),bot,tall,g,2);
+  // the opening close-up of Production sits wholly on screen, beside the words or under them
+  const ins=[bHero.firstElementChild,bCve.firstElementChild],reach=A.reach('prd');let Rm,mx,my;
+  if(!tall){const tr=Math.max(...ins.flatMap(e=>[...e.children]).map(textW));
+    const er=Math.max(24,sa.offsetWidth+12),top=NAV,low=bot+18;
+    Rm=Math.max(Math.min(110,(low-top-24)/2),Math.min((w-er-g-tr-28)/(1+reach),(low-top-40)/2));mx=w-er-Rm;my=top+(low-top)/2;}
+  else{const tb=bHero.offsetTop+Math.max(...ins.map(e=>e.offsetTop+e.offsetHeight)),room=bot-tb-20;
+    Rm=Math.max(40,Math.min((w-2*g)/2,room/2,h*.3));mx=w/2;my=tb+20+Math.max(Rm,room/2);}
+  macro={k:Rm/(R('prd')*A.s),x:mx,y:my};
+  const eh=end.clientHeight,er=tall?eh*.36:Math.min(eh*.3,w*.2);E.layout(w,eh,eh*.5-er,eh*.5+er+60,tall,g,2);
+  if(end.classList.contains('on')){end.classList.remove('on');E.fold=null;foldIn();}
+  document.querySelectorAll('.words').forEach(slide);
+  pA=pB=-1;onScroll();}
+const prog=s=>clamp((scrollY-s.offsetTop)/(s.offsetHeight-innerHeight));
+function onScroll(){tA=prog(s1);tB=prog(s2);$('nav').classList.toggle('sc',scrollY>8);
+  const r=s2.getBoundingClientRect();
+  // it starts once the scene is in place, and stays finished after you have passed it
+  if(!roll&&r.top<innerHeight*(B.tall?.12:.45)&&r.bottom>innerHeight*.5)roll={t0:performance.now()};else if(roll&&r.top>=innerHeight)roll=null;
+  kick();}
+extra=now=>{if(!macro)return false;let busy=rollout(now);
+  for(const [t,get,set,fn] of [[tA,()=>pA,v=>pA=v,storyA],[tB,()=>pB,v=>pB=v,storyB]]){const p=get();if(p===t)continue;
+    const n=RM||p<0||Math.abs(t-p)<.0005?t:p+(t-p)*.34;set(n);fn(n);if(n!==t)busy=true;}
+  if(count&&!count.done&&!RM){const e=(now-count.t0)/1100;num.textContent=fmt(lerp(48000,100000,outQ(clamp(e))));if(e<1)busy=true;else count.done=true;}
+  return busy;};
+A.tones(lensTone('cve'),{instant:true});B.tones(lensTone('cve'),{instant:true});E.tones(o=>o.fix?'ok':'off',{instant:true});
+setLens('cve',true);
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',measure);
+(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{measure();A.pop(ORDER);});
+
+// ---- things that start when they come into view
+const seen=(e,fn,o)=>new IntersectionObserver(es=>es.forEach(x=>fn(x)),o).observe(e);
+seen(s2,x=>{if(x.isIntersecting)B.pop(ORDER,600);});
+seen(end,x=>{if(x.isIntersecting)E.pop(ORDER,500);if(x.intersectionRatio>=.55)foldIn();else if(!x.isIntersecting)foldOut();},{threshold:[0,.55]});
+document.querySelectorAll('.rise').forEach(e=>seen(e,x=>{if(x.isIntersecting)e.classList.add('in');},{rootMargin:'0px 0px -8% 0px'}));
+
+// ---- one tool: the real pages (n: there is a capture made at phone width)
+const PAGES=[['vms','VMs','The VMs page: every VM with its power state, missing updates, last patch and disk.',1],['software','Software','The Software page: every program on the VMs with its newest version and CVE risk.',1],['schedules','Schedules','The Schedules page: what runs, when, and the next run.',1],['triggers','Triggers','The Triggers page: events on a VM that start a runbook, and when each last fired.',0],['jobs','Jobs','The Jobs page: every run with its status, targets, runtime and duration.',0],['rollouts','Rollouts','The Rollouts page: a runbook deploying through Test, Pilot and Broad stages.',1]];
+const tabs=$('tabs'),frames=$('frames');
+tabs.innerHTML=PAGES.map(([k,w,,n],i)=>`<button type="button" role="tab" data-k="${k}" data-l="${w}" aria-selected="${!i}"${n?'':' class="w"'}>${w}</button>`).join('')+'<i></i>';
+frames.innerHTML=PAGES.map(([k,,alt,n],i)=>`<picture${i?'':' class="on"'}>${n?`<source media="(max-width:759px)" srcset="img/n-${k}.webp">`:''}<img src="img/${k}.webp" loading="lazy" decoding="async" alt="${alt}"></picture>`).join('');
+tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const i=PAGES.findIndex(p=>p[0]===b.dataset.k);
+  tabs.querySelectorAll('button').forEach((t,j)=>t.setAttribute('aria-selected',j===i));frames.querySelectorAll('picture').forEach((m,j)=>m.classList.toggle('on',j===i));slide(tabs);});
+})();
+</script>
+</body>
+</html>
