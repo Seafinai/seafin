@@ -9,6 +9,10 @@
 <meta property="og:description" content="AI writes the runbook, tests it and fixes it. Runfold runs it the same way on every VM. Free and open source.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://seafin.ai/runfold/">
+<meta property="og:image" content="https://seafin.ai/runfold/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://seafin.ai/runfold/">
 <!-- Not listed in search or the sitemap until the public repo behind the GitHub buttons exists. Remove this line then. -->
 <meta name="robots" content="noindex">
@@ -36,11 +40,13 @@ h2.big{line-height:1.02;letter-spacing:-.03em}
 .nav.sc{border-color:var(--line)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:650;font-size:clamp(21px,1.3vw,25px);letter-spacing:-.02em}
 .brand svg{height:1.35em;fill:var(--accent-hi)}
-.nav nav{font-size:clamp(16px,1.05vw,19px);font-weight:500;color:var(--text-2)}
+.nav nav{display:flex;gap:clamp(22px,2.2vw,40px);font-size:clamp(16px,1.05vw,19px);font-weight:500;color:var(--text-2)}
 .nav nav a{padding:10px 0;transition:color .15s}.nav nav a:hover{color:var(--text)}
 
 .btn{display:inline-flex;align-items:center;height:clamp(52px,3.5vw,64px);padding:0 clamp(24px,1.7vw,32px);border-radius:clamp(12px,.8vw,15px);background:var(--text);color:#08080b;font-weight:600;font-size:clamp(17px,1.15vw,21px);letter-spacing:-.01em;white-space:nowrap;transition:background .15s,transform .15s}
 .btn:hover{background:#fff;transform:translateY(-1px)}
+.btn.alt{background:none;color:var(--text);box-shadow:inset 0 0 0 1px rgba(255,255,255,.26)}
+.btn.alt:hover{background:rgba(255,255,255,.07)}
 
 /* the two pinned stages */
 .story{position:relative}
@@ -56,7 +62,7 @@ svg.map{position:absolute;inset:0;width:100%;height:100%}
 .sub{font-size:clamp(18px,1.5vw,28px);color:var(--text-2);max-width:23em;margin-top:clamp(18px,3vh,32px);line-height:1.4}
 .cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:clamp(22px,4vh,42px)}
 .cta span{white-space:nowrap}
-.cta span,.src{color:var(--text-3);font-size:clamp(16px,1.08vw,20px)}
+.cta>span,.src{color:var(--text-3);font-size:clamp(16px,1.08vw,20px)}
 .src{margin-top:clamp(18px,3vh,32px)}
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 #bHero h1,#bHero .sub,#bHero .cta{animation:up .9s var(--ease) both}
@@ -93,6 +99,22 @@ svg.map{position:absolute;inset:0;width:100%;height:100%}
 .frames picture.on{opacity:1}
 .frames img{width:100%;height:100%;object-fit:cover;object-position:0 0}
 
+/* the Troubleshoot film, and the one-line install */
+.film{position:relative;margin-top:clamp(34px,6vh,68px);width:100%;aspect-ratio:16/9;max-height:calc(100svh - var(--nav) - var(--st) - 48px);background:#0a070a}
+.film video{display:block;width:100%;height:100%}
+@media (max-width:759px) and (orientation:portrait){.film{aspect-ratio:9/16;max-height:calc(100svh - var(--nav) - var(--st) - 20px)}}   /* phones held upright get the vertical cut */
+.film button{position:absolute;right:clamp(10px,1.2vw,20px);bottom:clamp(10px,1.2vw,20px);height:clamp(38px,2.6vw,46px);padding:0 clamp(14px,1.1vw,20px);border-radius:999px;border:0;background:rgba(8,8,11,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);color:var(--text);font:600 clamp(14px,1vw,17px) "Mona Sans",system-ui,sans-serif;cursor:pointer;transition:background .15s}
+.film button:hover{background:rgba(40,40,48,.8)}
+#install .sub{max-width:30em}
+.os{margin:clamp(24px,4vh,42px) 0 clamp(20px,3vh,32px)}
+.cmd{display:flex;align-items:center;gap:12px clamp(14px,1.6vw,28px);border:1px solid var(--line);border-radius:clamp(8px,1vw,14px);background:#17171c;padding:clamp(14px,1.4vw,24px) clamp(14px,1.4vw,24px) clamp(14px,1.4vw,24px) clamp(16px,1.8vw,30px);font:500 clamp(14px,1.12vw,19px)/1.55 "JetBrains Mono",ui-monospace,monospace}
+.cmd code{flex:1;min-width:0;font:inherit;overflow-wrap:anywhere}
+.cmd code::before{content:attr(data-p);color:var(--text-3);margin-right:.8em;-webkit-user-select:none;user-select:none}
+.cmd button{flex:none;height:clamp(40px,2.8vw,48px);min-width:5.6em;padding:0 clamp(14px,1.2vw,22px);border-radius:clamp(9px,.7vw,12px);border:0;background:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.26);color:var(--text);font:600 clamp(15px,1.05vw,18px) "Mona Sans",system-ui,sans-serif;cursor:pointer;transition:background .15s}
+.cmd button:hover{background:rgba(255,255,255,.07)}
+#install .src{margin-top:clamp(14px,2vh,22px)}
+#guide{color:var(--text-2);text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:.22em;white-space:nowrap;transition:color .15s}#guide:hover{color:var(--text)}
+
 /* end card */
 #end{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:calc(var(--nav) + var(--st) + 30px) var(--gr) 60px var(--gl)}
 #end .card{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
@@ -125,6 +147,7 @@ footer div{display:flex;gap:28px}
   .key{font-size:14px}
   .tabs{gap:8px 18px;font-size:16px}
   #ask .win{margin-top:34px}
+  .lg{display:none}.film button{display:none}.cmd{flex-direction:column;align-items:stretch}.cmd button{align-self:flex-end}
   .frames{aspect-ratio:4/5}
   /* type follows the screen's height too, so a short phone still holds words and picture */
   .tall h1,.tall .big{font-size:clamp(31px,min(10.25vw,6.3svh),44px)}
@@ -133,7 +156,7 @@ footer div{display:flex;gap:28px}
   .cta span,.src{font-size:15px}
   .lens{gap:8px 20px}
 }
-@media (max-width:359px){.tabs{gap:8px 12px;font-size:15px}}
+@media (max-width:359px){.tabs,.os{gap:8px 12px;font-size:15px}}
 @media (max-width:340px){.lens{gap:8px 14px}}
 /* a phone held sideways: little height, so everything in the pinned scenes is smaller */
 @media (max-height:560px) and (min-aspect-ratio:1/1){
@@ -154,7 +177,7 @@ footer div{display:flex;gap:28px}
 <body>
 <header class="nav" id="nav">
   <a class="brand" href="/runfold/" aria-label="Runfold"><svg viewBox="12 4 42 56" aria-hidden="true"><path d="M34 7H46L36.5 22.5H24.5Z M22.5 26.5H50L43 37H15.5Z M29 37H41L30 57H18Z"/></svg>Runfold</a>
-  <nav><a data-gh href="#">GitHub</a></nav>
+  <nav><a href="#install">Install</a><a data-gh href="#">GitHub</a></nav>
 </header>
 
 <main id="top">
@@ -164,7 +187,7 @@ footer div{display:flex;gap:28px}
     <div class="beat mid on" id="bHero"><div>
       <h1>Agentic and deterministic automation for&nbsp;Azure.</h1>
       <p class="sub">AI writes the runbook, tests it and fixes it. Runfold runs it the same way on every VM.</p>
-      <div class="cta"><a class="btn" data-gh href="#">Get it on GitHub</a><span>Free and open source</span></div>
+      <div class="cta"><a class="btn" data-gh href="#">Get it on GitHub</a><a class="btn alt" href="#install">Install<span class="lg">&nbsp;with one line</span></a><span>Free and open source</span></div>
     </div></div>
     <div class="beat mid" id="bCve"><div>
       <h2 class="big"><span id="num">100,000</span> new CVEs this&nbsp;year. <span class="bad">Double</span> last&nbsp;year.</h2>
@@ -196,6 +219,19 @@ footer div{display:flex;gap:28px}
   <h2 class="rise">Patching, software, schedules and triggers. One tool.</h2>
   <div class="tabs words rise" id="tabs" role="tablist"></div>
   <div class="shot rise"><div class="frames" id="frames"></div></div>
+</section>
+
+<section class="sec" id="fix">
+  <h2 class="rise">When a VM breaks, troubleshoot it live. The model finds the cause, and you press Run.</h2>
+  <div class="shot film rise"><video id="film" muted loop playsinline preload="none" poster="img/troubleshoot.webp" width="1920" height="1080" aria-label="A 20 second film: one production VM turns red, a live console opens on it, the model reads the service and the logs, names the cause and proposes a fix that waits for Run, and the VM turns green." src="media/troubleshoot.mp4"></video><button type="button" id="snd" aria-pressed="false">Sound on</button></div>
+</section>
+
+<section class="sec" id="install">
+  <h2 class="rise">Install with one line.</h2>
+  <p class="sub rise">Runfold runs in Docker on your own machine or server, with HTTPS and your Microsoft Entra sign-in. Run the same line again to update.</p>
+  <div class="os words rise" id="os" role="tablist"></div>
+  <div class="cmd rise"><code id="cmd"></code><button type="button" id="copy">Copy</button></div>
+  <p class="src rise"><span id="where"></span> <a id="guide" href="#">Install guide</a></p>
 </section>
 
 <section id="end">
@@ -451,6 +487,29 @@ tabs.innerHTML=PAGES.map(([k,w,,n],i)=>`<button type="button" role="tab" data-k=
 frames.innerHTML=PAGES.map(([k,,alt,n],i)=>`<picture${i?'':' class="on"'}>${n?`<source media="(max-width:759px)" srcset="img/n-${k}.webp">`:''}<img src="img/${k}.webp" loading="lazy" decoding="async" alt="${alt}"></picture>`).join('');
 tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const i=PAGES.findIndex(p=>p[0]===b.dataset.k);
   tabs.querySelectorAll('button').forEach((t,j)=>t.setAttribute('aria-selected',j===i));frames.querySelectorAll('picture').forEach((m,j)=>m.classList.toggle('on',j===i));slide(tabs);});
+
+// ---- the film plays without sound while it is on screen; phones get the browser's own controls, with full screen
+const film=$('film'),snd=$('snd'),small=matchMedia('(max-width:759px)');
+const ctl=()=>{film.controls=small.matches||RM;};ctl();small.addEventListener('change',ctl);
+// a phone held upright plays the vertical cut, whose console is large enough to read
+const tall=matchMedia('(max-width:759px) and (orientation:portrait)');
+const cut=()=>{const v=tall.matches?'-v':'',src='media/troubleshoot'+v+'.mp4';if(film.getAttribute('src')===src)return;const on=!film.paused;film.poster='img/troubleshoot'+v+'.webp';film.setAttribute('src',src);if(on)film.play().catch(()=>{});};cut();tall.addEventListener('change',cut);
+if(!RM)seen(film,x=>{if(x.intersectionRatio>=.5)film.play().catch(()=>{});else film.pause();},{threshold:[0,.5]});
+snd.addEventListener('click',()=>{film.muted=!film.muted;if(!film.muted){film.currentTime=0;film.play().catch(()=>{});}});
+film.addEventListener('volumechange',()=>{snd.textContent=film.muted?'Sound on':'Sound off';snd.setAttribute('aria-pressed',!film.muted);});
+
+// ---- install: one line for each place it runs
+const RAW='https://raw.githubusercontent.com/Seafinai/runfold/main/install/';
+const OS=[['Windows','PS>',`irm ${RAW}install.ps1 | iex`,'Windows 10 22H2 or 11, in PowerShell. 4 GB of memory and 10 GB of free disk.'],['Linux or macOS','$',`curl -fsSL ${RAW}install.sh | sh`,'In a terminal. 2 GB of memory and 5 GB of free disk.'],['Azure Container Apps','$',`curl -fsSL ${RAW}azure.sh | bash`,'In Azure Cloud Shell (Bash), as an Owner or Contributor on the subscription.']];
+const os=$('os'),cmd=$('cmd'),copy=$('copy');let osI=/Win/.test(navigator.userAgent)?0:1,copied=0;
+function pick(i){osI=i;os.querySelectorAll('button').forEach((t,j)=>t.setAttribute('aria-selected',j===i));cmd.dataset.p=OS[i][1];cmd.innerHTML=OS[i][2].replace(/\/(?=\w)/g,'/<wbr>');$('where').textContent=OS[i][3];slide(os);}
+// a phone has no room for the long name of the third tab
+const osTabs=()=>{os.innerHTML=OS.map(([w],i)=>{const l=small.matches?w.replace(' Container Apps',''):w;return `<button type="button" role="tab" data-i="${i}" data-l="${l}">${l}</button>`;}).join('')+'<i></i>';pick(osI);};
+osTabs();small.addEventListener('change',osTabs);$('guide').href=GH+'#install';
+os.addEventListener('click',e=>{const b=e.target.closest('button');if(b)pick(+b.dataset.i);});
+copy.addEventListener('click',()=>{const done=()=>{copy.textContent='Copied';clearTimeout(copied);copied=setTimeout(()=>copy.textContent='Copy',1600);};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(cmd);const s=getSelection();s.removeAllRanges();s.addRange(r);};
+  try{navigator.clipboard.writeText(OS[osI][2]).then(done,sel);}catch{sel();}});
 })();
 </script>
 </body>
